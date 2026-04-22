@@ -17,7 +17,7 @@ public abstract class AbstractDAO implements DAO {
     @Override
     public void setConnection(Connection conn) {
         this.conn = conn;
-    }
+    } 
 
     protected Connection getConnection() throws Exception {
         cfg.loadConfig();
