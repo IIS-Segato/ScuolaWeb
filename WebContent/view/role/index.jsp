@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Scuola Roni</title>
 </head>
 <body>
 	<a href="Role?action=INSERT">INSERT</a>
