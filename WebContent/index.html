@@ -11,7 +11,22 @@
   </style>
 </head>
 <body>
-  <a href="Role"><button>Premi qui per andare ai ruoli</button></a>
+	<form action="" method="post">
+        <label for="email">Email</label>
+        <input type="email" name="email" required>
+        <br><br>
+		<label for="password">Password</label>
+		<input type="password" name="password" required>
+		<br><br>
+        <label for="ruolo">Ruolo</label>
+        <select id="ruolo" name="ruolo" required>
+            <option value="studente">Studente</option>
+            <option value="docente">Docente</option>
+            <option value="amministratore">Amministratore</option>
+        </select>
+		<br><br>
+        <button type="submit">Invia</button>
+    </form>
 </body>
 </html>
  
