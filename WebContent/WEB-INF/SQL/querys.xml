@@ -1,0 +1,25 @@
+<querys> 
+
+	<classi>
+		<insert_classi> INSERT INTO classi (classe, n_alunni) VALUES (?, ?); </insert_classi>
+	
+		<update_classi> UPDATE classi SET n_alunni = ? WHERE classe = ?; </update_classi>
+	
+		<delete_classi> DELETE FROM classi WHERE classe = ?; </delete_classi>
+	
+		<select_classi> SELECT ? FROM classi; </select_classi>
+	</classi>
+
+	<studenti>
+		<insert_studenti> INSERT INTO studenti (nome, cognome, password, classe) VALUES (?, ?, ?, ?);</insert_studenti>
+	</studenti>	
+	
+
+
+</querys>
+
+
+
+
+
+
