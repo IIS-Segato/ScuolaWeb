@@ -14,7 +14,7 @@ CREATE OR REPLACE TABLE CLASSI (
     N_STUDENTI INT
 );
 
--- 3. Tabella DOCENTI (Indipendente)
+-- 3. Tabella DOCENTI (login con email)
 CREATE OR REPLACE TABLE DOCENTI (
     ID_D INT PRIMARY KEY,
     NOME VARCHAR(50),
@@ -24,7 +24,7 @@ CREATE OR REPLACE TABLE DOCENTI (
     PWD VARCHAR(255)
 );
 
--- 4. Tabella AMMINISTRATORI (Indipendente)
+-- 4. Tabella AMMINISTRATORI 
 CREATE OR REPLACE TABLE AMMINISTRATORI (
     ID_A INT PRIMARY KEY,
     NOME VARCHAR(50),
@@ -33,7 +33,7 @@ CREATE OR REPLACE TABLE AMMINISTRATORI (
     PWD VARCHAR(255)
 );
 
--- 5. Tabella STUDENTI (Dipende da CLASSI)
+-- 5. Tabella STUDENTI (FK su classi con eliminazione a cascata)
 CREATE OR REPLACE TABLE STUDENTI (
     ID_S INT PRIMARY KEY,
     NOME VARCHAR(50),
@@ -45,7 +45,7 @@ CREATE OR REPLACE TABLE STUDENTI (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- 6. Tabella ORARIO (Tabella di collegamento con politiche di aggiornamento)
+-- 6. Tabella ORARIO che collega docenti, classi e aule
 CREATE OR REPLACE TABLE ORARIO (
     ID_ORARIO INT PRIMARY KEY,
     ID_D INT,
