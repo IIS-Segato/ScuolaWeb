@@ -2,33 +2,26 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8"/>
-  <title>Insert title here</title>
+  <title>Login</title>
   <style>
     body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-    a { text-decoration: none; }
     button { padding: 9px 20px; font-size: 14px; background: #2d5be3; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
     button:hover { background: #1a3fb5; }
   </style>
 </head>
 <body>
-	<form action="" method="post">
-        <label for="email">Email</label>
-        <input type="email" name="email" required>
-        <br><br>
-		<label for="password">Password</label>
-		<input type="password" name="password" required>
-		<br><br>
-        <label for="ruolo">Ruolo</label>
-		<select id="ruolo" name="ruolo" required>
-		    <option value="" disabled selected>Seleziona il ruolo...</option>
-		    <option value="studente">Studente</option>
-		    <option value="docente">Docente</option>
-		    <option value="amministratore">Amministratore</option>
-		</select>
 
-		<br><br>
-        <button type="submit">Invia</button>
-    </form>
+<form action="login" method="post">
+    <label>Email</label>
+    <input type="email" name="email" required>
+    <br><br>
+
+    <label>Password</label>
+    <input type="password" name="password" required>
+    <br><br>
+
+    <button type="submit">Accedi</button>
+</form>
+
 </body>
 </html>
- 
