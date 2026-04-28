@@ -78,4 +78,11 @@ public class Utente implements Serializable {
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
+
+	@Override
+	public String toString() {
+		return "Utente [id=" + id + ", email=" + email + ", password=" + password + ", ruolo=" + ruolo + ", nome="
+				+ nome + ", cognome=" + cognome + "]";
+	}
+    
 }

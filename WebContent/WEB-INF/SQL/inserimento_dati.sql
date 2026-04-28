@@ -43,9 +43,9 @@ INSERT INTO STUDENTI (ID_S, NOME, COGNOME, EMAIL, PWD, ID_C) VALUES
   (10, 'Filippo',  'Costa',      'filippo.costa@studenti.it',    'UserStu10', 4),
   (11, 'Valeria',  'Gentile',    'valeria.gentile@studenti.it',  'UserStu11', 4),
   (12, 'Simone',   'Vitale',     'simone.vitale@studenti.it',    'UserStu12', 4),
-  (13, 'Alessia',  'Barbieri',   'alessia.barbieri@studenti.it', 'UserStu12', 5),
-  (14, 'Federico', 'Coppola',    'federico.coppola@studenti.it', 'UserStu13', 5),
-  (15, 'Marta',    'Pellegrini', 'marta.pellegrini@studenti.it', 'UserStu14', 5);
+  (13, 'Alessia',  'Barbieri',   'alessia.barbieri@studenti.it', 'UserStu13', 5),
+  (14, 'Federico', 'Coppola',    'federico.coppola@studenti.it', 'UserStu14', 5),
+  (15, 'Marta',    'Pellegrini', 'marta.pellegrini@studenti.it', 'UserStu15', 5);
   
   -- ORARIO 
 INSERT INTO ORARIO (ID_ORARIO, ID_D, ID_C, NOME_AULA, GIORNO, ORA_INI, ORA_FIN) VALUES
