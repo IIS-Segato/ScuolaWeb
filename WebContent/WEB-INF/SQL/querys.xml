@@ -10,11 +10,65 @@
 		<select_classi> SELECT ? FROM classi; </select_classi>
 	</classi>
 
-	<studenti>
-		<insert_studenti> INSERT INTO studenti (nome, cognome, password, classe) VALUES (?, ?, ?, ?);</insert_studenti>
-	</studenti>	
+	<giorni>
+	    <insert_giorni> INSERT INTO giorni (nome_giorno) VALUES (?); </insert_giorni>
 	
-
+	    <update_giorni> UPDATE giorni SET nome_giorno = ? WHERE nome_giorno = ?; </update_giorni>
+	
+	    <delete_giorni> DELETE FROM giorni WHERE nome_giorno = ?; </delete_giorni>
+	
+	    <select_giorni> SELECT ? FROM giorni; </select_giorni>
+	</giorni>
+	
+	<materie>
+	    <insert_materie> INSERT INTO materie (nome_materia) VALUES (?); </insert_materie>
+	
+	    <update_materie> UPDATE materie SET nome_materia = ? WHERE nome_materia = ?; </update_materie>
+	
+	    <delete_materie> DELETE FROM materie WHERE nome_materia = ?; </delete_materie>
+	
+	    <select_materie> SELECT ? FROM materie; </select_materie>
+	</materie>
+	
+	<admin>
+	    <insert_admin> INSERT INTO admin (username, password) VALUES (?, ?); </insert_admin>
+	
+	    <update_admin> UPDATE admin SET username = ?, password = ? WHERE id = ?; </update_admin>
+	
+	    <delete_admin> DELETE FROM admin WHERE id = ?; </delete_admin>
+	
+	    <select_admin> SELECT ? FROM admin; </select_admin>
+	</admin>
+	
+	<studenti>
+	    <insert_studenti> INSERT INTO studenti (nome, cognome, password, classe) VALUES (?, ?, ?, ?); </insert_studenti>
+	
+	    <update_studenti> UPDATE studenti SET nome = ?, cognome = ?, password = ?, classe = ? WHERE id = ?; </update_studenti>
+	
+	    <delete_studenti> DELETE FROM studenti WHERE id = ?; </delete_studenti>
+	
+	    <select_studenti> SELECT ? FROM studenti; </select_studenti>
+	</studenti>
+	
+	<docenti>
+	    <insert_docenti> INSERT INTO docenti (nome, cognome, password, nome_materia) VALUES (?, ?, ?, ?); </insert_docenti>
+	
+	    <update_docenti> UPDATE docenti SET nome = ?, cognome = ?, password = ?, nome_materia = ? WHERE id = ?; </update_docenti>
+	
+	    <delete_docenti> DELETE FROM docenti WHERE id = ?; </delete_docenti>
+	
+	    <select_docenti> SELECT ? FROM docenti; </select_docenti>
+	</docenti>
+	
+	<orari>
+	    <insert_orari> INSERT INTO orari (id_docente, nome_giorno, orario_inizio, orario_fine, classe) VALUES (?, ?, ?, ?, ?); </insert_orari>
+	
+	    <update_orari> UPDATE orari SET id_docente = ?, nome_giorno = ?, orario_inizio = ?, orario_fine = ?, classe = ? WHERE id = ?; </update_orari>
+	
+	    <delete_orari> DELETE FROM orari WHERE id = ?; </delete_orari>
+	
+	    <select_orari> SELECT ? FROM orari; </select_orari>
+	</orari>
 
 </querys>
 
