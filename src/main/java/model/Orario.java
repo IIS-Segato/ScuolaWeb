@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Time;
-
 public class Orario {
 	int id;
 	int id_docente;
@@ -10,6 +8,14 @@ public class Orario {
 	private String orario_fine;
 	private String classe;
 	
+	public Orario(int id, int id_docente, String nome_giorno, String orario_inizio, String orario_fine, String classe) {
+		this.id = id;
+		this.id_docente = id_docente;
+		this.nome_giorno = nome_giorno;
+		this.orario_inizio = orario_inizio;
+		this.orario_fine = orario_fine;
+		this.classe = classe;
+	}
 	public int getId() {
 		return id;
 	}
@@ -46,5 +52,11 @@ public class Orario {
 	public void setClasse(String classe) {
 		this.classe = classe;
 	}
+	@Override
+	public String toString() {
+		return "Orario [id=" + id + ", id_docente=" + id_docente + ", nome_giorno=" + nome_giorno + ", orario_inizio="
+				+ orario_inizio + ", orario_fine=" + orario_fine + ", classe=" + classe + "]";
+	}
+	
 	
 }
