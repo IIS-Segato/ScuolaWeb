@@ -1,5 +1,6 @@
 package model;
 
+// classe docente
 public class Docente {
 
 	private int id;
