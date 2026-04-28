@@ -19,7 +19,7 @@ import org.jdom2.input.SAXBuilder;
  */
 public class Config {
 	
-	private  String driver;
+	private String driver;
     private String url;
     private String user;
     private String psw;
@@ -51,8 +51,6 @@ public class Config {
 		document = saxBuilder.build(new File(this.xmlurl));
 
 		Element root = document.getRootElement();
-
-
 
 		return root;
 	}
