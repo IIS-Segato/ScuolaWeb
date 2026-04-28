@@ -20,6 +20,7 @@ import model.Role;
  * Servlet implementation class RoleController
  */
 @WebServlet("/Role")
+
 public class RoleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
