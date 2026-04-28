@@ -1,4 +1,4 @@
-#database
+#database modificato completo
 
 -- 1. Tabella AULE (Indipendente)
 CREATE OR REPLACE TABLE AULE (
