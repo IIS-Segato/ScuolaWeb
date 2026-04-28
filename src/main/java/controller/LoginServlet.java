@@ -7,7 +7,6 @@ import javax.servlet.http.*;
 
 import model.Utente;
 import dao.UtenteDAO;
-import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -15,37 +14,40 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // 1. Prendo dati dal form
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        // 2. Cerco utente nel DB
         UtenteDAO dao = new UtenteDAO();
         Utente utente = dao.trovaPerEmail(email);
 
-        if (utente != null && BCrypt.checkpw(password, utente.getPassword())) {
+        // 3. Controllo login
+        if (utente != null && password.equals(utente.getPassword())) {
 
-            // Salvo utente in sessione
+            // 4. Creo sessione
             HttpSession session = request.getSession();
             session.setAttribute("utente", utente);
 
-            // Redirect in base al ruolo
-            switch (utente.getRuolo()) {
-                case "amministratore":
-                    response.sendRedirect("admin.jsp");
-                    break;
-                case "docente":
-                    response.sendRedirect("docente.jsp");
-                    break;
-                case "studente":
-                    response.sendRedirect("studente.jsp");
-                    break;
-                default:
-                    response.sendRedirect("index.html");
+            // 5. Redirect in base al ruolo
+            String ruolo = utente.getRuolo();
+
+            if (ruolo.equals("amministratore")) {
+                response.sendRedirect("admin.jsp");
+            } 
+            else if (ruolo.equals("docente")) {
+                response.sendRedirect("docente.jsp");
+            } 
+            else if (ruolo.equals("studente")) {
+                response.sendRedirect("studente.jsp");
+            } 
+            else {
+                response.sendRedirect("index.html");
             }
 
         } else {
             // login fallito
-            request.setAttribute("errore", "Credenziali non valide");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        	response.sendRedirect("errore_credenziali.html");
         }
     }
 }
