@@ -2,9 +2,97 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>LOGIN</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #eef5f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  form {
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  h2 {
+	  text-align: center;
+	  margin-bottom: 10px;
+	  color: #2e7d32;
+	  letter-spacing: 1px;
+	}
+
+  label {
+    font-size: 14px;
+    color: #2f4f4f;
+  }
+
+  input {
+    padding: 10px;
+    border: 1px solid #cfd8d3;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.25s ease;
+    font-size: 14px;
+  }
+
+  /* Hover input */
+  input:hover {
+    border-color: #4caf50;
+  }
+
+  /* Focus input */
+  input:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #4caf50;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  /* Hover bottone */
+  button:hover {
+    background: #388e3c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  /* Click effetto */
+  button:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+</style>
 </head>
 <body>
-<a href="Role">PREMI QUI</a>
+	<form action="">
+		<h2>ACCESSO</h2>
+		<label for="email">Email</label>
+		<input type="email" name="email">
+		
+		<label for="password">Password</label>
+		<input type="password" name="password">
+		
+		<button type="submit">LOGIN</button>
+	</form>
 </body>
 </html>
