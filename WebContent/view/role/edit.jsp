@@ -27,7 +27,7 @@ if(request.getAttribute("id") != null){
     </h1>
     <br>
     <ol type="utenti">
-    	
+    	s
     </ol>
     <form action="UtenteDAO" method="post">
       <input type="hidden" name="id" value="<%=id%>">
