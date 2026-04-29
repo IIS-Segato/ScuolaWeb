@@ -26,6 +26,9 @@ if(request.getAttribute("id") != null){
       <span class="text-primary">MODIFICA</span> UTENTE
     </h1>
     <br>
+    <ol type="utenti">
+    	
+    </ol>
     <form action="UtenteDAO" method="post">
       <input type="hidden" name="id" value="<%=id%>">
       <input type="hidden" name="action" value="<%=request.getAttribute("action")%>">
