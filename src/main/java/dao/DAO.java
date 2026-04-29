@@ -12,7 +12,6 @@ import utils.Config;
 
 /**
  * Classe DAO.java che gestisce la comunicazione con il db
- * @author Mathias Dal Zotto
  */
 public class DAO {
 	// Attributi

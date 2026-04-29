@@ -10,7 +10,6 @@ import org.jdom2.input.SAXBuilder;
 
 /**
  * Classe Config.java per la configurazione per l'applicazione
- * @author Mathias Dal Zotto
  */
 public class Config {
 	// Attributi
