@@ -15,13 +15,13 @@ public class LoginServlet extends HttpServlet {
 	throws ServletException, IOException {
 	
 		// 1. Recupera i parametri dal form HTML
-		String email = request.getParameter("email");
+		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
 		// 2. Controlla le credenziali nel DB e recupera l'Oggetto Utente
 		// (Immaginiamo che UserDao faccia la query al database)
 		UserDao userDao = new UserDao();
-		Utente utente = userDao.autentica(email, password);
+		Utente utente = userDao.autentica(id, password);
 		
 		if (utente != null) {
 			// 3. Credenziali corrette: Creiamo la sessione
