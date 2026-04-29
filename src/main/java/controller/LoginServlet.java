@@ -1,25 +1,58 @@
-package controller;
-
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class LoginServlet extends HttpServlet{
+import dao.UserDao;
+
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
 	
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-	        throws IOException, ServletException
-	    {
-	      response.setContentType("text/html");          // content type (MIME)
-	      
-	      PrintWriter output = response.getWriter();     // get writer
-	      
-	      String userId = request.getParameter("userId");
-	      String pwd = request.getParameter("pwd");
-	      
-	    }
-	
+		// 1. Recupera i parametri dal form HTML
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		// 2. Controlla le credenziali nel DB e recupera l'Oggetto Utente
+		// (Immaginiamo che UserDao faccia la query al database)
+		UserDao userDao = new UserDao();
+		Utente utente = userDao.autentica(email, password);
+		
+		if (utente != null) {
+			// 3. Credenziali corrette: Creiamo la sessione
+			HttpSession session = request.getSession();
+			session.setAttribute("utenteLoggato", utente.getId);
+			session.setAttribute("ruolo", utente.getRuolo()); // es. "STUDENTE", "ADMIN"...
+			
+			// 4. Smistamento in base al ruolo
+			String ruolo = utente.getRuolo();
+			
+			switch (ruolo) {
+				case "ADMIN":
+				// Redirect alla dashboard dell'amministratore
+				response.sendRedirect("admin_dashboard.jsp");
+				break;
+				case "INSEGNANTE":
+				// Redirect alla dashboard dell'insegnante
+				response.sendRedirect("teacher_dashboard.jsp");
+				break;
+				case "STUDENTE":
+				// Redirect alla dashboard dello studente
+				response.sendRedirect("student_dashboard.jsp");
+				break;
+				default:
+				// Ruolo non riconosciuto
+				response.sendRedirect("login.jsp?errore=ruolo_sconosciuto");
+				break;
+			}
+			} else {
+				// Credenziali errate: torna al login con un messaggio di errore
+				response.sendRedirect("login.jsp?errore=credenziali_errate");
+			}
+	}
 }
