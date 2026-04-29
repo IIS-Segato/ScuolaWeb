@@ -1,7 +1,10 @@
 package dao;
 
 import model.Utente;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UtenteDAO {
 	
@@ -57,4 +60,31 @@ public class UtenteDAO {
         //in caso non trovo niente restituisco null
         return null;
     }
+    // Metodo per trovare tutti gli utenti 
+    public List<Utente> trovaTutti() {
+        List<Utente> lista = new ArrayList<>();
+        String sql = "SELECT ID_D AS id, NOME, COGNOME, EMAIL, PWD AS password, 'DOCENTE' AS ruolo FROM DOCENTI " +
+                     "UNION " +
+                     "SELECT ID_S, NOME, COGNOME, EMAIL, PWD, 'STUDENTE' FROM STUDENTI " +
+                     "UNION " +
+                     "SELECT ID_A, NOME, COGNOME, EMAIL, PWD, 'AMMINISTRATORE' FROM AMMINISTRATORI";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Utente u = new Utente();
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("NOME"));
+                u.setCognome(rs.getString("COGNOME"));
+                u.setEmail(rs.getString("EMAIL"));
+                u.setPassword(rs.getString("password"));
+                u.setRuolo(rs.getString("ruolo"));
+                lista.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    
 }

@@ -26,9 +26,17 @@ if(request.getAttribute("id") != null){
       <span class="text-primary">MODIFICA</span> UTENTE
     </h1>
     <br>
-    <ol type="utenti">
-    	s
-    </ol>
+    <!-- lista dove scelgo l'utente da selezionare -->
+	<h3 class="fw-bold mt-4">Seleziona un utente da modificare:</h3>
+	<ol>
+	  <% for (Utente u : listaUtenti) { %>
+	  <li>
+	    <a href="Utente?action=edit&id=<%=u.getId()%>" style="text-decoration:none;">
+	      <strong><%=u.getNome()%> <%=u.getCognome()%></strong> — <%=u.getEmail()%> (<%=u.getRuolo()%>)
+	    </a>
+	  </li>
+	  <% } %>
+	</ol>
     <form action="UtenteDAO" method="post">
       <input type="hidden" name="id" value="<%=id%>">
       <input type="hidden" name="action" value="<%=request.getAttribute("action")%>">
