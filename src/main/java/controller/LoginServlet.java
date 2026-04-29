@@ -17,6 +17,7 @@ public class LoginServlet extends HttpServlet {
         // 1. Prendo dati dal form
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        
 
         // 2. Cerco utente nel DB
         UtenteDAO dao = new UtenteDAO();
@@ -24,16 +25,20 @@ public class LoginServlet extends HttpServlet {
 
         // 3. Controllo login
         if (utente != null && password.equals(utente.getPassword())) {
+        	
+        	//System.out.println(utente.toString());
 
             // 4. Creo sessione
             HttpSession session = request.getSession();
             session.setAttribute("utente", utente);
 
             // 5. Redirect in base al ruolo
-            String ruolo = utente.getRuolo();
+            String ruolo = utente.getRuolo().toLowerCase();
+            
+            
 
             if (ruolo.equals("amministratore")) {
-                response.sendRedirect("admin.jsp");
+                response.sendRedirect("view/role/edit.jsp");
             } 
             else if (ruolo.equals("docente")) {
                 response.sendRedirect("docente.jsp");

@@ -1,12 +1,12 @@
 #database modificato completo
 
--- 1. Tabella AULE (Indipendente)
+-- 1. Tabella AULE 
 CREATE OR REPLACE TABLE AULE (
     NOME VARCHAR(50) PRIMARY KEY,
     CAPIENZA INT NOT NULL
 );
 
--- 2. Tabella CLASSI (Indipendente)
+-- 2. Tabella CLASSI 
 CREATE OR REPLACE TABLE CLASSI (
     ID_C INT PRIMARY KEY,
     SEZIONE VARCHAR(5),
@@ -14,38 +14,38 @@ CREATE OR REPLACE TABLE CLASSI (
     N_STUDENTI INT
 );
 
--- 3. Tabella DOCENTI (Indipendente)
+-- 3. Tabella DOCENTI 
 CREATE OR REPLACE TABLE DOCENTI (
     ID_D INT PRIMARY KEY,
     NOME VARCHAR(50),
     COGNOME VARCHAR(50),
     MATERIA VARCHAR(50),
-    EMAIL VARCHAR(100) UNIQUE, -- Aggiunta Email Unique
+    EMAIL VARCHAR(100) UNIQUE,
     PWD VARCHAR(255)
 );
 
--- 4. Tabella AMMINISTRATORI (Indipendente)
+-- 4. Tabella AMMINISTRATORI 
 CREATE OR REPLACE TABLE AMMINISTRATORI (
     ID_A INT PRIMARY KEY,
     NOME VARCHAR(50),
     COGNOME VARCHAR(50),
-    EMAIL VARCHAR(100) UNIQUE, -- Aggiunta Email Unique
+    EMAIL VARCHAR(100) UNIQUE, 
     PWD VARCHAR(255)
 );
 
--- 5. Tabella STUDENTI (Dipende da CLASSI)
+-- 5. Tabella STUDENTI
 CREATE OR REPLACE TABLE STUDENTI (
     ID_S INT PRIMARY KEY,
     NOME VARCHAR(50),
     COGNOME VARCHAR(50),
-    EMAIL VARCHAR(100) UNIQUE, -- Aggiunta Email Unique
+    EMAIL VARCHAR(100) UNIQUE,
     PWD VARCHAR(255),
     ID_C INT,
     FOREIGN KEY (ID_C) REFERENCES CLASSI(ID_C)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- 6. Tabella ORARIO (Tabella di collegamento con politiche di aggiornamento)
+-- 6. Tabella ORARIO che collega docenti, classi e aule
 CREATE OR REPLACE TABLE ORARIO (
     ID_ORARIO INT PRIMARY KEY,
     ID_D INT,
