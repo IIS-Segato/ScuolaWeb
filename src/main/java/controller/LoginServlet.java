@@ -41,10 +41,10 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("view/role/edit.jsp");
             } 
             else if (ruolo.equals("docente")) {
-                response.sendRedirect("docente.jsp");
+                response.sendRedirect("view/role/docente.jsp");
             } 
             else if (ruolo.equals("studente")) {
-                response.sendRedirect("view/role/studente.html ");
+                response.sendRedirect("view/role/studente.html");
             } 
             else {
                 response.sendRedirect("index.html");
