@@ -35,7 +35,6 @@ public class LoginServlet extends HttpServlet {
             // 5. Redirect in base al ruolo
             String ruolo = utente.getRuolo().toLowerCase();
             
-            
 
             if (ruolo.equals("amministratore")) {
                 response.sendRedirect("view/role/edit.jsp");

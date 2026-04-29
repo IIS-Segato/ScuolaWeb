@@ -4,7 +4,8 @@ import model.Utente;
 import java.sql.*;
 
 public class UtenteDAO {
-
+	
+	// Parametri di connessione al database MySQL
     private static final String URL = "jdbc:mysql://localhost:3306/progetto_scuola?serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "";
