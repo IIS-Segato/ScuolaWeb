@@ -58,9 +58,10 @@ Il sistema implementa un controllo degli accessi basato su ruoli (**RBAC — Rol
 | Funzionalità | Admin | Segretario | Rappresentante | Docente | Studente |
 |---|:---:|:---:|:---:|:---:|:---:|
 | Gestione utenti (CRUD) | ✅ | ✅ | ❌ | ❌ | ❌ |
-| Voti — tutti gli studenti della classe | ✅ | ✅ | ✅ lettura | ❌ | ❌ |
-| Voti — propria materia | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Voti — propri | ✅ | ✅ | ✅ | ✅ | ✅ lettura |
+| Voti — modifica tutti | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Voti — visualizza tutti | ✅ | ❌ | ❌ | ❌ | ❌ |\
+| Voti — modifica propri | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Voti — visualizza propri | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Orario — modifica | ✅ | ✅ | ❌ | ❌ | ❌ |
 | Orario — visualizzazione | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Aule — modifica | ✅ | ✅ | ❌ | ❌ | ❌ |
