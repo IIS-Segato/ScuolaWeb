@@ -1,57 +1,84 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="model.*" %>
-<%@ page import="utils.*" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
-<% Role role = (Role) request.getAttribute("role");   
-String id = "0";
-if(request.getAttribute("id") != null){
-	id=Integer.toString((Integer)request.getAttribute("id"));
-}
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    // Recupero dati dal request (passati dalla Servlet)
+    Utente utente = (Utente) request.getAttribute("utente");
+    List<Utente> listaUtenti = (List<Utente>) request.getAttribute("listaUtenti");
+    String action = (String) request.getAttribute("action");
 
+    // Fallback per evitare errori se arrivi alla pagina senza passare dalla Servlet
+    if (utente == null) {
+        utente = (Utente) session.getAttribute("utente"); // usa quello loggato
+        if (utente == null) utente = new Utente(); // se proprio non c'è nulla, evita crash
+    }
+    if (listaUtenti == null) listaUtenti = new ArrayList<Utente>();
+    if (action == null) action = "UPDATE";
 %>    
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Edit Role</title>
+    <title>Edit Utente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body class="p-5">
-    <a href="Role"
-      ><button type="button" class="btn btn-warning mr-3">
-        TORNA ALLA LISTA
-      </button></a
-    >
-    <h1 class="fw-bold mt-3">
-      <span class="text-primary">MODIFICA</span> RUOLO
-    </h1>
+    <a href="index.html">
+      <button type="button" class="btn btn-warning">TORNA AL LOGIN</button>
+    </a>
+    
+    <h1 class="fw-bold mt-3"><span class="text-primary">MODIFICA</span> UTENTE</h1>
+    
+    <h3 class="fw-bold mt-4">Seleziona un utente:</h3>
+    <ol>
+      <% for (Utente u : listaUtenti) { %>
+      <li>
+        <a href="Utente?action=edit&email=<%=u.getEmail()%>" style="text-decoration:none;">
+          <strong><%=u.getNome()%> <%=u.getCognome()%></strong> — <%=u.getEmail()%> (<%=u.getRuolo()%>)
+        </a>
+      </li>
+      <% } %>
+    </ol>
 
-    <form action="Role" method="post">
-      <input type="hidden" name="id" value="<%=id%>">
-      <input type="hidden" name="action" value="<%=request.getAttribute("action")%>">
+    <hr>
+
+    <form action="Utente" method="post">
+      <input type="hidden" name="action" value="<%=action%>">
+      
       <div class="mb-3">
-        <label for="username" class="form-label fw-bold">Nome:</label>
-        <input
-          type="text"
-          class="form-control"
-          name="role_name"
-          value="<%=role.getRole_name() != null ? role.getRole_name() : StringUtils.STRING_EMPTY  %>"
-          required="required"
-        />
+        <label class="form-label fw-bold">Nome:</label>
+        <input type="text" class="form-control" name="nome" 
+               value="<%= utente.getNome() != null ? utente.getNome() : "" %>" required>
       </div>
+
       <div class="mb-3">
-        <label for="first_name" class="form-label fw-bold">Descrizione:</label>
-        <input
-          type="text"
-          class="form-control"
-          name="description"
-          value="<%=role.getDescription() != null ? role.getDescription() : StringUtils.STRING_EMPTY  %>"
-          required="required"
-        />
+        <label class="form-label fw-bold">Cognome:</label>
+        <input type="text" class="form-control" name="cognome" 
+               value="<%= utente.getCognome() != null ? utente.getCognome() : "" %>" required>
       </div>
-      <button type="reset" class="btn btn-warning">svuota i campi</button>
-      <button type="submit" class="btn btn-success">salva</button>
+
+      <div class="mb-3">
+        <label class="form-label fw-bold">Email (ID univoco):</label>
+        <input type="email" class="form-control" name="email" 
+               value="<%= utente.getEmail() != null ? utente.getEmail() : "" %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-bold">Password:</label>
+        <input type="password" class="form-control" name="password" 
+               value="<%= utente.getPassword() != null ? utente.getPassword() : "" %>">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-bold">Ruolo:</label>
+        <select class="form-control" name="ruolo" required>
+          <option value="DOCENTE" <%= "DOCENTE".equals(utente.getRuolo()) ? "selected" : "" %>>Docente</option>
+          <option value="STUDENTE" <%= "STUDENTE".equals(utente.getRuolo()) ? "selected" : "" %>>Studente</option>
+          <option value="AMMINISTRATORE" <%= "AMMINISTRATORE".equals(utente.getRuolo()) ? "selected" : "" %>>Amministratore</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success">Salva Modifiche</button>
     </form>
   </body>
 </html>
-
