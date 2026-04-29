@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -14,36 +16,39 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1. Prendo email e password dal form
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        
 
-        // 2. Cerco utente nel DB
         UtenteDAO dao = new UtenteDAO();
         Utente utente = dao.trovaPerEmail(email);
 
-        // 3. Controllo login
-        if (utente != null && password.equals(utente.getPassword())) {
-        	
-        	//System.out.println(utente.toString());
-
-            // 4. Creo sessione
+        if (utente != null && utente.getPassword().equals(password)) {
+            // LOGIN OK
             HttpSession session = request.getSession();
             session.setAttribute("utente", utente);
 
-            // 5. Redirect in base al ruolo
-            String ruolo = utente.getRuolo().toLowerCase();
-            
+            String ruolo = utente.getRuolo().toUpperCase(); // Usiamo maiuscolo per sicurezza
 
-            if (ruolo.equals("amministratore")) {
-                response.sendRedirect("view/role/edit.jsp");
+            if (ruolo.equals("AMMINISTRATORE")) {
+                List<Utente> lista = dao.trovaTutti();
+                request.setAttribute("listaUtenti", lista);
+                request.setAttribute("utente", utente); // 'utente' è quello appena loggato
+                request.setAttribute("action", "UPDATE");
+                
+                /* 
+                 * Spiegazione del metodo (by Roni)
+                 * getRequestDispatcher: Individua la destinazione (la pagina JSP).
+                 * forward: Passa il controllo alla JSP senza che il browser se ne accorga.
+                 * A differenza del redirect, qui il server NON dice al browser di cambiare pagina,
+                 * ma "chiama" internamente la JSP e le passa gli oggetti 'request' e 'response'.
+                 * Questo permette alla JSP di leggere i dati che abbiamo salvato nel request
+                 */
+                request.getRequestDispatcher("view/role/edit.jsp").forward(request, response);
             } 
-            else if (ruolo.equals("docente")) {
-            	//reindirizzamento a docente .jsp
+            else if (ruolo.equals("DOCENTE")) {
                 response.sendRedirect("view/role/docente.jsp");
             } 
-            else if (ruolo.equals("studente")) {
+            else if (ruolo.equals("STUDENTE")) {
                 response.sendRedirect("view/role/studente.html");
             } 
             else {
@@ -51,8 +56,8 @@ public class LoginServlet extends HttpServlet {
             }
 
         } else {
-            // login fallito
-        	response.sendRedirect("errore_credenziali.html");
+            // LOGIN FALLITO
+            response.sendRedirect("errore_credenziali.html");
         }
     }
 }

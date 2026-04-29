@@ -87,4 +87,27 @@ public class UtenteDAO {
         return lista;
     }
     
+    public boolean aggiorna(Utente u) {
+        String tabella = "";
+        if ("DOCENTE".equals(u.getRuolo())) tabella = "DOCENTI";
+        else if ("STUDENTE".equals(u.getRuolo())) tabella = "STUDENTI";
+        else if ("AMMINISTRATORE".equals(u.getRuolo())) tabella = "AMMINISTRATORI";
+
+        String sql = "UPDATE " + tabella + " SET NOME=?, COGNOME=?, EMAIL=?, PWD=? WHERE EMAIL=?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, u.getNome());
+            ps.setString(2, u.getCognome());
+            ps.setString(3, u.getEmail());
+            ps.setString(4, u.getPassword());
+            ps.setString(5, u.getEmail()); // Usiamo l'email per trovare la riga
+            
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }
