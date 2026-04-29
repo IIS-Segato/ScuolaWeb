@@ -9,8 +9,8 @@
 	<query>
 		<insertStudente>INSERT INTO studenti(email, password, nome, cognome, nascita, classe) VALUES(?,?,?,?,?,?);</insertStudente>
 		<insertDocente>INSERT INTO docenti(email, password, nome, cognome) VALUES(?,?,?,?);</insertDocente>
-		<checkAmministratore>SELECT 1 FROM amministratori WHERE email = ? and password = ?;</checkAmministratore>
-		<checkStudenti>SELECT 1 FROM studenti WHERE email = ? and password = ?;</checkStudenti>
-		<checkDocenti>SELECT 1 FROM docenti WHERE email = ? and password = ?;</checkDocenti>
+		<checkAmministratore>SELECT aid FROM amministratori WHERE email = ? and password = ?;</checkAmministratore>
+		<checkStudenti>SELECT sid FROM studenti WHERE email = ? and password = ?;</checkStudenti>
+		<checkDocenti>SELECT did FROM docenti WHERE email = ? and password = ?;</checkDocenti>
 	</query>
 </root>
