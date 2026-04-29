@@ -7,6 +7,8 @@ public class Studente {
 	private String password;
 	private String classe;
 	
+	public Studente() {
+	}
 	public Studente(int id, String nome, String cognome, String password, String classe) {
 		this.id = id;
 		this.nome = nome;
