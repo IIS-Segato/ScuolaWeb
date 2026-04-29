@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 /**
  * Classe Utente.java modello della tabella utenti del db
- * @author Mathias Dal Zotto
  */
 public class Utente implements Serializable {
 	// Attributi

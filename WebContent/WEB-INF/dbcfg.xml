@@ -7,7 +7,7 @@
 		<password></password>
 	</connection>
 	<query>
-		<insertStudente>INSERT INTO studenti(email, password, nome, cognome, nascita, classe) VALUES(?,?,?,?,?,?);</insertStudente>
+		<insertStudente>INSERT INTO studenti(email, password, nome, cognome, nascita, cid) VALUES(?,?,?,?,?,?);</insertStudente>
 		<insertDocente>INSERT INTO docenti(email, password, nome, cognome) VALUES(?,?,?,?);</insertDocente>
 		<checkAmministratore>SELECT aid FROM amministratori WHERE email = ? and password = ?;</checkAmministratore>
 		<checkStudenti>SELECT sid FROM studenti WHERE email = ? and password = ?;</checkStudenti>
