@@ -75,6 +75,26 @@ public class Config {
 		return url;
 	}
 
+	public String getInsertStudente() {
+		return insertStudente;
+	}
+
+	public String getInsertDocente() {
+		return insertDocente;
+	}
+
+	public String getCheckAmministratore() {
+		return checkAmministratore;
+	}
+
+	public String getCheckStudente() {
+		return checkStudente;
+	}
+
+	public String getCheckDocente() {
+		return checkDocente;
+	}
+
 	public String getUser() {
 		return user;
 	}
