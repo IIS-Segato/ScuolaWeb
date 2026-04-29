@@ -52,5 +52,14 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		// *CONTROLLI DI LOGIN....
+		if (loginDAO.checkStudente(email, password) >= 0) {
+			
+		}else if (loginDAO.checkDocente(email, password) >= 0) {
+			
+		}else if (loginDAO.checkAmministratore(email, password) >= 0) {
+			
+		}else {
+			
+		}
 	}
 }
