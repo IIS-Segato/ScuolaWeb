@@ -59,9 +59,10 @@ Il sistema implementa un controllo degli accessi basato su ruoli (**RBAC — Rol
 |---|:---:|:---:|:---:|:---:|:---:|
 | Gestione utenti (CRUD) | ✅ | ✅ | ❌ | ❌ | ❌ |
 | Voti — modifica tutti | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Voti — visualizza tutti | ✅ | ❌ | ❌ | ❌ | ❌ |\
+| Voti — visualizza tutti | ✅ | ❌ | ❌ | ❌ | ❌ |
 | Voti — modifica propri | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Voti — visualizza propri | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Voti — visualizza classe | ✅ | ✅ | ✅ | ❌ | ❌ |
 | Orario — modifica | ✅ | ✅ | ❌ | ❌ | ❌ |
 | Orario — visualizzazione | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Aule — modifica | ✅ | ✅ | ❌ | ❌ | ❌ |
