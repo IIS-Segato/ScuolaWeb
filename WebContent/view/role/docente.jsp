@@ -6,7 +6,7 @@
 
 <%
     Utente u = (Utente) session.getAttribute("utente");
-
+	
     if (u == null) {
         response.sendRedirect("../../index.html");
         return;
@@ -70,7 +70,7 @@
     <tr><td>Cognome</td><td><%= u.getCognome() %></td></tr>
     <tr><td>Email</td><td><%= u.getEmail() %></td></tr>
     <tr><td>Ruolo</td><td><%= u.getRuolo() %></td></tr>
-    <tr><td>Materia</td><td><%=  %></td></tr>
+    <tr><td>Materia</td><td><%= materia %></td></tr>
 </table>
 
 <!-- CLASSI ASSEGNATE -->
