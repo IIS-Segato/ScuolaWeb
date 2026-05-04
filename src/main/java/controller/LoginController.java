@@ -9,11 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.jdom2.JDOMException;
 
 import dao.LoginDAO;
-import model.Amministratore;
 
 /**
  * Classe LoginController.java per la gestione della servlet login
@@ -52,6 +52,7 @@ public class LoginController extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		// Controllo che utente ha fatto l'accesso
 		int sid = -1;
 		int did = -1;
 		int aid = -1;
@@ -60,26 +61,29 @@ public class LoginController extends HttpServlet {
 			did = loginDAO.checkDocente(email, password);
 			aid = loginDAO.checkAmministratore(email, password);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		// *CONTROLLI DI LOGIN....
-		if (sid >= 0) {			
-			request.setAttribute("sid", sid);
+			
+		// Routing alle diverse view in base all'utente loggato
+		if (sid >= 0) {
+			// crea una sessione se questa non esiste
+			HttpSession session = request.getSession();
+			session.setAttribute("sid", sid); // salvo l'id in sessione
 			request.getRequestDispatcher("view/role/Studente.jsp").forward(request, response);
-		}else if (did >= 0) {
-			request.setAttribute("did", did);
+		} else if (did >= 0) {
+			// crea una sessione se questa non esiste
+			HttpSession session = request.getSession();
+			session.setAttribute("did", did); // salvo l'id in sessione
 			request.getRequestDispatcher("view/role/Docente.jsp").forward(request, response);
-				
-		}else if (aid >= 0) {
-			
-			request.setAttribute("aid", aid);
+		} else if (aid >= 0) {			
+			// crea una sessione se questa non esiste
+			HttpSession session = request.getSession();
+			session.setAttribute("aid", aid); // salvo l'id in sessione
 			request.getRequestDispatcher("view/role/Amministratore.jsp").forward(request, response);
-		}else {
-			
+		} else {
+			// se l'utente non è nel db eseguo il redirect al login con l'errore
+			response.sendRedirect("index.html?error=1");
+			return;
 		}
-		
 	}
 }
