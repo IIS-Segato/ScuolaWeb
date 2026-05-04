@@ -7,6 +7,7 @@ public class Persona {
 	private String email;
 	private String cf;
 	private String nascita;
+	private String img_profilo;
 	
 	/**
 	 * @param id
@@ -16,13 +17,14 @@ public class Persona {
 	 * @param cf
 	 * @param nascita
 	 */
-	public Persona(int id, String nome, String cognome, String email, String cf, String nascita) {
+	public Persona(int id, String nome, String cognome, String email, String cf, String nascita, String img_profilo) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
 		this.cf = cf;
 		this.nascita = nascita;
+		this.img_profilo = img_profilo;
 	}
 	/**
 	 * @return the nome
@@ -89,5 +91,17 @@ public class Persona {
 	 */
 	public int getId() {
 		return id;
+	}
+	/**
+	 * @return the img_profilo
+	 */
+	public String getImg_profilo() {
+		return img_profilo;
+	}
+	/**
+	 * @param img_profilo the img_profilo to set
+	 */
+	public void setImg_profilo(String img_profilo) {
+		this.img_profilo = img_profilo;
 	}
 }
