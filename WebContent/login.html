@@ -2,16 +2,57 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Bootstrap Test</title>
+  <title>Login</title>
   <!-- Bootstrap CSS -->
-  <link href="WEB-INF/lib/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .center-block {
+      margin-top: 100px;
+      border: 1px solid lightgray;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: lightgray 2px 2px 10px;
+      width: 50%;
+      margin: 100px 50% 0px 20%;
+
+    }
+
+    div {
+      margin: 15px;
+    }
+    
+    #passwordInput {
+      width: 10px;
+      max-width: 200px;
+      margin-right: 100px;
+      border-radius: 9px;
+    }
+
+    .form-control {
+      width: 50%;
+    }
+
+    img {
+      width: 30px;
+    }
+
+    #showPswButton {
+      margin-right: 10%;
+      background-color: whitesmoke;
+      border: 0.5px solid gray;
+      border-radius: 16px;
+    }
+
+    #mainDiv {
+
+    }
+
+  </style>
 </head>
 <body>
 
 
   <div id="mainDiv" class="center-block">
-    <p>Login</p>
     <form action="" method="post" class="navbar-form">
       <div>
         <input 
@@ -27,14 +68,14 @@
         <input 
           type="password" 
           name="psw" 
-          class="form-control passwordInput" 
+          class="form-control" 
           placeholder="password..."
           id="passwordInput"
         >
         <button 
           type="button"
           id="showPswButton"
-        ><img src="imgs/closedEye.png" alt=""></button>
+        ><img src="images/closedEye.png" alt=""></button>
       </div>
       <div>
         <button 
@@ -55,10 +96,10 @@
         const img = document.querySelector('#showPswButton>img')
         if(input.type === 'password') {
             input.type = 'text'
-            img.src = 'imgs/openEye.png'
+            img.src = 'images/openEye.png'
         } else {
             input.type = 'password'
-            img.src = 'imgs/closedEye.png'
+            img.src = 'images/closedEye.png'
             
         }
     })
