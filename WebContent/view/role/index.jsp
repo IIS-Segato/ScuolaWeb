@@ -1,12 +1,12 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="model.*" %>
-<%@ page import="dao.RoleDao" %>
+<%@ page import="dao.AmministratoreDAO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <% 
 
-	List<Role> roles = (ArrayList<Role>) request.getAttribute("roles"); 
+	List<Amministratore> roles = (ArrayList<Amministratore>) request.getAttribute("roles"); 
 
 %>
 <!DOCTYPE html>

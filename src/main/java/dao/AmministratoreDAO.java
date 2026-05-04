@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 import org.jdom2.JDOMException;
 
+import model.Docente;
+import model.Studente;
 import model.Utente;
 
 
