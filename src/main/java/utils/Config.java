@@ -126,4 +126,10 @@ public class Config {
 		return psw;
 	}
 
+	public static void main(String[] args) throws JDOMException, IOException {
+		Config conf = new Config("C:\\Users\\user\\git\\ScuolaWeb\\WebContent\\WEB-INF\\dbcfg.xml");
+		conf.loadConfig();
+
+	}
+
 }
