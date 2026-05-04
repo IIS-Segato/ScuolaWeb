@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import utils.Config;
 
@@ -27,7 +26,6 @@ public class UserDao implements DAO{
 			
 			Config config = new Config("WebContent/WEB-INF/dbcfg.xml");
 			
-			Statement statement = conn.createStatement();
 			PreparedStatement stmt = conn.prepareStatement(config.getQueryLogin("studente"));
 			stmt.setString(1, id);
 			ResultSet pwdRs = stmt.executeQuery();
@@ -35,7 +33,7 @@ public class UserDao implements DAO{
 			pwdGiusta = pwdRs.getString("password").trim();
 			System.out.println(pwdGiusta);
 			System.out.println(password);
-			return (password.trim() == pwdGiusta);
+			return (password.trim().equals(pwdGiusta));
 			
 		}
 		catch (Exception e) {

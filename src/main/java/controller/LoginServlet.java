@@ -21,12 +21,13 @@ public class LoginServlet extends HttpServlet {
 		// 1. Recupera i parametri dal form HTML
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
+		String ruolo = request.getParameter("ruolo");
 		
 		// 2. Controlla le credenziali nel DB e recupera l'Oggetto Utente
 		// (Immaginiamo che UserDao faccia la query al database)
 		UserDao userDao = new UserDao();
-		if(userDao.autentica(id, password))
-		Utente utente = new Utente();
+		if(!userDao.autentica(id, password)) response.sendRedirect("login.jsp?errore=autenticazione_fallita");;
+		Utente utente = new Utente(id, ruolo);
 		
 		
 		if (utente != null) {
