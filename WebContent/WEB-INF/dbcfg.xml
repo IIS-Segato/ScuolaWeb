@@ -12,6 +12,18 @@
 	</connection>
 	
 	<querys> 
+<<<<<<< HEAD
+=======
+	
+		<login>
+			<get_password_studenti> SELECT password FROM studenti WHERE id = ?;</get_password_studenti>
+			
+			<get_password_docenti> SELECT password FROM docenti WHERE id = ?;</get_password_docenti>
+			
+			<get_password_admin> SELECT password FROM admin WHERE id = ?;</get_password_admin>
+		</login>
+	
+>>>>>>> branch 'salvioni' of https://github.com/IIS-Segato/ScuolaWeb/
 		<classi>
 			<insert> INSERT INTO classi (classe, n_alunni) VALUES (?, ?); </insert>
 			<update> UPDATE classi SET n_alunni = ? WHERE classe = ?; </update>
