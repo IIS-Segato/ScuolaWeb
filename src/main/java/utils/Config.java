@@ -89,6 +89,20 @@ public class Config {
 		Element query = root.getChild("querys").getChild(tabella);
 		return query.getChildText(azione).trim();
 	}
+	 
+	 /**
+	 * Restituisce le query per il login da eseguire
+	 * 
+	 * @param query nome del tag contenente la query nel file XML di configurazione
+	 * @return la query da eseguire
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
+	 public String getQueryLogin(String query) throws JDOMException, IOException {
+		Element root = readConfig();
+		Element mysql = root.getChild("query").getChild("login");
+		return mysql.getChildText(query).trim();
+	 }
 
 	/**
 	 * Restituisce il driver per il database

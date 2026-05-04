@@ -11,14 +11,13 @@
 		
 	</connection>
 	
-	<querys> 
-	
+	<query> 
 		<login>
-			<get_password_studenti> SELECT password FROM studenti WHERE id = ?;</get_password_studenti>
+			<studente> SELECT password FROM studenti WHERE id = ?;</studente>
 			
-			<get_password_docenti> SELECT password FROM docenti WHERE id = ?;</get_password_docenti>
+			<docente> SELECT password FROM docenti WHERE id = ?;</docente>
 			
-			<get_password_admin> SELECT password FROM admin WHERE id = ?;</get_password_admin>
+			<admin> SELECT password FROM admin WHERE id = ?;</admin>
 		</login>
 	
 
@@ -70,7 +69,6 @@
 			<delete> DELETE FROM orari WHERE id = ?; </delete>
 			<select> SELECT * FROM orari; </select>
 		</orari>
-
-	</querys>
+	</query>
 </root>
 
