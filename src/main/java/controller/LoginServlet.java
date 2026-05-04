@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("view/role/edit.jsp").forward(request, response);
             } 
             else if (ruolo.equals("DOCENTE")) {
-                response.sendRedirect("view/role/docente.jsp");
+            	response.sendRedirect("docente");
             } 
             else if (ruolo.equals("STUDENTE")) {
             	response.sendRedirect("view/role/studente.jsp");
