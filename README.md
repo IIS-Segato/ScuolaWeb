@@ -1,10 +1,15 @@
+# Scuola Web:
+
+Applicazione web per la gestione di un portale scolasctico con le seguenti
+funzionalita':
+
 - Gestione degli accessi di 3 tipologie di account differenti (admin, docenti e
   studenti)
 - Gestione login con sessione
 - Interfaccia grafica con CSS
 
 
-Architettura MVC:
+## Architettura MVC:
 
 Model = classi java
 Control = servlet
@@ -13,7 +18,7 @@ View = jsp
 DAO = accesso separato al database con JDBC
 
 
-Struttura DB:
+## Struttura DB:
 
 STUDENTI
 id, nome, cognome, email, eta, id_classe
@@ -34,7 +39,8 @@ LEZIONE
 id, id_classe, id_docente, id_aula
 
 
-Divisione compiti:
+## Divisione compiti:
+
 Luan: Database con JDBC
 Dona: Frontend pagine JSP
 Zappa: Struttura pagine e navigazione
