@@ -267,3 +267,68 @@ from voti;
 
 select *
 from materie;
+
+# VISTE
+
+create view v_studenti as 
+select 
+	s.sid,
+	s.nome,
+	s.cognome,
+	c.anno,
+	c.sezione,
+	v.voto,
+	v.materia,
+	v.data,
+	d.nome as nome_docente,
+	d.cognome as cognome_docente
+from studenti s
+join classi c on c.cid = s.cid
+join voti v on v.sid = s.sid
+join docenti d on d.did = v.did
+join materie m 
+    on m.cid = s.cid 
+    and m.did = v.did 
+    and m.materia = v.materia;
+
+
+
+create view v_docenti as 
+select 
+	d.did,
+	d.nome,
+	d.cognome,
+	c.anno,
+	c.sezione,
+	m.materia,
+	v.voto,
+	v.data,
+	s.nome as nome_studente,
+	s.cognome as cognome_studente
+from docenti d
+join materie m on m.did = d.did
+join classi c on c.cid = m.cid
+left join voti v 
+	on v.did = d.did 
+	and v.materia = m.materia
+left join studenti s on s.sid = v.sid;
+
+create view v_amministratori as 
+select 
+	a.aid,
+	a.email as email_admin,
+	s.sid,
+	s.nome as nome_studente,
+	s.cognome as cognome_studente,
+	c.anno,
+	c.sezione,
+	d.nome as nome_docente,
+	d.cognome as cognome_docente,
+	v.materia,
+	v.voto,
+	v.data
+from amministratori a
+join studenti s
+join classi c on c.cid = s.cid
+left join voti v on v.sid = s.sid
+left join docenti d on d.did = v.did;
