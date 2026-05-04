@@ -46,7 +46,7 @@ public class AmministratoreDAO extends DAO {
 		preparedStatement.setString(3, studente.getNome());
 		preparedStatement.setString(4, studente.getCognome());
 		preparedStatement.setString(5, studente.getNascita());
-		preparedStatement.setString(6, studente.getCid());
+		preparedStatement.setInt(6, studente.getCid());
 		
 		// eseguo l'insert
 		preparedStatement.executeUpdate();
