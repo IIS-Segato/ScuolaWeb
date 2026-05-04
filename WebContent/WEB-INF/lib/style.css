@@ -37,3 +37,29 @@ img {
     border: 0.5px solid gray;
     border-radius: 16px;
 }
+
+
+
+#upBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(25, 174, 233, 0.625);
+    background-image: linear-gradient(to right, rgba(25, 174, 233, 0.625), rgb(16, 212, 169));
+}
+
+img{
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+#toggleButton {
+    margin-right: 10px;
+}
+
+.nav-item {
+    margin-left: 15px;
+}
