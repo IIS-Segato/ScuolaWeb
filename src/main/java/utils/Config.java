@@ -44,7 +44,7 @@ public class Config {
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
-	private  Element readConfig() throws JDOMException, IOException {
+	private Element readConfig() throws JDOMException, IOException {
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = null;
 
@@ -92,6 +92,20 @@ public class Config {
 		Element mysql = root.getChild("query").getChild(dbType);
 		return mysql.getChildText(query).trim();
 	}
+	 
+	 /**
+	 * Restituisce le query per il login da eseguire
+	 * 
+	 * @param query nome del tag contenente la query nel file XML di configurazione
+	 * @return la query da eseguire
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
+	 public String getQueryLogin(String query) throws JDOMException, IOException {
+		Element root = readConfig();
+		Element mysql = root.getChild("query").getChild("login");
+		return mysql.getChildText(query).trim();
+	 }
 
 	/**
 	 * Restituisce il driver per il database

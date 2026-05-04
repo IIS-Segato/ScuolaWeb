@@ -1,4 +1,7 @@
+package controller;
+
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UserDao;
+import model.Utente;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -21,7 +25,9 @@ public class LoginServlet extends HttpServlet {
 		// 2. Controlla le credenziali nel DB e recupera l'Oggetto Utente
 		// (Immaginiamo che UserDao faccia la query al database)
 		UserDao userDao = new UserDao();
-		Utente utente = userDao.autentica(id, password);
+		if(userDao.autentica(id, password))
+		Utente utente = new Utente();
+		
 		
 		if (utente != null) {
 			// 3. Credenziali corrette: Creiamo la sessione
