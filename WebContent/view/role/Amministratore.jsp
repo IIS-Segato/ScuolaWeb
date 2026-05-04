@@ -26,7 +26,25 @@
 				</tr>
 			</thead>
 				<tbody>
-					
+					<%for(Role role:roles) {%>
+						<tr>
+							<td><%=role.getRole_name() %></td>
+							<td><%=role.getDescription() %></td>
+							<td>
+								 <a href="Role?action=DELETE&id=<%=role.getId() %>">CANCELLA
+								<!--	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+										<i class="bi bi-trash3-fill"></i>
+									</button> -->
+								</a>
+								<a href="Role?action=EDIT&id=<%=role.getId() %>">EDIT
+									<!-- <button type="button" class="btn btn-secondary">
+										<i class="bi bi-pen-fill"></i>
+									</button> -->
+								</a>
+							</td>
+						</tr>
+						
+					<%} %>
 				</tbody>
 		</table>
 </body>
