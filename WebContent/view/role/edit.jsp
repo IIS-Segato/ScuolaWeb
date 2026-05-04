@@ -58,10 +58,16 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label fw-bold">Email (ID univoco):</label>
-        <input type="email" class="form-control" name="email" 
-               value="<%= utente.getEmail() != null ? utente.getEmail() : "" %>" required>
-      </div>
+    	<label class="form-label fw-bold">Email (ID univoco - non modificabile):</label>
+    	<input
+      		type="email"
+      		class="form-control bg-light"
+     		name="email"
+      		value="<%= utente.getEmail() != null ? utente.getEmail() : "" %>"
+      		readonly
+    	/>
+    <div class="form-text">L'indirizzo email è l'identificativo del profilo e non può essere cambiato.</div>
+</div>
 
       <div class="mb-3">
         <label class="form-label fw-bold">Password:</label>
@@ -69,15 +75,13 @@
                value="<%= utente.getPassword() != null ? utente.getPassword() : "" %>">
       </div>
 
-      <div class="mb-3">
-        <label class="form-label fw-bold">Ruolo:</label>
-        <select class="form-control" name="ruolo" required>
-          <option value="DOCENTE" <%= "DOCENTE".equals(utente.getRuolo()) ? "selected" : "" %>>Docente</option>
-          <option value="STUDENTE" <%= "STUDENTE".equals(utente.getRuolo()) ? "selected" : "" %>>Studente</option>
-          <option value="AMMINISTRATORE" <%= "AMMINISTRATORE".equals(utente.getRuolo()) ? "selected" : "" %>>Amministratore</option>
-        </select>
+	  <div class="mb-3">
+        <label class="form-label fw-bold">Ruolo (Sola Lettura):</label>
+        <input type="text" class="form-control bg-light" value="<%= utente.getRuolo() != null ? utente.getRuolo() : "" %>" readonly>
+        <!-- Questo campo hidden invia il ruolo alla Servlet -->
+        <input type="hidden" name="ruolo" value="<%= utente.getRuolo() %>">
       </div>
-
+      
       <button type="submit" class="btn btn-success">Salva Modifiche</button>
     </form>
   </body>

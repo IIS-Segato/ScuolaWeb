@@ -50,7 +50,6 @@ public class LoginServlet extends HttpServlet {
             } 
             else if (ruolo.equals("STUDENTE")) {
             	response.sendRedirect("view/role/studente.jsp");
-
             } 
             else {
                 response.sendRedirect("index.html");
