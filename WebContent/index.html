@@ -10,18 +10,20 @@
   </style>
 </head>
 <body>
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+    
+    <form action="login" method="post">
+        <label>Email</label>
+        <input type="email" name="email" required>
+        <br><br>
+        <label>Password</label>
+        <input type="password" name="password" required>
+        <br><br>
+        <button type="submit">Accedi</button>
+    </form>
 
-<form action="login" method="post">
-    <label>Email</label>
-    <input type="email" name="email" required>
-    <br><br>
+    <a href="orario"><button type="button">Orario Aule</button></a>
 
-    <label>Password</label>
-    <input type="password" name="password" required>
-    <br><br>
-
-    <button type="submit">Accedi</button>
-</form>
-
+  </div>
 </body>
 </html>
