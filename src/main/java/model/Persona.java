@@ -89,7 +89,7 @@ public class Persona {
 	/**
 	 * @param id the id to set
 	 */
-	public int setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	/**
