@@ -8,7 +8,7 @@ public class TestLogin {
 		UserDao userDao = new UserDao();
 		
 		
-		System.out.println(userDao.autentica("2","anna_2005"));
+		System.out.println(userDao.autentica("2","anna_2005","docente"));
 
 	}
 
