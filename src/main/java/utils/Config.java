@@ -2,7 +2,6 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import org.jdom2.Document;
