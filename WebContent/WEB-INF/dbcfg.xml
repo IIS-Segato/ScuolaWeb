@@ -4,7 +4,7 @@
 	<connection>
 		<mysql>
 			<driver>com.mysql.cj.jdbc.Driver</driver>
-			<url>jdbc:mysql://localhost:3306/example?useSSL=false</url>
+			<url>jdbc:mysql://localhost:3306/scuola</url>
 			<user>root</user>
 			<password></password>
 		</mysql>
@@ -12,7 +12,7 @@
 	</connection>
 	<query>
 		<mysql>
-			<sql1>select * from studenti where status = "Presente"</sql1>
+			<sql1></sql1>
 			<sql2></sql2>
 			
 		</mysql>
