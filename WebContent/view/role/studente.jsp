@@ -82,6 +82,7 @@
 	    <tr><td colspan="5">Nessun orario trovato</td></tr>
 	    <% } %>
 	</table>
+	<!-- BOTTONE PER L'HOMEPAGE -->
 	<a href="index.html">RITORNA ALL'HOMEPAGE</a>
 	
 	</body>
