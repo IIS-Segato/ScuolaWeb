@@ -87,6 +87,12 @@ public class Persona {
 		this.nascita = nascita;
 	}
 	/**
+	 * @param id the id to set
+	 */
+	public int setId(int id) {
+		return id;
+	}
+	/**
 	 * @return the id
 	 */
 	public int getId() {
