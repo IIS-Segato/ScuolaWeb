@@ -35,7 +35,9 @@ div {
     border-radius: 16px;
 }
 
-
+#toggleButton {
+    margin-right: 10px;
+}
 
 #upBar {
     position: fixed;
@@ -46,17 +48,17 @@ div {
     background-image: linear-gradient(to right, rgba(25, 174, 233, 0.625), rgb(16, 212, 169));
 }
 
-img{
+img {
     width: 60px;
     height: 60px;
     border-radius: 30px;
     padding: 10px;
 }
 
-#toggleButton {
-    margin-right: 10px;
-}
-
 .nav-item {
     margin-left: 15px;
+}
+
+body {
+    background-color: rgba(170, 241, 218, 0.417);
 }

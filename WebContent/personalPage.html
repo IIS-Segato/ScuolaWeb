@@ -1,68 +1,111 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="lib/bootstrap.min.css">
-<style>
-    #upBar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: rgba(25, 174, 233, 0.625);
-        background-image: linear-gradient(to right, rgba(25, 174, 233, 0.625), rgb(16, 212, 169));
-    }
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="WEB-INF/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="WEB-INF/lib/style.css">
+    <style>
+#toggleButton {
+    margin-right: 10px;
+}
 
-    img{
-        width: 60px;
-        height: 60px;
-        border-radius: 30px;
-        padding: 10px;
-    }
+#upBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(25, 174, 233, 0.625);
+    background-image: linear-gradient(to right, rgba(25, 174, 233, 0.625), rgb(16, 212, 169));
+}
 
-    #toggleButton {
-        margin-right: 10px;
-    }
-    
-    .nav-item {
-        margin-left: 15px;
-    }
+img {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    padding: 10px;
+}
 
-    #votiDiv {
-        background-color: rgb(211, 45, 108);
-        background-image: linear-gradient(to right, rgb(24, 134, 142), rgb(93, 233, 170));
-        color: white;
-        padding: 20px;
+.nav-item {
+    margin-left: 15px;
+}
 
-        width: 300px;
-        height: 150px;
+body {
+    background-color: rgba(170, 241, 218, 0.417);
+}
 
-        margin-top: 20%;
-        margin-left: 20%;
+        #votiDiv {
+            background-color: rgb(211, 45, 108);
+            background-image: linear-gradient(to right, rgb(24, 134, 142), rgb(44, 255, 160));
+            color: white;
+            padding: 20px;
 
-        border-radius: 10px;
-    }
+            width: 300px;
+            height: 150px;
 
-    p {
-        margin-top: 20px;
-        margin-left: 40px;
-        background-image: linear-gradient(to right, rgba(24, 134, 142, 0.783), rgba(93, 233, 170, 0.808));
-        padding: 20px;
-        border-radius: 20px;
-        box-shadow: rgba(0, 0, 0, 0.146) 1px 2px 2px;
-    }
+            margin-top: 20%;
+            margin-left: 5%;
 
-</style>
+            border-radius: 20px;
+
+            display: flex;
+            justify-content: center; /* horizontal */
+            align-items: center;     /* vertical */
+            
+        }
+        
+        #orarioDiv>p {
+            background-image: linear-gradient(to right, rgba(93, 233, 170, 0.808), rgba(24, 134, 142, 0.783));
+        }
+
+        #votiDiv>p {
+             background-image: linear-gradient(to right, rgba(24, 134, 142, 0.783), rgba(93, 233, 170, 0.808));
+        }
+
+        p {
+            text-align: center;
+            padding: 35px 65px;
+            box-shadow: gray 2px 2px 2px;
+            border-radius: 22px;
+        }
+
+        #orarioDiv {
+            background-image: linear-gradient(to right, rgb(44, 255, 160), rgb(24, 134, 142));
+            color: white;
+            padding: 20px;
+
+            width: 300px;
+            height: 150px;
+
+            margin-top: 20%;
+            margin-left: 15%;
+
+            border-radius: 20px;
+
+            display: flex;
+            justify-content: center; 
+            align-items: center;     
+        }
+
+        #sectionDiv{
+            display: flex;
+            
+        }
+
+        a {
+            all: unset;
+            margin-top: 20%;
+            margin-left: 7%;
+        }
+
+    </style>
 </head>
+
 <body>
-	<div id="upBar" class="navbar navbar-dark navbar-expand-lg">
-        <img 
-            src="default_avatar.webp"
-            data-bs-toggle="collapse"
-        >
-        <button class="navbar-toggler" id="toggleButton" type="button"
-            data-bs-toggle="collapse"
+    <div id="upBar" class="navbar navbar-dark navbar-expand-lg">
+        <img src="default_avatar.webp" data-bs-toggle="collapse">
+        <button class="navbar-toggler" id="toggleButton" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -77,17 +120,28 @@
             </ul>
         </div>
     </div>
-
-    <div id="votiDiv">
-        <div>
-            <p>VOTI</p>
-        </div>
-    </div>
-    <div id="orarioDiv">
-        <div>
-        
-        </div>
+    <div id="sectionDiv">
+        <a href="voti.html">
+            <div id="votiDiv">
+                <p class="pClass">VOTI</p>
+            </div>
+        </a>
+        <a href="https://www.youtube.com/@LaFisicaCheCiPiace">
+            <div id="orarioDiv">
+                <p class="pClass">ORARIO</p>
+            </div>
+        </a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const p = document.querySelectorAll('.pClass')
+
+        addEventListener('click', (e) => {
+            console.log(e.target.className);
+                if (e.target.id === 'orarioDiv' || e.target.className === 'pClass'){
+            }  
+        })
+    </script>
 </body>
 </html>
