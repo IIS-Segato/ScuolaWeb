@@ -6,7 +6,7 @@
 	pageEncoding="UTF-8"%>
 <% 
 
-	int aid = (int) request.getAttribute("aid"); 
+	int aid = (int) session.getAttribute("aid"); 
 
 %>
 <!DOCTYPE html>
