@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 
 <%
+//lista aule
 List<Aula> listaAule = (List<Aula>) request.getAttribute("listaAule");
 %>
 <!DOCTYPE html>
