@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 
 import utils.Config;
 
+/**
+ * Questo DAO va utilizzato sia per gli studenti che per i professori, solo gli admin sono esclusi
+ */
 public class UserDao implements DAO{
 
 	Connection conn;
