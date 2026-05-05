@@ -90,7 +90,7 @@ public class Persona {
 	 * @param id the id to set
 	 */
 	public int setId(int id) {
-		return id;
+		this.id = id;
 	}
 	/**
 	 * @return the id
