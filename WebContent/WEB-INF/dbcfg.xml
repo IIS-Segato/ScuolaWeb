@@ -10,7 +10,7 @@
 		<insertStudente>INSERT INTO studenti(email, password, nome, cognome, nascita, cid) VALUES(?,?,?,?,?,?);</insertStudente>
 		<insertDocente>INSERT INTO docenti(email, password, nome, cognome) VALUES(?,?,?,?);</insertDocente>
 		<checkAmministratore>SELECT aid FROM amministratori WHERE email = ? and password = ?;</checkAmministratore>
-		<checkStudenti>SELECT sid FROM studenti WHERE email = ? and password = ?;</checkStudenti>
-		<checkDocenti>SELECT did FROM docenti WHERE email = ? and password = ?;</checkDocenti>
+		<checkStudente>SELECT sid FROM studenti WHERE email = ? and password = ?;</checkStudente>
+		<checkDocente>SELECT did FROM docenti WHERE email = ? and password = ?;</checkDocente>
 	</query>
 </root>
