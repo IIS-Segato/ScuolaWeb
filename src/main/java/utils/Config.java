@@ -3,6 +3,7 @@ package utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import org.jdom2.Document;
@@ -20,8 +21,8 @@ public class Config {
 	private final String xmlurl;
 	private Element rootElement;
 
-	public Config(String xmlurl) {
-		this.xmlurl = xmlurl;
+	public Config(String inputStream) {
+		this.xmlurl = inputStream;
 		try {
 			// Carichiamo tutto all'avvio dell'oggetto
 			loadConfig();
@@ -30,7 +31,7 @@ public class Config {
 		}
 	}
 
-	private void loadConfig() throws JDOMException, IOException, ClassNotFoundException {
+	public void loadConfig() throws JDOMException, IOException, ClassNotFoundException {
 		// Leggiamo il file una volta sola
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(new File(this.xmlurl));
