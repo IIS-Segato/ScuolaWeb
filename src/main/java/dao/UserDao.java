@@ -1,48 +1,43 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import utils.Config;
+//classe userDao nuova che estende il dao 
+public class UserDao extends DAO {
 
-/**
- * Questo DAO va utilizzato sia per gli studenti che per i professori, solo gli admin sono esclusi
- */
-public class UserDao implements DAO{
-
-	Connection conn;
-	
-	@Override
-	public void setConnection(Connection conn) {
-			
-	}
-	
-	public boolean autentica(String id, String password, String ruolo) {
-		
-		String pwdGiusta;
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/scuolawebsalvioni", "root", "");
-			
-			Config config = new Config("WebContent/WEB-INF/dbcfg.xml");
-			
-			PreparedStatement stmt = conn.prepareStatement(config.getQueryLogin(ruolo));
-			stmt.setString(1, id);
-			ResultSet pwdRs = stmt.executeQuery();
-			pwdRs.next();
-			pwdGiusta = pwdRs.getString("password").trim();
-			System.out.println(pwdGiusta);
-			System.out.println(password);
-			return (password.trim().equals(pwdGiusta));
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
-
+    //costruttore 
+    public UserDao(String xmlurl) throws Exception {
+        super(xmlurl);
+    }
+    //controllo se l accesso è autenticato 
+    public boolean autentica(String id, String password, String ruolo) {
+        String pwdGiusta;
+        
+        try {
+            //metodo getQueryLogin dal config ereditato 
+            String sql = config.getQueryLogin(ruolo);
+            //oggetto CONN ereditato anche questo dalla classe DAO
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, id); //setto il parametro per il prepare stmnt
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                pwdGiusta = rs.getString("password").trim();
+                
+                //chiudo tutto 
+                rs.close();
+                stmt.close();
+                
+                return (password.trim().equals(pwdGiusta));
+            }
+        } catch (Exception e) {
+            System.err.println("Errore durante l'autenticazione: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
 }
