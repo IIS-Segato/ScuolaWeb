@@ -34,7 +34,6 @@ public class UserDao implements DAO{
 			System.out.println(pwdGiusta);
 			System.out.println(password);
 			return (password.trim().equals(pwdGiusta));
-			
 		}
 		catch (Exception e) {
 			e.printStackTrace();

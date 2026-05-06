@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -9,141 +10,102 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-/**
- * Classe di configurazione per l�applicazione
- * 
- * @author ste
- *
- */
+//classe confing per il collegamento al database e l ottenimento di querys dal file dbcfg.xml
 public class Config {
 
 	private String driver;
 	private String url;
 	private String user;
 	private String psw;
-	private String dbType;
 	private final String xmlurl;
+	private Element rootElement;
 
-	/**
-	 * Costruttore della classe
-	 * 
-	 * @param inputStream path del file di configurazione
-	 * @throws MalformedURLException
-	 */
-	public Config(String xmlurl) throws MalformedURLException {
-		super();
+	public Config(String xmlurl) {
 		this.xmlurl = xmlurl;
+		try {
+			// Carichiamo tutto all'avvio dell'oggetto
+			loadConfig();
+		} catch (Exception e) {
+			System.err.println("Errore fatale nel caricamento configurazione: " + e.getMessage());
+		}
 	}
 
-	/**
-	 * Leggo il file XML di configurazione contenuto nella cartella Config
-	 * 
-	 * @return l�elemento di root del file XML di configurazione
-	 * @throws JDOMException
-	 * @throws IOException
-	 */
-	private Element readConfig() throws JDOMException, IOException {
+	private void loadConfig() throws JDOMException, IOException, ClassNotFoundException {
+		// Leggiamo il file una volta sola
 		SAXBuilder saxBuilder = new SAXBuilder();
-		Document document = null;
+		Document document = saxBuilder.build(new File(this.xmlurl));
+		this.rootElement = document.getRootElement();
 
-		document = saxBuilder.build(new File(this.xmlurl));
+		// Estraiamo i dati di connessione
+		String dbType = rootElement.getChildText("dbType");
+		Element conn = rootElement.getChild("connection").getChild(dbType);
 
-		Element root = document.getRootElement();
+		this.driver = conn.getChildText("driver").trim();
+		this.url = conn.getChildText("url").trim();
+		this.user = conn.getChildText("user").trim();
+		this.psw = conn.getChildText("password").trim();
 
-		return root;
+		// Carichiamo il Driver JDBC in memoria (una sola volta)
+		Class.forName(this.driver);
+		System.out.println("Driver JDBC caricato con successo: " + this.driver);
 	}
 
-	/**
-	 * Carica il file di configurazione per recupoerare la connection string
-	 * 
-	 * @throws IOException
-	 * @throws JDOMException
-	 */
-	public void loadConfig() throws JDOMException, IOException {
-
-		Element root = readConfig();
-		dbType = root.getChildText("dbType");
-		Element mysql = root.getChild("connection").getChild(dbType);
-		driver = mysql.getChildText("driver").trim();
-		url = mysql.getChildText("url").trim();
-		user = mysql.getChildText("user").trim();
-		psw = mysql.getChildText("password").trim();
-
-		System.out.println("dbType: " + dbType);
-		System.out.println("driver: " + driver);
-		System.out.println("url: " + url);
-		System.out.println("user: " + user);
-		System.out.println("psw: " + psw);
+	// metodo per ottenere le query
+	public String getQuery(String tabella, String azione) {
+		Element queryTag = rootElement.getChild("query").getChild(tabella);
+		return queryTag.getChildText(azione).trim();
 	}
 
-	/**
-	 * Restituisce le query da eseguire
-	 * 
-	 * @param query nome del tag contenente la query nel file XNL di configurazione
-	 * @return la query da eseguire
-	 * @throws JDOMException
-	 * @throws IOException
-	 */
-	public String getQuery(String tabella, String azione) throws JDOMException, IOException {
-		Element root = readConfig();
-		Element query = root.getChild("querys").getChild(tabella);
-		return query.getChildText(azione).trim();
+	// metodo per ottenere le query di login
+	public String getQueryLogin(String tipoUtente) {
+		Element login = rootElement.getChild("query").getChild("login");
+		return login.getChildText(tipoUtente).trim();
 	}
-	 
-	 /**
-	 * Restituisce le query per il login da eseguire
-	 * 
-	 * @param query nome del tag contenente la query nel file XML di configurazione
-	 * @return la query da eseguire
-	 * @throws JDOMException
-	 * @throws IOException
-	 */
-	 public String getQueryLogin(String query) throws JDOMException, IOException {
-		Element root = readConfig();
-		Element mysql = root.getChild("query").getChild("login");
-		return mysql.getChildText(query).trim();
-	 }
 
-	/**
-	 * Restituisce il driver per il database
-	 * 
-	 * @return il driver appropriato x la connessione al db
-	 */
+	// Getter classici...
 	public String getDriver() {
 		return driver;
 	}
 
-	/**
-	 * Restituisce il pattern URL per il database
-	 * 
-	 * @return url per il database
-	 */
 	public String getDbUrl() {
 		return url;
 	}
 
-	/**
-	 * Restituisce il nome utente per il Database
-	 * 
-	 * @return the user
-	 */
 	public String getUser() {
 		return user;
 	}
 
-	/**
-	 * Restituisce la password per il Database
-	 * 
-	 * @return the password
-	 */
 	public String getPassword() {
 		return psw;
 	}
 
-	public static void main(String[] args) throws JDOMException, IOException {
-		Config conf = new Config("C:\\Users\\user\\git\\ScuolaWeb\\WebContent\\WEB-INF\\dbcfg.xml");
-		conf.loadConfig();
+	public static void main(String[] args) {
+		// Percorso relativo: parte dalla cartella radice del progetto
+		String pathRelativo = "WebContent/WEB-INF/dbcfg.xml";
 
+		Config conf = new Config(pathRelativo);
+
+		try {
+			System.out.println("--- Avvio Test Config ---");
+			conf.loadConfig();
+
+			// Test parametri connessione
+			System.out.println("Connessione a: " + conf.getDbUrl());
+
+			// Test Query
+			String sqlStudenti = conf.getQuery("studenti", "select");
+			System.out.println("SQL Studenti: " + sqlStudenti);
+
+			// Test Login
+			String sqlLogin = conf.getQueryLogin("admin");
+			System.out.println("SQL Login Admin: " + sqlLogin);
+
+			System.out.println("--- Test Completato ---");
+
+		} catch (FileNotFoundException e) {
+			System.err.println("Errore: Il file XML non è stato trovato al percorso: " + pathRelativo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
 }
