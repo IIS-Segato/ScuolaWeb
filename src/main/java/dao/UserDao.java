@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 
 import utils.Config;
 
+/**
+ * Questo DAO va utilizzato sia per gli studenti che per i professori, solo gli admin sono esclusi
+ */
 public class UserDao implements DAO{
 
 	Connection conn;
@@ -16,7 +19,7 @@ public class UserDao implements DAO{
 			
 	}
 	
-	public boolean autentica(String id, String password) {
+	public boolean autentica(String id, String password, String ruolo) {
 		
 		String pwdGiusta;
 		
@@ -26,7 +29,7 @@ public class UserDao implements DAO{
 			
 			Config config = new Config("WebContent/WEB-INF/dbcfg.xml");
 			
-			PreparedStatement stmt = conn.prepareStatement(config.getQueryLogin("studente"));
+			PreparedStatement stmt = conn.prepareStatement(config.getQueryLogin(ruolo));
 			stmt.setString(1, id);
 			ResultSet pwdRs = stmt.executeQuery();
 			pwdRs.next();

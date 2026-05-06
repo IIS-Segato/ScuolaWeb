@@ -26,18 +26,18 @@ public class LoginServlet extends HttpServlet {
 		// 2. Controlla le credenziali nel DB e recupera l'Oggetto Utente
 		// (Immaginiamo che UserDao faccia la query al database)
 		UserDao userDao = new UserDao();
-		if(!userDao.autentica(id, password)) response.sendRedirect("login.jsp?errore=autenticazione_fallita");;
+		if(!userDao.autentica(id, password, ruolo)) response.sendRedirect("login.jsp?errore=autenticazione_fallita");;
 		Utente utente = new Utente(id, ruolo);
 		
 		
 		if (utente != null) {
 			// 3. Credenziali corrette: Creiamo la sessione
 			HttpSession session = request.getSession();
-			session.setAttribute("utenteLoggato", utente.getId);
+			session.setAttribute("utenteLoggato", utente.getId());
 			session.setAttribute("ruolo", utente.getRuolo()); // es. "STUDENTE", "ADMIN"...
 			
 			// 4. Smistamento in base al ruolo
-			String ruolo = utente.getRuolo();
+			ruolo = session.ge;
 			
 			switch (ruolo) {
 				case "ADMIN":
