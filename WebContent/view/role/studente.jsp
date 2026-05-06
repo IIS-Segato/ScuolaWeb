@@ -25,6 +25,7 @@
 	        table { margin: 20px auto; border-collapse: collapse; width: 70%; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
 	        th, td { padding: 12px 18px; border-bottom: 1px solid #ddd; text-align: left; }
 	        th { background: #0077cc; color: white; }
+	        button { padding: 9px 20px; font-size: 14px; background: #2d5be3; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
 	    </style>
 	</head>
 	<body>
@@ -83,7 +84,9 @@
 	    <% } %>
 	</table>
 	<!-- BOTTONE PER L'HOMEPAGE -->
-	<a href="index.html">RITORNA ALL'HOMEPAGE</a>
+	<a href="<%=request.getContextPath()%>/index.html">
+   		<button type="button">Torna al Login</button>
+	</a>
 	
 	</body>
 	</html>

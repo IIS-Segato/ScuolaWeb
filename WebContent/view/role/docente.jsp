@@ -54,6 +54,15 @@
             background: #0077cc;
             color: white;
         }
+         button { 
+	         padding: 9px 20px; 
+	         font-size: 14px; 
+	         background: #2d5be3; 
+	         color: #fff; 
+	         border: none; 
+	         border-radius: 4px; 
+	         cursor: pointer;
+          }
     </style>
 </head>
 
@@ -149,7 +158,9 @@
     %>
 </table>
 
-<a href= "index.html">RITORNA ALL'HOMEPAGE</a>
+<a href="<%=request.getContextPath()%>/index.html">
+   <button type="button">Torna al Login</button>
+</a>
 
 </body>
 </html>
