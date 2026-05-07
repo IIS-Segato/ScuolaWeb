@@ -53,7 +53,7 @@
 			<insert> INSERT INTO studenti (nome, cognome, password, classe) VALUES (?, ?, ?, ?); </insert>
 			<update> UPDATE studenti SET nome = ?, cognome = ?, password = ?, classe = ? WHERE id = ?; </update>
 			<delete> DELETE FROM studenti WHERE id = ?; </delete>
-			<select> SELECT * FROM studenti; </select>
+			<select> SELECT * FROM studenti WHERE id = ?; </select>
 		</studenti>
 		
 		<docenti>

@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.Studente" %>
+<%@ page import="model.Orario" %>
+<%@ page import="java.util.List" %>
 <%
-    // Recupero l'oggetto dalla sessione
-    Studente s = (Studente) session.getAttribute("utenteLoggato");
+    //Recupero gli oggetti passati dalla Servlet tramite la request
+    Studente s = (Studente) request.getAttribute("studente");
+    List<Orario> orari = (List<Orario>) request.getAttribute("orari");
     
-    // Se non c'è nessuno in sessione, reindirizza (sicurezza minima)
+    //Sicurezza minima nel caso si provi ad accedere direttamente alla JSP saltando la Servlet
     if (s == null) {
         response.sendRedirect("login.jsp");
         return;
@@ -43,7 +46,7 @@
     <div class="main-content">
         <div class="profile-header d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="mb-0 text-gray-800">Bentornato, <%= s.getNome() %>!</h2>
+                <h2 class="mb-0 text-gray-800">Bentornato, <%= s.getNome() %> <%= s.getCognome() %>!</h2>
                 <span class="text-muted">Classe: <strong><%= s.getClasse() %></strong></span>
             </div>
             <div class="text-end">
@@ -52,75 +55,46 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card card-stat shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Media Voti</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">7.5</div>
-                            </div>
-                            <div class="col-auto"><i class="fas fa-chart-line fa-2x text-gray-300"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2" style="border-left: 4px solid #1cc88a;">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Presenze</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">92%</div>
-                            </div>
-                            <div class="col-auto"><i class="fas fa-check-circle fa-2x text-gray-300"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- La tua vecchia card voti e presenze va qui... -->
         </div>
 
+        <!-- ORARIO -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center bg-white">
-                <h6 class="m-0 font-weight-bold text-primary">Le tue materie attive</h6>
-                <button class="btn btn-sm btn-primary">Dettagli</button>
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-clock me-2"></i> Il tuo Orario - Classe <%= s.getClasse() %></h6>
             </div>
             <div class="card-body">
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Materia</th>
-                            <th>Insegnante</th>
-                            <th>Ultimo Voto</th>
-                            <th>Progresso</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Informatica e Sistemi</td>
-                            <td>Prof. Bianchi</td>
-                            <td><span class="badge bg-success">8.0</span></td>
-                            <td style="width: 30%">
-                                <div class="progress" style="height: 10px;">
-                                    <div class="progress-bar bg-info" style="width: 75%"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Matematica Applicata</td>
-                            <td>Prof. Neri</td>
-                            <td><span class="badge bg-warning text-dark">6.5</span></td>
-                            <td style="width: 30%">
-                                <div class="progress" style="height: 10px;">
-                                    <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <% if(orari != null && !orari.isEmpty()) { %>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Giorno</th>
+                                    <th>Orario Inizio</th>
+                                    <th>Orario Fine</th>
+                                    <th>ID Docente (Materia)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(Orario o : orari) { %>
+                                    <tr>
+                                        <td><strong><%= o.getNome_giorno() %></strong></td>
+                                        <td><%= o.getOrario_inizio() %></td>
+                                        <td><%= o.getOrario_fine() %></td>
+                                        <td>Docente #<%= o.getId_docente() %></td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else { %>
+                    <div class="alert alert-info" role="alert">
+                        Nessun orario disponibile al momento per la tua classe.
+                    </div>
+                <% } %>
             </div>
         </div>
+        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
