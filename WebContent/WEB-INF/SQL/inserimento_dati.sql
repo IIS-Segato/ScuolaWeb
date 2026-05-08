@@ -1,8 +1,8 @@
 -- AULE
 INSERT INTO AULE (NOME, CAPIENZA) VALUES
-  ('Aula 1A', 30),
-  ('Aula 1B', 28),
-  ('Aula 2A', 32),
+  ('Aula HIG', 30),
+  ('Aula AB', 28),
+  ('Aula DD', 32),
   ('Laboratorio Informatica', 25),
   ('Laboratorio Scienze', 20),
   ('Aula Magna', 100);
@@ -49,15 +49,15 @@ INSERT INTO STUDENTI (ID_S, NOME, COGNOME, EMAIL, PWD, ID_C) VALUES
   
   -- ORARIO 
 INSERT INTO ORARIO (ID_ORARIO, ID_D, ID_C, NOME_AULA, GIORNO, ORA_INI, ORA_FIN) VALUES
-  (1,  1, 1, 'Aula 1A',                'Lunedi',    '08:00', '09:00'),
-  (2,  2, 1, 'Aula 1A',                'Lunedi',    '09:00', '10:00'),
-  (3,  3, 2, 'Aula 1B',                'Lunedi',    '08:00', '09:00'),
-  (4,  4, 2, 'Aula 1B',                'Lunedi',    '09:00', '10:00'),
+  (1,  1, 1, 'Aula HIG',                'Lunedi',    '08:00', '09:00'),
+  (2,  2, 1, 'Aula HIG',                'Lunedi',    '09:00', '10:00'),
+  (3,  3, 2, 'Aula AB',                'Lunedi',    '08:00', '09:00'),
+  (4,  4, 2, 'Aula AB',                'Lunedi',    '09:00', '10:00'),
   (5,  5, 3, 'Laboratorio Informatica', 'Martedi',   '10:00', '11:00'),
-  (6,  6, 3, 'Aula 2A',                'Martedi',   '11:00', '12:00'),
-  (7,  1, 4, 'Aula 2A',                'Mercoledi', '08:00', '09:00'),
-  (8,  2, 4, 'Aula 2A',                'Mercoledi', '09:00', '10:00'),
-  (9,  3, 5, 'Aula 1B',                'Giovedi',   '10:00', '11:00'),
+  (6,  6, 3, 'Aula DD',                'Martedi',   '11:00', '12:00'),
+  (7,  1, 4, 'Aula DD',                'Mercoledi', '08:00', '09:00'),
+  (8,  2, 4, 'Aula DD',                'Mercoledi', '09:00', '10:00'),
+  (9,  3, 5, 'Aula AB',                'Giovedi',   '10:00', '11:00'),
   (10, 4, 5, 'Laboratorio Scienze',     'Giovedi',   '11:00', '12:00'),
   (11, 5, 1, 'Laboratorio Informatica', 'Venerdi',   '08:00', '09:00'),
-  (12, 6, 2, 'Aula 1B',                'Venerdi',   '09:00', '10:00');
+  (12, 6, 2, 'Aula AB',                'Venerdi',   '09:00', '10:00');
