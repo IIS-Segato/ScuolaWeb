@@ -2,7 +2,9 @@ package dao;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.jdom2.JDOMException;
 
@@ -73,5 +75,57 @@ public class AmministratoreDAO extends DAO {
 		
 		// eseguo l'insert
 		preparedStatement.executeUpdate();
+	}
+	
+	public ArrayList<Studente> getStudenti() throws ClassNotFoundException, JDOMException, IOException, SQLException {
+		
+		String getStudenti = this.getConf().getStudenti();
+		
+		ArrayList<Studente> studenti = new ArrayList<>();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getStudenti);
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			Studente s = new Studente();
+
+            s.setSid(rs.getInt("sid"));
+            s.setEmail(rs.getString("email"));
+            s.setPassword(rs.getString("password"));
+            s.setNome(rs.getString("nome"));
+            s.setCognome(rs.getString("cognome"));
+            s.setNascita(rs.getString("nascita"));
+            s.setCid(rs.getInt("cid"));
+            
+            studenti.add(s);
+		}
+		
+		return studenti;
+		
+	}
+	
+	public ArrayList<Docente> getDocenti() throws ClassNotFoundException, JDOMException, IOException, SQLException {
+		
+		String getDocenti = this.getConf().getDocenti();
+		
+		ArrayList<Docente> docenti = new ArrayList<>();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getDocenti);
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			Docente s = new Docente();
+
+            s.setDid(rs.getInt("cid"));
+            s.setEmail(rs.getString("email"));
+            s.setPassword(rs.getString("password"));
+            s.setNome(rs.getString("nome"));
+            s.setCognome(rs.getString("cognome"));
+            
+            docenti.add(s);
+		}
+		
+		return docenti;
+		
 	}
 }

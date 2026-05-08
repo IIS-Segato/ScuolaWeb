@@ -14,15 +14,7 @@ public class Studente {
 	private int cid;
 	
 	
-	public Studente( int sid , String password, String email,String nome,String cognome,String nascita, int cid) {
-		
-		this.sid= sid;
-		this.email= email;
-		this.password=password;
-		this.nome=nome;
-		this.cognome=cognome;
-		this.nascita= nascita;
-		this.cid=cid;
+	public Studente() {
 	
 	}
 	
@@ -30,14 +22,14 @@ public class Studente {
 	public int getSid(){
 		return sid;
 	}
-	public void SetSid(int sid) {
+	public void setSid(int sid) {
 		
 		this.sid= sid;
 	}
 	public String getEmail(){
 		return email;
 	}
-	public void SetAid(String email) {
+	public void setEmail(String email) {
 		
 		this.email= email;
 	}
@@ -45,7 +37,7 @@ public class Studente {
 	public String getPassword(){
 		return password;
 	}
-	public void SetPassword(String password) {
+	public void setPassword(String password) {
 		
 		this.password= password;
 	}
@@ -53,7 +45,7 @@ public class Studente {
 	public String getNome(){
 		return nome;
 	}
-	public void SetNome(String nome) {
+	public void setNome(String nome) {
 		
 		this.nome= nome;
 	}
@@ -62,14 +54,14 @@ public class Studente {
 	public String getCognome(){
 		return cognome;
 	}
-	public void SetCognome(String cognome) {
+	public void setCognome(String cognome) {
 		
 		this.cognome= cognome;
 	}
 	public String getNascita(){
 		return nascita;
 	}
-	public void SetNascita(String nascita) {
+	public void setNascita(String nascita) {
 		
 		this.nascita= nascita;
 	}
@@ -77,7 +69,7 @@ public class Studente {
 	public int getCid(){
 		return cid;
 	}
-	public void SetCid(int cid) {
+	public void setCid(int cid) {
 		
 		this.cid= cid;
 	}
