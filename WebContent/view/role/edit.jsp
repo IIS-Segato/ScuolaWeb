@@ -29,6 +29,12 @@
     
     <h1 class="fw-bold mt-3"><span class="text-primary">MODIFICA</span> UTENTE</h1>
     
+    <div class="mt-4 mb-2">
+    	<a href="view/role/nuovoUtente.jsp" class="btn btn-primary fw-bold">
+        	+ INSERISCI NUOVO UTENTE
+    	</a>
+	</div>
+    
     <h3 class="fw-bold mt-4">Seleziona un utente:</h3>
     <ol>
       <% for (Utente u : listaUtenti) { %>

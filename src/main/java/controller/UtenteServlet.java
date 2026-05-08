@@ -31,6 +31,8 @@ public class UtenteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
+        String action = request.getParameter("action");
+        
         Utente u = new Utente();
         u.setNome(request.getParameter("nome"));
         u.setCognome(request.getParameter("cognome"));
@@ -39,8 +41,15 @@ public class UtenteServlet extends HttpServlet {
         u.setRuolo(request.getParameter("ruolo"));
 
         UtenteDAO dao = new UtenteDAO();
-        dao.aggiorna(u);
+        
+        if ("INSERT".equals(action)) {
+            dao.inserisciNuovoUtente(u);
+        } else {
+            dao.aggiorna(u);
+        }
+        
+        // CANCELLA QUESTA RIGA: dao.aggiorna(u); <--- Era qui l'errore
 
-        response.sendRedirect("Utente"); // Ricarica la lista aggiornata
+        response.sendRedirect("Utente"); 
     }
 }

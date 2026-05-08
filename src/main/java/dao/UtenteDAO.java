@@ -110,4 +110,31 @@ public class UtenteDAO {
         }
     }
     
+    public boolean inserisciNuovoUtente(Utente u) {
+        String sql = "";
+        // Selezioniamo la tabella in base al ruolo
+        if ("STUDENTE".equals(u.getRuolo())) {
+            sql = "INSERT INTO STUDENTI (NOME, COGNOME, EMAIL, PWD, ID_C) VALUES (?, ?, ?, ?, 1)"; 
+            // Nota: ID_C messo a 1 come default, andrebbe gestito meglio
+        } else if ("DOCENTE".equals(u.getRuolo())) {
+            sql = "INSERT INTO DOCENTI (NOME, COGNOME, EMAIL, PWD, MATERIA) VALUES (?, ?, ?, ?, 'Da definire')";
+        } else if ("AMMINISTRATORE".equals(u.getRuolo())) {
+            sql = "INSERT INTO AMMINISTRATORI (NOME, COGNOME, EMAIL, PWD) VALUES (?, ?, ?, ?)";
+        }
+
+        try (Connection conn = getConnection(); 
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, u.getNome());
+            ps.setString(2, u.getCognome());
+            ps.setString(3, u.getEmail());
+            ps.setString(4, u.getPassword());
+            
+            // Se è uno studente o docente, i parametri extra dipendono dalla tua struttura
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }
