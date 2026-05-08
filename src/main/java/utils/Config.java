@@ -20,6 +20,8 @@ public class Config {
 	private String checkAmministratore;
 	private String checkStudente;
 	private String checkDocente;
+	private String getStudenti;
+	private String getDocenti;
 	
 	/**
 	 * Costruttore
@@ -63,6 +65,8 @@ public class Config {
 		this.checkAmministratore = query.getChildText("checkAmministratore").trim();
 		this.checkStudente = query.getChildText("checkStudente").trim();
 		this.checkDocente = query.getChildText("checkDocente").trim();
+		this.getStudenti = query.getChildText("getStudenti").trim();
+		this.getDocenti = query.getChildText("getDocenti").trim();
 	}
 
 	// Getter degli attributi
@@ -100,5 +104,13 @@ public class Config {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getGetStudenti() {
+		return getStudenti;
+	}
+
+	public String getGetDocenti() {
+		return getDocenti;
 	}
 }

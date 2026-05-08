@@ -12,5 +12,7 @@
 		<checkAmministratore>SELECT aid FROM amministratori WHERE email = ? and password = ?;</checkAmministratore>
 		<checkStudente>SELECT sid FROM studenti WHERE email = ? and password = ?;</checkStudente>
 		<checkDocente>SELECT did FROM docenti WHERE email = ? and password = ?;</checkDocente>
+		<getStudenti>select * from studenti;</getStudenti>
+		<getDocenti>select * from docenti;</getDocenti>
 	</query>
 </root>
