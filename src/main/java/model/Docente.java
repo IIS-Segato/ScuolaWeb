@@ -12,23 +12,6 @@ public class Docente{
 	private String nome;
 	private String cognome;
 	
-	/**
-	 * Costruttore
-	 * @param did
-	 * @param email
-	 * @param password
-	 * @param nome
-	 * @param cognome
-	 */
-	public Docente(int did, String email, String password, String nome, String cognome) {
-		super();
-		this.did = did;
-		this.email = email;
-		this.password = password;
-		this.nome = nome;
-		this.cognome = cognome;
-	}
-	
 	// Getter e setter
 	public int getDid() {
 		return did;
