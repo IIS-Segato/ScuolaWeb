@@ -1,72 +1,65 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Creato il: Apr 19, 2026 alle 19:41
--- Versione del server: 10.4.28-MariaDB
--- Versione PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE IF NOT EXISTS `example`
+DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_general_ci;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `example`
---
-CREATE DATABASE IF NOT EXISTS `example` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `example`;
 
 -- --------------------------------------------------------
-
---
--- Struttura della tabella `roles`
---
+-- TABELLA ROLES
+-- --------------------------------------------------------
 
 DROP TABLE IF EXISTS `roles`;
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `description` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dump dei dati per la tabella `roles`
---
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- DATI ROLES
 
 INSERT INTO `roles` (`id`, `name`, `description`) VALUES
-(1, 'preside', NULL),
-(2, 'Insegnante', 'Ha un controllo parziale dell\'applicazione web'),
-(3, 'Segreteria', 'Ha un controllo parziale dell\'applicazione web'),
-(4, 'Studente', 'Ha un controllo molto limitato dell\'applicazione web');
+(1, 'Preside', 'Controllo completo'),
+(2, 'Insegnante', 'Controllo parziale'),
+(3, 'Segreteria', 'Gestione amministrativa'),
+(4, 'Studente', 'Consultazione limitata');
 
---
--- Indici per le tabelle scaricate
---
+-- --------------------------------------------------------
+-- TABELLA USERS
+-- --------------------------------------------------------
 
---
--- Indici per le tabelle `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`);
+DROP TABLE IF EXISTS `users`;
 
---
--- AUTO_INCREMENT per le tabelle scaricate
---
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `role_id` int(11) NOT NULL,
 
---
--- AUTO_INCREMENT per la tabella `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  PRIMARY KEY (`id`),
+
+  CONSTRAINT `fk_user_role`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `roles`(`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- DATI USERS
+
+INSERT INTO `users`
+(`username`,`password`,`role_id`)
+VALUES
+('admin','admin123',1),
+('teacher','teacher123',2),
+('student','student123',4);
+
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
