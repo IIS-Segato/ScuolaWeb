@@ -14,7 +14,7 @@ public class UserDao extends AbstractDAO {
         super(xml);
     }
 
-    // Metodo fondamentale per il LOGIN
+    // Metodo fondamentale per illlll LOGIN
     public User login(String username, String password) throws Exception {
         User user = null;
         String sql = "SELECT * FROM users WHERE username = ? AND password = ?";

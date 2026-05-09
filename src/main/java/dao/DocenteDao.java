@@ -150,10 +150,10 @@ public class DocenteDao extends AbstractDAO {
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception(e.getMessage());
-        } finally {
+        } finally { 
             closeConnection();
         }
-        
+             
         return success;
     }
 }

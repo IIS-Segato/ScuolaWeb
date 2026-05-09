@@ -23,6 +23,7 @@ public class StudenteDao extends AbstractDAO {
         super(xml);
     }
 
+    //prova
     public List<Studente> getAll() throws Exception {
         List<Studente> listStudenti = new ArrayList<>();
         try (Connection conn = getConnection();
