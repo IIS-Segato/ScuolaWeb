@@ -3,6 +3,9 @@ package model;
 import java.io.Serializable;
 
 public class Role implements Serializable {
+	private int id;
+	private String role_name, description;
+
 	public Role(int id, String role_name, String description) {
 		super();
 		this.id = id;
@@ -10,11 +13,8 @@ public class Role implements Serializable {
 		this.description = description;
 	}
 
-	private int id;
-	private String role_name, description;
-
 	public Role() {
-		
+
 	}
 
 	public int getId() {
