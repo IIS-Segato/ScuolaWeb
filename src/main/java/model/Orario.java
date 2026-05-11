@@ -7,14 +7,19 @@ public class Orario {
 	private String orario_inizio;
 	private String orario_fine;
 	private String classe;
+	private String nomeDocente;
+	private String cognomeDocente;
 	
-	public Orario(int id, int id_docente, String nome_giorno, String orario_inizio, String orario_fine, String classe) {
+	public Orario(int id, int id_docente, String nome_giorno, String orario_inizio, String orario_fine, String classe,
+			String nomeDocente, String cognomeDocente) {
 		this.id = id;
 		this.id_docente = id_docente;
 		this.nome_giorno = nome_giorno;
 		this.orario_inizio = orario_inizio;
 		this.orario_fine = orario_fine;
 		this.classe = classe;
+		this.nomeDocente = nomeDocente;
+	    this.cognomeDocente = cognomeDocente;
 	}
 	public int getId() {
 		return id;
@@ -52,6 +57,8 @@ public class Orario {
 	public void setClasse(String classe) {
 		this.classe = classe;
 	}
+	public String getNomeDocente() { return nomeDocente; }
+	public String getCognomeDocente() { return cognomeDocente; }
 	@Override
 	public String toString() {
 		return "Orario [id=" + id + ", id_docente=" + id_docente + ", nome_giorno=" + nome_giorno + ", orario_inizio="
