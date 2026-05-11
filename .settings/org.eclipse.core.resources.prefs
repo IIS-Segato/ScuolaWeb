@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/view/role/docente.jsp=UTF-8
+encoding//WebContent/view/role/orario.jsp=UTF-8
+encoding//WebContent/view/role/studente.jsp=UTF-8
 encoding/<project>=UTF-8
