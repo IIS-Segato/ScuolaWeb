@@ -12,44 +12,103 @@
         <hr>
 
         <form action="../../Utente" method="post">
-            <input type="hidden" name="action" value="INSERT">
-            
-            <div class="mb-3">
-                <label class="form-label fw-bold">Nome:</label>
-                <input type="text" class="form-control" name="nome" placeholder="Es: Mario" required>
-            </div>
+    
+    <input type="hidden" name="action" value="INSERT">
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Cognome:</label>
-                <input type="text" class="form-control" name="cognome" placeholder="Es: Rossi" required>
-            </div>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Nome:</label>
+        <input type="text" class="form-control" name="nome" placeholder="Es: Mario" required>
+    </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Email:</label>
-                <input type="email" class="form-control" name="email" placeholder="mario.rossi@scuola.it" required>
-            </div>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Cognome:</label>
+        <input type="text" class="form-control" name="cognome" placeholder="Es: Rossi" required>
+    </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Password:</label>
-                <input type="password" class="form-control" name="password" required>
-            </div>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Email:</label>
+        <input type="email" class="form-control" name="email" placeholder="mario.rossi@scuola.it" required>
+    </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Ruolo:</label>
-                <select class="form-select" name="ruolo" required>
-                    <option value="" selected disabled>Scegli un ruolo...</option>
-                    <option value="STUDENTE">STUDENTE</option>
-                    <option value="DOCENTE">DOCENTE</option>
-                    <option value="AMMINISTRATORE">AMMINISTRATORE</option>
-                </select>
-                <div class="form-text">In base al ruolo, l'utente verrà salvato nella tabella corretta.</div>
-            </div>
-            
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-success fw-bold">REGISTRA UTENTE</button>
-                <a href="Utente" class="btn btn-outline-secondary">Annulla e Torna Indietro</a>
-            </div>
-        </form>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Password:</label>
+        <input type="password" class="form-control" name="password" required>
+    </div>
+
+    <!-- RUOLO -->
+    <div class="mb-3">
+        <label class="form-label fw-bold">Ruolo:</label>
+
+        <select class="form-select" name="ruolo" id="ruolo" required>
+            <option value="" selected disabled>Scegli un ruolo...</option>
+            <option value="STUDENTE">STUDENTE</option>
+            <option value="DOCENTE">DOCENTE</option>
+            <option value="AMMINISTRATORE">AMMINISTRATORE</option>
+        </select>
+
+        <div class="form-text">
+            In base al ruolo, l'utente verrà salvato nella tabella corretta.
+        </div>
+    </div>
+
+    <!-- CAMPI STUDENTE -->
+    <div id="campiStudente" style="display:none;">
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Classe:</label>
+            <input type="text" class="form-control" name="classe" placeholder="Es: 5A">
+        </div>
+
+    </div>
+
+    <!-- CAMPI DOCENTE -->
+    <div id="campiDocente" style="display:none;">
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Materia:</label>
+            <input type="text" class="form-control" name="materia" placeholder="Es: Matematica">
+        </div>
+
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-success fw-bold">
+            REGISTRA UTENTE
+        </button>
+
+        <a href="Utente" class="btn btn-outline-secondary">
+            Annulla e Torna Indietro
+        </a>
+    </div>
+
+</form>
+
+<script>
+
+    const ruoloSelect = document.getElementById("ruolo");
+
+    const campiStudente = document.getElementById("campiStudente");
+    const campiDocente = document.getElementById("campiDocente");
+
+    ruoloSelect.addEventListener("change", function () {
+
+        // Nasconde tutto
+        campiStudente.style.display = "none";
+        campiDocente.style.display = "none";
+
+        // Mostra campi STUDENTE
+        if (this.value === "STUDENTE") {
+            campiStudente.style.display = "block";
+        }
+
+        // Mostra campi DOCENTE
+        if (this.value === "DOCENTE") {
+            campiDocente.style.display = "block";
+        }
+
+    });
+
+</script>
     </div>
 </body>
 </html>
