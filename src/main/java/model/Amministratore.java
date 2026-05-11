@@ -1,41 +1,35 @@
 package model;
 
-//Mettere tutti le variabili utili per l'Amministratore e metodi get and set
+import java.io.Serializable;
 
-public class Amministratore {
-   
-	
+
+/**
+ * Classe Amministratore.java, modello degli amministratori
+ */
+public class Amministratore implements Serializable {
+	// Attributi
+	private static final long serialVersionUID = 1L;
 	private int aid;
 	private String email;
 	private String password;
-	public Amministratore( int aid , String password, String email) {
-		
-		this.aid= aid;
-		this.email= email;
-		this.password=password;
-		
-	}
-	public int getAid(){
+	
+	// Getter e setter
+	public int getAid() {
 		return aid;
 	}
-	public void SetAid(int aid) {
-		
-		this.aid= aid;
+	public void setAid(int aid) {
+		this.aid = aid;
 	}
-	public String getEmail(){
+	public String getEmail() {
 		return email;
 	}
-	public void SetAid(String email) {
-		
-		this.email= email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
-	public String getPassword(){
+	public String getPassword() {
 		return password;
 	}
-	public void SetPassword(String password) {
-		
-		this.password= password;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-
 }

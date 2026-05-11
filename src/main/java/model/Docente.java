@@ -1,11 +1,13 @@
 package model;
 
+import java.io.Serializable;
 
 /**
  * Classe Docente.java, modello dei docenti
  */
-public class Docente{
+public class Docente implements Serializable {
 	// Attributi
+	private static final long serialVersionUID = 1L;
 	private int did;
 	private String email;
 	private String password;

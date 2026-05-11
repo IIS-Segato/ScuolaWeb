@@ -25,6 +25,12 @@ public class DocentiDAO extends DAO{
 		super(xml);
 	}
 	
+	/**
+	 * Metodo per prendere un Docente dal suo id
+	 * @param did
+	 * @return
+	 * @throws SQLException
+	 */
 	public Docente getDocente(int did) throws SQLException {
 		// Leggo il get del Docente
 		String getDocente = this.getConf().getDocente();
@@ -39,8 +45,14 @@ public class DocentiDAO extends DAO{
 		// creo il Docente
 		Docente d = new Docente();
 		while(rs.next()) {
+			int id = rs.getInt("did");
+			String email = rs.getString("email");
+			String password = rs.getString("password");
 			String nome = rs.getString("nome");
 			String cognome = rs.getString("cognome");
+			d.setDid(id);
+			d.setEmail(email);
+			d.setPassword(password);
 			d.setNome(nome);
 			d.setCognome(cognome);
 		}

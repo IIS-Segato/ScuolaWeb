@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 import org.jdom2.JDOMException;
 
+import model.Amministratore;
 import model.Docente;
 import model.Studente;
-import model.Utente;
 
 
 /**
@@ -127,5 +127,36 @@ public class AmministratoreDAO extends DAO {
 		
 		return docenti;
 		
+	}
+	
+	/**
+	 * Metodo per prendere un Amministratore dal suo id
+	 * @param aid
+	 * @return
+	 * @throws SQLException
+	 */
+	public Amministratore getAmministratore(int aid) throws SQLException {
+		// Leggo il get dell'Amministratore
+		String getAmministratore = this.getConf().getAmministratore();
+		
+		// preparo la query
+		PreparedStatement preparedStatement = this.getConn().prepareStatement(getAmministratore);	
+		preparedStatement.setInt(1, aid);
+		
+		// eseguo la query
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		// creo l'Amministratore
+		Amministratore a = new Amministratore();
+		while(rs.next()) {
+			int id = rs.getInt("aid");
+			String email = rs.getString("email");
+			String password = rs.getString("password");
+			a.setAid(id);
+			a.setEmail(email);
+			a.setPassword(password);
+		}
+		
+		return a;
 	}
 }

@@ -15,5 +15,7 @@
 		<getStudenti>select * from studenti;</getStudenti>
 		<getDocenti>select * from docenti;</getDocenti>
 		<getDocente>select * from docenti where did = ?;</getDocente>
+		<getAmministratore>select * from amministratori where aid = ?;</getAmministratore>
+		<getStudente>select * from studenti where sid = ?;</getStudente>
 	</query>
 </root>
