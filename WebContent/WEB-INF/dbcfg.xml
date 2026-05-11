@@ -60,7 +60,7 @@
 			<insert> INSERT INTO docenti (nome, cognome, password, nome_materia) VALUES (?, ?, ?, ?); </insert>
 			<update> UPDATE docenti SET nome = ?, cognome = ?, password = ?, nome_materia = ? WHERE id = ?; </update>
 			<delete> DELETE FROM docenti WHERE id = ?; </delete>
-			<select> SELECT * FROM docenti; </select>
+			<select>SELECT * FROM docenti WHERE id = ?;</select>
 		</docenti>
 		
 		<orari>
