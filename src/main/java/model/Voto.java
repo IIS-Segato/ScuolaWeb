@@ -3,7 +3,7 @@ package model;
 public class Voto {
 	private int id;
 	private int id_studente;
-	private int id_insegnante;
+	private int id_insegnamento;
 	private int voto;
 	private String data_voto;
 	private String descrizione;
@@ -39,14 +39,14 @@ public class Voto {
 	/**
 	 * @return the id_insegnante
 	 */
-	public int getId_insegnante() {
-		return id_insegnante;
+	public int getId_insegnamento() {
+		return id_insegnamento;
 	}
 	/**
 	 * @param id_insegnante the id_insegnante to set
 	 */
-	public void setId_insegnante(int id_insegnante) {
-		this.id_insegnante = id_insegnante;
+	public void setId_insegnamento(int id_insegnamento) {
+		this.id_insegnamento = id_insegnamento;
 	}
 	/**
 	 * @return the voto
