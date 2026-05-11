@@ -103,19 +103,18 @@ public class VotoDAO extends AbstractDAO{
 		return voti;
 	}
 	
-	public boolean insert(String nome, String cognome, String email, String cf, String nascita, byte[] img_profilo) {
+	public boolean insert(int id_studente, int id_insegnamento, int voto, String data_voto, String descrizione) {
 		boolean isInserted = false;
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_INSERT))
 		{
 
-			ps.setString(1, nome);
-			ps.setString(2, cognome);
-			ps.setString(3, email);
-			ps.setString(4, cf);
-			ps.setString(5, nascita);
-			ps.setBytes(6, img_profilo);
+			ps.setInt(1, id_studente);
+			ps.setInt(2, id_insegnamento);
+			ps.setInt(3, voto);
+			ps.setString(4, data_voto);
+			ps.setString(5, descrizione);
 			
 			if(ps.executeUpdate() > 0) {
 				isInserted = true;
@@ -128,20 +127,19 @@ public class VotoDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(int id, String nome, String cognome, String email, String cf, String nascita, byte[] img_profilo) {
+	public boolean update(int id, int id_studente, int id_insegnamento, int voto, String data_voto, String descrizione) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_UPDATE))
 		{
 
-			ps.setString(1, nome);
-			ps.setString(2, cognome);
-			ps.setString(3, email);
-			ps.setString(4, cf);
-			ps.setString(5, nascita);
-			ps.setBytes(6, img_profilo);
-			ps.setInt(7, id);
+			ps.setInt(1, id);
+			ps.setInt(2, id_studente);
+			ps.setInt(3, id_insegnamento);
+			ps.setInt(4, voto);
+			ps.setString(5, data_voto);
+			ps.setString(6, descrizione);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;
