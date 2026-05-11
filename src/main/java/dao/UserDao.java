@@ -2,7 +2,6 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 //classe userDao nuova che estende il dao 
 public class UserDao extends DAO {
