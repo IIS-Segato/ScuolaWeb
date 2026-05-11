@@ -4,15 +4,9 @@ public class AnnuncioClasse {
 	private int id;
 	private int id_classe;
 	private int id_docente;
-	/**
-	 * @param id
-	 * @param id_classe
-	 * @param id_docente
-	 */
-	public AnnuncioClasse(int id, int id_classe, int id_docente) {
-		this.id = id;
-		this.id_classe = id_classe;
-		this.id_docente = id_docente;
+
+	public AnnuncioClasse() {
+		
 	}
 	/**
 	 * @return the id

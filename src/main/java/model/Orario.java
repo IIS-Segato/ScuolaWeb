@@ -7,22 +7,11 @@ public class Orario {
 	private String giorno;
 	private String ora_inizio;
 	private String ora_fine;
-	/**
-	 * @param orario
-	 * @param id_insegnamento
-	 * @param id_aula
-	 * @param giorno
-	 * @param ora_inizio
-	 * @param ora_fine
-	 */
-	public Orario(int orario, int id_insegnamento, int id_aula, String giorno, String ora_inizio, String ora_fine) {
-		this.orario = orario;
-		this.id_insegnamento = id_insegnamento;
-		this.id_aula = id_aula;
-		this.giorno = giorno;
-		this.ora_inizio = ora_inizio;
-		this.ora_fine = ora_fine;
+
+	public Orario() {
+
 	}
+	
 	/**
 	 * @return the orario
 	 */

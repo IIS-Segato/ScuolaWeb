@@ -4,15 +4,9 @@ public class Studente {
 	private int id;
 	private int id_persona;
 	private int id_classe;
-	/**
-	 * @param id
-	 * @param id_persona
-	 * @param id_classe
-	 */
-	public Studente(int id, int id_persona, int id_classe) {
-		this.id = id;
-		this.id_persona = id_persona;
-		this.id_classe = id_classe;
+
+	public Studente() {
+
 	}
 	/**
 	 * @return the id

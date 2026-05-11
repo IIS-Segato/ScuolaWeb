@@ -4,15 +4,9 @@ public class Aula {
 	private int id;
 	private String nome;
 	private int capienza;
-	/**
-	 * @param id
-	 * @param nome
-	 * @param capienza
-	 */
-	public Aula(int id, String nome, int capienza) {
-		this.id = id;
-		this.nome = nome;
-		this.capienza = capienza;
+
+	public Aula() {
+
 	}
 	/**
 	 * @return the id

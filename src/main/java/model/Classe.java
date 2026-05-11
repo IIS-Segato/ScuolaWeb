@@ -5,17 +5,9 @@ public class Classe {
 	private int anno;
 	private String sezione;
 	private String indirizzo;
-	/**
-	 * @param id
-	 * @param anno
-	 * @param sezione
-	 * @param indirizzo
-	 */
-	public Classe(int id, int anno, String sezione, String indirizzo) {
-		this.id = id;
-		this.anno = anno;
-		this.sezione = sezione;
-		this.indirizzo = indirizzo;
+
+	public Classe() {
+
 	}
 	/**
 	 * @return the id

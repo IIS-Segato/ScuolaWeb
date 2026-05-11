@@ -7,22 +7,11 @@ public class Voto {
 	private int voto;
 	private String data_voto;
 	private String descrizione;
-	/**
-	 * @param id
-	 * @param id_studente
-	 * @param id_insegnante
-	 * @param voto
-	 * @param data_voto
-	 * @param descrizione
-	 */
-	public Voto(int id, int id_studente, int id_insegnante, int voto, String data_voto, String descrizione) {
-		this.id = id;
-		this.id_studente = id_studente;
-		this.id_insegnante = id_insegnante;
-		this.voto = voto;
-		this.data_voto = data_voto;
-		this.descrizione = descrizione;
+
+	public Voto() {
+	
 	}
+	
 	/**
 	 * @return the id
 	 */

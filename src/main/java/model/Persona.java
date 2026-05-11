@@ -9,22 +9,8 @@ public class Persona {
 	private String nascita;
 	private byte[] img_profilo;
 	
-	/**
-	 * @param id
-	 * @param nome
-	 * @param cognome
-	 * @param email
-	 * @param cf
-	 * @param nascita
-	 */
-	public Persona(int id, String nome, String cognome, String email, String cf, String nascita, byte[] img_profilo) {
-		this.id = id;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.email = email;
-		this.cf = cf;
-		this.nascita = nascita;
-		this.img_profilo = img_profilo;
+	public Persona() {
+
 	}
 	/**
 	 * @return the nome

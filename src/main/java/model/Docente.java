@@ -3,13 +3,9 @@ package model;
 public class Docente {
 	private int id;
 	private int id_persona;
-	/**
-	 * @param id
-	 * @param id_persona
-	 */
-	public Docente(int id, int id_persona) {
-		this.id = id;
-		this.id_persona = id_persona;
+
+	public Docente() {
+
 	}
 	/**
 	 * @return the id

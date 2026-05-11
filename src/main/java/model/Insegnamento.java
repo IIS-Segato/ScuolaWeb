@@ -5,17 +5,9 @@ public class Insegnamento {
 	private int id_docente;
 	private int id_materia;
 	private int id_classe;
-	/**
-	 * @param id
-	 * @param id_docente
-	 * @param id_materia
-	 * @param id_classe
-	 */
-	public Insegnamento(int id, int id_docente, int id_materia, int id_classe) {
-		this.id = id;
-		this.id_docente = id_docente;
-		this.id_materia = id_materia;
-		this.id_classe = id_classe;
+
+	public Insegnamento() {
+
 	}
 	/**
 	 * @return the id

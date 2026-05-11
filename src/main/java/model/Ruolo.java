@@ -16,43 +16,11 @@ public class Ruolo {
 	private boolean bacheca_pubblica;
 	private boolean bacheca_visualizza;
 	private boolean dati_visualizza;
-	/**
-	 * @param id
-	 * @param nome_ruolo
-	 * @param gestione_utenti
-	 * @param voti_modifica_tutti
-	 * @param voti_visualizza_tutti
-	 * @param voti_modifica_propri
-	 * @param voti_visualizza_propri
-	 * @param voti_visualizza_classe
-	 * @param orario_modifica
-	 * @param orario_visualizza
-	 * @param aule_modifica
-	 * @param aule_visualizza
-	 * @param bacheca_pubblica
-	 * @param bacheca_visualizza
-	 * @param dati_visualizza
-	 */
-	public Ruolo(int id, String nome_ruolo, boolean gestione_utenti, boolean voti_modifica_tutti,
-			boolean voti_visualizza_tutti, boolean voti_modifica_propri, boolean voti_visualizza_propri,
-			boolean voti_visualizza_classe, boolean orario_modifica, boolean orario_visualizza, boolean aule_modifica,
-			boolean aule_visualizza, boolean bacheca_pubblica, boolean bacheca_visualizza, boolean dati_visualizza) {
-		this.id = id;
-		this.nome_ruolo = nome_ruolo;
-		this.gestione_utenti = gestione_utenti;
-		this.voti_modifica_tutti = voti_modifica_tutti;
-		this.voti_visualizza_tutti = voti_visualizza_tutti;
-		this.voti_modifica_propri = voti_modifica_propri;
-		this.voti_visualizza_propri = voti_visualizza_propri;
-		this.voti_visualizza_classe = voti_visualizza_classe;
-		this.orario_modifica = orario_modifica;
-		this.orario_visualizza = orario_visualizza;
-		this.aule_modifica = aule_modifica;
-		this.aule_visualizza = aule_visualizza;
-		this.bacheca_pubblica = bacheca_pubblica;
-		this.bacheca_visualizza = bacheca_visualizza;
-		this.dati_visualizza = dati_visualizza;
+
+	public Ruolo() {
+	
 	}
+	
 	/**
 	 * @return the id
 	 */

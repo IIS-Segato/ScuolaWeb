@@ -6,19 +6,9 @@ public class Utente {
 	private String password_hash;
 	private int id_persona;
 	private int id_ruolo;
-	/**
-	 * @param id
-	 * @param username
-	 * @param password_hash
-	 * @param id_persona
-	 * @param id_ruolo
-	 */
-	public Utente(int id, String username, String password_hash, int id_persona, int id_ruolo) {
-		this.id = id;
-		this.username = username;
-		this.password_hash = password_hash;
-		this.id_persona = id_persona;
-		this.id_ruolo = id_ruolo;
+
+	public Utente() {
+
 	}
 	/**
 	 * @return the id

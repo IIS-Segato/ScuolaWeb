@@ -3,13 +3,9 @@ package model;
 public class Materia {
 	private int id;
 	private String nome;
-	/**
-	 * @param id
-	 * @param nome
-	 */
-	public Materia(int id, String nome) {
-		this.id = id;
-		this.nome = nome;
+
+	public Materia() {
+
 	}
 	/**
 	 * @return the id

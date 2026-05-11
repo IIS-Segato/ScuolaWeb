@@ -6,19 +6,9 @@ public class Annuncio {
 	private String contenuto;
 	private int data_pubblicazione;
 	private int autore;
-	/**
-	 * @param id
-	 * @param titolo
-	 * @param contenuto
-	 * @param data_pubblicazione
-	 * @param autore
-	 */
-	public Annuncio(int id, String titolo, String contenuto, int data_pubblicazione, int autore) {
-		this.id = id;
-		this.titolo = titolo;
-		this.contenuto = contenuto;
-		this.data_pubblicazione = data_pubblicazione;
-		this.autore = autore;
+
+	public Annuncio() {
+
 	}
 	/**
 	 * @return the id
