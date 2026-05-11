@@ -11,11 +11,10 @@ funzionalita':
 
 ## Architettura MVC:
 
-Model = Classi JAVA 
-Control = Servlet
-View = JSP
-
-DAO = Accesso separato al database con JDBC
+- Model = Classi JAVA 
+- Control = Servlet
+- View = JSP
+- DAO = Accesso separato al database con JDBC
 
 
 ## Struttura DB:
@@ -41,10 +40,10 @@ id, id_classe, id_docente, id_aula
 
 ## Divisione compiti:
 
-Dona: Frontend pagine JSP
-Enrico: Control
-Luan: Database con JDBC
-Zappa: Struttura pagine e navigazione
+- Dona: Frontend pagine JSP
+- Enrico: Control
+- Luan: Database con JDBC
+- Zappa: Struttura pagine e navigazione
 
 
 interfaccia tipo argo didup, navigazione e struttura delle pagine. Pensarea a
