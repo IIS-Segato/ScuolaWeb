@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -54,10 +55,35 @@
     <!-- CAMPI STUDENTE -->
     <div id="campiStudente" style="display:none;">
 
-        <div class="mb-3">
-            <label class="form-label fw-bold">Classe:</label>
-            <input type="text" class="form-control" name="classe" placeholder="Es: 5A">
-        </div>
+       <div class="mb-3">
+
+    <label class="form-label fw-bold">
+        Classe (solo studenti):
+    </label>
+
+    <select class="form-select" name="classe" required>
+
+    <option value="" selected disabled>
+        Seleziona una classe...
+    </option>
+
+    <%
+        List<Classe> classi = (List<Classe>) request.getAttribute("classi");
+
+        for(Classe c : classi) {
+    %>
+
+        <option value="<%= c.getId() %>">
+            ID <%= c.getId() %> - <%= c.getNome() %>
+        </option>
+
+    <%
+        }
+    %>
+
+</select>
+
+</div>
 
     </div>
 
