@@ -17,13 +17,18 @@ public class UtenteServlet extends HttpServlet {
         UtenteDAO dao = new UtenteDAO();
         String action = request.getParameter("action");
         String email = request.getParameter("email");
+        String ruolo = request.getParameter("ruolo");
 
         if ("edit".equals(action) && email != null) {
             Utente u = dao.trovaPerEmail(email);
             request.setAttribute("utente", u);
             request.setAttribute("action", "UPDATE");
         }
+        else if ("delete".equals(action)) {
+            dao.elimina(email, ruolo);
+        }
 
+        // Recupera la lista aggiornata per la JSP
         request.setAttribute("listaUtenti", dao.trovaTutti());
         request.getRequestDispatcher("view/role/edit.jsp").forward(request, response);
     }
@@ -31,6 +36,9 @@ public class UtenteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
+        UtenteDAO dao = new UtenteDAO();
+        
+        // --- RECUPERO L'ACTION (FONDAMENTALE!) ---
         String action = request.getParameter("action");
         
         Utente u = new Utente();
@@ -40,16 +48,15 @@ public class UtenteServlet extends HttpServlet {
         u.setPassword(request.getParameter("password"));
         u.setRuolo(request.getParameter("ruolo"));
 
-        UtenteDAO dao = new UtenteDAO();
-        
+        // Scelta tra Inserimento e Aggiornamento
         if ("INSERT".equals(action)) {
-            dao.inserisciNuovoUtente(u);
+            dao.inserisciNuovoUtente(u); // Assicurati di avere questo metodo nel DAO
         } else {
             dao.aggiorna(u);
         }
         
-        // CANCELLA QUESTA RIGA: dao.aggiorna(u); <--- Era qui l'errore
-
+        // Usiamo il redirect verso la Servlet stessa (doGet) 
+        // così la lista si aggiorna correttamente senza duplicare i dati
         response.sendRedirect("Utente"); 
     }
 }
