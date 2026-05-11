@@ -121,6 +121,7 @@
 
     <div class="nav-links">
         <a href="index.html">Home</a>
+        <a href="voti.jsp">Voti</a>
         <a href="notizie.html">Notizie</a>
         <a href="orario.html">Orario</a>
         <a href="homepage.jsp">Logout</a>
@@ -189,7 +190,7 @@
 </div>
 
 <script>
-    // 📦 dati simulati (poi arrivano dal backend Java)
+    //  dati simulati (poi arrivano dal backend Java)
     const voti = [
         { materia: "Matematica", voto: 6, data: "12/05/2026" },
         { materia: "Matematica", voto: 7, data: "10/05/2026" },
@@ -219,7 +220,7 @@
     const votesGrid = document.getElementById("votesGrid");
     const title = document.getElementById("selectedTitle");
 
-    // 🎯 render materie
+    //  render materie
     materie.forEach(m => {
         const btn = document.createElement("button");
         btn.className = "btn btn-outline-success";
@@ -230,7 +231,7 @@
         subjectsDiv.appendChild(btn);
     });
 
-    // 🎯 mostra voti
+    //  mostra voti
     function showSubject(materia) {
 
         title.innerText = "Voti: " + materia;
@@ -262,7 +263,7 @@
         });
     }
 
-    // 🔥 default: mostra tutti
+    //  default: mostra tutti
     function showAll() {
 
         title.innerText = "Tutti i voti";

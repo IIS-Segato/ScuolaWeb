@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Registro</title>
+    <title>Admin Panel</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -17,7 +17,7 @@
 
         /* NAVBAR */
         #upBar {
-            background-color: #146c5c;
+            background-color: #0f5145;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
@@ -42,35 +42,37 @@
             margin: 0;
         }
 
-        .nav-links a {
+        .admin-badge {
+            background: #ff3b3b;
             color: white;
-            margin-left: 15px;
-            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
         }
 
         /* MAIN */
         .main-container {
             width: 90%;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
             margin-top: 40px;
         }
 
         .title {
             font-size: 34px;
-            color: #146c5c;
+            color: #0f5145;
             font-weight: bold;
             margin-bottom: 30px;
         }
 
-        /* DASHBOARD CARDS */
-        .dashboard-grid {
+        /* DASHBOARD GRID */
+        .admin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
         }
 
-        .dash-card {
+        .admin-card {
             background: white;
             border-radius: 18px;
             padding: 30px;
@@ -82,25 +84,31 @@
             color: black;
         }
 
-        .dash-card:hover {
+        .admin-card:hover {
             transform: translateY(-5px);
         }
 
-        .dash-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #146c5c;
-            margin-top: 10px;
-        }
-
-        .dash-icon {
+        .icon {
             font-size: 50px;
         }
 
-        .voti { color: #146c5c; }
-        .orario { color: #0d6efd; }
-        .news { color: #ff9800; }
-        .logout { color: red; }
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #0f5145;
+        }
+
+        .desc {
+            font-size: 14px;
+            color: gray;
+            margin-top: 5px;
+        }
+
+        .students { color: #146c5c; }
+        .grades { color: #198754; }
+        .news { color: #fd7e14; }
+        .schedule { color: #0d6efd; }
     </style>
 </head>
 
@@ -110,17 +118,11 @@
 <div id="upBar">
 
     <div id="logoSection">
-        <img src="default_avatar.webp" alt="avatar">
-        <h2>Registro Studente</h2>
+        <img src="default_avatar.webp" alt="admin">
+        <h2>Admin Panel</h2>
     </div>
 
-    <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="voti.jsp">Voti</a>
-        <a href="notizie.html">Notizie</a>
-        <a href="orario.html">Orario</a>
-        <a href="#">Logout</a>
-    </div>
+    <div class="admin-badge">AMMINISTRATORE</div>
 
 </div>
 
@@ -128,33 +130,44 @@
 <div class="main-container">
 
     <div class="title">
-        Dashboard
+        Dashboard amministratore
     </div>
 
-    <div class="dashboard-grid">
+    <div class="admin-grid">
 
-        <!-- VOTI -->
-        <a href="voti.jsp" class="dash-card">
-            <div class="dash-icon voti">📊</div>
-            <div class="dash-title">Voti</div>
+        <!-- STUDENTI -->
+        <a href="#" class="admin-card">
+            <div class="icon students">👨‍🎓</div>
+            <div class="card-title">Studenti</div>
+            <div class="desc">Gestisci utenti e iscrizioni</div>
         </a>
 
-        <!-- ORARIO -->
-        <a href="orario.html" class="dash-card">
-            <div class="dash-icon orario">🕒</div>
-            <div class="dash-title">Orario</div>
+        <!-- VOTI -->
+        <a href="#" class="admin-card">
+            <div class="icon grades">📊</div>
+            <div class="card-title">Voti</div>
+            <div class="desc">Inserisci e modifica voti</div>
         </a>
 
         <!-- NOTIZIE -->
-        <a href="notizie.html" class="dash-card">
-            <div class="dash-icon news">📰</div>
-            <div class="dash-title">Notizie</div>
+        <a href="#" class="admin-card">
+            <div class="icon news">📰</div>
+            <div class="card-title">Notizie</div>
+            <div class="desc">Pubblica comunicazioni</div>
+        </a>
+
+        <!-- ORARIO -->
+        <a href="#" class="admin-card">
+            <div class="icon schedule">🕒</div>
+            <div class="card-title">Orario</div>
+            <div class="desc">Gestisci orario classi</div>
         </a>
 
         <!-- LOGOUT -->
-        <a href="#" class="dash-card">
-            <div class="dash-icon logout">🚪</div>
-            <div class="dash-title">Logout</div>
+        <a href="#" class="admin-card">
+            <div class="icon">🚪</div>
+            <div class="card-title">Logout</div>
+            <div class="desc">Esci dal pannello admin</div>
         </a>
 
     </div>
