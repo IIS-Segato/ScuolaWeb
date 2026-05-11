@@ -14,6 +14,7 @@ import model.Utente;
 
 public class UtenteDAO extends AbstractDAO{
 	private static final String SQL_GET_ALL = "SELECT * FROM utenti";
+	private static final String SQL_GET_BY_ID = "SELECT * FROM utenti WHERE id_utente=?";
 	private static final String SQL_GET_BY_PERSONA_ID = "SELECT * FROM utenti WHERE id_persona=?";
 	private static final String SQL_INSERT = "INSERT INTO utenti (username, password_hash, id_persona, id_ruolo) VALUES (?, ?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE utenti SET username=?, password_hash=?, id_persona=?, id_ruolo=? WHERE id_utente=?";
@@ -47,7 +48,31 @@ public class UtenteDAO extends AbstractDAO{
 		return utenti;
 	}
 	
-	public Utente getByStudentId(int id) {
+	public Utente getById(int id) {
+		Utente u = new Utente();
+		
+		try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID))
+		{
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+		while (rs.next()) {
+			u.setId(rs.getInt("id_utente"));
+		    u.setUsername(rs.getString("username"));
+		    u.setPassword_hash(rs.getString("password_hash"));
+		    u.setId_persona(rs.getInt("id_persona"));
+		    u.setId_ruolo(rs.getInt("id_ruolo"));
+		}
+			
+		} catch (Exception e) {
+			printException(e);
+		}
+		
+		return u;
+	}
+	
+	public Utente getByPersonaId(int id) {
 		Utente u = new Utente();
 		
 		try (Connection conn = getConnection();
