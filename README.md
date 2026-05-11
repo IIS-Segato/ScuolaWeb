@@ -4,18 +4,18 @@ Applicazione web per la gestione di un portale scolasctico con le seguenti
 funzionalita':
 
 - Gestione degli accessi di 3 tipologie di account differenti (admin, docenti e
-  studenti)
-- Gestione login con sessione
-- Interfaccia grafica con CSS
+  studenti);
+- Gestione login con sessione;
+- Interfaccia grafica con CSS;
 
 
 ## Architettura MVC:
 
-Model = classi java
-Control = servlet
-View = jsp
+Model = Classi JAVA 
+Control = Servlet
+View = JSP
 
-DAO = accesso separato al database con JDBC
+DAO = Accesso separato al database con JDBC
 
 
 ## Struttura DB:
@@ -41,12 +41,12 @@ id, id_classe, id_docente, id_aula
 
 ## Divisione compiti:
 
-Luan: Database con JDBC
 Dona: Frontend pagine JSP
-Zappa: Struttura pagine e navigazione
 Enrico: Control
+Luan: Database con JDBC
+Zappa: Struttura pagine e navigazione
 
 
 interfaccia tipo argo didup, navigazione e struttura delle pagine. Pensarea a
 come collegare le pagine, tra i diversi tipi di utenti es docenti, studenti.
-Accessibilita dell' utente di ome utilizza le pagine
+Accessibilita dell' utente di come utilizza le pagine
