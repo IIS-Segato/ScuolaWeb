@@ -149,7 +149,7 @@ public class DocenteDao extends AbstractDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception(e.getMessage());
+            throw new Exception(e.getMessage());    
         } finally { 
             closeConnection();
         }

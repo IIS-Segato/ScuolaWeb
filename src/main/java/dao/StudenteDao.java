@@ -38,7 +38,7 @@ public class StudenteDao extends AbstractDAO {
                 listStudenti.add(s);
             }
         } catch (Exception e) {
-            printException(e);
+            printException(e);    
         }
         return listStudenti;
     }
