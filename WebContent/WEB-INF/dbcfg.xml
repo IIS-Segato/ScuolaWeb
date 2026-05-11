@@ -8,66 +8,96 @@
 			<user>root</user>
 			<password></password>
 		</mysql>
-		
+
 	</connection>
-	
-	<query> 
+
+	<query>
 		<login>
 			<studente> SELECT password FROM studenti WHERE id = ?;</studente>
-			
+
 			<docente> SELECT password FROM docenti WHERE id = ?;</docente>
-			
+
 			<admin> SELECT password FROM admin WHERE id = ?;</admin>
 		</login>
-	
+
 
 		<classi>
-			<insert> INSERT INTO classi (classe, n_alunni) VALUES (?, ?); </insert>
+			<insert> INSERT INTO classi (classe, n_alunni) VALUES (?, ?);
+			</insert>
 			<update> UPDATE classi SET n_alunni = ? WHERE classe = ?; </update>
 			<delete> DELETE FROM classi WHERE classe = ?; </delete>
 			<select> SELECT * FROM classi; </select>
 		</classi>
-		
+
 		<giorni>
 			<insert> INSERT INTO giorni (nome_giorno) VALUES (?); </insert>
-			<update> UPDATE giorni SET nome_giorno = ? WHERE nome_giorno = ?; </update>
+			<update> UPDATE giorni SET nome_giorno = ? WHERE nome_giorno = ?;
+			</update>
 			<delete> DELETE FROM giorni WHERE nome_giorno = ?; </delete>
 			<select> SELECT * FROM giorni; </select>
 		</giorni>
-		
+
 		<materie>
 			<insert> INSERT INTO materie (nome_materia) VALUES (?); </insert>
-			<update> UPDATE materie SET nome_materia = ? WHERE nome_materia = ?; </update>
+			<update> UPDATE materie SET nome_materia = ? WHERE nome_materia = ?;
+			</update>
 			<delete> DELETE FROM materie WHERE nome_materia = ?; </delete>
 			<select> SELECT * FROM materie; </select>
 		</materie>
-		
+
 		<admin>
-			<insert> INSERT INTO admin (username, password) VALUES (?, ?); </insert>
-			<update> UPDATE admin SET username = ?, password = ? WHERE id = ?; </update>
+			<insert> INSERT INTO admin (username, password) VALUES (?, ?);
+			</insert>
+			<update> UPDATE admin SET username = ?, password = ? WHERE id = ?;
+			</update>
 			<delete> DELETE FROM admin WHERE id = ?; </delete>
 			<select> SELECT * FROM admin; </select>
 		</admin>
-		
+
 		<studenti>
-			<insert> INSERT INTO studenti (nome, cognome, password, classe) VALUES (?, ?, ?, ?); </insert>
-			<update> UPDATE studenti SET nome = ?, cognome = ?, password = ?, classe = ? WHERE id = ?; </update>
+			<insert> INSERT INTO studenti (nome, cognome, password, classe)
+				VALUES (?, ?, ?, ?);
+			</insert>
+			<update> UPDATE studenti SET nome = ?, cognome = ?, password = ?,
+				classe = ? WHERE id = ?;
+			</update>
 			<delete> DELETE FROM studenti WHERE id = ?; </delete>
 			<select> SELECT * FROM studenti WHERE id = ?; </select>
 		</studenti>
-		
+
 		<docenti>
-			<insert> INSERT INTO docenti (nome, cognome, password, nome_materia) VALUES (?, ?, ?, ?); </insert>
-			<update> UPDATE docenti SET nome = ?, cognome = ?, password = ?, nome_materia = ? WHERE id = ?; </update>
+			<insert> INSERT INTO docenti (nome, cognome, password, nome_materia)
+				VALUES (?, ?, ?, ?);
+			</insert>
+			<update> UPDATE docenti SET nome = ?, cognome = ?, password = ?,
+				nome_materia = ? WHERE id = ?;
+			</update>
 			<delete> DELETE FROM docenti WHERE id = ?; </delete>
 			<select>SELECT * FROM docenti WHERE id = ?;</select>
 		</docenti>
-		
+
 		<orari>
-			<insert> INSERT INTO orari (id_docente, nome_giorno, orario_inizio, orario_fine, classe) VALUES (?, ?, ?, ?, ?); </insert>
-			<update> UPDATE orari SET id_docente = ?, nome_giorno = ?, orario_inizio = ?, orario_fine = ?, classe = ? WHERE id = ?; </update>
+			<insert> INSERT INTO orari (id_docente, nome_giorno, orario_inizio,
+				orario_fine, classe) VALUES (?, ?, ?, ?, ?);
+			</insert>
+			<update> UPDATE orari SET id_docente = ?, nome_giorno = ?,
+				orario_inizio = ?, orario_fine = ?, classe = ? WHERE id = ?;
+			</update>
 			<delete> DELETE FROM orari WHERE id = ?; </delete>
 			<select> SELECT * FROM orari; </select>
+			<selectByClasse>
+				SELECT o.*, d.nome, d.cognome
+				FROM orari o
+				JOIN docenti
+				d ON o.id_docente = d.id
+				WHERE o.classe = ?
+				ORDER BY
+				FIELD(o.nome_giorno, 'Lunedì', 'Martedì', 'Mercoledì',
+				'Giovedì',
+				'Venerdì', 'Sabato'), o.orario_inizio
+			</selectByClasse>
+
+
 		</orari>
 	</query>
 </root>
