@@ -10,46 +10,45 @@ import java.util.List;
 
 import org.jdom2.JDOMException;
 
-import model.Utente;
+import model.Studente;
 
 public class StudenteDAO extends AbstractDAO{
-	private static final String SQL_GET_ALL = "SELECT * FROM utenti";
-	private static final String SQL_GET_BY_ID = "SELECT * FROM utenti WHERE id_utente=?";
-	private static final String SQL_GET_BY_PERSONA_ID = "SELECT * FROM utenti WHERE id_persona=?";
-	private static final String SQL_INSERT = "INSERT INTO utenti (username, password_hash, id_persona, id_ruolo) VALUES (?, ?, ?, ?)";
-	private static final String SQL_UPDATE = "UPDATE utenti SET username=?, password_hash=?, id_persona=?, id_ruolo=? WHERE id_utente=?";
-	private static final String SQL_DELETE = "DELETE FROM utenti WHERE id_utente=?";
+	private static final String SQL_GET_ALL = "SELECT * FROM studenti";
+	private static final String SQL_GET_BY_ID = "SELECT * FROM studenti WHERE id_studente=?";
+	private static final String SQL_GET_BY_PERSONA_ID = "SELECT * FROM studenti WHERE id_persona=?";
+	private static final String SQL_GET_BY_CLASSE_ID = "SELECT * FROM studenti WHERE id_classe=?";
+	private static final String SQL_INSERT = "INSERT INTO studenti (id_persona, id_classe) VALUES (?, ?)";
+	private static final String SQL_UPDATE = "UPDATE studenti SET id_persona=?, id_classe=? WHERE id_studente=?";
+	private static final String SQL_DELETE = "DELETE FROM studenti WHERE id_studente=?";
 	
 	public StudenteDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		super(xml);
 	}
 	
-	public List<Utente> getAll() throws Exception {
-		List<Utente> utenti = new ArrayList<>();
+	public List<Studente> getAll() throws Exception {
+		List<Studente> studenti = new ArrayList<>();
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_GET_ALL);
 	         ResultSet rs = ps.executeQuery())
 		{
 			while (rs.next()) {
-				Utente u = new Utente();
-                u.setId(rs.getInt("id_utente"));
-                u.setUsername(rs.getString("username"));
-                u.setPassword_hash(rs.getString("password_hash"));
-                u.setId_persona(rs.getInt("id_persona"));
-                u.setId_ruolo(rs.getInt("id_ruolo"));
-                utenti.add(u);
+				Studente s = new Studente();
+                s.setId(rs.getInt("id_utente"));
+                s.setId_persona(rs.getInt("id_persona"));
+                s.setId_classe(rs.getInt("id_classe"));
+                studenti.add(s);
             }
 			
 		} catch (Exception e) {
 			printException(e);
 		}
 		
-		return utenti;
+		return studenti;
 	}
 	
-	public Utente getById(int id) {
-		Utente u = new Utente();
+	public Studente getById(int id) {
+		Studente s = new Studente();
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID))
@@ -58,22 +57,20 @@ public class StudenteDAO extends AbstractDAO{
 			ResultSet rs = ps.executeQuery();
 			
 		while (rs.next()) {
-			u.setId(rs.getInt("id_utente"));
-		    u.setUsername(rs.getString("username"));
-		    u.setPassword_hash(rs.getString("password_hash"));
-		    u.setId_persona(rs.getInt("id_persona"));
-		    u.setId_ruolo(rs.getInt("id_ruolo"));
+			s.setId(rs.getInt("id_utente"));
+            s.setId_persona(rs.getInt("id_persona"));
+            s.setId_classe(rs.getInt("id_classe"));
 		}
 			
 		} catch (Exception e) {
 			printException(e);
 		}
 		
-		return u;
+		return s;
 	}
 	
-	public Utente getByStudentId(int id) {
-		Utente u = new Utente();
+	public Studente getByPersonaId(int id) {
+		Studente s = new Studente();
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_PERSONA_ID))
@@ -82,31 +79,51 @@ public class StudenteDAO extends AbstractDAO{
 			ResultSet rs = ps.executeQuery();
 			
 		while (rs.next()) {
-			u.setId(rs.getInt("id_utente"));
-		    u.setUsername(rs.getString("username"));
-		    u.setPassword_hash(rs.getString("password_hash"));
-		    u.setId_persona(rs.getInt("id_persona"));
-		    u.setId_ruolo(rs.getInt("id_ruolo"));
+			s.setId(rs.getInt("id_utente"));
+            s.setId_persona(rs.getInt("id_persona"));
+            s.setId_classe(rs.getInt("id_classe"));
 		}
 			
 		} catch (Exception e) {
 			printException(e);
 		}
 		
-		return u;
+		return s;
 	}
 	
-	public boolean insert(String username, String password_hash, int id_persona, int id_ruolo) {
+	public List<Studente> getByClasseId(int id) {
+		List<Studente> studenti = new ArrayList<>();
+		
+		try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_CLASSE_ID))
+		{
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+		while (rs.next()) {
+			Studente s = new Studente();
+			s.setId(rs.getInt("id_utente"));
+            s.setId_persona(rs.getInt("id_persona"));
+            s.setId_classe(rs.getInt("id_classe"));
+            studenti.add(s);
+		}
+			
+		} catch (Exception e) {
+			printException(e);
+		}
+		
+		return studenti;
+	}
+	
+	public boolean insert(int id_persona, int id_classe) {
 		boolean isInserted = false;
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_INSERT))
 		{
 
-			ps.setString(1, username);
-			ps.setString(2, password_hash);
-			ps.setInt(3, id_persona);
-			ps.setInt(4, id_ruolo);
+			ps.setInt(1, id_persona);
+			ps.setInt(2, id_classe);
 			
 			if(ps.executeUpdate() > 0) {
 				isInserted = true;
@@ -119,18 +136,16 @@ public class StudenteDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(int id, String username, String password_hash, int id_persona, int id_ruolo) {
+	public boolean update(int id_persona, int id_classe, int id) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_UPDATE))
 		{
 
-			ps.setInt(1, id);
-			ps.setString(2, username);
-			ps.setString(3, password_hash);
-			ps.setInt(4, id_persona);
-			ps.setInt(5, id_ruolo);
+			ps.setInt(1, id_persona);
+			ps.setInt(2, id_classe);
+			ps.setInt(3, id);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;

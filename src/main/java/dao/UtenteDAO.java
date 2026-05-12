@@ -126,11 +126,11 @@ public class UtenteDAO extends AbstractDAO{
 	         PreparedStatement ps = conn.prepareStatement(SQL_UPDATE))
 		{
 
-			ps.setInt(1, id);
-			ps.setString(2, username);
-			ps.setString(3, password_hash);
-			ps.setInt(4, id_persona);
-			ps.setInt(5, id_ruolo);
+			ps.setString(1, username);
+			ps.setString(2, password_hash);
+			ps.setInt(3, id_persona);
+			ps.setInt(4, id_ruolo);
+			ps.setInt(5, id);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;

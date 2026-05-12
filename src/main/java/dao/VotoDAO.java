@@ -160,12 +160,12 @@ public class VotoDAO extends AbstractDAO{
 	         PreparedStatement ps = conn.prepareStatement(SQL_UPDATE))
 		{
 
-			ps.setInt(1, id);
-			ps.setInt(2, id_studente);
-			ps.setInt(3, id_insegnamento);
-			ps.setInt(4, voto);
-			ps.setString(5, data_voto);
-			ps.setString(6, descrizione);
+			ps.setInt(1, id_studente);
+			ps.setInt(2, id_insegnamento);
+			ps.setInt(3, voto);
+			ps.setString(4, data_voto);
+			ps.setString(5, descrizione);
+			ps.setInt(6, id);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;

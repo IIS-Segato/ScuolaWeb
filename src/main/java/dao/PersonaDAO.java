@@ -107,13 +107,13 @@ public class PersonaDAO extends AbstractDAO{
 	         PreparedStatement ps = conn.prepareStatement(SQL_UPDATE))
 		{
 
-			ps.setInt(1, id);
-			ps.setString(2, nome);
-			ps.setString(3, cognome);
-			ps.setString(4, email);
-			ps.setString(5, cf);
-			ps.setString(6, nascita);
-			ps.setBytes(7, img_profilo);
+			ps.setString(1, nome);
+			ps.setString(2, cognome);
+			ps.setString(3, email);
+			ps.setString(4, cf);
+			ps.setString(5, nascita);
+			ps.setBytes(6, img_profilo);
+			ps.setInt(7, id);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;
