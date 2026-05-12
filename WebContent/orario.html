@@ -5,72 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orario Scolastico</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+	
+	<!-- Stile -->
+	    <link href="WEB-INF/lib/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+		
     <style>
-        body {
-            background: linear-gradient(to bottom, #dff7ef, #f7fffc);
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-        }
-
-        /* NAVBAR */
-        #upBar {
-            background-color: #146c5c;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #logoSection {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        #logoSection img {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            border: 2px solid white;
-        }
-
-        #logoSection h2 {
-            color: white;
-            margin: 0;
-        }
-
-        .nav-links a {
-            color: white;
-            margin-left: 15px;
-            text-decoration: none;
-        }
-
-        #backPage {
-            display: inline-block;
-            margin: 20px;
-            padding: 10px 18px;
-            background: #146c5c;
-            color: white;
-            border-radius: 10px;
-            text-decoration: none;
-        }
-
-        .main-container {
-            width: 95%;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .title {
-            font-size: 32px;
-            color: #146c5c;
-            margin: 25px 0;
-            font-weight: bold;
-        }
-
         /* ORARIO */
         .timetable {
             display: grid;
@@ -111,89 +51,86 @@
 
 <body>
 
-<!-- BACK -->
-<a id="backPage" href="#">← Indietro</a>
-
-<!-- NAVBAR -->
-<div id="upBar">
-
-    <div id="logoSection">
-        <img src="default_avatar.webp" alt="avatar">
-        <h2>Orario</h2>
-    </div>
-
-    <div class="nav-links">
-        <a href="home.html">Home</a>
-        <a href="voti.html">Voti</a>
-        <a href="notizie.html">Notizie</a>
-        <a href="orario.html">Orario</a>
-        <a href="#">Logout</a>
-    </div>
-
-</div>
-
-<!-- MAIN -->
-<div class="main-container">
-
-    <div class="title">
-        Orario settimanale
-    </div>
-
-    <!-- TABLE GRID -->
-    <div class="timetable">
-
-        <!-- HEADER -->
-        <div class="cell header">Ora</div>
-        <div class="cell header">Lunedì</div>
-        <div class="cell header">Martedì</div>
-        <div class="cell header">Mercoledì</div>
-        <div class="cell header">Giovedì</div>
-        <div class="cell header">Venerdì</div>
-
-        <!-- 1 ORA -->
-        <div class="cell time">08:00</div>
-        <div class="cell subject">Matematica</div>
-        <div class="cell subject">Inglese</div>
-        <div class="cell subject">TPSIT</div>
-        <div class="cell subject">Storia</div>
-        <div class="cell subject">Informatica</div>
-
-        <!-- 2 ORA -->
-        <div class="cell time">09:00</div>
-        <div class="cell subject">Italiano</div>
-        <div class="cell subject">Matematica</div>
-        <div class="cell subject">Sistemi</div>
-        <div class="cell subject">Inglese</div>
-        <div class="cell subject">GPOI</div>
-
-        <!-- 3 ORA -->
-        <div class="cell time">10:00</div>
-        <div class="cell subject">Informatica</div>
-        <div class="cell subject">TPSIT</div>
-        <div class="cell subject">Matematica</div>
-        <div class="cell subject">Italiano</div>
-        <div class="cell subject">Sistemi</div>
-
-        <!-- 4 ORA -->
-        <div class="cell time">11:00</div>
-        <div class="cell subject">Storia</div>
-        <div class="cell subject">Informatica</div>
-        <div class="cell subject">Inglese</div>
-        <div class="cell subject">TPSIT</div>
-        <div class="cell subject">Educ. Fisica</div>
-
-        <!-- 5 ORA -->
-        <div class="cell time">12:00</div>
-        <div class="cell empty">---</div>
-        <div class="cell subject">Educ. Fisica</div>
-        <div class="cell empty">---</div>
-        <div class="cell subject">Matematica</div>
-        <div class="cell empty">---</div>
-
-    </div>
-
-</div>
-
+	<!-- Banner -->
+	<div id="banner">
+	
+	    <div id="logo">
+	        <img src="imgs/default.png" alt="avatar">
+	        <h2>Orario</h2>
+	    </div>
+	
+	    <div class="nav-links">
+	        <a href="home.html">Home</a>
+	        <a href="voti.html">Voti</a>
+	        <a href="notizie.html">Notizie</a>
+	        <a href="orario.html">Orario</a>
+	        <a href="#">Logout</a>
+	    </div>
+	
+	</div>
+	
+	<!-- Indietro -->
+	<a id="indietro" href="#">← Indietro</a>
+	
+	<!-- Main -->
+	<div class="main-container">
+	
+	    <div class="title">
+	        Orario settimanale
+	    </div>
+	
+	    <!-- Tabella -->
+	    <div class="timetable">
+	
+	        <!-- Header -->
+	        <div class="cell header">Ora</div>
+	        <div class="cell header">Lunedì</div>
+	        <div class="cell header">Martedì</div>
+	        <div class="cell header">Mercoledì</div>
+	        <div class="cell header">Giovedì</div>
+	        <div class="cell header">Venerdì</div>
+	
+	        <!-- 1 ORA -->
+	        <div class="cell time">08:00</div>
+	        <div class="cell subject">Matematica</div>
+	        <div class="cell subject">Inglese</div>
+	        <div class="cell subject">TPSIT</div>
+	        <div class="cell subject">Storia</div>
+	        <div class="cell subject">Informatica</div>
+	
+	        <!-- 2 ORA -->
+	        <div class="cell time">09:00</div>
+	        <div class="cell subject">Italiano</div>
+	        <div class="cell subject">Matematica</div>
+	        <div class="cell subject">Sistemi</div>
+	        <div class="cell subject">Inglese</div>
+	        <div class="cell subject">GPOI</div>
+	
+	        <!-- 3 ORA -->
+	        <div class="cell time">10:00</div>
+	        <div class="cell subject">Informatica</div>
+	        <div class="cell subject">TPSIT</div>
+	        <div class="cell subject">Matematica</div>
+	        <div class="cell subject">Italiano</div>
+	        <div class="cell subject">Sistemi</div>
+	
+	        <!-- 4 ORA -->
+	        <div class="cell time">11:00</div>
+	        <div class="cell subject">Storia</div>
+	        <div class="cell subject">Informatica</div>
+	        <div class="cell subject">Inglese</div>
+	        <div class="cell subject">TPSIT</div>
+	        <div class="cell subject">Educ. Fisica</div>
+	
+	        <!-- 5 ORA -->
+	        <div class="cell time">12:00</div>
+	        <div class="cell empty">---</div>
+	        <div class="cell subject">Educ. Fisica</div>
+	        <div class="cell empty">---</div>
+	        <div class="cell subject">Matematica</div>
+	        <div class="cell empty">---</div>
+	
+	    </div>
+	</div>
 </body>
-
 </html>
