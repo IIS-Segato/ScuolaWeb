@@ -33,6 +33,9 @@ public class Admin implements Serializable {
         this.id = id;
     }
 
+    /**
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
