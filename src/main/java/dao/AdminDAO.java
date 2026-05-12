@@ -21,7 +21,7 @@ public class AdminDAO extends DAO{
 		//metodo che restituisce lo studente dal suo id
 		public Admin getAdminById(String id) {
 			Admin admin = null;
-			String query = config.getQuery("studenti", "select"); //query presa dal confing
+			String query = config.getQuery("admin", "select"); //query presa dal confing
 
 			try (PreparedStatement ps = this.conn.prepareStatement(query)) {
 
@@ -35,7 +35,7 @@ public class AdminDAO extends DAO{
 					}
 				}
 			} catch (SQLException | NumberFormatException e) {
-				System.err.println("Errore in StudenteDao: " + e.getMessage());
+				System.err.println("Errore in AdminDAO: " + e.getMessage());
 			}
 
 			return admin;
