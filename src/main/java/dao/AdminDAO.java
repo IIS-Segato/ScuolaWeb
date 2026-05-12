@@ -1,45 +1,43 @@
 package dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import org.jdom2.JDOMException;
+
+import model.Admin;
 import utils.Config;
 
-public class AdminDAO implements DAO{
-	Connection conn;
-	public boolean autentica(String id, String password) {
-			
-			String pwdGiusta;
-			
-			try {
-				Config config = new Config("WebContent/WEB-INF/dbcfg.xml");
-				config.loadConfig();
-				Class.forName(config.getDriver());
-				conn = DriverManager.getConnection(config.getDbUrl(), config.getUser(), config.getPassword());
-				
-				
-				
-				PreparedStatement stmt = conn.prepareStatement(config.getQueryLogin("admin"));
-				stmt.setString(1, id);
-				ResultSet pwdRs = stmt.executeQuery();
-				pwdRs.next();
-				pwdGiusta = pwdRs.getString("password").trim();
-				System.out.println(pwdGiusta);
-				System.out.println(password);
-				return (password.trim().equals(pwdGiusta));
-				
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			return false;
+public class AdminDAO extends DAO{
+	// Il costruttore chiama quello della superclasse DAO
+		public AdminDAO(String xmlurl) throws ClassNotFoundException, JDOMException, IOException, SQLException {
+			super(xmlurl);
 		}
-	@Override
-	public void setConnection(Connection conn) {
-		// TODO Auto-generated method stub
-		
-	}
+
+		//metodo che restituisce lo studente dal suo id
+		public Admin getAdminById(String id) {
+			Admin admin = null;
+			String query = config.getQuery("studenti", "select"); //query presa dal confing
+
+			try (PreparedStatement ps = this.conn.prepareStatement(query)) {
+
+				ps.setInt(1, Integer.parseInt(id));
+
+				try (ResultSet rs = ps.executeQuery()) {
+					if (rs.next()) {
+						admin = new Admin();
+						admin.setId(rs.getInt("id"));
+						admin.setUsername(rs.getString("nome"));
+					}
+				}
+			} catch (SQLException | NumberFormatException e) {
+				System.err.println("Errore in StudenteDao: " + e.getMessage());
+			}
+
+			return admin;
+		}
 }
