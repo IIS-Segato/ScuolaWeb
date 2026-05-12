@@ -27,6 +27,8 @@ public class AdminDashboardServlet extends HttpServlet {
             return;
         }
 
+        //prova per commit
+        
         // Recuperiamo l'ID salvato dalla LoginServlet
         String idAdminStr = (String) session.getAttribute("utenteLoggato");
 
