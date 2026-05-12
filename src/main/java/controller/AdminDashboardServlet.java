@@ -36,13 +36,14 @@ public class AdminDashboardServlet extends HttpServlet {
             // Inizializziamo i DAO
             AdminDAO adminDao = new AdminDAO(xmlPath);
 
-            // 1. Recupero l'oggetto Studente dal DB usando l'ID
+            // 1. Recupero l'oggetto Admin dal DB usando l'ID
             Admin admin = adminDao.getAdminById(idAdminStr);
 
             if (admin != null) {
-
+                // 4. Mando tutto alla JSP
+                request.getRequestDispatcher("/WEB-INF/view/admin_dashboard.jsp").forward(request, response);
             } else {
-                response.sendRedirect("login.jsp?errore=studente_non_trovato");
+                response.sendRedirect("login.jsp?errore=admin_non_trovato");
             }
 
             // Chiusura connessioni
