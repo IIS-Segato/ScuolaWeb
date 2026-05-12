@@ -11,15 +11,15 @@ public class Classe implements Serializable {
 	
 	// Attributi
 	private static final long serialVersionUID = 1L;
-	private String anno;
+	private int anno;
 	private String sezione;
 	private ArrayList<String> materie;
 	
 	// Getter e setter
-	public String getAnno() {
+	public int getAnno() {
 		return anno;
 	}
-	public void setAnno(String anno) {
+	public void setAnno(int anno) {
 		this.anno = anno;
 	}
 	public String getSezione() {
