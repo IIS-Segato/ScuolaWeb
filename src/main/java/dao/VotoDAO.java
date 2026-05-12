@@ -14,6 +14,7 @@ import model.Voto;
 
 public class VotoDAO extends AbstractDAO{
 	private static final String SQL_GET_ALL = "SELECT * FROM voti";
+	private static final String SQL_GET_BY_ID = "SELECT * FROM voti where id_voto=?";
 	private static final String SQL_GET_BY_STUDENTE_ID = "SELECT * FROM voti WHERE id_studente=?";
 	private static final String SQL_GET_BY_INSEGNAMENTO_ID = "SELECT * FROM voti WHERE id_insegnamento=?";
 	private static final String SQL_INSERT = "INSERT INTO voti (id_studente, id_insegnamento, voto, data_voto, descrizione) VALUES (?, ?, ?, ?, ?)";
@@ -47,6 +48,31 @@ public class VotoDAO extends AbstractDAO{
 		}
 		
 		return voti;
+	}
+	
+	public Voto getById(int id) {
+		Voto v = new Voto();
+		
+		try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID))
+		{
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+		while (rs.next()) {
+			v.setId(rs.getInt("id_voto"));
+            v.setId_studente(rs.getInt("id_studente"));
+            v.setId_insegnamento(rs.getInt("id_insegnamento"));
+            v.setVoto(rs.getInt("voto"));
+            v.setData_voto(rs.getString("data_voto"));
+            v.setDescrizione(rs.getString("descrizione"));
+		}
+			
+		} catch (Exception e) {
+			printException(e);
+		}
+		
+		return v;
 	}
 	
 	public List<Voto> getByStudentId(int id) {
