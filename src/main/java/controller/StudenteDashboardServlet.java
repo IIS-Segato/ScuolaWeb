@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.StudenteDao; 
+import dao.StudenteDao;
+import dao.VotoDao;
 import dao.OrarioDao;   
 import model.Studente;
+import model.Voto;
 import model.Orario;
 
 @WebServlet("/StudentDashboardServlet")
@@ -36,28 +38,25 @@ public class StudenteDashboardServlet extends HttpServlet {
             // Inizializziamo i DAO
             StudenteDao studenteDao = new StudenteDao(xmlPath);
             OrarioDao orarioDao = new OrarioDao(xmlPath);
+            VotoDao votoDao = new VotoDao(xmlPath);
 
             // 1. Recupero l'oggetto Studente dal DB usando l'ID
             Studente studente = studenteDao.getStudenteById(idStudenteStr);
 
             if (studente != null) {
-                // 2. Recupero la lista dell'orario in base alla CLASSE dello studente
                 List<Orario> orarioLezioni = orarioDao.getOrarioByClasse(studente.getClasse());
+                List<Voto> listaVoti = votoDao.getVotiByStudente(studente.getId()); 
 
-                // 3. Salvo i dati nella request (non in sessione, per evitare di appesantirla)
                 request.setAttribute("studente", studente);
                 request.setAttribute("orari", orarioLezioni);
-
-                // 4. Mando tutto alla JSP
+                request.setAttribute("voti", listaVoti); 
                 request.getRequestDispatcher("/WEB-INF/view/studente_dashboard.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("login.jsp?errore=studente_non_trovato");
             }
 
             // Chiusura connessioni
             studenteDao.closeConnection();
             orarioDao.closeConnection();
-
+            votoDao.closeConnection();
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("login.jsp?errore=errore_interno");
