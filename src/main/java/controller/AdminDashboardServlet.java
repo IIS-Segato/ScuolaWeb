@@ -38,7 +38,7 @@ public class AdminDashboardServlet extends HttpServlet {
             // Inizializziamo i DAO
             AdminDAO adminDao = new AdminDAO(xmlPath);
 
-            // 1. Recupero l'oggetto Admin dal DB usando l'ID
+            // 1. Recupero l'oggetto Admin dal DB usando l'ID a
             Admin admin = adminDao.getAdminById(idAdminStr);
 
             if (admin != null) {
