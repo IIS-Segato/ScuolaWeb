@@ -45,5 +45,26 @@ public class DocenteDAO extends AbstractDAO {
 		
 		return docenti;
 	}
+	
+    public Docente getById(int id) {
+        Docente d = new Docente();
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID))
+        {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                d.setId(rs.getInt("id_docente"));
+                d.setId_persona(rs.getInt("id_persona"));
+            }
+
+        } catch (Exception e) {
+            printException(e);
+        }
+
+        return d;
+    }
 
 }
