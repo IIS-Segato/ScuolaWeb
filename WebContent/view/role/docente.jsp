@@ -20,7 +20,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Area Docente — <%= u.getNome() %></title>
+  <title>Area Docente <%= u.getNome() %></title>
   <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
 </head>
 <body>
@@ -133,7 +133,7 @@
             <tr>
               <td><%= c.getId() %></td>
               <td><%= c.getSezione() %></td>
-              <td><%= c.getAnno() %>°</td>
+              <td><%= c.getAnno() %>&deg</td>
               <td><%= c.getNumeroStudenti() %></td>
             </tr>
             <% } } else { %>

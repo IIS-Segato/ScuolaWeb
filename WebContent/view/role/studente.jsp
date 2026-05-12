@@ -17,7 +17,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Area Studente — <%= u.getNome() %></title>
+  <title>Area Studente <%= u.getNome() %></title>
   <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
 </head>
 <body>
@@ -63,7 +63,7 @@
   <!-- Main -->
   <div class="main">
     <header class="topbar">
-      <span class="topbar-title">Ciao, <%= u.getNome() %>! 👋</span>
+      <span class="topbar-title">Ciao, <%= u.getNome() %>!</span>
       <div class="topbar-right">
         <span class="badge-role">Studente</span>
       </div>
@@ -75,7 +75,7 @@
       <div class="card-grid">
         <div class="stat-card">
           <div class="stat-label">Anno di corso</div>
-          <div class="stat-value"><%= classe != null ? classe.getAnno() : "—" %>°</div>
+          <div class="stat-value"><%= classe != null ? classe.getAnno() : "—" %>&deg</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Sezione</div>
@@ -132,7 +132,7 @@
             <% if (classe != null) { %>
             <tr>
               <td><%= classe.getSezione() %></td>
-              <td><%= classe.getAnno() %>°</td>
+              <td><%= classe.getAnno() %>&deg</td>
               <td><%= classe.getNumeroStudenti() %></td>
             </tr>
             <% } else { %>
