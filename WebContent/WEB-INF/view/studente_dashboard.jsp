@@ -94,8 +94,7 @@ body {
 			</div>
 		</div>
 
-		<div class="row">
-		</div>
+		<div class="row"></div>
 
 		<!-- ORARIO -->
 		<div class="card shadow mb-4">
@@ -142,6 +141,63 @@ body {
 				%>
 				<div class="alert alert-info" role="alert">Nessun orario
 					disponibile al momento per la tua classe.</div>
+				<%
+				}
+				%>
+			</div>
+		</div>
+
+
+		<%-- Recupero la lista voti all'inizio della JSP --%>
+		<%@ page import="model.Voto"%>
+		<%
+		List<Voto> voti = (List<Voto>) request.getAttribute("voti");
+		%>
+		<div class="card shadow mb-4">
+			<div class="card-header py-3 bg-white">
+				<h6 class="m-0 font-weight-bold text-success">
+					<i class="fas fa-star me-2"></i> I tuoi Voti
+				</h6>
+			</div>
+			<div class="card-body">
+				<%
+				if (voti != null && !voti.isEmpty()) {
+				%>
+				<div class="table-responsive">
+					<table class="table table-striped align-middle">
+						<thead>
+							<tr>
+								<th>Data</th>
+								<th>Materia</th>
+								<th>Voto</th>
+								<th>Docente</th>
+								<th>Descrizione</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							for (Voto v : voti) {
+							%>
+							<tr>
+								<td><%=v.getData()%></td>
+								<td><span class="badge bg-secondary"><%=v.getNomeMateria()%></span></td>
+								<td><strong
+									class="<%=v.getVoto() >= 6 ? "text-success" : "text-danger"%>">
+										<%=v.getVoto()%>
+								</strong></td>
+								<td><%=v.getNomeDocente()%></td>
+								<td class="text-muted small"><%=v.getDescrizione()%></td>
+							</tr>
+							<%
+							}
+							%>
+						</tbody>
+					</table>
+				</div>
+				<%
+				} else {
+				%>
+				<p class="text-center">Non ci sono voti registrati.</p>
 				<%
 				}
 				%>
