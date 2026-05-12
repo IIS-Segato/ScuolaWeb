@@ -109,6 +109,12 @@ public class LoginController extends HttpServlet {
 				amministratore = amministratoreDAO.getAmministratore(aid);
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JDOMException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			// crea una sessione se questa non esiste
 			HttpSession session = request.getSession();

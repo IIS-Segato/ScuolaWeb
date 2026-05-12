@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.jdom2.JDOMException;
 
 import model.Amministratore;
+import model.Classe;
 import model.Docente;
 import model.Studente;
 
@@ -129,13 +130,17 @@ public class AmministratoreDAO extends DAO {
 		
 	}
 	
+	
 	/**
 	 * Metodo per prendere un Amministratore dal suo id
 	 * @param aid
 	 * @return
 	 * @throws SQLException
+	 * @throws IOException 
+	 * @throws JDOMException 
+	 * @throws ClassNotFoundException 
 	 */
-	public Amministratore getAmministratore(int aid) throws SQLException {
+	public Amministratore getAmministratore(int aid) throws SQLException, ClassNotFoundException, JDOMException, IOException {
 		// Leggo il get dell'Amministratore
 		String getAmministratore = this.getConf().getAmministratore();
 		
@@ -152,7 +157,9 @@ public class AmministratoreDAO extends DAO {
 			int id = rs.getInt("aid");
 			String email = rs.getString("email");
 			String password = rs.getString("password");
-			a.setAid(id);
+			a.setDocenti(getDocenti());
+			a.setStudenti(getStudenti());
+			a.setClassi(null);
 			a.setEmail(email);
 			a.setPassword(password);
 		}
