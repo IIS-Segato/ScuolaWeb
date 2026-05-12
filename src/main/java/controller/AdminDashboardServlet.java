@@ -14,7 +14,6 @@ import dao.OrarioDao;
 import model.Orario;
 import model.Admin;
 
-//prova giulio ciao
 @WebServlet("/AdminDashboardServlet")
 public class AdminDashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
