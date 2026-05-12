@@ -18,7 +18,7 @@ public class AdminDAO extends DAO{
 			super(xmlurl);
 		}
 
-		//metodo che restituisce lo studente dal suo id
+		//metodo che restituisce l'admin dal suo id
 		public Admin getAdminById(String id) {
 			Admin admin = null;
 			String query = config.getQuery("admin", "select"); //query presa dal confing

@@ -37,7 +37,6 @@
         <hr>
         <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="#" class="nav-link text-white active"><i class="fas fa-home me-2"></i> Dashboard</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link text-white"><i class="fas fa-book me-2"></i> I miei Corsi</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link text-white"><i class="fas fa-calendar me-2"></i> Calendario</a></li>
             <li class="nav-item mt-4"><a href="LogoutServlet" class="nav-link text-warning"><i class="fas fa-sign-out-alt me-2"></i> Esci</a></li>
         </ul>
@@ -47,7 +46,7 @@
         <div class="profile-header d-flex justify-content-between align-items-center">
             <div>
                 <h2 class="mb-0 text-gray-800">Bentornato, <%= d.getNome() %> <%= d.getCognome() %>!</h2>
-                <span class="text-muted">Classe: <strong><%= d.getNomeMateria() %></strong></span>
+                <span class="text-muted">Materia: <strong><%= d.getNomeMateria() %></strong></span>
             </div>
             <div class="text-end">
                 <div class="badge bg-primary p-2">Docente ID: #<%= d.getId() %></div>
@@ -89,7 +88,7 @@
                     </div>
                 <% } else { %>
                     <div class="alert alert-info" role="alert">
-                        Nessun orario disponibile al momento per la tua classe.
+                        Nessun orario disponibile.
                     </div>
                 <% } %>
             </div>
