@@ -42,7 +42,7 @@ public class AdminDashboardServlet extends HttpServlet {
             if (admin != null) {
 
             } else {
-                response.sendRedirect("login.jsp?errore=studente_non_trovato");
+                response.sendRedirect("login.jsp?errore=admin_non_trovato");
             }
 
             // Chiusura connessioni
