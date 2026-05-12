@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Classe per la creazione di uno studente
+ */
 public class Studente {
     private int id;
     private String nome;
@@ -7,9 +10,11 @@ public class Studente {
     private String email;
     private String password;
     private int idClasse;
-
+    
+    //Costruttore vuoto
     public Studente() {}
 
+    //Getters And Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -29,6 +34,7 @@ public class Studente {
     public void setIdClasse(int idClasse) { this.idClasse = idClasse; }
 
     @Override
+    //del metodo to string
     public String toString() {
         return "Studente{id=" + id + ", nome=" + nome + ", cognome=" + cognome +
                ", email=" + email + ", idClasse=" + idClasse + "}";

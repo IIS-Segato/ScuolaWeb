@@ -1,12 +1,14 @@
 package model;
 
+//classe per la creazione di un "orario"
 public class Orario {
     private String giorno;
     private String oraIni;
     private String oraFin;
-    private String classe;  // es. "A 3" (sezione + anno)
+    private String classe;  
     private String aula;
 
+    //Costruttore Vuoto
     public Orario() {}
 
     public String getGiorno() { return giorno; }

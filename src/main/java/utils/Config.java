@@ -12,9 +12,9 @@ import org.jdom2.input.SAXBuilder;
 
 
 /**
- * Classe di configurazione per l�applicazione
+ * Classe di configurazione per l'applicazione
  * 
- * @author ste
+ *VOTI: Roni 31 || Fabris 27 || Zeno 21 || Jassal 21
  *
  */
 public class Config {

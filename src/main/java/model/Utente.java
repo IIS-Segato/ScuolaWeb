@@ -2,6 +2,11 @@ package model;
 
 import java.io.Serializable;
 
+
+
+/**
+ * Classe per l'utente con tutte le sue proprietà
+ */
 public class Utente implements Serializable {
 
     private int id;
@@ -14,7 +19,7 @@ public class Utente implements Serializable {
     // Costruttore vuoto
     public Utente() {}
 
-    // Costruttore completo (opzionale)
+    // Costruttore completo
     public Utente(int id, String email, String password, String ruolo, String nome, String cognome) {
         this.id = id;
         this.email = email;
@@ -24,7 +29,7 @@ public class Utente implements Serializable {
         this.cognome = cognome;
     }
 
-    // Getter e Setter
+    // Getters e Setters
 
     public int getId() {
         return id;
@@ -80,6 +85,9 @@ public class Utente implements Serializable {
     }
 
 	@Override
+	/**
+	 * del metodo toString
+	 */
 	public String toString() {
 		return "Utente [id=" + id + ", email=" + email + ", password=" + password + ", ruolo=" + ruolo + ", nome="
 				+ nome + ", cognome=" + cognome + "]";
