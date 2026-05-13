@@ -121,7 +121,7 @@
 
     <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="voti.jsp">Voti</a>
+        <a href="voti.html">Voti</a>
         <a href="notizie.html">Notizie</a>
         <a href="orario.html">Orario</a>
         <a href="homepage.jsp">Logout</a>
@@ -263,7 +263,7 @@
         });
     }
 
-    //  default: mostra tutti
+    // default: mostra tutti
     function showAll() {
 
         title.innerText = "Tutti i voti";

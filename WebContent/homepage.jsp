@@ -2,24 +2,18 @@
 <html lang="it">
 
 <head>
-
     <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Istituto Tecnico Segato-Brustolon</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-          
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
-
+	<!-- Stile -->
+	<link href="WEB-INF/lib/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-	<!-- BANNER -->
+	<!-- Banner -->
 	<div id="banner">
 	    <div id="logo">
 	        <img src="imgs/logoscuola.png"
@@ -42,7 +36,7 @@
 	    </div>
 	</div>
 	
-	<!-- BLOOCO BENVENUTI -->
+	<!-- Blocco benvenuti -->
 	<div class="main-container">
 	    <div class="title">
 	        Benvenuti nel nostro Istituto
@@ -50,7 +44,7 @@
 	    <div class="card">
 	        <h4>
 	            Formiamo il futuro attraverso innovazione,
-	            inclusione e qualità dell'insegnamento.
+	            inclusione e qualitï¿½ dell'insegnamento.
 	        </h4>
 	        <br>
 	        <button class="btn btn-success btn-lg">
@@ -59,7 +53,7 @@
 	    </div>
 	</div>
 	
-	<!-- BLOCCO SERVIZI -->
+	<!-- Blocco servizi -->
 	<div class="main-container">
 	    <div class="title">
 	        I Nostri Servizi
@@ -88,7 +82,7 @@
 	    </div>
 	</div>
 	
-	<!-- NOTIZIE E CIRCOLARI -->
+	<!-- Notizie -->
 	<div class="main-container">
 	    <div class="title">
 	        Notizie e Circolari

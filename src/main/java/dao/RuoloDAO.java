@@ -17,8 +17,8 @@ public class RuoloDAO extends AbstractDAO{
 	private static final String SQL_GET_BY_ID = "SELECT * FROM ruoli WHERE id_ruolo=?";
 	private static final String SQL_GET_BY_NOME_RUOLO = "SELECT * FROM ruoli WHERE nome_ruolo=?";
 	private static final String SQL_INSERT = "INSERT INTO ruoli (nome_ruolo, gestione_utenti, voti_modifica_tutti, voti_visualizza_tutti, voti_modifica_propri, voti_visualizza_propri, voti_visualizza_classe, orario_modifica, orario_visualizza, aule_modifica, aule_visualizza, bacheca_pubblica, bacheca_visualizza, dati_visualizza) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_UPDATE = "UPDATE studenti SET nome_ruolo = ?, gestione_utenti = ?, voti_modifica_tutti = ?, voti_visualizza_tutti = ?, voti_modifica_propri = ?, voti_visualizza_propri = ?, voti_visualizza_classe = ?, orario_modifica = ?, orario_visualizza = ?, aule_modifica = ?, aule_visualizza = ?, bacheca_pubblica = ?, bacheca_visualizza = ?, dati_visualizza = ? WHERE id_ruolo=?";
-	private static final String SQL_DELETE = "DELETE FROM studenti WHERE id_ruolo=?";
+	private static final String SQL_UPDATE = "UPDATE ruoli SET nome_ruolo = ?, gestione_utenti = ?, voti_modifica_tutti = ?, voti_visualizza_tutti = ?, voti_modifica_propri = ?, voti_visualizza_propri = ?, voti_visualizza_classe = ?, orario_modifica = ?, orario_visualizza = ?, aule_modifica = ?, aule_visualizza = ?, bacheca_pubblica = ?, bacheca_visualizza = ?, dati_visualizza = ? WHERE id_ruolo=?";
+	private static final String SQL_DELETE = "DELETE FROM ruoli WHERE id_ruolo=?";
 	
 	public RuoloDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		super(xml);
@@ -152,14 +152,14 @@ public class RuoloDAO extends AbstractDAO{
 			ps.setBoolean(4, voti_visualizza_tutti);
 			ps.setBoolean(5, voti_modifica_propri);
 			ps.setBoolean(6, voti_visualizza_propri);
-			ps.setBoolean(7, id_classe);
-			ps.setBoolean(8, id_classe);
-			ps.setBoolean(9, id_classe);
-			ps.setBoolean(10, id_classe);
-			ps.setBoolean(11, id_classe);
-			ps.setBoolean(12, id_classe);
-			ps.setBoolean(13, id_classe);
-			ps.setBoolean(14, id_classe);
+			ps.setBoolean(7, voti_visualizza_classe);
+			ps.setBoolean(8, orario_modifica);
+			ps.setBoolean(9, orario_visualizza);
+			ps.setBoolean(10, aule_modifica);
+			ps.setBoolean(11, aule_visualizza);
+			ps.setBoolean(12, bacheca_pubblica);
+			ps.setBoolean(13, bacheca_visualizza);
+			ps.setBoolean(14, dati_visualizza);
 			
 			if(ps.executeUpdate() > 0) {
 				isInserted = true;
@@ -172,16 +172,42 @@ public class RuoloDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(int id_persona, int id_classe, int id) {
+	public boolean update(int id,
+							String nome_ruolo, 
+							boolean gestione_utenti,
+							boolean voti_modifica_tutti,
+							boolean voti_visualizza_tutti,
+							boolean voti_modifica_propri,
+							boolean voti_visualizza_propri,
+							boolean voti_visualizza_classe,
+							boolean orario_modifica,
+							boolean orario_visualizza,
+							boolean aule_modifica,
+							boolean aule_visualizza,
+							boolean bacheca_pubblica,
+							boolean bacheca_visualizza,
+							boolean dati_visualizza) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_UPDATE))
 		{
 
-			ps.setInt(1, id_persona);
-			ps.setInt(2, id_classe);
-			ps.setInt(3, id);
+			ps.setString(1, nome_ruolo);
+			ps.setBoolean(2, gestione_utenti);
+			ps.setBoolean(3, voti_modifica_tutti);
+			ps.setBoolean(4, voti_visualizza_tutti);
+			ps.setBoolean(5, voti_modifica_propri);
+			ps.setBoolean(6, voti_visualizza_propri);
+			ps.setBoolean(7, voti_visualizza_classe);
+			ps.setBoolean(8, orario_modifica);
+			ps.setBoolean(9, orario_visualizza);
+			ps.setBoolean(10, aule_modifica);
+			ps.setBoolean(11, aule_visualizza);
+			ps.setBoolean(12, bacheca_pubblica);
+			ps.setBoolean(13, bacheca_visualizza);
+			ps.setBoolean(14, dati_visualizza);
+			ps.setInt(15, id);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;

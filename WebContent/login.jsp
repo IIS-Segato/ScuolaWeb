@@ -2,26 +2,20 @@
 <html lang="it">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login - Istituto Segato-Brustolon</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    <!-- CSS del sito -->
-    <link rel="stylesheet" href="style.css">
-
+	<!-- Stile -->
+	<link href="WEB-INF/lib/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<!-- BANNER -->
+	<!-- Banner -->
 	<div id="banner">
 	    <div id="logo">
-	        <!-- LOGO -->
 	        <img src="imgs/logoscuola.png"
 	             alt="Logo Scuola">
 	        <div>
@@ -33,7 +27,10 @@
 	    </div>
 	</div>
 	
-	<!-- BLOCCO LOGIN -->
+	<!-- Indietro -->
+	<a id="indietro" href="homepage.jsp">← Indietro</a>
+	
+	<!-- Blocco login -->
 	<div class="center-block">
 	    <form action="login.jsp" method="post">
 	        <input type="text"
@@ -53,7 +50,7 @@
 	            </button>
 	        </div>
 	
-	        <!-- BOTTONE -->
+	        <!-- Bottone -->
 	        <button type="submit" id="submitButton">ACCEDI</button>
 	
 	        
