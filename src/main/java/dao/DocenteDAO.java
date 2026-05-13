@@ -11,6 +11,7 @@ import java.util.List;
 import org.jdom2.JDOMException;
 
 import model.Docente;
+import model.Studente;
 
 public class DocenteDAO extends AbstractDAO {
 
@@ -66,5 +67,85 @@ public class DocenteDAO extends AbstractDAO {
 
         return d;
     }
+    
+    public Docente getByPersonaId(int id) {
+        Docente d = new Docente();
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_PERSONA_ID))
+        {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                d.setId(rs.getInt("id_docente"));
+                d.setId_persona(rs.getInt("id_persona"));
+            }
+
+        } catch (Exception e) {
+            printException(e);
+        }
+
+        return d;
+    }
+    
+    public boolean insert(int id_persona) {
+        boolean isInserted = false;
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL_INSERT))
+        {
+            ps.setInt(1, id_persona);
+
+            if (ps.executeUpdate() > 0) {
+                isInserted = true;
+            }
+
+        } catch (Exception e) {
+            printException(e);
+        }
+
+        return isInserted;
+    }
+    
+    public boolean update(int id, int id_persona) {
+        boolean isUpdated = false;
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL_UPDATE))
+        {
+            ps.setInt(1, id_persona);
+            ps.setInt(2, id);
+
+            if (ps.executeUpdate() > 0) {
+                isUpdated = true;
+            }
+
+        } catch (Exception e) {
+            printException(e);
+        }
+
+        return isUpdated;
+    }
+    
+	public boolean delete(int id) {
+		boolean isDeleted = false;
+		
+		try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(SQL_DELETE))
+		{
+
+			ps.setInt(1, id);
+			
+			if(ps.executeUpdate() > 0) {
+				isDeleted = true;
+			}
+			
+		} catch (Exception e) {
+			printException(e);
+		}
+		
+		return isDeleted;
+	}
 
 }
