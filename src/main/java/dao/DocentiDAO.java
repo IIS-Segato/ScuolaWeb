@@ -63,6 +63,15 @@ public class DocentiDAO extends DAO{
 		return d;
 	}
 	
+	/**
+	 * Metodo per prendere tutti gli studenti di una classe
+	 * @param cid
+	 * @return Lista studenti
+	 * @throws ClassNotFoundException
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public ArrayList<Studente> getStudentiByClasse(int cid) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		
 		String getStudentiByClasse = this.getConf().getStudentiByClasse();
@@ -92,6 +101,14 @@ public class DocentiDAO extends DAO{
 		
 	}
 	
+	/**
+	 * @param did
+	 * @return Lista classi di un docente
+	 * @throws ClassNotFoundException
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public ArrayList<Classe> getClassiByDocente(int did) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		
 		String getClassiByDocente = this.getConf().getClassiByDocente();

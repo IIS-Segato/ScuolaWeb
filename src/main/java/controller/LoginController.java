@@ -65,22 +65,6 @@ public class LoginController extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-<<<<<<< HEAD
-		// *CONTROLLI DI LOGIN....
-		try {
-			if (loginDAO.checkStudente(email, password) >= 0) {
-				
-			}else if (loginDAO.checkDocente(email, password) >= 0) {
-				
-			}else if (loginDAO.checkAmministratore(email, password) >= 0) {
-				
-			}else {
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-=======
 		// Controllo che utente ha fatto l'accesso
 		int sid = -1;
 		int did = -1;
@@ -141,7 +125,6 @@ public class LoginController extends HttpServlet {
 			// se l'utente non è nel db eseguo il redirect al login con l'errore
 			response.sendRedirect("index.html?error=1");
 			return;
->>>>>>> branch 'dalzotto' of https://github.com/IIS-Segato/ScuolaWeb
 		}
 	}
 }
