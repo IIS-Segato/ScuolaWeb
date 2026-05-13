@@ -270,6 +270,8 @@ from materie;
 
 # VISTE
 
+#creazione vista studenti
+
 create view v_studenti as 
 select 
 	s.sid,
@@ -291,7 +293,7 @@ join materie m
     and m.did = v.did 
     and m.materia = v.materia;
 
-
+#creazione vista docenti
 
 create view v_docenti as 
 select 
@@ -313,6 +315,8 @@ left join voti v
 	and v.materia = m.materia
 left join studenti s on s.sid = v.sid;
 
+#creazione vista amministratori
+
 create view v_amministratori as 
 select 
 	a.aid,
@@ -332,3 +336,220 @@ join studenti s
 join classi c on c.cid = s.cid
 left join voti v on v.sid = s.sid
 left join docenti d on d.did = v.did;
+
+#QUERY
+-- LOGIN AMMINISTRATORE
+select *
+from amministratori
+where email = ?
+and password = ?;
+
+-- LOGIN DOCENTE
+select *
+from docenti
+where email = ?
+and password = ?;
+
+-- LOGIN STUDENTE
+select *
+from studenti
+where email = ?
+and password = ?;
+
+-- TUTTI GLI STUDENTI
+select *
+from studenti;
+
+-- STUDENTE PER ID
+select *
+from studenti
+where sid = ?;
+
+-- INSERIMENTO STUDENTE
+insert into studenti(
+    email,
+    password,
+    nome,
+    cognome,
+    nascita,
+    cid
+)
+values (?, ?, ?, ?, ?, ?);
+
+-- MODIFICA STUDENTE
+update studenti
+set nome = ?,
+    cognome = ?,
+    email = ?,
+    nascita = ?,
+    cid = ?
+where sid = ?;
+
+-- ELIMINA STUDENTE
+delete from studenti
+where sid = ?;
+
+-- TUTTI I DOCENTI
+select *
+from docenti;
+
+-- DOCENTE PER ID
+select *
+from docenti
+where did = ?;
+
+-- INSERIMENTO DOCENTE
+insert into docenti(
+    email,
+    password,
+    nome,
+    cognome
+)
+values (?, ?, ?, ?);
+
+-- MODIFICA DOCENTE
+update docenti
+set nome = ?,
+    cognome = ?,
+    email = ?
+where did = ?;
+
+-- ELIMINA DOCENTE
+delete from docenti
+where did = ?;
+
+-- TUTTE LE CLASSI
+select *
+from classi;
+
+-- STUDENTI DI UNA CLASSE
+select *
+from studenti
+where cid = ?;
+
+-- TUTTI I VOTI
+select *
+from voti;
+
+-- INSERIMENTO VOTO
+insert into voti(
+    voto,
+    materia,
+    data,
+    did,
+    sid
+)
+values (?, ?, ?, ?, ?);
+
+-- MODIFICA VOTO
+update voti
+set voto = ?
+where vid = ?;
+
+-- ELIMINA VOTO
+delete from voti
+where vid = ?;
+
+-- VOTI DI UNO STUDENTE
+select *
+from voti
+where sid = ?;
+
+-- VOTI INSERITI DA UN DOCENTE
+select *
+from voti
+where did = ?;
+
+-- MEDIA STUDENTE
+select avg(voto) as media
+from voti
+where sid = ?;
+
+-- MEDIA CLASSE
+select avg(v.voto) as media
+from voti v
+join studenti s on s.sid = v.sid
+where s.cid = ?;
+
+-- NUMERO STUDENTI PER CLASSE
+select count(*) as totale
+from studenti
+where cid = ?;
+
+-- STUDENTI CON CLASSE
+select
+    s.sid,
+    s.nome,
+    s.cognome,
+    c.anno,
+    c.sezione
+from studenti s
+join classi c on s.cid = c.cid;
+
+-- VOTI COMPLETI CON DOCENTE
+select
+    s.nome,
+    s.cognome,
+    v.materia,
+    v.voto,
+    v.data,
+    d.nome as docente
+from voti v
+join studenti s on s.sid = v.sid
+join docenti d on d.did = v.did;
+
+-- STUDENTI INSUFFICIENTI
+select
+    s.nome,
+    s.cognome,
+    v.materia,
+    v.voto
+from studenti s
+join voti v on v.sid = s.sid
+where v.voto < 6;
+
+-- STUDENTI SENZA VOTI
+select
+    s.nome,
+    s.cognome
+from studenti s
+left join voti v on v.sid = s.sid
+where v.sid is null;
+
+-- MIGLIOR STUDENTE
+select
+    s.nome,
+    s.cognome,
+    avg(v.voto) as media
+from studenti s
+join voti v on v.sid = s.sid
+group by s.sid
+order by media desc
+limit 1;
+
+-- NUMERO VOTI PER MATERIA
+select
+    materia,
+    count(*) as totale
+from voti
+group by materia;
+
+-- MATERIE DOCENTE
+select
+    d.nome,
+    d.cognome,
+    m.materia
+from docenti d
+join materie m on d.did = m.did;
+
+-- VISTA AMMINISTRATORI
+select *
+from v_amministratori;
+
+-- VISTA DOCENTI
+select *
+from v_docenti;
+
+-- VISTA STUDENTI
+select *
+from v_studenti;

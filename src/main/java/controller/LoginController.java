@@ -52,14 +52,19 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		// *CONTROLLI DI LOGIN....
-		if (loginDAO.checkStudente(email, password) >= 0) {
-			
-		}else if (loginDAO.checkDocente(email, password) >= 0) {
-			
-		}else if (loginDAO.checkAmministratore(email, password) >= 0) {
-			
-		}else {
-			
+		try {
+			if (loginDAO.checkStudente(email, password) >= 0) {
+				
+			}else if (loginDAO.checkDocente(email, password) >= 0) {
+				
+			}else if (loginDAO.checkAmministratore(email, password) >= 0) {
+				
+			}else {
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
