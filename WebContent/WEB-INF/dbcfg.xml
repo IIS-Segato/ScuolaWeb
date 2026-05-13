@@ -86,6 +86,7 @@
 			</update>
 			<delete> DELETE FROM orari WHERE id = ?; </delete>
 			<select> SELECT * FROM orari; </select>
+			
 			<selectByClasse>
 				SELECT o.*, d.nome, d.cognome
 				FROM orari o
