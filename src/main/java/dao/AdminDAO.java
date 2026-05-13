@@ -31,7 +31,7 @@ public class AdminDAO extends DAO{
 					if (rs.next()) {
 						admin = new Admin();
 						admin.setId(rs.getInt("id"));
-						admin.setUsername(rs.getString("nome"));
+						admin.setUsername(rs.getString("username"));
 					}
 				}
 			} catch (SQLException | NumberFormatException e) {

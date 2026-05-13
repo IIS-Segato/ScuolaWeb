@@ -26,8 +26,6 @@ public class AdminDashboardServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
-
-        //prova per commit
         
         // Recuperiamo l'ID salvato dalla LoginServlet
         String idAdminStr = (String) session.getAttribute("utenteLoggato");
@@ -42,7 +40,8 @@ public class AdminDashboardServlet extends HttpServlet {
             Admin admin = adminDao.getAdminById(idAdminStr);
 
             if (admin != null) {
-
+            	request.setAttribute("admin", admin);
+            	request.getRequestDispatcher("/WEB-INF/view/admin_dashboard.jsp").forward(request, response);
             } else {
                 response.sendRedirect("login.jsp?errore=admin_non_trovato");
             }
