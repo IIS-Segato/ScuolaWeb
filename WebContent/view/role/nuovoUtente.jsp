@@ -1,9 +1,9 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Classe" %>
 <!DOCTYPE html>
 <html>
 <head>
-s
     <meta charset="UTF-8">
     <title>Inserimento Nuovo Utente</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,129 +13,103 @@ s
         <h1 class="fw-bold text-success mb-3">NUOVO UTENTE</h1>
         <hr>
 
-        <form action="../../Utente" method="post">
-    
-    <input type="hidden" name="action" value="INSERT">
+        <form action="/ScuolaWeb/Utente" method="post">
 
-    <div class="mb-3">
-        <label class="form-label fw-bold">Nome:</label>
-        <input type="text" class="form-control" name="nome" placeholder="Es: Mario" required>
-    </div>
+            <input type="hidden" name="action" value="INSERT">
 
-    <div class="mb-3">
-        <label class="form-label fw-bold">Cognome:</label>
-        <input type="text" class="form-control" name="cognome" placeholder="Es: Rossi" required>
-    </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Nome:</label>
+                <input type="text" class="form-control" name="nome" placeholder="Es: Mario" required>
+            </div>
 
-    <div class="mb-3">
-        <label class="form-label fw-bold">Email:</label>
-        <input type="email" class="form-control" name="email" placeholder="mario.rossi@scuola.it" required>
-    </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Cognome:</label>
+                <input type="text" class="form-control" name="cognome" placeholder="Es: Rossi" required>
+            </div>
 
-    <div class="mb-3">
-        <label class="form-label fw-bold">Password:</label>
-        <input type="password" class="form-control" name="password" required>
-    </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Email:</label>
+                <input type="email" class="form-control" name="email" placeholder="mario.rossi@scuola.it" required>
+            </div>
 
-    <!-- RUOLO -->
-    <div class="mb-3">
-        <label class="form-label fw-bold">Ruolo:</label>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Password:</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
 
-        <select class="form-select" name="ruolo" id="ruolo" required>
-            <option value="" selected disabled>Scegli un ruolo...</option>
-            <option value="STUDENTE">STUDENTE</option>
-            <option value="DOCENTE">DOCENTE</option>
-            <option value="AMMINISTRATORE">AMMINISTRATORE</option>
-        </select>
+            <!-- RUOLO -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Ruolo:</label>
+                <select class="form-select" name="ruolo" id="ruolo" required>
+                    <option value="" selected disabled>Scegli un ruolo...</option>
+                    <option value="STUDENTE">STUDENTE</option>
+                    <option value="DOCENTE">DOCENTE</option>
+                    <option value="AMMINISTRATORE">AMMINISTRATORE</option>
+                </select>
+                <div class="form-text">
+                    In base al ruolo, l'utente verrà salvato nella tabella corretta.
+                </div>
+            </div>
 
-        <div class="form-text">
-            In base al ruolo, l'utente verrà salvato nella tabella corretta.
-        </div>
-    </div>
+            <!-- CAMPI STUDENTE -->
+            <div id="campiStudente" style="display:none;">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Classe (solo studenti):</label>
+                    <select class="form-select" name="classe">
+                        <option value="" selected disabled>Seleziona una classe...</option>
+                        <%
+                            List<Classe> classi = (List<Classe>) request.getAttribute("classi");
+                            if (classi != null) {
+                                for (Classe c : classi) {
+                        %>
+                            <option value="<%= c.getId() %>">
+                                <%= c.getAnno() %>ª <%= c.getSezione() %>
+                            </option>
+                        <%
+                                }
+                            }
+                        %>
+                    </select>
+                </div>
+            </div>
 
-    <!-- CAMPI STUDENTE -->
-    <div id="campiStudente" style="display:none;">
+            <!-- CAMPI DOCENTE -->
+            <div id="campiDocente" style="display:none;">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Materia:</label>
+                    <input type="text" class="form-control" name="materia" placeholder="Es: Matematica">
+                </div>
+            </div>
 
-       <div class="mb-3">
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success fw-bold">
+                    REGISTRA UTENTE
+                </button>
+                <a href="/ScuolaWeb/Utente" class="btn btn-outline-secondary">
+                    Annulla e Torna Indietro
+                </a>
+            </div>
 
-    <label class="form-label fw-bold">
-        Classe (solo studenti):
-    </label>
+        </form>
 
-    <select class="form-select" name="classe" required>
+        <script>
+            const ruoloSelect = document.getElementById("ruolo");
+            const campiStudente = document.getElementById("campiStudente");
+            const campiDocente = document.getElementById("campiDocente");
 
-    <option value="" selected disabled>
-        Seleziona una classe...
-    </option>
+            ruoloSelect.addEventListener("change", function () {
+                campiStudente.style.display = "none";
+                campiDocente.style.display = "none";
 
-    <%
-        List<Classe> classi = (List<Classe>) request.getAttribute("classi");
+                if (this.value === "STUDENTE") {
+                    campiStudente.style.display = "block";
+                }
+                if (this.value === "DOCENTE") {
+                    campiDocente.style.display = "block";
+                }
+            });
+        </script>
 
-        for(Classe c : classi) {
-    %>
-
-        <option value="<%= c.getId() %>">
-            ID <%= c.getId() %> - <%= c.getNome() %>
-        </option>
-
-    <%
-        }
-    %>
-
-</select>
-
-</div>
-
-    </div>
-
-    <!-- CAMPI DOCENTE -->
-    <div id="campiDocente" style="display:none;">
-
-        <div class="mb-3">
-            <label class="form-label fw-bold">Materia:</label>
-            <input type="text" class="form-control" name="materia" placeholder="Es: Matematica">
-        </div>
-
-    </div>
-
-    <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-success fw-bold">
-            REGISTRA UTENTE
-        </button>
-
-        <a href="Utente" class="btn btn-outline-secondary">
-            Annulla e Torna Indietro
-        </a>
-    </div>
-
-</form>
-
-<script>
-
-    const ruoloSelect = document.getElementById("ruolo");
-
-    const campiStudente = document.getElementById("campiStudente");
-    const campiDocente = document.getElementById("campiDocente");
-
-    ruoloSelect.addEventListener("change", function () {
-
-        // Nasconde tutto
-        campiStudente.style.display = "none";
-        campiDocente.style.display = "none";
-
-        // Mostra campi STUDENTE
-        if (this.value === "STUDENTE") {
-            campiStudente.style.display = "block";
-        }
-
-        // Mostra campi DOCENTE
-        if (this.value === "DOCENTE") {
-            campiDocente.style.display = "block";
-        }
-
-    });
-
-</script>
     </div>
 </body>
 </html>

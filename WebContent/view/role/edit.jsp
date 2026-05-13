@@ -46,7 +46,7 @@
         Modifica Utente
       </a>
       <div class="nav-label">Azioni rapide</div>
-      <a href="view/role/nuovoUtente.jsp" class="nav-item">
+      <a href="${pageContext.request.contextPath}/nuovoUtente" class="nav-item">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Nuovo Utente
       </a>
@@ -65,7 +65,7 @@
     <header class="topbar">
       <span class="topbar-title">Gestione Utenti</span>
       <div class="topbar-right">
-        <a href="view/role/nuovoUtente.jsp" class="btn btn-accent btn-sm">
+        <a href="${pageContext.request.contextPath}/nuovoUtente" class="btn btn-accent btn-sm">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Nuovo Utente
         </a>
@@ -90,8 +90,8 @@
               <span><%=u.getEmail()%> &nbsp;·&nbsp; <span class="pill pill-accent"><%=u.getRuolo()%></span></span>
             </div>
             <div class="user-actions">
-              <a href="Utente?action=edit&email=<%=u.getEmail()%>" class="btn btn-ghost btn-sm">Modifica</a>
-              <a href="Utente?action=delete&email=<%=u.getEmail()%>&ruolo=<%=u.getRuolo()%>"
+              <a href="${pageContext.request.contextPath}/Utente?action=edit&email=<%=u.getEmail()%>" class="btn btn-ghost btn-sm">Modifica</a>
+              <a href="${pageContext.request.contextPath}/Utente?action=delete&email=<%=u.getEmail()%>&ruolo=<%=u.getRuolo()%>"
                  class="btn btn-danger btn-sm"
                  onclick="return confirm('Eliminare <%=u.getNome()%> <%=u.getCognome()%>?')">Elimina</a>
             </div>
@@ -107,7 +107,7 @@
       </div>
 
       <div class="form-card">
-        <form action="Utente" method="post">
+        <form action="${pageContext.request.contextPath}/Utente" method="post">
           <input type="hidden" name="action" value="UPDATE">
 
           <div class="form-group">
