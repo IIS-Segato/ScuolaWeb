@@ -2,11 +2,16 @@ package dao;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.jdom2.JDOMException;
 
-import model.Utente;
+import model.Amministratore;
+import model.Classe;
+import model.Docente;
+import model.Studente;
 
 
 /**
@@ -44,7 +49,7 @@ public class AmministratoreDAO extends DAO {
 		preparedStatement.setString(3, studente.getNome());
 		preparedStatement.setString(4, studente.getCognome());
 		preparedStatement.setString(5, studente.getNascita());
-		preparedStatement.setString(6, studente.getCid());
+		preparedStatement.setInt(6, studente.getCid());
 		
 		// eseguo l'insert
 		preparedStatement.executeUpdate();
@@ -71,5 +76,94 @@ public class AmministratoreDAO extends DAO {
 		
 		// eseguo l'insert
 		preparedStatement.executeUpdate();
+	}
+	
+	public ArrayList<Studente> getStudenti() throws ClassNotFoundException, JDOMException, IOException, SQLException {
+		
+		String getStudenti = this.getConf().getStudenti();
+		
+		ArrayList<Studente> studenti = new ArrayList<>();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getStudenti);
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			Studente s = new Studente();
+
+            s.setSid(rs.getInt("sid"));
+            s.setEmail(rs.getString("email"));
+            s.setPassword(rs.getString("password"));
+            s.setNome(rs.getString("nome"));
+            s.setCognome(rs.getString("cognome"));
+            s.setNascita(rs.getString("nascita"));
+            s.setCid(rs.getInt("cid"));
+            
+            studenti.add(s);
+		}
+		
+		return studenti;
+		
+	}
+	
+	public ArrayList<Docente> getDocenti() throws ClassNotFoundException, JDOMException, IOException, SQLException {
+		
+		String getDocenti = this.getConf().getDocenti();
+		
+		ArrayList<Docente> docenti = new ArrayList<>();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getDocenti);
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			Docente s = new Docente();
+
+            s.setDid(rs.getInt("cid"));
+            s.setEmail(rs.getString("email"));
+            s.setPassword(rs.getString("password"));
+            s.setNome(rs.getString("nome"));
+            s.setCognome(rs.getString("cognome"));
+            
+            docenti.add(s);
+		}
+		
+		return docenti;
+		
+	}
+	
+	
+	/**
+	 * Metodo per prendere un Amministratore dal suo id
+	 * @param aid
+	 * @return
+	 * @throws SQLException
+	 * @throws IOException 
+	 * @throws JDOMException 
+	 * @throws ClassNotFoundException 
+	 */
+	public Amministratore getAmministratore(int aid) throws SQLException, ClassNotFoundException, JDOMException, IOException {
+		// Leggo il get dell'Amministratore
+		String getAmministratore = this.getConf().getAmministratore();
+		
+		// preparo la query
+		PreparedStatement preparedStatement = this.getConn().prepareStatement(getAmministratore);	
+		preparedStatement.setInt(1, aid);
+		
+		// eseguo la query
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		// creo l'Amministratore
+		Amministratore a = new Amministratore();
+		while(rs.next()) {
+			int id = rs.getInt("aid");
+			String email = rs.getString("email");
+			String password = rs.getString("password");
+			a.setDocenti(getDocenti());
+			a.setStudenti(getStudenti());
+			a.setClassi(null);
+			a.setEmail(email);
+			a.setPassword(password);
+		}
+		
+		return a;
 	}
 }

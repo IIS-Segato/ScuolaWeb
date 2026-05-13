@@ -10,11 +10,9 @@ import org.jdom2.JDOMException;
 /**
  * Classe per controllare a quale enità appartiene
  * il login
- * 
- * @author Dell'Agostin Davide
+ *
  *
  */
-
 public class LoginDAO extends DAO{
 	
 	String checkAmministratore;  // Query per controllare l'esistenza dell'amministratore

@@ -1,40 +1,61 @@
 package model;
 
-//Mettere tutti le variabili utili per l'Amministratore e metodi get and set
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Amministratore {
 
-	private int aid;
+/**
+ * Classe Amministratore.java, modello degli amministratori
+ */
+public class Amministratore implements Serializable {
+	// Attributi
+	private static final long serialVersionUID = 1L;
 	private String email;
 	private String password;
-	public Amministratore( int aid , String password, String email) {
-		
-		this.aid= aid;
-		this.email= email;
-		this.password=password;
-		
-	}
-	public int getAid(){
-		return aid;
-	}
-	public void SetAid(int aid) {
-		
-		this.aid= aid;
-	}
-	public String getEmail(){
+	private ArrayList<Studente> studenti;
+	private ArrayList<Docente> docenti; 
+	private ArrayList<Classe> classi;
+	
+
+	// Getter e setter
+	public String getEmail() {
 		return email;
 	}
-	public void SetAid(String email) {
-		
-		this.email= email;
+	
+	public ArrayList<Studente> getStudenti() {
+		return studenti;
 	}
 	
-	public String getPassword(){
+	public void setStudenti(ArrayList<Studente> studenti) {
+		this.studenti = studenti;
+	}
+	
+	public ArrayList<Docente> getDocenti() {
+		return docenti;
+	}
+	public void setDocenti(ArrayList<Docente> docenti) {
+		this.docenti = docenti;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getPassword() {
 		return password;
 	}
-	public void SetPassword(String password) {
-		
-		this.password= password;
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public ArrayList<Classe> getClassi() {
+		return classi;
 	}
 
+	public void setClassi(ArrayList<Classe> classi) {
+		this.classi = classi;
+	}
+	
+	
 }

@@ -20,6 +20,13 @@ public class Config {
 	private String checkAmministratore;
 	private String checkStudente;
 	private String checkDocente;
+	private String getStudenti;
+	private String getDocenti;
+	private String getDocente;
+	private String getAmministratore;
+	private String getStudente;
+	private String getStudentiByClasse;
+	private String getClassiByDocente;
 	
 	/**
 	 * Costruttore
@@ -63,6 +70,13 @@ public class Config {
 		this.checkAmministratore = query.getChildText("checkAmministratore").trim();
 		this.checkStudente = query.getChildText("checkStudente").trim();
 		this.checkDocente = query.getChildText("checkDocente").trim();
+		this.getStudenti = query.getChildText("getStudenti").trim();
+		this.getDocenti = query.getChildText("getDocenti").trim();
+		this.getDocente = query.getChildText("getDocente").trim();
+		this.getAmministratore = query.getChildText("getAmministratore").trim();
+		this.getStudente = query.getChildText("getStudente").trim();
+		this.getStudentiByClasse = query.getChildText("getStudentiByClasse").trim();
+		this.getClassiByDocente = query.getChildText("getClassiByDocente").trim();
 	}
 
 	// Getter degli attributi
@@ -100,5 +114,33 @@ public class Config {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getStudenti() {
+		return getStudenti;
+	}
+
+	public String getDocenti() {
+		return getDocenti;
+	}
+	
+	public String getDocente() {
+		return getDocente;
+	}
+
+	public String getAmministratore() {
+		return getAmministratore;
+	}
+
+	public String getStudente() {
+		return getStudente;
+	}	
+	
+	public String getStudentiByClasse() {
+		return getStudentiByClasse;
+	}
+	
+	public String getClassiByDocente() {
+		return getClassiByDocente;
 	}
 }
