@@ -99,6 +99,7 @@
 		</orari>
 
 		<voti>
+		
 			<selectByStudente>
 				SELECT v.*, d.nome AS nome_docente, d.cognome AS
 				cognome_docente,
