@@ -10,42 +10,44 @@ import java.util.List;
 
 import org.jdom2.JDOMException;
 
-import model.Materia;
+import model.AnnuncioClasse;
 
-public class MateriaDAO extends AbstractDAO{
-	private static final String SQL_GET_ALL = "SELECT * FROM materie";
-	private static final String SQL_GET_BY_ID = "SELECT * FROM materie WHERE id_materia=?";
-	private static final String SQL_INSERT = "INSERT INTO materie (nome) VALUES (?)";
-	private static final String SQL_UPDATE = "UPDATE materie SET nome=? WHERE id_materia=?";
-	private static final String SQL_DELETE = "DELETE FROM materie WHERE id_materia=?";
+public class AnnuncioClasseDAO extends AbstractDAO{
+	private static final String SQL_GET_ALL = "SELECT * FROM annunci_classe";
+	private static final String SQL_GET_BY_ID = "SELECT * FROM annunci_classe WHERE id_annuncio=?";
+	private static final String SQL_INSERT = "INSERT INTO annunci_classe (id_classe, id_docente) VALUES (?, ?)";
+	private static final String SQL_UPDATE = "UPDATE annunci_classe SET id_classe=?, id_docente=? WHERE id_annuncio=?";
+	private static final String SQL_DELETE = "DELETE FROM annunci_classe WHERE id_annuncio=?";
 	
-	public MateriaDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
+	public AnnuncioClasseDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		super(xml);
 	}
 	
-	public List<Materia> getAll() throws Exception {
-		List<Materia> materie = new ArrayList<>();
+	public List<AnnuncioClasse> getAll() throws Exception {
+		List<AnnuncioClasse> a = new ArrayList<>();
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_GET_ALL);
 	         ResultSet rs = ps.executeQuery())
 		{
 			while (rs.next()) {
-				Materia m = new Materia();
-                m.setId(rs.getInt("id_materia"));
-                m.setNome(rs.getString("nome"));
-                materie.add(m);
+				AnnuncioClasse i = new AnnuncioClasse();
+                a.setId(rs.getInt("id_utente"));
+                i.setId_docente(rs.getInt("id_docente"));
+                i.setId_materia(rs.getInt("id_materia"));
+                i.setId_classe(rs.getInt("id_classe"));
+                insegnamenti.add(i);
             }
 			
 		} catch (Exception e) {
 			printException(e);
 		}
 		
-		return materie;
+		return insegnamenti;
 	}
 	
-	public Materia getById(int id) {
-		Materia m = new Materia();
+	public Insegnamento getById(int id) {
+		Insegnamento i = new Insegnamento();
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID))
@@ -54,25 +56,29 @@ public class MateriaDAO extends AbstractDAO{
 			ResultSet rs = ps.executeQuery();
 			
 		while (rs.next()) {
-			m.setId(rs.getInt("id_utente"));
-            m.setNome(rs.getString("nome"));
+			i.setId(rs.getInt("id_utente"));
+            i.setId_docente(rs.getInt("id_docente"));
+            i.setId_materia(rs.getInt("id_materia"));
+            i.setId_classe(rs.getInt("id_classe"));
 		}
 			
 		} catch (Exception e) {
 			printException(e);
 		}
 		
-		return m;
+		return i;
 	}
 	
-	public boolean insert(String nome) {
+	public boolean insert(int id_docente, int id_materia, int id_classe) {
 		boolean isInserted = false;
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_INSERT))
 		{
 
-			ps.setString(1, nome);
+			ps.setInt(1, id_docente);
+			ps.setInt(2, id_materia);
+			ps.setInt(3, id_classe);
 			
 			if(ps.executeUpdate() > 0) {
 				isInserted = true;
@@ -85,14 +91,16 @@ public class MateriaDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(String nome, int id) {
+	public boolean update(int id_docente, int id_materia, int id_classe, int id) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_UPDATE))
 		{
 
-			ps.setString(1, nome);
+			ps.setInt(1, id_docente);
+			ps.setInt(2, id_materia);
+			ps.setInt(3, id_classe);
 			ps.setInt(3, id);
 			
 			if(ps.executeUpdate() > 0) {

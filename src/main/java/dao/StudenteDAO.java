@@ -34,7 +34,7 @@ public class StudenteDAO extends AbstractDAO{
 		{
 			while (rs.next()) {
 				Studente s = new Studente();
-                s.setId(rs.getInt("id_utente"));
+                s.setId(rs.getInt("id_studente"));
                 s.setId_persona(rs.getInt("id_persona"));
                 s.setId_classe(rs.getInt("id_classe"));
                 studenti.add(s);
