@@ -32,7 +32,7 @@ public class InsegnamentoDAO extends AbstractDAO{
 		{
 			while (rs.next()) {
 				Insegnamento i = new Insegnamento();
-                i.setId(rs.getInt("id_utente"));
+                i.setId(rs.getInt("id_insegnamento"));
                 i.setId_docente(rs.getInt("id_docente"));
                 i.setId_materia(rs.getInt("id_materia"));
                 i.setId_classe(rs.getInt("id_classe"));

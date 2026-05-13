@@ -32,7 +32,7 @@ public class PersonaDAO extends AbstractDAO{
 		{
 			while (rs.next()) {
                 Persona p = new Persona();
-                p.setId(rs.getInt("id"));
+                p.setId(rs.getInt("id_persona"));
                 p.setNome(rs.getString("nome"));
                 p.setCognome(rs.getString("cognome"));
                 p.setNascita(rs.getString("nascita"));

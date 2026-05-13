@@ -32,7 +32,7 @@ public class OrarioDAO extends AbstractDAO{
 		{
 			while (rs.next()) {
 				Orario o = new Orario();
-                o.setId(rs.getInt("id"));
+                o.setId(rs.getInt("id_orario"));
                 o.setId_insegnamento(rs.getInt("id_insegnamento"));
                 o.setId_aula(rs.getInt("id_aula"));
                 o.setGiorno(rs.getString("giorno"));
