@@ -13,9 +13,11 @@
 		<checkStudente>SELECT sid FROM studenti WHERE email = ? and password = ?;</checkStudente>
 		<checkDocente>SELECT did FROM docenti WHERE email = ? and password = ?;</checkDocente>
 		<getStudenti>select * from studenti;</getStudenti>
+		<getStudentiByClasse>select * from studenti where cid = ?;</getStudentiByClasse>
 		<getDocenti>select * from docenti;</getDocenti>
 		<getDocente>select * from docenti where did = ?;</getDocente>
 		<getAmministratore>select * from amministratori where aid = ?;</getAmministratore>
 		<getStudente>select * from studenti where sid = ?;</getStudente>
+		<getClassiByDocente>select c.anno, c.sezione from classi as c join materie as m on c.cid = m.cid and m.did = ?;</getClassiByDocente>
 	</query>
 </root>

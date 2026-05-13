@@ -95,7 +95,8 @@ public class LoginController extends HttpServlet {
 			Docente docente = null;
 			try {
 				docente = docentiDAO.getDocente(did);
-			} catch (SQLException e) {
+				docente.setStudenti(docentiDAO.getStudentiByClasse(did));
+			} catch (SQLException | ClassNotFoundException | JDOMException e) {
 				e.printStackTrace();
 			}
 			// crea una sessione se questa non esiste
