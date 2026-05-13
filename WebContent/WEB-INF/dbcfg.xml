@@ -74,6 +74,7 @@
 			</update>
 			<delete> DELETE FROM docenti WHERE id = ?; </delete>
 			<select>SELECT * FROM docenti WHERE id = ?;</select>
+			
 		</docenti>
 
 		<orari>
@@ -107,6 +108,11 @@
 				WHERE v.id_studente = ?
 				ORDER BY v.data DESC
 			</selectByStudente>
+			
+			<insert>
+				insert into voti(id_studente, id_docente, voto, data, descrizione)
+				values(?, ?, ?, ?, ?);
+			</insert>
 		</voti>
 
 	</query>
