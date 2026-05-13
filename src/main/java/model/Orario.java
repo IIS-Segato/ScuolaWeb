@@ -1,7 +1,7 @@
 package model;
 
 public class Orario {
-	private int orario;
+	private int id;
 	private int id_insegnamento;
 	private int id_aula;
 	private String giorno;
@@ -15,14 +15,14 @@ public class Orario {
 	/**
 	 * @return the orario
 	 */
-	public int getOrario() {
-		return orario;
+	public int getId() {
+		return id;
 	}
 	/**
 	 * @param orario the orario to set
 	 */
-	public void setOrario(int orario) {
-		this.orario = orario;
+	public void setId(int id) {
+		this.id = id;
 	}
 	/**
 	 * @return the id_insegnamento

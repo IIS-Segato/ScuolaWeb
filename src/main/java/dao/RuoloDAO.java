@@ -17,8 +17,8 @@ public class RuoloDAO extends AbstractDAO{
 	private static final String SQL_GET_BY_ID = "SELECT * FROM ruoli WHERE id_ruolo=?";
 	private static final String SQL_GET_BY_NOME_RUOLO = "SELECT * FROM ruoli WHERE nome_ruolo=?";
 	private static final String SQL_INSERT = "INSERT INTO ruoli (nome_ruolo, gestione_utenti, voti_modifica_tutti, voti_visualizza_tutti, voti_modifica_propri, voti_visualizza_propri, voti_visualizza_classe, orario_modifica, orario_visualizza, aule_modifica, aule_visualizza, bacheca_pubblica, bacheca_visualizza, dati_visualizza) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_UPDATE = "UPDATE studenti SET nome_ruolo = ?, gestione_utenti = ?, voti_modifica_tutti = ?, voti_visualizza_tutti = ?, voti_modifica_propri = ?, voti_visualizza_propri = ?, voti_visualizza_classe = ?, orario_modifica = ?, orario_visualizza = ?, aule_modifica = ?, aule_visualizza = ?, bacheca_pubblica = ?, bacheca_visualizza = ?, dati_visualizza = ? WHERE id_ruolo=?";
-	private static final String SQL_DELETE = "DELETE FROM studenti WHERE id_ruolo=?";
+	private static final String SQL_UPDATE = "UPDATE ruoli SET nome_ruolo = ?, gestione_utenti = ?, voti_modifica_tutti = ?, voti_visualizza_tutti = ?, voti_modifica_propri = ?, voti_visualizza_propri = ?, voti_visualizza_classe = ?, orario_modifica = ?, orario_visualizza = ?, aule_modifica = ?, aule_visualizza = ?, bacheca_pubblica = ?, bacheca_visualizza = ?, dati_visualizza = ? WHERE id_ruolo=?";
+	private static final String SQL_DELETE = "DELETE FROM ruoli WHERE id_ruolo=?";
 	
 	public RuoloDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		super(xml);
@@ -172,7 +172,8 @@ public class RuoloDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(String nome_ruolo, 
+	public boolean update(int id,
+							String nome_ruolo, 
 							boolean gestione_utenti,
 							boolean voti_modifica_tutti,
 							boolean voti_visualizza_tutti,
@@ -185,8 +186,7 @@ public class RuoloDAO extends AbstractDAO{
 							boolean aule_visualizza,
 							boolean bacheca_pubblica,
 							boolean bacheca_visualizza,
-							boolean dati_visualizza,
-							int id) {
+							boolean dati_visualizza) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();
