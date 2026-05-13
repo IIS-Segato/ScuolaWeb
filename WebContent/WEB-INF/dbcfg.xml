@@ -88,24 +88,24 @@
 			<select> SELECT * FROM orari; </select>
 			
 			<selectByClasse>
-				SELECT o.*, d.nome, d.cognome
+				SELECT o.*, d.nome, d.cognome, d.nome_materia
 				FROM orari o
-				JOIN docenti
-				d ON o.id_docente = d.id
+				JOIN docenti d ON o.id_docente = d.id
 				WHERE o.classe = ?
 				ORDER BY
-				FIELD(o.nome_giorno, 'Lunedì', 'Martedì', 'Mercoledì',
-				'Giovedì',
-				'Venerdì', 'Sabato'), o.orario_inizio
+				FIELD(o.nome_giorno, 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'),
+				o.orario_inizio
 			</selectByClasse>
 		</orari>
 
 		<voti>
 			<selectByStudente>
-				SELECT v.*, d.nome AS nome_docente, d.cognome AS cognome_docente,
+				SELECT v.*, d.nome AS nome_docente, d.cognome AS
+				cognome_docente,
 				d.nome_materia
 				FROM voti v
-				JOIN docenti d ON v.id_docente = d.id
+				JOIN docenti d ON
+				v.id_docente = d.id
 				WHERE v.id_studente = ?
 				ORDER BY v.data DESC
 			</selectByStudente>
