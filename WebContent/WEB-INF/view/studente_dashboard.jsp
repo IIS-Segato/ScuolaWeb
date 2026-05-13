@@ -110,14 +110,19 @@ body {
 				%>
 				<div class="table-responsive">
 					<table class="table table-hover align-middle table-bordered">
+						<!-- Intestazione della tabella -->
 						<thead class="table-light">
 							<tr>
 								<th><i class="fas fa-calendar-day me-1"></i> Giorno</th>
 								<th><i class="fas fa-hourglass-start me-1"></i> Inizio</th>
 								<th><i class="fas fa-hourglass-end me-1"></i> Fine</th>
+								<th><i class="fas fa-book me-1"></i> Materia</th>
+								<!-- NUOVA COLONNA -->
 								<th><i class="fas fa-user-tie me-1"></i> Docente</th>
 							</tr>
 						</thead>
+
+						<!-- Corpo della tabella -->
 						<tbody>
 							<%
 							for (Orario o : orari) {
@@ -126,6 +131,10 @@ body {
 								<td><strong><%=o.getNome_giorno()%></strong></td>
 								<td><span class="badge btn-outline-primary text-dark"><%=o.getOrario_inizio()%></span></td>
 								<td><span class="badge btn-outline-secondary text-dark"><%=o.getOrario_fine()%></span></td>
+
+								<!-- Visualizzazione Materia con un badge carino -->
+								<td><span class="badge bg-info text-dark"><%=o.getNomeMateria()%></span></td>
+
 								<!-- Visualizzazione Nome e Cognome -->
 								<td><i class="fas fa-user-circle text-muted me-2"></i> <%=o.getNomeDocente()%>
 									<%=o.getCognomeDocente()%></td>
