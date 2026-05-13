@@ -99,19 +99,25 @@ public class UtenteDAO {
     public boolean inserisciNuovoUtente(Utente u) {
         String sql = "";
         if ("STUDENTE".equals(u.getRuolo())) {
-            sql = "INSERT INTO STUDENTI (NOME, COGNOME, EMAIL, PWD, ID_C) VALUES (?, ?, ?, ?, 1)"; 
+            sql = "INSERT INTO STUDENTI (NOME, COGNOME, EMAIL, PWD, ID_C) VALUES (?, ?, ?, ?, ?)"; // ✅ ? invece di 1
         } else if ("DOCENTE".equals(u.getRuolo())) {
             sql = "INSERT INTO DOCENTI (NOME, COGNOME, EMAIL, PWD, MATERIA) VALUES (?, ?, ?, ?, 'Da definire')";
         } else if ("AMMINISTRATORE".equals(u.getRuolo())) {
             sql = "INSERT INTO AMMINISTRATORI (NOME, COGNOME, EMAIL, PWD) VALUES (?, ?, ?, ?)";
         }
 
-        try (Connection conn = getConnection(); 
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, u.getNome());
             ps.setString(2, u.getCognome());
             ps.setString(3, u.getEmail());
             ps.setString(4, u.getPassword());
+
+            // ✅ Se studente, aggiungi il 5° parametro con la classe vera
+            if ("STUDENTE".equals(u.getRuolo())) {
+                ps.setInt(5, u.getIdClasse());
+            }
+
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

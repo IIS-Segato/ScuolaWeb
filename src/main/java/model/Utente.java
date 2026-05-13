@@ -2,11 +2,6 @@ package model;
 
 import java.io.Serializable;
 
-
-
-/**
- * Classe per l'utente con tutte le sue proprietà
- */
 public class Utente implements Serializable {
 
     private int id;
@@ -15,6 +10,7 @@ public class Utente implements Serializable {
     private String ruolo;
     private String nome;
     private String cognome;
+    private int idClasse; 
 
     // Costruttore vuoto
     public Utente() {}
@@ -31,66 +27,32 @@ public class Utente implements Serializable {
 
     // Getters e Setters
 
-    public int getId() {
-        return id;
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public String getRuolo() { return ruolo; }
+    public void setRuolo(String ruolo) { this.ruolo = ruolo; }
+
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+
+    public String getCognome() { return cognome; }
+    public void setCognome(String cognome) { this.cognome = cognome; }
+
+    // ✅ AGGIUNTO
+    public int getIdClasse() { return idClasse; }
+    public void setIdClasse(int idClasse) { this.idClasse = idClasse; }
+
+    @Override
+    public String toString() {
+        return "Utente [id=" + id + ", email=" + email + ", password=" + password
+                + ", ruolo=" + ruolo + ", nome=" + nome + ", cognome=" + cognome
+                + ", idClasse=" + idClasse + "]";
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public String getRuolo() {
-        return ruolo;
-    }
-
-    public void setRuolo(String ruolo) {
-        this.ruolo = ruolo;
-    }
-
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-	@Override
-	/**
-	 * del metodo toString
-	 */
-	public String toString() {
-		return "Utente [id=" + id + ", email=" + email + ", password=" + password + ", ruolo=" + ruolo + ", nome="
-				+ nome + ", cognome=" + cognome + "]";
-	}
-    
 }
