@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.JDOMException;
 
 import model.Docente;
-import model.Studente;
 
 public class DocenteDAO extends AbstractDAO {
 
