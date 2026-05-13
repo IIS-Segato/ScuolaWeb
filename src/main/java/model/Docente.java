@@ -15,6 +15,7 @@ public class Docente implements Serializable {
 	private String nome;
 	private String cognome;
 	private ArrayList<Studente> studenti;
+	private ArrayList<Classe> classi;
 	
 	// Getter e setter
 	public int getDid() {
@@ -52,5 +53,11 @@ public class Docente implements Serializable {
 	}
 	public void setStudenti(ArrayList<Studente> studenti) {
 		this.studenti = studenti;
+	}
+	public ArrayList<Classe> getClassi() {
+		return classi;
+	}
+	public void setClassi(ArrayList<Classe> classi) {
+		this.classi = classi;
 	}
 }
