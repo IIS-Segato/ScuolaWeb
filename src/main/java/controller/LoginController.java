@@ -91,7 +91,7 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("studente", studente); // salvo lo studente in sessione
 			request.getRequestDispatcher("view/role/Studente.jsp").forward(request, response);
 		} else if (did >= 0) {
-			// creo il docente
+			// creo il docente asss
 			Docente docente = null;
 			try {
 				docente = docentiDAO.getDocente(did);
