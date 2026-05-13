@@ -553,3 +553,12 @@ from v_docenti;
 -- VISTA STUDENTI
 select *
 from v_studenti;
+
+-- DAL CID ALLE MATERIE DELLA CLASSE
+select
+    c.anno,
+    c.sezione,
+    m.materia
+from classi c
+join materie m on m.cid = c.cid
+where c.cid = ?;
