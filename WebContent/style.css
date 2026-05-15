@@ -6,6 +6,10 @@ body {
      font-family: Arial, Helvetica, sans-serif;
      margin: 0;
  }
+ 
+ h5 {
+	font-weight: bold;
+ }
 
  /* Banner */
 #banner {
@@ -36,7 +40,7 @@ body {
 }
 
 .admin-badge {
-    background: #ff3b3b;
+    background: crimson;
     color: white;
     padding: 5px 12px;
     border-radius: 20px;
@@ -53,7 +57,7 @@ body {
     display: inline-block;
     margin: 20px;
     padding: 10px 18px;
-    background: #146c5c;
+    background: crimson;
     color: white;
     border-radius: 10px;
     text-decoration: none;
@@ -85,10 +89,15 @@ body {
     box-shadow: 0 3px 12px rgba(0,0,0,0.1);
 }
 
-.subject {
-    font-size: 20px;
-    font-weight: bold;
-    color: #146c5c;
+.counter {
+	font-size: 20pt;
+	font-weight: bold;
+	color: crimson;
+}
+
+.btn-lg {
+	background: crimson;
+	border: crimson;
 }
 
 /* Elementi pagine voti */
@@ -110,7 +119,8 @@ body {
 /* Elementi login */
 
 .center-block {
-    margin-top: 120px;
+    margin-top: 50px;
+	margin-bottom: 120px;
     margin-left: auto;
     margin-right: auto;
 
@@ -155,11 +165,12 @@ body {
 
 #submitButton {
     width: 100%;
-    background-color: #146c5c;
+    background-color: crimson;
     border: none;
     border-radius: 10px;
     padding: 10px;
     font-weight: bold;
+	color: white;
 }
 
 #submitButton:hover {

@@ -28,42 +28,55 @@
 	</div>
 	
 	<!-- Indietro -->
-	<a id="indietro" href="homepage.jsp">← Indietro</a>
+	<a id="indietro" href="homepage.html">← Indietro</a>
 	
 	<!-- Blocco login -->
 	<div class="center-block">
-	    <form action="login.jsp" method="post">
+		<form action="login.jsp" method="post">
+	
+	        <!-- Username -->
 	        <input type="text"
 	               name="username"
 	               class="form-control"
 	               placeholder="Username"
 	               required>
+	
+	        <!-- Password -->
 	        <div class="input-group">
+	
 	            <input type="password"
 	                   name="password"
 	                   class="form-control"
 	                   placeholder="Password"
 	                   id="passwordInput"
 	                   required>
-	            <button type="button" id="showPswButton">
-	                <img src="imgs/closedEye.png" alt="mostra password">
+	
+	            <button type="button"
+	                    id="showPswButton">
+	                <img src="imgs/closedEye.png"
+	                     alt="mostra password">
 	            </button>
 	        </div>
 	
-	        <!-- Bottone -->
-	        <button type="submit" id="submitButton">ACCEDI</button>
-	
-	        
-	        <% String error = (String) request.getAttribute("error");
-	            if(error != null){ %>
-	
-	            <div class="alert alert-danger mt-3 text-center">
-	                <%= error %>
-	            </div>
-	        <% } %>
+	        <!-- Submit -->
+	        <button type="submit"
+	                id="submitButton">
+	            Accedi
+	        </button>
 	    </form>
 	</div>
 	
+	<!-- Footer -->
+	<footer class="text-center mt-5 p-4"
+	        style="background:#146c5c;color:white;">
+	
+	    <h5>Istituto di Istruzione Superiore</h5>
+		<h5>SEGATO-BRUSTOLON</h5>
+		<br>
+	    <p>Via J. Tasso, 11 32100 - Belluno BL</p>
+		<p>Tel: +39 0437 940159</p>
+		<p>Email: blis011002@istruzione.it</p>
+	</footer>
 	
 	<script>
 		const buttonShow = document.getElementById('showPswButton');
