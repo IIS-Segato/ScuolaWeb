@@ -101,7 +101,7 @@ public class InsegnamentoDAO extends AbstractDAO{
 			ps.setInt(1, id_docente);
 			ps.setInt(2, id_materia);
 			ps.setInt(3, id_classe);
-			ps.setInt(3, id);
+			ps.setInt(4, id);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;

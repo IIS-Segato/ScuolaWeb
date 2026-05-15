@@ -93,7 +93,7 @@ public class MateriaDAO extends AbstractDAO{
 		{
 
 			ps.setString(1, nome);
-			ps.setInt(3, id);
+			ps.setInt(2, id);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;

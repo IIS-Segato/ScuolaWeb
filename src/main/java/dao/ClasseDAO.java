@@ -101,7 +101,7 @@ public class ClasseDAO extends AbstractDAO{
 			ps.setInt(1, anno);
 			ps.setString(2, sezione);
 			ps.setString(3, indirizzo);
-			ps.setInt(3, id);
+			ps.setInt(4, id);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;
