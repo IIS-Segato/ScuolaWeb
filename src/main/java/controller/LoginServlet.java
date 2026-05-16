@@ -26,10 +26,6 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("USERNAME: " + username);
 		System.out.println("PASSWORD: " + password);
 
-		// DEBUG (puoi rimuoverli dopo)
-		System.out.println("USERNAME: " + username);
-		System.out.println("PASSWORD: " + password);
-
 		// VALIDAZIONE BASE
 		if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
 
