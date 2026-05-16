@@ -29,5 +29,33 @@ public class DocenteDAO extends AbstractDAO {
         } catch (Exception e) { printException(e); }
         return list;
     }
+    public Docente getByID(int id) throws Exception {
+        Docente d = null;
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(SQL_GET_BY_ID)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) d = map(rs);
+            }
+        } catch (Exception e) {
+            printException(e);
+            throw new Exception(e.getMessage());
+        }
+        return d;
+    }
+    public boolean insert(String nome, String cognome, String materia) throws Exception {
+        boolean ok = false;
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(SQL_INSERT)) {
+            ps.setString(1, nome);
+            ps.setString(2, cognome);
+            ps.setString(3, materia);
+            ok = ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            printException(e);
+            throw new Exception(e.getMessage());
+        }
+        return ok;
+    }
     
 }
