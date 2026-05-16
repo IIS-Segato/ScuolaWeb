@@ -86,7 +86,7 @@ public class DocenteDAO extends AbstractDAO {
         }
         return ok;
     }
-
+    //ciao
     private Docente map(ResultSet rs) throws SQLException {
         Docente d = new Docente();
         d.setId(rs.getInt("id"));
