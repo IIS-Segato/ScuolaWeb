@@ -74,4 +74,26 @@ public class DocenteDAO extends AbstractDAO {
         return ok;
     }
     
+    public boolean delete(int id) throws Exception {
+        boolean ok = false;
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(SQL_DELETE)) {
+            ps.setInt(1, id);
+            ok = ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            printException(e);
+            throw new Exception(e.getMessage());
+        }
+        return ok;
+    }
+
+    private Docente map(ResultSet rs) throws SQLException {
+        Docente d = new Docente();
+        d.setId(rs.getInt("id"));
+        d.setNome(rs.getString("nome"));
+        d.setCognome(rs.getString("cognome"));
+        d.setMateria(rs.getString("materia"));
+        return d;
+    }
+
 }
