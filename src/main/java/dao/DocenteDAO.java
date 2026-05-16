@@ -58,6 +58,20 @@ public class DocenteDAO extends AbstractDAO {
         return ok;
     }
     
-
+    public boolean update(String nome, String cognome, String materia, int id) throws Exception {
+        boolean ok = false;
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(SQL_UPDATE)) {
+            ps.setString(1, nome);
+            ps.setString(2, cognome);
+            ps.setString(3, materia);
+            ps.setInt(4, id);
+            ok = ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            printException(e);
+            throw new Exception(e.getMessage());
+        }
+        return ok;
+    }
     
 }
