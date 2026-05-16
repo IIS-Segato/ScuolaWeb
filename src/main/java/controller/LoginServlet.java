@@ -54,8 +54,8 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 
-			// REDIRECT UNICO (per ora)
-			response.sendRedirect("viewRole.jsp");
+			// REDIRECT
+			response.sendRedirect("dashboard.jsp");
 
 		} catch (Exception e) {
 			e.printStackTrace();
