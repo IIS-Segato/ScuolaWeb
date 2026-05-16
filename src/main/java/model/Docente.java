@@ -20,13 +20,37 @@ public class Docente implements Serializable {
         this.materia = materia;
     }
 
-    public int    getId(){ return id; }
-    public String getNome(){ return nome; }
-    public String getCognome(){ return cognome; }
-    public String getMateria(){ return materia; }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id){ this.id      = id; }
-    public void setNome(String nome){ this.nome    = nome; }
-    public void setCognome(String c){ this.cognome = c; }
-    public void setMateria(String m){ this.materia = m; }
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCognome() {
+		return cognome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public String getMateria() {
+		return materia;
+	}
+
+	public void setMateria(String materia) {
+		this.materia = materia;
+	}
+
+    
 }
