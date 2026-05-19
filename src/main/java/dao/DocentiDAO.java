@@ -123,7 +123,7 @@ public class DocentiDAO extends DAO{
 		
 		while(rs.next()) {
 			Classe c = new Classe();
-
+			c.setCid(rs.getInt("cid"));
 			c.setAnno(rs.getInt("anno"));
 			c.setSezione(rs.getString("sezione"));
             

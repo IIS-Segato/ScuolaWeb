@@ -320,7 +320,7 @@ body{
         <% for(Classe c : classi){ %>
 
           <a
-            href="ClasseDocenteServlet?cid=<%= "cid" %>"
+            href="ClasseDocente?cid=<%= c.getCid() %>"
             class="class-card">
 
             <div class="class-top">
