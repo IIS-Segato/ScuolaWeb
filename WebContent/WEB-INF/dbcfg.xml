@@ -51,7 +51,7 @@
 			<update> UPDATE admin SET username = ?, password = ? WHERE id = ?;
 			</update>
 			<delete> DELETE FROM admin WHERE id = ?; </delete>
-			<select> SELECT * FROM admin; </select>
+			<select> SELECT * FROM admin where id=?; </select>
 		</admin>
 
 		<studenti>

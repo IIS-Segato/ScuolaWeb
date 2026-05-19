@@ -29,7 +29,6 @@ public class AdminDashboardServlet extends HttpServlet {
         
         // Recuperiamo l'ID salvato dalla LoginServlet
         String idAdminStr = (String) session.getAttribute("utenteLoggato");
-
         try {
             String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
 
