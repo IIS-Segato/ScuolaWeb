@@ -62,4 +62,20 @@ VALUES
 ('teacher','teacher123',2),
 ('student','student123',4);
 
+-- --------------------------------------------------------
+-- TABELLA VOTI
+-- --------------------------------------------------------
+
+CREATE TABLE voti (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_studente INT NOT NULL,
+    id_docente INT NOT NULL,
+    materia VARCHAR(50) NOT NULL,
+    voto DECIMAL(4,2) NOT NULL,
+    data DATE NOT NULL,
+    FOREIGN KEY (id_studente) REFERENCES studenti(id),
+    FOREIGN KEY (id_docente) REFERENCES docenti(id)
+);
+
+
 COMMIT;
