@@ -12,24 +12,24 @@ import org.jdom2.input.SAXBuilder;
 
 
 /**
- * Classe di configurazione per l�applicazione
- * 
+ * Classe di configurazione per l'applicazione
+ *
  * @author ste
  *
  */
 public class Config {
-	
+
 	private  String driver;
-    private String url;
-    private String user;
-    private String psw;
-    private String dbType;
-    private final String xmlurl;
-	
+	private String url;
+	private String user;
+	private String psw;
+	private String dbType;
+	private final String xmlurl;
+
 	/**
 	 * Costruttore della classe
 	 * @param inputStream path del file di configurazione
-	 * @throws MalformedURLException 
+	 * @throws MalformedURLException
 	 */
 	public Config(String xmlurl) throws MalformedURLException {
 		super();
@@ -39,8 +39,8 @@ public class Config {
 
 	/**
 	 * Leggo il file XML di configurazione contenuto nella cartella Config
-	 * 
-	 * @return l�elemento di root del file XML di configurazione
+	 *
+	 * @return l'elemento di root del file XML di configurazione
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
@@ -58,13 +58,13 @@ public class Config {
 	}
 
 	/**
-	 * Carica il file di configurazione per recupoerare la connection string
-	 * 
+	 * Carica il file di configurazione per recuperare la connection string
+	 *
 	 * @throws IOException
 	 * @throws JDOMException
 	 */
 	public  void loadConfig() throws JDOMException, IOException {
-		
+
 		Element root = readConfig();
 		dbType = root.getChildText("dbType");
 		Element mysql = root.getChild("connection").getChild(dbType);
@@ -83,13 +83,13 @@ public class Config {
 
 	/**
 	 * Restituisce le query da eseguire
-	 * 
+	 *
 	 * @param query nome del tag contenente la query nel file XNL di configurazione
 	 * @return la query da eseguire
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
-	 public String getQuery(String query) throws JDOMException, IOException {
+	public String getQuery(String query) throws JDOMException, IOException {
 		Element root = readConfig();
 		Element mysql = root.getChild("query").getChild(dbType);
 		return mysql.getChildText(query).trim();
@@ -97,7 +97,7 @@ public class Config {
 
 	/**
 	 * Restituisce il driver per il database
-	 * 
+	 *
 	 * @return il driver appropriato x la connessione al db
 	 */
 	public  String getDriver() {
@@ -106,7 +106,7 @@ public class Config {
 
 	/**
 	 * Restituisce il pattern URL per il database
-	 * 
+	 *
 	 * @return url per il database
 	 */
 	public  String getDbUrl() {
@@ -115,7 +115,7 @@ public class Config {
 
 	/**
 	 * Restituisce il nome utente per il Database
-	 * 
+	 *
 	 * @return the user
 	 */
 	public  String getUser() {
@@ -124,7 +124,7 @@ public class Config {
 
 	/**
 	 * Restituisce la password per il Database
-	 * 
+	 *
 	 * @return the password
 	 */
 	public  String getPassword() {
