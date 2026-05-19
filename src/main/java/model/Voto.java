@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Voto {
 	private int id;
@@ -9,6 +9,9 @@ public class Voto {
 	private String materia;
 	private double voto;
 	private Date data;
+
+	public Voto() {
+	}
 
 	public Voto(int id, int idStudente, int idDocente, String materia, double voto, Date data) {
 		this.id = id;
