@@ -16,7 +16,8 @@ public class Utente implements Serializable {
 	private String ruolo;
 	private String nome;
 	private String cognome;
-
+	
+	//classe utente
 	public Utente() {
 	}
 
