@@ -12,7 +12,7 @@ import org.jdom2.JDOMException;
 import model.Admin;
 import utils.Config;
 
-//commento per commit
+//commento per commit 2
 public class AdminDAO extends DAO{
 	// Il costruttore chiama quello della superclasse DAO
 		public AdminDAO(String xmlurl) throws ClassNotFoundException, JDOMException, IOException, SQLException {
