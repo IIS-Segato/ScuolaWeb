@@ -1,72 +1,286 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Creato il: Apr 19, 2026 alle 19:41
--- Versione del server: 10.4.28-MariaDB
--- Versione PHP: 8.2.4
+DROP DATABASE IF EXISTS scuola;
+CREATE DATABASE scuola;
+USE scuola;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+-- =========================
+-- PERSONE
+-- =========================
+CREATE OR REPLACE TABLE persone(
+ id_persona INT AUTO_INCREMENT PRIMARY KEY,
+ nome VARCHAR(50) NOT NULL,
+ cognome VARCHAR(50) NOT NULL,
+ email VARCHAR(100) UNIQUE,
+ cf VARCHAR(16) UNIQUE,
+ nascita DATE,
+ img_profilo BLOB
+);
 
+-- =========================
+-- RUOLI
+-- =========================
+CREATE OR REPLACE TABLE ruoli(
+ id_ruolo INT AUTO_INCREMENT PRIMARY KEY,
+ nome_ruolo VARCHAR(20) UNIQUE NOT NULL,
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+ gestione_utenti BOOLEAN DEFAULT FALSE,
 
---
--- Database: `example`
---
-CREATE DATABASE IF NOT EXISTS `example` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `example`;
+ voti_modifica_tutti BOOLEAN DEFAULT FALSE,
+ voti_visualizza_tutti BOOLEAN DEFAULT FALSE,
+ voti_modifica_propri BOOLEAN DEFAULT FALSE,
+ voti_visualizza_propri BOOLEAN DEFAULT TRUE,
+ voti_visualizza_classe BOOLEAN DEFAULT FALSE,
 
--- --------------------------------------------------------
+ orario_modifica BOOLEAN DEFAULT FALSE,
+ orario_visualizza BOOLEAN DEFAULT TRUE,
 
---
--- Struttura della tabella `roles`
---
+ aule_modifica BOOLEAN DEFAULT FALSE,
+ aule_visualizza BOOLEAN DEFAULT TRUE,
 
-DROP TABLE IF EXISTS `roles`;
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `description` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+ bacheca_pubblica BOOLEAN DEFAULT FALSE,
+ bacheca_visualizza BOOLEAN DEFAULT TRUE,
 
---
--- Dump dei dati per la tabella `roles`
---
+ dati_visualizza BOOLEAN DEFAULT TRUE,
 
-INSERT INTO `roles` (`id`, `name`, `description`) VALUES
-(1, 'preside', NULL),
-(2, 'Insegnante', 'Ha un controllo parziale dell\'applicazione web'),
-(3, 'Segreteria', 'Ha un controllo parziale dell\'applicazione web'),
-(4, 'Studente', 'Ha un controllo molto limitato dell\'applicazione web');
+ assenze_inserimento BOOLEAN DEFAULT FALSE,
+ assenze_visualizza_classe BOOLEAN DEFAULT FALSE,
+ assenze_visualizza_proprie BOOLEAN DEFAULT TRUE,
+ assenze_giustifica BOOLEAN DEFAULT FALSE,
+ assenze_approva_giustifica BOOLEAN DEFAULT FALSE
+);
 
---
--- Indici per le tabelle scaricate
---
+-- =========================
+-- RUOLI DATI
+-- =========================
 
---
--- Indici per le tabelle `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`);
+INSERT INTO ruoli VALUES (
+1,'ADMIN',
+TRUE,
+TRUE, TRUE, TRUE, TRUE, TRUE,
+TRUE, TRUE,
+TRUE, TRUE,
+TRUE, TRUE,
+TRUE,
+TRUE, TRUE, TRUE, TRUE, TRUE
+);
 
---
--- AUTO_INCREMENT per le tabelle scaricate
---
+INSERT INTO ruoli VALUES (
+2,'SEGRETARIO',
+TRUE,
+FALSE, FALSE, FALSE, FALSE, FALSE,
+TRUE, TRUE,
+TRUE, TRUE,
+TRUE, TRUE,
+TRUE,
+FALSE, FALSE, FALSE, FALSE, FALSE
+);
 
---
--- AUTO_INCREMENT per la tabella `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-COMMIT;
+INSERT INTO ruoli VALUES (
+3,'RAPPRESENTANTE',
+FALSE,
+FALSE, FALSE, TRUE, TRUE, TRUE,
+FALSE, TRUE,
+FALSE, TRUE,
+FALSE, TRUE,
+TRUE,
+TRUE, TRUE, TRUE, TRUE, TRUE
+);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO ruoli VALUES (
+4,'DOCENTE',
+FALSE,
+FALSE, FALSE, TRUE, TRUE, FALSE,
+FALSE, TRUE,
+FALSE, TRUE,
+FALSE, TRUE,
+TRUE,
+TRUE, TRUE, FALSE, FALSE, TRUE
+);
+
+INSERT INTO ruoli VALUES (
+5,'STUDENTE',
+FALSE,
+FALSE, FALSE, FALSE, TRUE, FALSE,
+FALSE, TRUE,
+FALSE, TRUE,
+FALSE, TRUE,
+TRUE,
+FALSE, FALSE, TRUE, TRUE, FALSE
+);
+
+-- =========================
+-- UTENTI LOGIN
+-- =========================
+CREATE OR REPLACE TABLE utenti(
+ id_utente INT AUTO_INCREMENT PRIMARY KEY,
+ username VARCHAR(50) UNIQUE NOT NULL,
+ password_hash VARCHAR(255) NOT NULL,
+ id_persona INT NOT NULL,
+ id_ruolo INT NOT NULL,
+
+ FOREIGN KEY(id_persona) REFERENCES persone(id_persona)
+ ON DELETE CASCADE ON UPDATE CASCADE,
+
+ FOREIGN KEY(id_ruolo) REFERENCES ruoli(id_ruolo)
+ ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- =========================
+-- CLASSI
+-- =========================
+CREATE OR REPLACE TABLE classi(
+ id_classe INT AUTO_INCREMENT PRIMARY KEY,
+ anno INT NOT NULL,
+ sezione VARCHAR(5),
+ indirizzo VARCHAR(50)
+);
+
+-- =========================
+-- STUDENTI
+-- =========================
+CREATE OR REPLACE TABLE studenti(
+ id_studente INT AUTO_INCREMENT PRIMARY KEY,
+ id_persona INT UNIQUE,
+ id_classe INT,
+
+ FOREIGN KEY(id_persona) REFERENCES persone(id_persona)
+ ON DELETE CASCADE,
+
+ FOREIGN KEY(id_classe) REFERENCES classi(id_classe)
+ ON DELETE SET NULL
+);
+
+-- =========================
+-- DOCENTI
+-- =========================
+CREATE OR REPLACE TABLE docenti(
+ id_docente INT AUTO_INCREMENT PRIMARY KEY,
+ id_persona INT UNIQUE,
+
+ FOREIGN KEY(id_persona) REFERENCES persone(id_persona)
+ ON DELETE CASCADE
+);
+
+-- =========================
+-- MATERIE
+-- =========================
+CREATE OR REPLACE TABLE materie(
+ id_materia INT AUTO_INCREMENT PRIMARY KEY,
+ nome VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- =========================
+-- INSEGNAMENTI
+-- =========================
+CREATE OR REPLACE TABLE insegnamenti(
+ id_insegnamento INT AUTO_INCREMENT PRIMARY KEY,
+ id_docente INT,
+ id_materia INT,
+ id_classe INT,
+
+ UNIQUE(id_docente,id_materia,id_classe),
+
+ FOREIGN KEY(id_docente) REFERENCES docenti(id_docente)
+ ON DELETE CASCADE,
+
+ FOREIGN KEY(id_materia) REFERENCES materie(id_materia)
+ ON DELETE CASCADE,
+
+ FOREIGN KEY(id_classe) REFERENCES classi(id_classe)
+ ON DELETE CASCADE
+);
+
+-- =========================
+-- AULE
+-- =========================
+CREATE OR REPLACE TABLE aule(
+ id_aula INT AUTO_INCREMENT PRIMARY KEY,
+ nome VARCHAR(30) UNIQUE,
+ capienza INT
+);
+
+-- =========================
+-- ORARIO
+-- =========================
+CREATE OR REPLACE TABLE orario(
+ id_orario INT AUTO_INCREMENT PRIMARY KEY,
+ id_insegnamento INT,
+ id_aula INT,
+
+ giorno ENUM('LUN','MAR','MER','GIO','VEN','SAB'),
+ ora_inizio TIME,
+ ora_fine TIME,
+
+ FOREIGN KEY(id_insegnamento) REFERENCES insegnamenti(id_insegnamento)
+ ON DELETE CASCADE,
+
+ FOREIGN KEY(id_aula) REFERENCES aule(id_aula)
+ ON DELETE CASCADE
+);
+
+-- =========================
+-- VOTI
+-- =========================
+CREATE OR REPLACE TABLE voti(
+ id_voto INT AUTO_INCREMENT PRIMARY KEY,
+ id_studente INT,
+ id_insegnamento INT,
+ voto DECIMAL(3,1),
+ data_voto DATE,
+ descrizione VARCHAR(100),
+
+ FOREIGN KEY(id_studente) REFERENCES studenti(id_studente)
+ ON DELETE CASCADE,
+
+ FOREIGN KEY(id_insegnamento) REFERENCES insegnamenti(id_insegnamento)
+ ON DELETE CASCADE
+);
+
+-- =========================
+-- ASSENZE
+-- =========================
+CREATE OR REPLACE TABLE assenze(
+ id_assenza INT AUTO_INCREMENT PRIMARY KEY,
+ id_utente INT NOT NULL,
+ data_evento DATE NOT NULL,
+ tipo ENUM('ASSENZA','RITARDO','USCITA') NOT NULL,
+ ora_evento TIME NULL,
+ giustificata BOOLEAN DEFAULT FALSE,
+ motivazione TEXT,
+ giustificata_da INT NULL,
+ data_giustifica DATETIME NULL,
+
+ FOREIGN KEY(id_utente) REFERENCES utenti(id_utente),
+ FOREIGN KEY(giustificata_da) REFERENCES utenti(id_utente)
+);
+
+-- =========================
+-- BACHECA ANNUNCI
+-- =========================
+CREATE OR REPLACE TABLE annunci(
+ id_annuncio INT AUTO_INCREMENT PRIMARY KEY,
+ titolo VARCHAR(100),
+ contenuto TEXT,
+ data_pubblicazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+ autore INT,
+
+ FOREIGN KEY(autore) REFERENCES utenti(id_utente)
+ ON DELETE SET NULL
+);
+
+-- =========================
+-- ANNUNCI CLASSE
+-- =========================
+CREATE OR REPLACE TABLE annunci_classe(
+ id_annuncio INT NOT NULL,
+ id_classe INT NOT NULL,
+ id_docente INT NOT NULL,
+ PRIMARY KEY(id_annuncio, id_classe),
+
+ FOREIGN KEY (id_annuncio)
+    REFERENCES annunci(id_annuncio)
+    ON DELETE CASCADE,
+
+ FOREIGN KEY (id_classe)
+    REFERENCES classi(id_classe)
+    ON DELETE CASCADE
+);
