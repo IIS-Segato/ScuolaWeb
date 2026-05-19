@@ -64,6 +64,18 @@ body{
             <%= user.getRoleId() %>
         </strong>
     </p>
+    <% if(user.getRoleId() == 2) { %>
+    <a href="VotoServlet?action=list" class="btn btn-primary mt-3">
+        Gestisci voti
+    </a>
+<% } %>
+
+<% if(user.getRoleId() == 3) { %>
+    <a href="VotoServlet?action=list" class="btn btn-success mt-3">
+        I miei voti
+    </a>
+<% } %>
+    
 
     <a href="logout"
        class="btn btn-danger">
