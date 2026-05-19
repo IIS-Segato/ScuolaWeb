@@ -41,4 +41,37 @@ public class AdminDAO extends DAO{
 
 			return admin;
 		}
+		
+		/**
+		 * metodo per la creazione di docenti
+		 * @param nome
+		 * @param cognome
+		 * @param materia
+		 * @param password
+		 * @return
+		 */
+	    public boolean insertDocente(String nome, String cognome, String materia, String password) {
+	        boolean inserito = false;
+	        String query = config.getQuery("docenti", "insert"); // Prende la query dall'XML
+
+	        try (PreparedStatement ps = this.conn.prepareStatement(query)) {
+	            
+	            ps.setString(1, nome);
+	            ps.setString(2, cognome);
+	            ps.setString(3, materia);
+	            ps.setString(4, password); 
+
+	            // executeUpdate() restituisce il numero di righe modificate
+	            int righeModificate = ps.executeUpdate();
+	            
+	            if (righeModificate > 0) {
+	                inserito = true;
+	            }
+
+	        } catch (SQLException e) {
+	            System.err.println("Errore in DocenteDao - insertDocente: " + e.getMessage());
+	        }
+
+	        return inserito;
+	    }
 }
