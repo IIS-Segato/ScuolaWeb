@@ -77,5 +77,16 @@ CREATE TABLE voti (
     FOREIGN KEY (id_docente) REFERENCES docenti(id)
 );
 
+INSERT INTO voti (id_studente, id_docente, materia, voto, data) VALUES
+(1, 2, 'Matematica', 8.5, '2024-01-15'),
+(1, 2, 'Matematica', 7.0, '2024-02-10'),
+(2, 3, 'Italiano', 6.5, '2024-01-20'),
+(2, 3, 'Italiano', 7.5, '2024-03-05'),
+(3, 2, 'Matematica', 9.0, '2024-02-18'),
+(3, 4, 'Inglese', 8.0, '2024-03-12'),
+(4, 4, 'Inglese', 6.0, '2024-01-25'),
+(4, 3, 'Italiano', 7.0, '2024-02-28'),
+(5, 2, 'Matematica', 5.5, '2024-03-10'),
+(5, 4, 'Inglese', 6.5, '2024-03-15');
 
 COMMIT;

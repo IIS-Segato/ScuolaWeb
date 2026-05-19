@@ -1,7 +1,5 @@
 package controller;
 
-package controller;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -13,15 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.VotoDao;
-import dao.StudenteDao;
 import dao.DocenteDao;
-import model.Voto;
+import dao.StudenteDao;
+import dao.VotoDao;
 import model.User;
+import model.Voto;
+import utils.DBManager;
 
 @WebServlet("/VotoServlet")
 public class VotoServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
 	private VotoDao votoDao;
 	private StudenteDao studenteDao;
@@ -29,7 +27,8 @@ public class VotoServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		Connection conn = (Connection) getServletContext().getAttribute("dbConnection");
+		Connection conn = DBManager.getConnection();
+
 		votoDao = new VotoDao(conn);
 		studenteDao = new StudenteDao(conn);
 		docenteDao = new DocenteDao(conn);
@@ -38,15 +37,15 @@ public class VotoServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String action = req.getParameter("action");
-		if (action == null) {
-			action = "list";
-		}
-
 		User u = (User) req.getSession().getAttribute("user");
 		if (u == null) {
 			resp.sendRedirect("login.jsp");
 			return;
+		}
+
+		String action = req.getParameter("action");
+		if (action == null) {
+			action = "list";
 		}
 
 		switch (action) {
@@ -56,7 +55,7 @@ public class VotoServlet extends HttpServlet {
 			break;
 
 		case "add":
-			if (u.getRoleId() == 2) { // 2 = docente
+			if (u.getRoleId() == 2) {
 				req.setAttribute("studenti", studenteDao.getAll());
 				req.setAttribute("docenti", docenteDao.getAll());
 				req.getRequestDispatcher("formVoto.jsp").forward(req, resp);
@@ -97,13 +96,13 @@ public class VotoServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String action = req.getParameter("action");
 		User u = (User) req.getSession().getAttribute("user");
-
 		if (u == null) {
 			resp.sendRedirect("login.jsp");
 			return;
 		}
+
+		String action = req.getParameter("action");
 
 		switch (action) {
 
@@ -118,8 +117,6 @@ public class VotoServlet extends HttpServlet {
 
 				votoDao.insert(v);
 				resp.sendRedirect("VotoServlet?action=list");
-			} else {
-				resp.sendRedirect("notAuthorized.jsp");
 			}
 			break;
 
@@ -135,8 +132,6 @@ public class VotoServlet extends HttpServlet {
 
 				votoDao.update(v);
 				resp.sendRedirect("VotoServlet?action=list");
-			} else {
-				resp.sendRedirect("notAuthorized.jsp");
 			}
 			break;
 
@@ -146,11 +141,14 @@ public class VotoServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * ⭐⭐⭐ IL METODO CHE MANCAVA ⭐⭐⭐
+	 */
 	private void list(HttpServletRequest req, HttpServletResponse resp, User u) throws ServletException, IOException {
 
 		List<Voto> lista;
 
-		if (u.getRoleId() == 3) { // 3 = studente
+		if (u.getRoleId() == 4) {
 			lista = votoDao.getAllByStudente(u.getId());
 		} else {
 			lista = votoDao.getAll();
