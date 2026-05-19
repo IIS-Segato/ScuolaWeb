@@ -102,8 +102,9 @@ public class DocentiDAO extends DAO{
 	}
 	
 	/**
+	 * Metodo per prendere tutte le classi di un docente
 	 * @param did
-	 * @return Lista classi di un docente
+	 * @return Lista classi
 	 * @throws ClassNotFoundException
 	 * @throws JDOMException
 	 * @throws IOException
