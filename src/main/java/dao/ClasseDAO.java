@@ -32,7 +32,7 @@ public class ClasseDAO extends AbstractDAO{
 		{
 			while (rs.next()) {
 				Classe c = new Classe();
-                c.setId(rs.getInt("id_utente"));
+                c.setId(rs.getInt("id_classe"));
                 c.setAnno(rs.getInt("anno"));
                 c.setSezione(rs.getString("sezione"));
                 c.setIndirizzo(rs.getString("indirizzo"));
@@ -56,7 +56,7 @@ public class ClasseDAO extends AbstractDAO{
 			ResultSet rs = ps.executeQuery();
 			
 		while (rs.next()) {
-			c.setId(rs.getInt("id_utente"));
+			c.setId(rs.getInt("id_classe"));
             c.setAnno(rs.getInt("anno"));
             c.setSezione(rs.getString("sezione"));
             c.setIndirizzo(rs.getString("indirizzo"));
