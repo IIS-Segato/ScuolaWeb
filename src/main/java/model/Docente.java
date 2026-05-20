@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * docente
+ */
 public class Docente {
     private int id;
     private String nome;
