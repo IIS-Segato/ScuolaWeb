@@ -72,27 +72,26 @@ public class VotoController extends HttpServlet {
 				
 			}
 			else if(ACTION_GET_ALL.equals(action)) {
+				voti = votoDao.getAll();
+				
+				request.setAttribute("voti", voti);
+				
+				view = "";
+				
+			}
+			else if(ACTION_GET_BY_ID.equals(action)) {
 				if(id != null) {
-					voti = votoDao.getAll();
+					voto = votoDao.getById(Integer.parseInt(id));
 					
-					request.setAttribute("voti", voti);
+					request.setAttribute("voto", voto);
 					
 					view = "";
 				}
 				
 			}
-			else if(ACTION_GET_BY_ID.equals(action)) {
-				voto = new Voto();
-				
-				
-				request.setAttribute("voto", voto);
-				
-				view = "";
-				
-			}
 			else if(ACTION_GET_BY_STUDENTE_ID.equals(action)){
 				if(id != null) {
-					voti = votoDao.getAll();
+					voti = votoDao.getByStudentId(Integer.parseInt(id));
 					
 					request.setAttribute("voti", voti);
 					
@@ -101,7 +100,7 @@ public class VotoController extends HttpServlet {
 			}
 			else if(ACTION_GET_BY_INSEGNAMENTO_ID.equals(action)) {
 				if(id != null) {
-					voti = votoDao.getAll();
+					voti = votoDao.getByInsegnamentoId(Integer.parseInt(id));
 					
 					request.setAttribute("voti", voti);
 					
