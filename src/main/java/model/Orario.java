@@ -24,6 +24,18 @@ public class Orario {
 		this.nomeMateria = nomeMateria; 
 	}
 
+	public Orario(int id, int id_docente, String nome_giorno, String orario_inizio, String orario_fine, String classe, String nomeDocente,
+			String cognomeDocente) {
+		this.id = id;
+		this.id_docente = id_docente;
+		this.nome_giorno = nome_giorno;
+		this.orario_inizio = orario_inizio;
+		this.orario_fine = orario_fine;
+		this.classe = classe;
+		this.nomeDocente = nomeDocente;
+		this.cognomeDocente = cognomeDocente;
+	}
+
 	public int getId() {
 		return id;
 	}

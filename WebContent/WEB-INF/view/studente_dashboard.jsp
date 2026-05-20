@@ -74,6 +74,9 @@ body {
 			<li class="nav-item mb-2"><a href="#"
 				class="nav-link text-white active"><i class="fas fa-home me-2"></i>
 					Dashboard</a></li>
+			<li class="nav-item mt-4"><a href="LogoutServlet"
+				class="nav-link text-warning"><i
+					class="fas fa-sign-out-alt me-2"></i> Esci</a></li>
 		</ul>
 	</div>
 
