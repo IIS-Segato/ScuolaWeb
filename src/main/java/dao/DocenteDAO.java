@@ -106,7 +106,7 @@ public class DocenteDAO extends AbstractDAO {
         return isInserted;
     }
     
-    public boolean update(int id, int id_persona) {
+    public boolean update(int id_persona, int id) {
         boolean isUpdated = false;
 
         try (Connection conn = getConnection();
