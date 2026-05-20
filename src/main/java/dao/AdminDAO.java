@@ -1,8 +1,6 @@
 package dao;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,9 +8,8 @@ import java.sql.SQLException;
 import org.jdom2.JDOMException;
 
 import model.Admin;
-import utils.Config;
 
-//commento per commit 2
+//commento per commit 3
 public class AdminDAO extends DAO{
 	// Il costruttore chiama quello della superclasse DAO
 		public AdminDAO(String xmlurl) throws ClassNotFoundException, JDOMException, IOException, SQLException {
