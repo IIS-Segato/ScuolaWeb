@@ -32,7 +32,7 @@ public class AssenzaDAO extends AbstractDAO{
         {
             while (rs.next()) {
             	Assenza a = new Assenza();
-                a.setId(rs.getInt("id_annuncio"));
+                a.setId(rs.getInt("id_assenza"));
                 a.setId_utente(rs.getInt("id_utente"));
                 a.setData_evento(rs.getString("data_evento"));
                 a.setTipo(rs.getString("tipo"));
@@ -61,7 +61,7 @@ public class AssenzaDAO extends AbstractDAO{
 			ResultSet rs = ps.executeQuery();
 			
 		while (rs.next()) {
-			a.setId(rs.getInt("id_annuncio"));
+			a.setId(rs.getInt("id_assenza"));
             a.setId_utente(rs.getInt("id_utente"));
             a.setData_evento(rs.getString("data_evento"));
             a.setTipo(rs.getString("tipo"));
@@ -90,7 +90,7 @@ public class AssenzaDAO extends AbstractDAO{
 			
 		while (rs.next()) {
 			Assenza a = new Assenza();
-			a.setId(rs.getInt("id_annuncio"));
+			a.setId(rs.getInt("id_assenza"));
             a.setId_utente(rs.getInt("id_utente"));
             a.setData_evento(rs.getString("data_evento"));
             a.setTipo(rs.getString("tipo"));
