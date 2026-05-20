@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.jdom2.JDOMException;
 
@@ -50,19 +49,21 @@ public class DocenteController extends HttpServlet {
 	 * Gestisce le richieste HTTP GET
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Recupero l'id (int) della classe dal form
+		// Recupero i parametri dal form
 		int cid = Integer.parseInt(request.getParameter("cid"));
+		int did = Integer.parseInt(request.getParameter("did"));
 		
 		// Prendo la lista studenti della classe
 		ArrayList<Studente> studenti = null;
+		String materia = null;
 		try {
 			studenti = docentiDAO.getStudentiByClasse(cid);
+			materia = docentiDAO.getMateriaByClasseDocente(cid, did);
 		} catch (ClassNotFoundException | JDOMException | IOException | SQLException e) {
 			e.printStackTrace();
 		}
-		// crea una sessione se questa non esiste
-		HttpSession session = request.getSession();
-		session.setAttribute("studenti", studenti); // salvo gli studenti in sessione
+		request.setAttribute("studenti", studenti); // salvo gli studenti nella richiesta
+		request.setAttribute("materia", materia); // salvo la materia nella richiesta
 		request.getRequestDispatcher("view/role/DocenteClasse.jsp").forward(request, response);
 	}
 }

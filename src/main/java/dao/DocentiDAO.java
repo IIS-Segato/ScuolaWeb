@@ -133,4 +133,16 @@ public class DocentiDAO extends DAO{
 		return classi;
 		
 	}
+	
+	public String getMateriaByClasseDocente(int cid, int did) throws SQLException {
+		String getMateriaByClasseDocente = this.getConf().getMateriaByClasseDocente();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getMateriaByClasseDocente);
+		ps.setInt(1, cid);
+		ps.setInt(2, did);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		return rs.getString("materia");
+	}
 }

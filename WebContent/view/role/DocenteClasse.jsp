@@ -6,7 +6,9 @@
 
 <%
 	ArrayList<Studente> studenti =
-		(ArrayList<Studente>) session.getAttribute("studenti");
+		(ArrayList<Studente>) request.getAttribute("studenti");
+
+	String materia = (String) request.getAttribute("materia");
 %>
 
 <!DOCTYPE html>
