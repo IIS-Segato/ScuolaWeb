@@ -11,6 +11,7 @@ public class Classe implements Serializable {
 	
 	// Attributi
 	private static final long serialVersionUID = 1L;
+	private int cid;
 	private int anno;
 	private String sezione;
 	private ArrayList<String> materie;
@@ -18,6 +19,12 @@ public class Classe implements Serializable {
 	// Getter e setter
 	public int getAnno() {
 		return anno;
+	}
+	public int getCid() {
+		return cid;
+	}
+	public void setCid(int cid) {
+		this.cid = cid;
 	}
 	public void setAnno(int anno) {
 		this.anno = anno;
@@ -34,5 +41,4 @@ public class Classe implements Serializable {
 	public void setMaterie(ArrayList<String> materie) {
 		this.materie = materie;
 	}
-	
 }

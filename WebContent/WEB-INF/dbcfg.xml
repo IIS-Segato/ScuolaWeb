@@ -18,8 +18,6 @@
 		<getDocente>select * from docenti where did = ?;</getDocente>
 		<getAmministratore>select * from amministratori where aid = ?;</getAmministratore>
 		<getStudente>select * from studenti where sid = ?;</getStudente>
-		<getClassiByDocente>select c.anno, c.sezione from classi as c join materie as m on c.cid = m.cid and m.did = ?;</getClassiByDocente>
-		<getClassi>select * from classi;</getClassi>
-		<getMaterieClasse>select m.materia from classi c join materie m on m.cid = c.cid where c.cid = ?;</getMaterieClasse>
+		<getClassiByDocente>select c.* from classi as c join materie as m on c.cid = m.cid and m.did = ?;</getClassiByDocente>
 	</query>
 </root>

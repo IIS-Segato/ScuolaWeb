@@ -102,8 +102,9 @@ public class DocentiDAO extends DAO{
 	}
 	
 	/**
+	 * Metodo per prendere tutte le classi di un docente
 	 * @param did
-	 * @return Lista classi di un docente
+	 * @return Lista classi
 	 * @throws ClassNotFoundException
 	 * @throws JDOMException
 	 * @throws IOException
@@ -122,7 +123,7 @@ public class DocentiDAO extends DAO{
 		
 		while(rs.next()) {
 			Classe c = new Classe();
-
+			c.setCid(rs.getInt("cid"));
 			c.setAnno(rs.getInt("anno"));
 			c.setSezione(rs.getString("sezione"));
             

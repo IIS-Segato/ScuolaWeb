@@ -96,6 +96,7 @@ public class LoginController extends HttpServlet {
 			try {
 				docente = docentiDAO.getDocente(did);
 				docente.setStudenti(docentiDAO.getStudentiByClasse(did));
+				docente.setClassi(docentiDAO.getClassiByDocente(did));
 			} catch (SQLException | ClassNotFoundException | JDOMException e) {
 				e.printStackTrace();
 			}
