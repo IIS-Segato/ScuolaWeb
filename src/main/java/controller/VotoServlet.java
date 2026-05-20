@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DocenteDao;
 import dao.StudenteDao;
 import dao.VotoDao;
 import model.User;
@@ -23,15 +22,12 @@ public class VotoServlet extends HttpServlet {
 
 	private VotoDao votoDao;
 	private StudenteDao studenteDao;
-	private DocenteDao docenteDao;
 
 	@Override
 	public void init() throws ServletException {
 		Connection conn = DBManager.getConnection();
-
 		votoDao = new VotoDao(conn);
 		studenteDao = new StudenteDao(conn);
-		docenteDao = new DocenteDao(conn);
 	}
 
 	@Override
@@ -55,9 +51,9 @@ public class VotoServlet extends HttpServlet {
 			break;
 
 		case "add":
-			if (u.getRoleId() == 2) {
-				req.setAttribute("studenti", studenteDao.getAll());
-				req.setAttribute("docenti", docenteDao.getAll());
+			if (u.getRoleId() == 2) { // docente
+				req.setAttribute("studenti", votoDao.getStudentiByDocente(u.getId()));
+				req.setAttribute("idDocente", u.getId());
 				req.getRequestDispatcher("formVoto.jsp").forward(req, resp);
 			} else {
 				resp.sendRedirect("notAuthorized.jsp");
@@ -68,9 +64,16 @@ public class VotoServlet extends HttpServlet {
 			if (u.getRoleId() == 2) {
 				int id = Integer.parseInt(req.getParameter("id"));
 				Voto v = votoDao.getById(id);
+
+				// sicurezza: un docente può modificare solo i suoi voti
+				if (v.getIdDocente() != u.getId()) {
+					resp.sendRedirect("notAuthorized.jsp");
+					return;
+				}
+
 				req.setAttribute("voto", v);
-				req.setAttribute("studenti", studenteDao.getAll());
-				req.setAttribute("docenti", docenteDao.getAll());
+				req.setAttribute("studenti", votoDao.getStudentiByDocente(u.getId()));
+				req.setAttribute("idDocente", u.getId());
 				req.getRequestDispatcher("formVoto.jsp").forward(req, resp);
 			} else {
 				resp.sendRedirect("notAuthorized.jsp");
@@ -80,6 +83,14 @@ public class VotoServlet extends HttpServlet {
 		case "delete":
 			if (u.getRoleId() == 2) {
 				int id = Integer.parseInt(req.getParameter("id"));
+				Voto v = votoDao.getById(id);
+
+				// sicurezza: un docente può cancellare solo i suoi voti
+				if (v.getIdDocente() != u.getId()) {
+					resp.sendRedirect("notAuthorized.jsp");
+					return;
+				}
+
 				votoDao.delete(id);
 				resp.sendRedirect("VotoServlet?action=list");
 			} else {
@@ -110,7 +121,7 @@ public class VotoServlet extends HttpServlet {
 			if (u.getRoleId() == 2) {
 				Voto v = new Voto();
 				v.setIdStudente(Integer.parseInt(req.getParameter("idStudente")));
-				v.setIdDocente(Integer.parseInt(req.getParameter("idDocente")));
+				v.setIdDocente(u.getId()); // docente loggato
 				v.setMateria(req.getParameter("materia"));
 				v.setVoto(Double.parseDouble(req.getParameter("voto")));
 				v.setData(Date.valueOf(req.getParameter("data")));
@@ -125,7 +136,7 @@ public class VotoServlet extends HttpServlet {
 				Voto v = new Voto();
 				v.setId(Integer.parseInt(req.getParameter("id")));
 				v.setIdStudente(Integer.parseInt(req.getParameter("idStudente")));
-				v.setIdDocente(Integer.parseInt(req.getParameter("idDocente")));
+				v.setIdDocente(u.getId()); // docente loggato
 				v.setMateria(req.getParameter("materia"));
 				v.setVoto(Double.parseDouble(req.getParameter("voto")));
 				v.setData(Date.valueOf(req.getParameter("data")));
@@ -142,15 +153,20 @@ public class VotoServlet extends HttpServlet {
 	}
 
 	/**
-	 * ⭐⭐⭐ IL METODO CHE MANCAVA ⭐⭐⭐
+	 * LISTA VOTI
 	 */
 	private void list(HttpServletRequest req, HttpServletResponse resp, User u) throws ServletException, IOException {
 
 		List<Voto> lista;
 
 		if (u.getRoleId() == 4) {
+			// studente → vede solo i suoi voti
 			lista = votoDao.getAllByStudente(u.getId());
+		} else if (u.getRoleId() == 2) {
+			// docente → vede solo i voti che ha inserito lui
+			lista = votoDao.getAllByDocente(u.getId());
 		} else {
+			// preside / segreteria → vede tutto
 			lista = votoDao.getAll();
 		}
 

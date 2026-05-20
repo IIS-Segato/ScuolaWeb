@@ -1,17 +1,15 @@
 <%@ page import="java.util.List" %>
-<%@ page import="model.Voto" %>
 <%@ page import="model.Studente" %>
-<%@ page import="model.Docente" %>
+<%@ page import="model.Voto" %>
 
 <%
     Voto v = (Voto) request.getAttribute("voto");
     List<Studente> studenti = (List<Studente>) request.getAttribute("studenti");
-    List<Docente> docenti = (List<Docente>) request.getAttribute("docenti");
-
+    int idDocente = (int) request.getAttribute("idDocente");
     boolean editing = (v != null);
 %>
 
-<h2><%= editing ? "Modifica voto" : "Aggiungi voto" %></h2>
+<h2 class="mb-4"><%= editing ? "Modifica Voto" : "Inserisci Voto" %></h2>
 
 <form action="VotoServlet" method="post">
 
@@ -21,8 +19,12 @@
         <input type="hidden" name="id" value="<%= v.getId() %>">
     <% } %>
 
+    <!-- ID DOCENTE (nascosto) -->
+    <input type="hidden" name="idDocente" value="<%= idDocente %>">
+
+    <!-- STUDENTE -->
     <div class="mb-3">
-        <label>Studente</label>
+        <label class="form-label">Studente</label>
         <select name="idStudente" class="form-control" required>
             <% for (Studente s : studenti) { %>
                 <option value="<%= s.getId() %>"
@@ -33,35 +35,28 @@
         </select>
     </div>
 
+    <!-- MATERIA -->
     <div class="mb-3">
-        <label>Docente</label>
-        <select name="idDocente" class="form-control" required>
-            <% for (Docente d : docenti) { %>
-                <option value="<%= d.getId() %>"
-                    <%= editing && v.getIdDocente() == d.getId() ? "selected" : "" %>>
-                    <%= d.getCognome() %> <%= d.getNome() %>
-                </option>
-            <% } %>
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label>Materia</label>
+        <label class="form-label">Materia</label>
         <input type="text" name="materia" class="form-control"
                value="<%= editing ? v.getMateria() : "" %>" required>
     </div>
 
+    <!-- VOTO -->
     <div class="mb-3">
-        <label>Voto</label>
-        <input type="number" step="0.1" name="voto" class="form-control"
-               value="<%= editing ? v.getVoto() : "" %>" required>
+        <label class="form-label">Voto</label>
+        <input type="number" step="0.1" min="0" max="10"
+       name="voto" class="form-control"
+       value="<%= editing ? v.getVoto() : "" %>" required>
+
     </div>
 
+    <!-- DATA -->
     <div class="mb-3">
-        <label>Data</label>
+        <label class="form-label">Data</label>
         <input type="date" name="data" class="form-control"
                value="<%= editing ? v.getData() : "" %>" required>
     </div>
 
-    <button type="submit" class="btn btn-success">Salva</button>
+    <button class="btn btn-success">Salva</button>
 </form>
