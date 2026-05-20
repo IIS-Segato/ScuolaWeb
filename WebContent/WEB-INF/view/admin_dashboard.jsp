@@ -85,6 +85,32 @@ body {
 	</div>
 
 	<div class="main-content">
+		<%
+		String messaggio = request.getParameter("messaggio");
+		String errore = request.getParameter("errore");
+
+		if (messaggio != null && messaggio.equals("docente_inserito_con_successo")) {
+		%>
+		<div class="alert alert-success alert-dismissible fade show shadow-sm"
+			role="alert">
+			<i class="fas fa-check-circle me-2"></i> Docente inserito con
+			successo!
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+		<%
+		} else if (errore != null) {
+		%>
+		<div class="alert alert-danger alert-dismissible fade show shadow-sm"
+			role="alert">
+			<i class="fas fa-exclamation-triangle me-2"></i> Errore durante
+			l'inserimento del docente.
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+		<%
+		}
+		%>
 		<div
 			class="profile-header d-flex justify-content-between align-items-center">
 			<div>
@@ -106,7 +132,7 @@ body {
 					Docente</h6>
 			</div>
 			<div class="card-body">
-				<form action="InserisciDocenteServlet" method="POST">
+				<form action="AdminDashboardServlet" method="POST">
 					<div class="row mb-3">
 						<div class="col">
 							<label for="nome" class="form-label">Nome</label> <input

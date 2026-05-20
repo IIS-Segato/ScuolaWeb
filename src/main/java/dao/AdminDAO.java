@@ -55,8 +55,8 @@ public class AdminDAO extends DAO{
 	            
 	            ps.setString(1, nome);
 	            ps.setString(2, cognome);
-	            ps.setString(3, materia);
-	            ps.setString(4, password); 
+	            ps.setString(3, password);
+	            ps.setString(4, materia); 
 
 	            // executeUpdate() restituisce il numero di righe modificate
 	            int righeModificate = ps.executeUpdate();
@@ -66,8 +66,19 @@ public class AdminDAO extends DAO{
 	            }
 
 	        } catch (SQLException e) {
-	            System.err.println("Errore in DocenteDao - insertDocente: " + e.getMessage());
-	        }
+	            System.err.println("Errore in AdminDAO - insertDocente: " + e.getMessage());
+	            
+//	            // 1452 è il codice standard MySQL per: "Cannot add or update a child row: a foreign key constraint fails"
+//	            if (e.getErrorCode() == 1452) {
+//	                return "errore_materia_non_valida";
+//	            }
+//	            
+//	            // Puoi aggiungere altri controlli qui, ad esempio per chiavi duplicate (codice 1062)
+//	            if (e.getErrorCode() == 1062) {
+//	                return "errore_duplicato";
+//	            }
+           }
+//	        return "errore_generico";
 
 	        return inserito;
 	    }
