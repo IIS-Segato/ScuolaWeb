@@ -1,34 +1,67 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.Docente" %>
-<%@ page import="model.Orario" %>
-<%@ page import="java.util.List" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="model.Docente"%>
+<%@ page import="model.Orario"%>
+<%@ page import="java.util.List"%>
 <%
-    //Recupero gli oggetti passati dalla Servlet tramite la request
-    Docente d = (Docente) request.getAttribute("docente");
-    List<Orario> orari = (List<Orario>) request.getAttribute("orari");
-    
-    //Sicurezza minima nel caso si provi ad accedere direttamente alla JSP saltando la Servlet
-    if (d == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
+//Recupero gli oggetti passati dalla Servlet tramite la request
+Docente d = (Docente) request.getAttribute("docente");
+List<Orario> orari = (List<Orario>) request.getAttribute("orari");
+
+//Sicurezza minima nel caso si provi ad accedere direttamente alla JSP saltando la Servlet
+if (d == null) {
+	response.sendRedirect("login.jsp");
+	return;
+}
 %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Docente | <%= d.getNome() %></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { --sidebar-width: 250px; --primary-color: #4e73df; }
-        body { background-color: #f8f9fc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .sidebar { width: var(--sidebar-width); height: 100vh; position: fixed; background: var(--primary-color); color: white; padding: 20px; }
-        .main-content { margin-left: var(--sidebar-width); padding: 30px; }
-        .card-stat { border-left: 4px solid var(--primary-color); }
-        .profile-header { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15); margin-bottom: 30px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Docente | <%=d.getNome()%></title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+	--sidebar-width: 250px;
+	--primary-color: #4e73df;
+}
+
+body {
+	background-color: #f8f9fc;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+	width: var(--sidebar-width);
+	height: 100vh;
+	position: fixed;
+	background: var(--primary-color);
+	color: white;
+	padding: 20px;
+}
+
+.main-content {
+	margin-left: var(--sidebar-width);
+	padding: 30px;
+}
+
+.card-stat {
+	border-left: 4px solid var(--primary-color);
+}
+
+.profile-header {
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+	margin-bottom: 30px;
+}
+</style>
 </head>
 <body>
 
@@ -41,20 +74,26 @@
         </ul>
     </div>
 
-    <div class="main-content">
-        <div class="profile-header d-flex justify-content-between align-items-center">
-            <div>
-                <h2 class="mb-0 text-gray-800">Bentornato, <%= d.getNome() %> <%= d.getCognome() %>!</h2>
-                <span class="text-muted">Materia: <strong><%= d.getNomeMateria() %></strong></span>
-            </div>
-            <div class="text-end">
-                <div class="badge bg-primary p-2">Docente ID: #<%= d.getId() %></div>
-            </div>
-        </div>
+	<div class="main-content">
+		<div
+			class="profile-header d-flex justify-content-between align-items-center">
+			<div>
+				<h2 class="mb-0 text-gray-800">
+					Bentornato,
+					<%=d.getNome()%>
+					<%=d.getCognome()%>!
+				</h2>
+				<span class="text-muted">Materia: <strong><%=d.getNomeMateria()%></strong></span>
+			</div>
+			<div class="text-end">
+				<div class="badge bg-primary p-2">
+					Docente ID: #<%=d.getId()%></div>
+			</div>
+		</div>
 
-        <div class="row">
-            <!-- La tua vecchia card voti e presenze va qui... -->
-        </div>
+		<div class="row">
+			<!-- La tua vecchia card voti e presenze va qui... -->
+		</div>
 
         <!-- ORARIO -->
         <div class="card shadow mb-4">
@@ -95,6 +134,9 @@
         
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
