@@ -99,9 +99,9 @@ public class UtenteDAO {
     public boolean inserisciNuovoUtente(Utente u) {
         String sql = "";
         if ("STUDENTE".equals(u.getRuolo())) {
-            sql = "INSERT INTO STUDENTI (NOME, COGNOME, EMAIL, PWD, ID_C) VALUES (?, ?, ?, ?, ?)"; // ✅ ? invece di 1
+            sql = "INSERT INTO STUDENTI (NOME, COGNOME, EMAIL, PWD, ID_C) VALUES (?, ?, ?, ?, ?)";
         } else if ("DOCENTE".equals(u.getRuolo())) {
-            sql = "INSERT INTO DOCENTI (NOME, COGNOME, EMAIL, PWD, MATERIA) VALUES (?, ?, ?, ?, 'Da definire')";
+            sql = "INSERT INTO DOCENTI (NOME, COGNOME, EMAIL, PWD, MATERIA) VALUES (?, ?, ?, ?, ?)";
         } else if ("AMMINISTRATORE".equals(u.getRuolo())) {
             sql = "INSERT INTO AMMINISTRATORI (NOME, COGNOME, EMAIL, PWD) VALUES (?, ?, ?, ?)";
         }
@@ -116,6 +116,8 @@ public class UtenteDAO {
             // ✅ Se studente, aggiungi il 5° parametro con la classe vera
             if ("STUDENTE".equals(u.getRuolo())) {
                 ps.setInt(5, u.getIdClasse());
+            }else if ("DOCENTE".equals(u.getRuolo())) {
+                ps.setString(5, u.getMateria() != null ? u.getMateria() : "Da definire");
             }
 
             return ps.executeUpdate() > 0;

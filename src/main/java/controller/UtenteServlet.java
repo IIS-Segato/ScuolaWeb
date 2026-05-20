@@ -42,6 +42,7 @@ public class UtenteServlet extends HttpServlet {
         u.setEmail(request.getParameter("email"));
         u.setPassword(request.getParameter("password"));
         u.setRuolo(request.getParameter("ruolo"));
+        u.setMateria(request.getParameter("materia"));
 
         if ("INSERT".equals(action)) {
 

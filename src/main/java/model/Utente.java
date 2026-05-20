@@ -11,6 +11,7 @@ public class Utente implements Serializable {
     private String nome;
     private String cognome;
     private int idClasse; 
+    private String materia;
 
     // Costruttore vuoto
     public Utente() {}
@@ -45,14 +46,16 @@ public class Utente implements Serializable {
     public String getCognome() { return cognome; }
     public void setCognome(String cognome) { this.cognome = cognome; }
 
-    // ✅ AGGIUNTO
     public int getIdClasse() { return idClasse; }
     public void setIdClasse(int idClasse) { this.idClasse = idClasse; }
+    
+    public String getMateria() { return materia; }
+    public void setMateria(String materia) { this.materia = materia; } 
 
     @Override
     public String toString() {
         return "Utente [id=" + id + ", email=" + email + ", password=" + password
                 + ", ruolo=" + ruolo + ", nome=" + nome + ", cognome=" + cognome
-                + ", idClasse=" + idClasse + "]";
+                + ", idClasse=" + idClasse + ", materia=" + materia + "]";
     }
 }
