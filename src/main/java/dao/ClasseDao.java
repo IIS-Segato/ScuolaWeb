@@ -16,6 +16,8 @@ public class ClasseDao {
 		this.conn = conn;
 	}
 
+	// GET ALL CLASSI
+
 	public List<Classe> getAll() {
 		List<Classe> list = new ArrayList<>();
 
@@ -33,5 +35,27 @@ public class ClasseDao {
 		}
 
 		return list;
+	}
+
+	// GET BY ID
+
+	public Classe getById(int id) {
+		Classe c = null;
+
+		try {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM classi WHERE id = ?");
+			ps.setInt(1, id);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				c = new Classe(rs.getInt("id"), rs.getString("nome"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return c;
 	}
 }
