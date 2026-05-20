@@ -172,8 +172,7 @@ public class RuoloDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(int id,
-							String nome_ruolo, 
+	public boolean update(String nome_ruolo, 
 							boolean gestione_utenti,
 							boolean voti_modifica_tutti,
 							boolean voti_visualizza_tutti,
@@ -186,7 +185,8 @@ public class RuoloDAO extends AbstractDAO{
 							boolean aule_visualizza,
 							boolean bacheca_pubblica,
 							boolean bacheca_visualizza,
-							boolean dati_visualizza) {
+							boolean dati_visualizza,
+							int id) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();
