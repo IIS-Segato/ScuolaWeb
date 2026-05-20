@@ -127,7 +127,7 @@ public class AnnuncioController extends HttpServlet{
 				annuncioDao.update(titolo, contenuto, data_pubblicazione, Integer.parseInt(autore), Integer.parseInt(id));
 			}
 			
-			response.sendRedirect("Voto");
+			response.sendRedirect("Annuncio");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
