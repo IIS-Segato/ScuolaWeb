@@ -45,32 +45,8 @@ public class AnnuncioDAO extends AbstractDAO {
 
         return annunci;
     }
-    
-	public Annuncio getById(int id) {
-		Annuncio a = new Annuncio();
-		
-		try (Connection conn = getConnection();
-	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID))
-		{
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-		while (rs.next()) {
-			a.setId(rs.getInt("id_annuncio"));
-            a.setTitolo(rs.getString("titolo"));
-            a.setContenuto(rs.getString("contenuto"));
-            a.setData_pubblicazione(rs.getInt("data_pubblicazione"));
-            a.setAutore(rs.getInt("autore"));
-		}
-			
-		} catch (Exception e) {
-			printException(e);
-		}
-		
-		return a;
-	}
 	
-	public Annuncio getByIdClasse(int autore) {
+	public Annuncio getById(int autore) {
 		Annuncio a = new Annuncio();
 		
 		try (Connection conn = getConnection();
@@ -92,6 +68,32 @@ public class AnnuncioDAO extends AbstractDAO {
 		}
 		
 		return a;
+	}
+	
+	public List<Annuncio> getByIdAutore(int id) {
+		List<Annuncio> annunci = new ArrayList<>();
+		
+		try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID))
+		{
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+		while (rs.next()) {
+			Annuncio a = new Annuncio();
+			a.setId(rs.getInt("id_annuncio"));
+            a.setTitolo(rs.getString("titolo"));
+            a.setContenuto(rs.getString("contenuto"));
+            a.setData_pubblicazione(rs.getInt("data_pubblicazione"));
+            a.setAutore(rs.getInt("autore"));
+            annunci.add(a);
+		}
+			
+		} catch (Exception e) {
+			printException(e);
+		}
+		
+		return annunci;
 	}
 	
 	public boolean insert(String titolo, String contenuto, String data_pubblicazione, int autore) {
