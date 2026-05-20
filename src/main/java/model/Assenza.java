@@ -6,7 +6,7 @@ public class Assenza {
 	private String data_evento;
 	private String tipo;
 	private String ora_evento;
-	private String giustifica;
+	private boolean giustificata;
 	private String motivazione;
 	private int giustificata_da;
 	private String data_giustifica;
@@ -78,14 +78,14 @@ public class Assenza {
 	/**
 	 * @return the giustifica
 	 */
-	public String getGiustifica() {
-		return giustifica;
+	public Boolean getGiustificata() {
+		return giustificata;
 	}
 	/**
 	 * @param giustifica the giustifica to set
 	 */
-	public void setGiustifica(String giustifica) {
-		this.giustifica = giustifica;
+	public void setGiustificata(Boolean giustificata) {
+		this.giustificata = giustificata;
 	}
 	/**
 	 * @return the motivazione
