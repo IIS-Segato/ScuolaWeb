@@ -30,6 +30,9 @@ public class Config {
 	private String getClassi;
 	private String getMaterieClasse;
 	private String getMateriaByClasseDocente;
+	private String getClasseByCid;
+	private String insertVoto;
+	private String getVotiByStudenteMateria;
 	
 	/**
 	 * Costruttore
@@ -83,6 +86,9 @@ public class Config {
 		this.getClassi = query.getChildText("getClassi").trim();
 		this.getMaterieClasse = query.getChildText("getMaterieClasse").trim();
 		this.getMateriaByClasseDocente = query.getChildText("getMateriaByClasseDocente").trim();
+		this.getClasseByCid = query.getChildText("getClasseByCid").trim();
+		this.insertVoto = query.getChildText("insertVoto").trim();
+		this.getVotiByStudenteMateria = query.getChildText("getVotiByStudenteMateria").trim();
 	}
 
 	// Getter degli attributi
@@ -160,5 +166,17 @@ public class Config {
 	
 	public String getMateriaByClasseDocente() {
 		return getMateriaByClasseDocente;
+	}
+	
+	public String getClasseByCid() {
+		return getClasseByCid;
+	}
+	
+	public String insertVoto() {
+		return insertVoto;
+	}
+	
+	public String getVotiByStudenteMateria() {
+		return getVotiByStudenteMateria;
 	}
 }

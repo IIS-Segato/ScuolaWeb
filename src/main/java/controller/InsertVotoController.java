@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,14 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.jdom2.JDOMException;
 
 import dao.DocentiDAO;
-import model.Classe;
-import model.Studente;
 
 /**
- * Classe DocenteController.java per la gestione della servlet Docente
+ * Classe InsertVotoController.java per l'inserimento dei voti
  */
-@WebServlet("/ClasseDocente")
-public class DocenteController extends HttpServlet {
+@WebServlet("/InsertVotoController")
+public class InsertVotoController extends HttpServlet {
 	// Attributi
 	private static final long serialVersionUID = 1L;
 	private DocentiDAO docentiDAO;
@@ -29,7 +26,7 @@ public class DocenteController extends HttpServlet {
 	/**
 	 * Costruttore
 	 */
-	public DocenteController() {
+	public InsertVotoController() {
 		super();
 	}
 	
@@ -47,27 +44,24 @@ public class DocenteController extends HttpServlet {
 	}
 	
 	/**
-	 * Gestisce le richieste HTTP GET
+	 * Gestisce le richieste HTTP POST
 	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recupero i parametri dal form
+		int sid = Integer.parseInt(request.getParameter("sid"));
 		int cid = Integer.parseInt(request.getParameter("cid"));
 		int did = Integer.parseInt(request.getParameter("did"));
+		String materia = (String) request.getParameter("materia");
+		int voto = Integer.parseInt(request.getParameter("voto"));
+		String data = (String) request.getParameter("data");
 		
-		// Prendo la lista studenti della classe
-		ArrayList<Studente> studenti = null;
-		String materia = null;
-		Classe classe = null;
 		try {
-			studenti = docentiDAO.getStudentiByClasse(cid);
-			materia = docentiDAO.getMateriaByClasseDocente(cid, did);
-			classe = docentiDAO.getClasseByCid(cid);
-		} catch (ClassNotFoundException | JDOMException | IOException | SQLException e) {
+			docentiDAO.insertVoto(voto, materia, data, did, sid);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("studenti", studenti); // salvo gli studenti nella richiesta
-		request.setAttribute("materia", materia); // salvo la materia nella richiesta
-		request.setAttribute("classe", classe); // salvo la classe nella richiesta
-		request.getRequestDispatcher("view/role/DocenteClasse.jsp").forward(request, response);
+		
+		response.sendRedirect("ClasseDocente?cid="+cid+"&did="+did);
 	}
 }

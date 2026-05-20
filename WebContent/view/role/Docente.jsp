@@ -1,16 +1,20 @@
-<%@page import="java.util.ArrayList"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.time.LocalDate"%>
 <%@ page import="model.*" %>
 <%@ page language="java"
 	contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%
+	// prendo il docente in sessione
 	Docente docente =
 		(Docente) session.getAttribute("docente");
 
+	// prendo la lista delle classi del docente
 	ArrayList<Classe> classi =
 		docente.getClassi();
 
+	// Iniziali maiuscole per il profilo
 	String nomeDocente  = docente.getNome();
 	String cognomeDocente = docente.getCognome();
 	String iniziali = "";
@@ -20,7 +24,26 @@
 		iniziali += cognomeDocente.charAt(0);
 	iniziali = iniziali.toUpperCase();
 
+	// numero classi del docente
 	int numClassi = (classi != null) ? classi.size() : 0;
+	
+	// prendo l'anno scolastico attuale (se dopo settembre anno corrente e successivo, sennò anno corrente e precedente)
+	LocalDate oggi = LocalDate.now();
+
+    int annoCorrente = oggi.getYear();
+    int mese = oggi.getMonthValue();
+
+    int primoAnno;
+    int secondoAnno;
+
+    
+    if (mese >= 9) {
+        primoAnno = annoCorrente;
+        secondoAnno = annoCorrente + 1;
+    } else {
+        primoAnno = annoCorrente - 1;
+        secondoAnno = annoCorrente;
+    }
 %>
 
 <!DOCTYPE html>
@@ -509,7 +532,7 @@ html, body {
 
     </div>
 
-    <button class="logout-btn" onclick="location.href='Logout'">
+    <button class="logout-btn" onclick="location.href='logout'">
       <svg viewBox="0 0 24 24">
         <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
         <polyline points="16 17 21 12 16 7"/>
@@ -576,7 +599,7 @@ html, body {
         </svg>
         Anno scolastico
       </div>
-      <div class="stat-value mono">2025/26</div>
+      <div class="stat-value mono"><%= primoAnno + "/" + secondoAnno %></div>
     </div>
 
     <div class="stat">

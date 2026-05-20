@@ -22,5 +22,8 @@
 		<getMateriaByClasseDocente>select materia from materie where cid = ? and did = ?;</getMateriaByClasseDocente>
 		<getClassi>select * from classi;</getClassi>
 		<getMaterieClasse>select m.materia from classi c join materie m on m.cid = c.cid where c.cid = ?;</getMaterieClasse>
+		<getClasseByCid>select * from classi where cid = ?;</getClasseByCid>
+		<insertVoto>insert into voti(voto, materia, data, did, sid) values(?,?,?,?,?);</insertVoto>
+		<getVotiByStudenteMateria>select * from voti where sid = ? and materia = ?;</getVotiByStudenteMateria>
 	</query>
 </root>

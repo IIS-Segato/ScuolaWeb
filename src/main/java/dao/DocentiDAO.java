@@ -11,6 +11,7 @@ import org.jdom2.JDOMException;
 import model.Classe;
 import model.Docente;
 import model.Studente;
+import model.Voto;
 
 /**
  * Classe DocentiDAO.java per la gestione dei Docenti
@@ -143,6 +144,68 @@ public class DocentiDAO extends DAO{
 		
 		ResultSet rs = ps.executeQuery();
 		
-		return rs.getString("materia");
+		String materia = null;
+		
+		while(rs.next()) materia = rs.getString("materia");
+		
+		return materia;
+	}
+	
+	public Classe getClasseByCid(int cid) throws SQLException {
+		String getClasseByCid = this.getConf().getClasseByCid();
+		
+		Classe c = new Classe();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getClasseByCid);
+		ps.setInt(1, cid);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			c.setCid(rs.getInt("cid"));
+			c.setAnno(rs.getInt("anno"));
+			c.setSezione(rs.getString("sezione"));
+		}
+		
+		return c;
+	}
+	
+	public void insertVoto(int voto, String materia, String data, int did, int sid) throws SQLException {
+		String insertVoto = this.getConf().insertVoto();
+
+		PreparedStatement ps = this.getConn().prepareStatement(insertVoto);
+		ps.setInt(1, voto);
+		ps.setString(2, materia);
+		ps.setString(3, data);
+		ps.setInt(4, did);
+		ps.setInt(5, sid);
+		
+		ps.executeUpdate();
+	}
+	
+	public ArrayList<Voto> getVotiByStudenteMateria(int sid, String materia) throws SQLException {
+		String getVotiByStudenteMateria = this.getConf().getVotiByStudenteMateria();
+		
+		ArrayList<Voto> voti = new ArrayList<>();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getVotiByStudenteMateria);
+		ps.setInt(1, sid);
+		ps.setString(2, materia);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			Voto v = new Voto();
+			v.setVid(rs.getInt("vid"));
+			v.setVoto(rs.getInt("voto"));
+			v.setMateria(rs.getString("materia"));
+			v.setData(rs.getString("data"));
+			v.setDid(rs.getInt("did"));
+			v.setSid(rs.getInt("sid"));
+            
+            voti.add(v);
+		}
+		
+		return voti;
 	}
 }

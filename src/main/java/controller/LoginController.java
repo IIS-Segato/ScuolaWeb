@@ -128,4 +128,44 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 	}
+	
+	/**
+	 * Gestisce le richieste HTTP GET
+	 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Recupera la sessione SENZA crearne una nuova
+		HttpSession session = request.getSession(false);
+
+		// Recupera utenti dalla sessione
+		Studente studente =
+			(Studente) session.getAttribute("studente");
+
+		Docente docente =
+			(Docente) session.getAttribute("docente");
+
+		Amministratore amministratore =
+			(Amministratore) session.getAttribute("amministratore");
+
+		// Routing automatico
+		if (studente != null) {
+			request.getRequestDispatcher(
+				"view/role/Studente.jsp"
+			).forward(request, response);
+
+		} else if (docente != null) {
+			request.getRequestDispatcher(
+				"view/role/Docente.jsp"
+			).forward(request, response);
+
+		} else if (amministratore != null) {
+			request.getRequestDispatcher(
+				"view/role/Amministratore.jsp"
+			).forward(request, response);
+
+		} else {
+			// Sessione invalida
+			response.sendRedirect("index.html");
+
+		}
+	}
 }
