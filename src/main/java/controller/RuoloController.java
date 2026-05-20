@@ -128,6 +128,11 @@ public class RuoloController extends HttpServlet{
 			String bacheca_pubblica = request.getParameter("bacheca_pubblica");
 			String bacheca_visualizza = request.getParameter("bacheca_visualizza");
 			String dati_visualizza = request.getParameter("dati_visualizza");
+			String assenze_inserimento = request.getParameter("assenze_inserimento");
+			String assenze_visualizza_classe = request.getParameter("assenze_visualizza_classe");
+			String assenze_visualizza_proprie = request.getParameter("assenze_visualizza_proprie");
+			String assenze_giustifica = request.getParameter("assenze_giustifica");
+			String assenze_approva_giustifica = request.getParameter("assenze_approva_giustifica");
 			String action = request.getParameter("action");
 			
 			if(ACTION_INSERT.equals(action)) {
@@ -144,7 +149,12 @@ public class RuoloController extends HttpServlet{
 						Boolean.parseBoolean(aule_visualizza),
 						Boolean.parseBoolean(bacheca_pubblica),
 						Boolean.parseBoolean(bacheca_visualizza),
-						Boolean.parseBoolean(dati_visualizza)
+						Boolean.parseBoolean(dati_visualizza),
+						Boolean.parseBoolean(assenze_inserimento),
+						Boolean.parseBoolean(assenze_visualizza_classe),
+						Boolean.parseBoolean(assenze_visualizza_proprie),
+						Boolean.parseBoolean(assenze_giustifica),
+						Boolean.parseBoolean(assenze_approva_giustifica)
 						);
 			}
 			else if(ACTION_UPDATE.equals(action)){
@@ -162,6 +172,11 @@ public class RuoloController extends HttpServlet{
 						Boolean.parseBoolean(bacheca_pubblica),
 						Boolean.parseBoolean(bacheca_visualizza),
 						Boolean.parseBoolean(dati_visualizza),
+						Boolean.parseBoolean(assenze_inserimento),
+						Boolean.parseBoolean(assenze_visualizza_classe),
+						Boolean.parseBoolean(assenze_visualizza_proprie),
+						Boolean.parseBoolean(assenze_giustifica),
+						Boolean.parseBoolean(assenze_approva_giustifica),
 						Integer.parseInt(id)
 						);
 			}
