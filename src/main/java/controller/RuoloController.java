@@ -166,7 +166,7 @@ public class RuoloController extends HttpServlet{
 						);
 			}
 			
-			response.sendRedirect("Voto");
+			response.sendRedirect("Ruolo");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

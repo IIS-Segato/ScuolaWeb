@@ -117,7 +117,7 @@ public class PersonaController extends HttpServlet{
 				personaDao.update(nome, cognome, nascita, cf, email, img_profilo.getBytes(), Integer.parseInt(id));
 			}
 			
-			response.sendRedirect("Voto");
+			response.sendRedirect("Persona");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -133,7 +133,7 @@ public class StudenteController extends HttpServlet{
 				studenteDao.update(Integer.parseInt(id_persona), Integer.parseInt(id_classe), Integer.parseInt(id));
 			}
 			
-			response.sendRedirect("Voto");
+			response.sendRedirect("Studente");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

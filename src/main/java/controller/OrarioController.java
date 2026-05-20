@@ -127,7 +127,7 @@ public class OrarioController extends HttpServlet{
 						);
 			}
 			
-			response.sendRedirect("Voto");
+			response.sendRedirect("Orario");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
