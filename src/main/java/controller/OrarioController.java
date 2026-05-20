@@ -1,13 +1,16 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import dao.OrarioDAO;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Orario;
 
 public class OrarioController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -48,7 +51,49 @@ public class OrarioController extends HttpServlet{
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String view = null;
+		String action = null;
+		String id = null;
+		
+		Orario orario = null;	
+		List<Orario> orari;
+		try {
+			action = request.getParameter("action");
+			id = request.getParameter("id");
+			
+			if(ACTION_DELETE.equals(action)) {
+				if(id != null) {
+					orarioDao.delete(Integer.parseInt(id));
+					
+					view = "";
+				}
+				
+			}
+			else if(ACTION_GET_ALL.equals(action)) {
+				orari = orarioDao.getAll();
+				
+				request.setAttribute("orari", orari);
+				
+				view = "";
+				
+			}
+			else if(ACTION_GET_BY_ID.equals(action)) {
+				if(id != null) {
+					orario = orarioDao.getById(Integer.parseInt(id));
+					
+					request.setAttribute("orario", orario);
+					
+					view = "";
+				}
+				
+			}
+		
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
 
+			e.printStackTrace();
+		}
 	}
 
 	/**
