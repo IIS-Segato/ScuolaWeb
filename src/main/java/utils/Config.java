@@ -27,8 +27,6 @@ public class Config {
 	private String getStudente;
 	private String getStudentiByClasse;
 	private String getClassiByDocente;
-	private String getClassi;
-	private String getMaterieClasse;
 	
 	/**
 	 * Costruttore
@@ -79,8 +77,6 @@ public class Config {
 		this.getStudente = query.getChildText("getStudente").trim();
 		this.getStudentiByClasse = query.getChildText("getStudentiByClasse").trim();
 		this.getClassiByDocente = query.getChildText("getClassiByDocente").trim();
-		this.getClassi = query.getChildText("getClassi").trim();
-		this.getMaterieClasse = query.getChildText("getMaterieClasse").trim();
 	}
 
 	// Getter degli attributi
@@ -146,13 +142,5 @@ public class Config {
 	
 	public String getClassiByDocente() {
 		return getClassiByDocente;
-	}
-	
-	public String getClassi() {
-		return getClassi;
-	}
-	
-	public String getMaterieClasse() {
-		return getMaterieClasse;
 	}
 }

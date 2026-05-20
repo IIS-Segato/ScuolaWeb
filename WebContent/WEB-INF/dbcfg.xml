@@ -19,5 +19,6 @@
 		<getAmministratore>select * from amministratori where aid = ?;</getAmministratore>
 		<getStudente>select * from studenti where sid = ?;</getStudente>
 		<getClassiByDocente>select c.* from classi as c join materie as m on c.cid = m.cid and m.did = ?;</getClassiByDocente>
+		<getMateriaByClasseDocente>select materia from materie where cid = ? and did = ?;</getMateriaByClasseDocente>
 	</query>
 </root>
