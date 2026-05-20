@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
             //controllo credenziali 
             if (!userDao.autentica(id, password, ruolo)) {
                 // Se fallisce, reindirizza e FERMA L'ESECUZIONE con il return
-                response.sendRedirect("login.jsp?errore=autenticazione_fallita");
+                response.sendRedirect("loginErrato.jsp?errore=autenticazione_fallita");
                 return; 
             }
 
@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception e) {
             // Gestione in caso di database spento o file XML non trovato
             e.printStackTrace();
-            response.sendRedirect("login.jsp?errore=errore_interno");
+            response.sendRedirect("loginErrato.jsp?errore=errore_interno");
         } finally {
             //chiusura database 
             if (userDao != null) {
