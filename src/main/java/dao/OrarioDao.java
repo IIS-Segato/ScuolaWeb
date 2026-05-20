@@ -39,4 +39,29 @@ public class OrarioDao extends DAO {
 
 		return listaOrari;
 	}
+	
+	public List<Orario> getOrarioByDocente(int docenteId) {
+		List<Orario> listaOrari = new ArrayList<>();
+
+		String query = super.config.getQuery( "orari","selectByDocente");
+
+		try (PreparedStatement ps = this.conn.prepareStatement(query)) {
+			ps.setInt(1, docenteId);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					Orario orario = new Orario(rs.getInt("id"), rs.getInt("id_docente"), rs.getString("nome_giorno"),
+							rs.getString("orario_inizio"), rs.getString("orario_fine"), rs.getString("classe"),
+							rs.getString("nome"), 
+							rs.getString("cognome") 
+					);
+					listaOrari.add(orario);
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("Errore in OrarioDao: " + e.getMessage());
+		}
+
+		return listaOrari;
+	}
 }

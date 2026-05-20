@@ -37,7 +37,6 @@
         <hr>
         <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="#" class="nav-link text-white active"><i class="fas fa-home me-2"></i> Dashboard</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link text-white"><i class="fas fa-calendar me-2"></i> Calendario</a></li>
             <li class="nav-item mt-4"><a href="LogoutServlet" class="nav-link text-warning"><i class="fas fa-sign-out-alt me-2"></i> Esci</a></li>
         </ul>
     </div>
@@ -71,7 +70,7 @@
                                     <th>Giorno</th>
                                     <th>Orario Inizio</th>
                                     <th>Orario Fine</th>
-                                    <th>ID Docente (Materia)</th>
+                                    <th>Classe</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,7 +79,7 @@
                                         <td><strong><%= o.getNome_giorno() %></strong></td>
                                         <td><%= o.getOrario_inizio() %></td>
                                         <td><%= o.getOrario_fine() %></td>
-                                        <td>Docente #<%= o.getId_docente() %></td>
+                                        <td><%= o.getClasse() %></td>
                                     </tr>
                                 <% } %>
                             </tbody>

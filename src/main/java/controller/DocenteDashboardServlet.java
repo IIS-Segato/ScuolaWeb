@@ -42,7 +42,7 @@ public class DocenteDashboardServlet extends HttpServlet {
 
             if (docente != null) {
                 // 2. Recupero la lista dell'orario in base alla MATERIA del docente 
-                List<Orario> orarioLezioni = orarioDao.getOrarioByClasse(docente.getNomeMateria());
+                List<Orario> orarioLezioni = orarioDao.getOrarioByDocente(docente.getId());
 
                 // 3. Salvo i dati nella request (non in sessione, per evitare di appesantirla)
                 request.setAttribute("docente", docente);

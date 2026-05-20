@@ -96,6 +96,19 @@
 				'Giovedì',
 				'Venerdì', 'Sabato'), o.orario_inizio
 			</selectByClasse>
+			
+			<selectByDocente>
+				SELECT o.*, d.nome, d.cognome
+				FROM orari o
+				JOIN docenti
+				d ON o.id_docente = d.id
+				WHERE o.id_docente = ?
+				ORDER BY
+				FIELD(o.nome_giorno, 'Lunedì', 'Martedì', 'Mercoledì',
+				'Giovedì',
+				'Venerdì', 'Sabato'), o.orario_inizio
+			</selectByDocente>
+			
 		</orari>
 
 		<voti>
