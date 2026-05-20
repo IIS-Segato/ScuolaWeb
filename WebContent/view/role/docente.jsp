@@ -125,7 +125,7 @@
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>ID</th><th>Sezione</th><th>Anno</th><th>N° studenti</th></tr>
+            <tr><th>ID</th><th>Sezione</th><th>Anno</th><th>N &deg studenti</th></tr>
           </thead>
           <tbody>
             <% if (classi != null && !classi.isEmpty()) {
