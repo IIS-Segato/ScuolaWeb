@@ -6,14 +6,14 @@ public class Studente {
 	private int id;
 	private String nome;
 	private String cognome;
-	private String classe;
+	private Classe classe;
 
 	// Costruttore vuoto
 	public Studente() {
 	}
 
 	// Costruttore completo
-	public Studente(int id, String nome, String cognome, String classe) {
+	public Studente(int id, String nome, String cognome, Classe classe) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -45,11 +45,11 @@ public class Studente {
 		this.cognome = cognome;
 	}
 
-	public String getClasse() {
+	public Classe getClasse() {
 		return classe;
 	}
 
-	public void setClasse(String classe) {
+	public void setClasse(Classe classe) {
 		this.classe = classe;
 	}
 
