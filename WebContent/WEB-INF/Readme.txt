@@ -20,7 +20,7 @@ Attendi che lo stato diventi [Started].
 ----------
 Apri il browser e vai su:
 
-   http://localhost:8080/ScuolaWeb/index.html
+   http://localhost:8080/ScuolaWeb
 
 Si aprirà la pagina di login.
 
