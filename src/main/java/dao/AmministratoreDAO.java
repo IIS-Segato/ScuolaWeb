@@ -130,6 +130,34 @@ public class AmministratoreDAO extends DAO {
 		
 	}
 	
+	public ArrayList<Classe> getClassi() throws SQLException {
+		String getClassi = this.getConf().getClassi();
+		
+		ArrayList<Classe> classi = new ArrayList<>();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getClassi);
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			Classe c = new Classe();
+			c.setSezione(rs.getString("sezione"));
+			c.setAnno(rs.getInt("anno"));
+			
+			String getMaterie = this.getConf().getMaterieClasse();
+			ArrayList<String> materie = new ArrayList<>();
+			
+			PreparedStatement psMateria = this.getConn().prepareStatement(getMaterie);
+			ResultSet rsMateria = psMateria.executeQuery();
+			
+			while (rsMateria.next()) {
+				materie.add(rsMateria.getString("materia"));
+			}
+			
+			c.setMaterie(materie);
+		}
+		
+		return classi;
+	}
 	
 	/**
 	 * Metodo per prendere un Amministratore dal suo id
