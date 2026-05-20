@@ -262,7 +262,7 @@ CREATE OR REPLACE TABLE annunci(
  contenuto TEXT,
  data_pubblicazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
  autore INT,
- is_pubblico BOOL,
+ is_pubblico BOOLEAN,
  
  FOREIGN KEY(autore) REFERENCES utenti(id_utente)
  ON DELETE SET NULL
