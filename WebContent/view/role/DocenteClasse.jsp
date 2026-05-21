@@ -997,15 +997,63 @@ td {
                   <input type="hidden" name="materia" value="<%= materia %>">
                   <input type="hidden" name="data" value="<%= oggi.toString() %>">
 
-                  <input
-                    type="number"
-                    name="voto"
-                    min="1"
-                    max="10"
-                    step="0.1"
-                    required
-                    class="vote-input"
-                    placeholder="—">
+                  <select
+					  name="voto"
+					  required
+					  class="vote-input">
+					
+					  <option value="">
+					    —
+					  </option>
+					
+					  <option value="1">1</option>
+					  <option value="1.15">1+</option>
+					  <option value="1.5">1½</option>
+					
+					  <option value="1.85">2-</option>
+					  <option value="2">2</option>
+					  <option value="2.15">2+</option>
+					  <option value="2.5">2½</option>
+					
+					  <option value="2.85">3-</option>
+					  <option value="3">3</option>
+					  <option value="3.15">3+</option>
+					  <option value="3.5">3½</option>
+					
+					  <option value="3.85">4-</option>
+					  <option value="4">4</option>
+					  <option value="4.15">4+</option>
+					  <option value="4.5">4½</option>
+					
+					  <option value="4.85">5-</option>
+					  <option value="5">5</option>
+					  <option value="5.15">5+</option>
+					  <option value="5.5">5½</option>
+					
+					  <option value="5.85">6-</option>
+					  <option value="6">6</option>
+					  <option value="6.15">6+</option>
+					  <option value="6.5">6½</option>
+					
+					  <option value="6.85">7-</option>
+					  <option value="7">7</option>
+					  <option value="7.15">7+</option>
+					  <option value="7.5">7½</option>
+					
+					  <option value="7.85">8-</option>
+					  <option value="8">8</option>
+					  <option value="8.15">8+</option>
+					  <option value="8.5">8½</option>
+					
+					  <option value="8.85">9-</option>
+					  <option value="9">9</option>
+					  <option value="9.15">9+</option>
+					  <option value="9.5">9½</option>
+					
+					  <option value="9.85">10-</option>
+					  <option value="10">10</option>
+					
+					</select>
 
               </td>
 

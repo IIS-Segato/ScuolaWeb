@@ -170,11 +170,11 @@ public class DocentiDAO extends DAO{
 		return c;
 	}
 	
-	public void insertVoto(int voto, String materia, String data, int did, int sid) throws SQLException {
+	public void insertVoto(float voto, String materia, String data, int did, int sid) throws SQLException {
 		String insertVoto = this.getConf().insertVoto();
 
 		PreparedStatement ps = this.getConn().prepareStatement(insertVoto);
-		ps.setInt(1, voto);
+		ps.setFloat(1, voto);
 		ps.setString(2, materia);
 		ps.setString(3, data);
 		ps.setInt(4, did);
@@ -206,7 +206,7 @@ public class DocentiDAO extends DAO{
 		while(rs.next()) {
 			Voto v = new Voto();
 			v.setVid(rs.getInt("vid"));
-			v.setVoto(rs.getInt("voto"));
+			v.setVoto(rs.getFloat("voto"));
 			v.setMateria(rs.getString("materia"));
 			v.setData(rs.getString("data"));
 			v.setDid(rs.getInt("did"));

@@ -9,7 +9,7 @@ public class Voto implements Serializable{
 	// Attributi
 	private static final long serialVersionUID = 1L;
 	private int vid;
-	private int voto;
+	private float voto;
 	private String materia;
 	private String data;
 	private int did;
@@ -22,10 +22,10 @@ public class Voto implements Serializable{
 	public void setVid(int vid) {
 		this.vid = vid;
 	}
-	public int getVoto() {
+	public float getVoto() {
 		return voto;
 	}
-	public void setVoto(int voto) {
+	public void setVoto(float voto) {
 		this.voto = voto;
 	}
 	public String getMateria() {

@@ -47,7 +47,7 @@ create or replace table studenti(
 
 create or replace table voti(
 	vid int auto_increment not null,
-	voto int not null,
+	voto decimal(4,2) not null,
 	materia varchar(80) not null,
 	data date not null,
 	did int not null,

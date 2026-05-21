@@ -40,7 +40,7 @@
 	/* Colore media */
 	String mediaColor = "--text-1";
 	if(numVoti > 0){
-		if(media >= 7)       mediaColor = "--accent";
+		if(media >= 6)       mediaColor = "--accent";
 		else if(media >= 5)  mediaColor = "--yellow";
 		else                 mediaColor = "--red";
 	}
@@ -691,18 +691,52 @@ td {
                /* Classe CSS del badge in base al valore */
                String badgeClass = "voto-medio";
                double val = v.getVoto();
-               if(val >= 7)      badgeClass = "voto-alto";
+               if(val >= 6)      badgeClass = "voto-alto";
                else if(val < 5)  badgeClass = "voto-basso";
           %>
 
             <tr style="animation-delay: <%= (i * 0.05) %>s">
 
-              <!-- Voto -->
-              <td>
-                <div class="voto-badge <%= badgeClass %>">
-                  <%= v.getVoto() %>
-                </div>
-              </td>
+				<%
+					double voto = v.getVoto();
+				
+					String votoView = "";
+				
+					int intero = (int) voto;
+					double decimale = Math.round((voto - intero) * 100.0) / 100.0;
+				
+					if(decimale == 0){
+				
+						votoView = String.valueOf(intero);
+				
+					}else if(decimale == 0.15){
+				
+						votoView = intero + "+";
+				
+					}else if(decimale == 0.5){
+				
+						votoView = intero + "½";
+				
+					}else if(decimale == 0.85){
+				
+						votoView = (intero + 1) + "-";
+				
+					}else{
+				
+						votoView = String.format("%.2f", voto);
+				
+					}
+				%>
+			
+				<td>
+				
+				  <div class="voto-badge <%= badgeClass %>">
+				
+				    <%= votoView %>
+				
+				  </div>
+				
+				</td>
 
               <!-- Materia -->
               <td class="td-mono"><%= v.getMateria() %></td>

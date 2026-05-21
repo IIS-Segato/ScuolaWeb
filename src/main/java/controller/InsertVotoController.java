@@ -52,7 +52,7 @@ public class InsertVotoController extends HttpServlet {
 		int cid = Integer.parseInt(request.getParameter("cid"));
 		int did = Integer.parseInt(request.getParameter("did"));
 		String materia = (String) request.getParameter("materia");
-		int voto = Integer.parseInt(request.getParameter("voto"));
+		float voto = Float.parseFloat(request.getParameter("voto"));
 		String data = (String) request.getParameter("data");
 		
 		try {
