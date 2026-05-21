@@ -183,6 +183,15 @@ public class DocentiDAO extends DAO{
 		ps.executeUpdate();
 	}
 	
+	public void deleteVoto(int vid) throws SQLException {
+		String deleteVoto = this.getConf().deleteVoto();
+
+		PreparedStatement ps = this.getConn().prepareStatement(deleteVoto);
+		ps.setInt(1, vid);
+		
+		ps.executeUpdate();
+	}
+	
 	public ArrayList<Voto> getVotiByStudenteMateria(int sid, String materia) throws SQLException {
 		String getVotiByStudenteMateria = this.getConf().getVotiByStudenteMateria();
 		

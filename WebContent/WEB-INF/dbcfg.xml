@@ -25,5 +25,6 @@
 		<getClasseByCid>select * from classi where cid = ?;</getClasseByCid>
 		<insertVoto>insert into voti(voto, materia, data, did, sid) values(?,?,?,?,?);</insertVoto>
 		<getVotiByStudenteMateria>select * from voti where sid = ? and materia = ?;</getVotiByStudenteMateria>
+		<deleteVoto>delete from voti where vid = ? limit 1;</deleteVoto>
 	</query>
 </root>

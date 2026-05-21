@@ -465,6 +465,37 @@ td {
   color: var(--text-3);
 }
 
+.delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--red-bg);
+  border: 0.5px solid var(--red-border);
+  border-radius: var(--radius-sm);
+  color: var(--red);
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.delete-btn:hover {
+  background: rgba(248,113,113,0.18);
+  border-color: var(--red);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(248,113,113,0.15);
+}
+
+.delete-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* ── EMPTY ── */
 
 .empty-box {
@@ -528,7 +559,7 @@ td {
     </div>
 
     <!-- Torna alla pagina della classe con il cid corretto -->
-    <a href="javascript:history.back()" class="back-btn">
+    <a href="ClasseDocente?cid=<%= studente.getCid() %>&did=<%= docente.getDid() %>" class="back-btn">
       <svg viewBox="0 0 24 24">
         <line x1="19" y1="12" x2="5" y2="12"/>
         <polyline points="12 19 5 12 12 5"/>
@@ -648,6 +679,7 @@ td {
               <th>Data</th>
               <th>ID Voto</th>
               <th>ID Docente</th>
+              <th>Azione</th>
             </tr>
           </thead>
 
@@ -684,6 +716,22 @@ td {
               <!-- ID Docente -->
               <td class="td-dim"><%= v.getDid() %></td>
 
+				<!-- Elimina voto -->
+				<td>
+				  <form action="EliminaVoto" method="post">
+				    <input type="hidden" name="vid" value="<%= v.getVid() %>">
+				    <input type="hidden" name="sid" value="<%= studente.getSid() %>">
+				    <input type="hidden" name="materia" value="<%= materia %>">
+				    <button type="submit" class="delete-btn">
+				      <svg viewBox="0 0 24 24">
+				        <polyline points="3 6 5 6 21 6"/>
+				        <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+				        <path d="M10 11v6M14 11v6"/>
+				        <path d="M9 6V4h6v2"/>
+				      </svg>
+				    </button>
+				  </form>
+				</td>
             </tr>
 
           <% } %>
