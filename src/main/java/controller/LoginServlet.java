@@ -22,9 +22,6 @@ public class LoginServlet extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		System.out.println(">>> LOGIN SERVLET CHIAMATA");
-		System.out.println("USERNAME: " + username);
-		System.out.println("PASSWORD: " + password);
 
 		// VALIDAZIONE BASE
 		if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
@@ -40,9 +37,6 @@ public class LoginServlet extends HttpServlet {
 			UserDao dao = new UserDao(path);
 
 			User user = dao.login(username, password);
-
-			// DEBUG
-			System.out.println("DAO RESULT: " + user);
 
 			if (user == null) {
 				request.setAttribute("error", "Credenziali non valide");

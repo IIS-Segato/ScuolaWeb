@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.DocenteDao;
 import dao.ClasseDao;
 import dao.StudenteDao;
+import dao.UserAdminDao;
 import dao.VotoDao;
 import model.Classe;
 import model.Docente;
@@ -28,6 +29,7 @@ public class StudenteServlet extends HttpServlet {
 	private DocenteDao docenteDao;
 	private VotoDao votoDao;
 	private ClasseDao classeDao;
+	private UserAdminDao userAdminDao;
 
 	@Override
 	public void init() throws ServletException {
@@ -37,6 +39,7 @@ public class StudenteServlet extends HttpServlet {
 		docenteDao = new DocenteDao(conn);
 		votoDao = new VotoDao(conn);
 		classeDao = new ClasseDao(conn);
+		userAdminDao = new UserAdminDao(conn);
 	}
 
 	@Override
@@ -105,6 +108,15 @@ public class StudenteServlet extends HttpServlet {
 			s.setCognome(req.getParameter("cognome"));
 			int idClasse = Integer.parseInt(req.getParameter("idClasse"));
 			studenteDao.insert(s, idClasse);
+
+			if (s.getId() > 0) {
+				User nuovoUtente = new User();
+				nuovoUtente.setUsername(req.getParameter("username"));
+				nuovoUtente.setPassword(req.getParameter("password"));
+				nuovoUtente.setRoleId(4);
+				nuovoUtente.setIdStudente(s.getId());
+				userAdminDao.insert(nuovoUtente);
+			}
 		}
 
 		resp.sendRedirect("StudenteServlet?action=list");

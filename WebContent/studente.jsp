@@ -45,6 +45,7 @@
 
 <div class="container mt-4 mb-5">
     <div class="d-flex justify-content-end mb-3">
+        <a href="CambioPasswordServlet" class="btn btn-outline-primary me-2">Cambia password</a>
         <a href="dashboard.jsp" class="btn btn-outline-secondary">Home</a>
     </div>
 

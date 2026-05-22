@@ -1,100 +1,159 @@
-# README    
-  
-# Progetto scuola Web  
-    
-Bogo Federico  
-Troso Daniele  
-Nogarè Matteo  
-Visentin Samuele  
-___
+# README
 
-# indice  
+# Progetto scuola Web
 
-
-- [Suddivisione del lavoro](#suddivisione-del-lavoro)
-- [COMPONENTE 1 — LOGIN + CORE PROGETTO](#componente-1-login-core-progetto)
-- [COMPONENTE 2 — MODULO STUDENTI](#componente-2-modulo-studenti)
-- [COMPONENTE 3 — MODULO DOCENTI  GRAFICA](#componente-3-modulo-docenti-grafica)
+Bogo Federico
 
 ___
 
+# Descrizione del progetto
 
-
-
-# Suddivisione del lavoro
-Il progetto è stato suddiviso in tre parti principali per ottimizzare la produttività del gruppo e permettere uno sviluppo parallelo dei diversi moduli.  
-Questa scelta organizzativa ha reso possibile lavorare contemporaneamente su componenti indipendenti ma strettamente integrate tra loro. 
-Ogni membro del team ha avuto un ruolo specifico, con responsabilità ben definite, così da garantire una chiara separazione dei compiti e una gestione più efficiente del flusso di lavoro.  
-La divisione in moduli (autenticazione, gestione studenti, gestione docenti e grafica) ha inoltre favorito una più semplice integrazione finale.  
-
-  
-Il lavoro è stato diviso come segue:
-###  Componente 1 — Login + Core progetto  
-**Sviluppatore:** Bogo Federico  
-- Sistema di login/logout  
-- Gestione sessioni e ruoli  
-- DAO utenti e ruoli  
-- Configurazione database (dbcfg.xml)  
-- Dashboard iniziale  
-- Protezione pagine e struttura MVC di base  
-
-###  Componente 2 — Modulo Studenti  
-**Sviluppatore:** Troso Daniele  
-- CRUD studenti (DAO + Servlet + JSP)  
-- Validazione dati  
-- Tabelle e form con Bootstrap  
-
-###  Componente 3 — Modulo Docenti + Grafica + Funzionalità avanzata  
-**Sviluppatori:** Nogarè Matteo, Visentin Samuele  
-- CRUD docenti (DAO + Servlet + JSP)  
-- Grafica generale del sito (navbar, layout, CSS)  
-- Integrazione completa Bootstrap  
-- Funzionalità avanzata: gestione aule / assegnazioni  
+Il progetto e una web app scolastica sviluppata in Java Servlet, JSP e DAO, con database MySQL/MariaDB.  
+L'applicazione permette di gestire utenti, studenti, docenti, classi e voti attraverso un sistema di login con ruoli.
 
 
 ___
-# COMPONENTE 1 — LOGIN + CORE PROGETTO
 
-Questa sezione del progetto si occupa della gestione dell’autenticazione e dell’intera infrastruttura di base su cui si appoggiano gli altri moduli.  
-Include la configurazione del database, la gestione delle sessioni, i ruoli utente e la protezione delle pagine tramite MVC + DAO.
+# Funzionalita realizzate
 
-### Funzionalità sviluppate
+Il sistema prevede una pagina di login con controllo delle credenziali e creazione della sessione utente.  
+Dopo l'accesso, l'utente viene indirizzato alla dashboard principale, che mostra funzioni diverse in base al ruolo:
 
-- **LoginServlet**  
-  Gestisce l’autenticazione tramite form, validazione dei campi, chiamata al `UserDao`, creazione della sessione e redirect alla dashboard.
+- preside / admin
+- insegnante
+- segreteria
+- studente
 
-- **LogoutServlet**  
-  Invalida la sessione esistente e reindirizza l’utente alla pagina di login.
-
-- **UserDao**  
-  Implementano l’accesso al database per utenti utilizzando query SQL e connessione configurata tramite file XML.
-
-- **User.java**  
-  Modello dati dell’utente con campi: `id`, `username`, `password`, `roleId`.
-
-- **Pagine JSP principali**  
-  - `login.jsp` — form di autenticazione con gestione errori  
-  - `dashboard.jsp` — pagina iniziale protetta, accessibile solo dopo login  
-  - `viewRole.jsp` — pagina di test per visualizzare il ruolo dell’utente  
-
-- **Protezione delle pagine**  
-  Controllo sessione integrato nelle JSP e nelle servlet per impedire accessi non autorizzati.
-
-- **Configurazione database**  
-  File `dbcfg.xml` in `WEB-INF` per definire driver, URL, credenziali e parametri di connessione.
-
-### Struttura MVC realizzata
-- **Model:** `User`, `Role`  
-- **DAO:** `UserDao`, `RoleDao`  
-- **Controller:** `LoginServlet`, `LogoutServlet`  
-- **View:** `login.jsp`, `dashboard.jsp`, `viewRole.jsp`
-- **SQL:** `creazione tabella users`
+La gestione dei ruoli permette di proteggere le pagine e limitare le operazioni disponibili.  
+Ad esempio, uno studente puo consultare solo i propri dati, mentre un docente puo inserire e gestire solo i voti degli studenti appartenenti alle sue classi.
 
 ___
 
-# COMPONENTE 2 — MODULO STUDENTI
+# Login e sessioni
 
-# COMPONENTE 3 — MODULO DOCENTI + GRAFICA
+Sono stati sviluppati il sistema di autenticazione e la gestione della sessione.  
+Il login controlla username e password nel database, salva l'utente in sessione e permette alla dashboard di mostrare le sezioni corrette.
 
+Sono presenti:
 
+- `LoginServlet`
+- `LogoutServlet`
+- `UserDao`
+- modello `User`
+- pagina `login.jsp`
+- pagina `dashboard.jsp`
 
+Il modello `User` contiene anche i collegamenti a `id_studente` e `id_docente`, necessari per distinguere l'account dalla persona reale collegata.
+
+___
+
+# Gestione utenti
+
+L'area admin permette di visualizzare e aggiungere utenti del sistema.  
+La tabella utenti mostra solo informazioni utili all'utilizzo dell'applicazione, evitando di mostrare campi tecnici come gli id.
+
+Sono presenti:
+
+- `UserServlet`
+- `UserAdminDao`
+- `utenti.jsp`
+- `formUtente.jsp`
+
+___
+
+# Gestione studenti
+
+La gestione studenti permette ad admin e segreteria di consultare l'elenco degli studenti e aggiungerne di nuovi.  
+Ogni studente puo essere collegato a una classe.
+
+Lo studente, accedendo con il proprio account, vede una pagina personale con:
+
+- classe
+- compagni di classe
+- professori assegnati
+- voti ricevuti
+- media dei voti
+- esito generale
+
+Sono presenti:
+
+- `StudenteServlet`
+- `StudenteDao`
+- `studenti.jsp`
+- `formStudente.jsp`
+- `studente.jsp`
+
+___
+
+# Gestione docenti
+
+La gestione docenti permette ad admin e segreteria di consultare l'elenco dei docenti e aggiungerne di nuovi.  
+I docenti possono essere associati alle classi.
+
+L'interfaccia docente permette di vedere:
+
+- classi assegnate
+- studenti presenti in ogni classe
+
+Sono presenti:
+
+- `DocenteServlet`
+- `DocenteDao`
+- `DocenteClasseDao`
+- `docenti.jsp`
+- `formDocente.jsp`
+
+___
+
+# Gestione voti
+
+La gestione voti permette ai docenti di inserire, modificare ed eliminare voti.  
+L'inserimento avviene selezionando studente, materia, voto e data.
+
+La visualizzazione cambia in base al ruolo:
+
+- lo studente vede solo i propri voti
+- il docente vede gli studenti raggruppati per classe, con tutti i voti e la media per ogni studente
+- admin e segreteria possono consultare i voti registrati nel sistema
+
+Sono presenti controlli per evitare che un docente modifichi o cancelli voti non collegati alle sue classi.
+
+Sono presenti:
+
+- `VotoServlet`
+- `VotoDao`
+- `voti.jsp`
+- `formVoto.jsp`
+
+___
+
+# Database
+
+Il database contiene le tabelle principali:
+
+- `users`
+- `roles`
+- `studenti`
+- `docenti`
+- `classi`
+- `docenti_classi`
+- `voti`
+
+La connessione viene configurata tramite il file:
+
+- `WEB-INF/dbcfg.xml`
+
+___
+
+# Struttura generale
+
+Il progetto segue una struttura MVC semplice:
+
+- **Model**: classi Java che rappresentano le entita del database
+- **DAO**: classi per l'accesso ai dati
+- **Controller**: servlet che gestiscono richieste e permessi
+- **View**: pagine JSP per l'interfaccia utente
+
+Le pagine principali includono un pulsante `Home` per tornare alla dashboard.
+
+___

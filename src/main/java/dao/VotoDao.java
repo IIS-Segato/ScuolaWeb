@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Classe;
 import model.Docente;
 import model.Studente;
 import model.Voto;
@@ -26,9 +27,11 @@ public class VotoDao {
 		String sql = """
 				    SELECT v.*,
 				           s.nome AS studente_nome, s.cognome AS studente_cognome,
+				           c.id AS classe_id, c.nome AS classe_nome,
 				           d.nome AS docente_nome, d.cognome AS docente_cognome
 				    FROM voti v
 				    JOIN studenti s ON s.id = v.id_studente
+				    LEFT JOIN classi c ON c.id = s.id_classe
 				    JOIN docenti d ON d.id = v.id_docente
 				    WHERE v.id_studente = ?
 				    ORDER BY v.data DESC
@@ -77,11 +80,12 @@ public class VotoDao {
 		List<Studente> list = new ArrayList<>();
 
 		String sql = """
-				    SELECT s.*
+				    SELECT s.*, c.id AS classe_id, c.nome AS classe_nome
 				    FROM studenti s
+				    LEFT JOIN classi c ON c.id = s.id_classe
 				    JOIN docenti_classi dc ON dc.id_classe = s.id_classe
 				    WHERE dc.id_docente = ?
-				    ORDER BY s.cognome, s.nome
+				    ORDER BY c.nome, s.cognome, s.nome
 				""";
 
 		try {
@@ -94,6 +98,12 @@ public class VotoDao {
 				s.setId(rs.getInt("id"));
 				s.setNome(rs.getString("nome"));
 				s.setCognome(rs.getString("cognome"));
+
+				Classe c = new Classe();
+				c.setId(rs.getInt("classe_id"));
+				c.setNome(rs.getString("classe_nome"));
+				s.setClasse(c);
+
 				list.add(s);
 			}
 
@@ -135,9 +145,11 @@ public class VotoDao {
 		String sql = """
 				    SELECT v.*,
 				           s.nome AS studente_nome, s.cognome AS studente_cognome,
+				           c.id AS classe_id, c.nome AS classe_nome,
 				           d.nome AS docente_nome, d.cognome AS docente_cognome
 				    FROM voti v
 				    JOIN studenti s ON s.id = v.id_studente
+				    LEFT JOIN classi c ON c.id = s.id_classe
 				    JOIN docenti d ON d.id = v.id_docente
 				    WHERE v.id = ?
 				""";
@@ -202,9 +214,11 @@ public class VotoDao {
 		String sql = """
 				    SELECT v.*,
 				           s.nome AS studente_nome, s.cognome AS studente_cognome,
+				           c.id AS classe_id, c.nome AS classe_nome,
 				           d.nome AS docente_nome, d.cognome AS docente_cognome
 				    FROM voti v
 				    JOIN studenti s ON s.id = v.id_studente
+				    LEFT JOIN classi c ON c.id = s.id_classe
 				    JOIN docenti d ON d.id = v.id_docente
 				    ORDER BY v.data DESC
 				""";
@@ -230,12 +244,14 @@ public class VotoDao {
 		String sql = """
 				    SELECT v.*,
 				           s.nome AS studente_nome, s.cognome AS studente_cognome,
+				           c.id AS classe_id, c.nome AS classe_nome,
 				           d.nome AS docente_nome, d.cognome AS docente_cognome
 				    FROM voti v
 				    JOIN studenti s ON s.id = v.id_studente
+				    LEFT JOIN classi c ON c.id = s.id_classe
 				    JOIN docenti d ON d.id = v.id_docente
 				    WHERE v.id_docente = ?
-				    ORDER BY v.data DESC
+				    ORDER BY c.nome, s.cognome, s.nome, v.data DESC
 				""";
 
 		try {
@@ -267,6 +283,12 @@ public class VotoDao {
 		s.setId(v.getIdStudente());
 		s.setNome(rs.getString("studente_nome"));
 		s.setCognome(rs.getString("studente_cognome"));
+
+		Classe c = new Classe();
+		c.setId(rs.getInt("classe_id"));
+		c.setNome(rs.getString("classe_nome"));
+		s.setClasse(c);
+
 		v.setStudente(s);
 
 		Docente d = new Docente();

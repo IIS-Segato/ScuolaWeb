@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>ScuolaFacile - Login</title>
 
     <!-- Bootstrap (opzionale ma consigliato) -->
     <link rel="stylesheet"
@@ -27,7 +27,8 @@
 <body>
 
 <div class="login-box">
-    <h3 class="text-center mb-3">Login</h3>
+    <h2 class="text-center mb-1">ScuolaFacile</h2>
+    <p class="text-center text-muted mb-4">Accesso al registro scolastico</p>
 
     <!-- MESSAGGIO DI ERRORE -->
     <%

@@ -21,7 +21,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dashboard</title>
+<title>ScuolaFacile - Dashboard</title>
 
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -43,7 +43,8 @@ body {
 
 <div class="container mt-5">
 
-    <h2 class="mb-4">Benvenuto, <%= user.getUsername() %></h2>
+    <h1 class="mb-1">ScuolaFacile</h1>
+    <h2 class="mb-3">Benvenuto, <%= user.getUsername() %></h2>
     <p class="text-muted">Ruolo: <strong><%= ruolo %></strong></p>
 
     <div class="row g-4">

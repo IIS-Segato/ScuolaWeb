@@ -41,6 +41,20 @@
             </select>
         </div>
 
+        <hr>
+
+        <h5 class="mb-3">Account studente</h5>
+
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Password iniziale</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+
         <button class="btn btn-success">Salva</button>
         <a href="StudenteServlet?action=list" class="btn btn-outline-secondary">Annulla</a>
     </form>

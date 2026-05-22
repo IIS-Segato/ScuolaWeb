@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.User;
+import utils.PasswordUtils;
 
 public class UserAdminDao {
 
@@ -43,7 +44,7 @@ public class UserAdminDao {
 
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setString(1, u.getUsername());
-			ps.setString(2, u.getPassword());
+			ps.setString(2, PasswordUtils.hash(u.getPassword()));
 			ps.setInt(3, u.getRoleId());
 
 			if (u.getIdStudente() > 0) {
@@ -58,6 +59,18 @@ public class UserAdminDao {
 				ps.setNull(5, java.sql.Types.INTEGER);
 			}
 
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updatePassword(int idUser, String password) {
+		String sql = "UPDATE users SET password = ? WHERE id = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, PasswordUtils.hash(password));
+			ps.setInt(2, idUser);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

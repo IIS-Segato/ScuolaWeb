@@ -16,6 +16,7 @@ import dao.ClasseDao;
 import dao.DocenteClasseDao;
 import dao.DocenteDao;
 import dao.StudenteDao;
+import dao.UserAdminDao;
 import model.Classe;
 import model.Docente;
 import model.Studente;
@@ -29,6 +30,7 @@ public class DocenteServlet extends HttpServlet {
 	private DocenteClasseDao docenteClasseDao;
 	private StudenteDao studenteDao;
 	private ClasseDao classeDao;
+	private UserAdminDao userAdminDao;
 
 	@Override
 	public void init() throws ServletException {
@@ -37,6 +39,7 @@ public class DocenteServlet extends HttpServlet {
 		docenteClasseDao = new DocenteClasseDao(conn);
 		studenteDao = new StudenteDao(conn);
 		classeDao = new ClasseDao(conn);
+		userAdminDao = new UserAdminDao(conn);
 	}
 
 	@Override
@@ -104,6 +107,16 @@ public class DocenteServlet extends HttpServlet {
 			d.setNome(req.getParameter("nome"));
 			d.setCognome(req.getParameter("cognome"));
 			int idDocente = docenteDao.insert(d);
+
+			if (idDocente > 0) {
+				User nuovoUtente = new User();
+				nuovoUtente.setUsername(req.getParameter("username"));
+				nuovoUtente.setPassword(req.getParameter("password"));
+				nuovoUtente.setRoleId(2);
+				nuovoUtente.setIdDocente(idDocente);
+				userAdminDao.insert(nuovoUtente);
+			}
+
 			String[] idClassi = req.getParameterValues("idClassi");
 			if (idDocente > 0 && idClassi != null) {
 				for (String idClasse : idClassi) {

@@ -174,6 +174,7 @@ public class VotoServlet extends HttpServlet {
 			lista = votoDao.getAllByStudente(u.getIdStudente());
 		} else if (u.getRoleId() == 2) {
 			lista = votoDao.getAllByDocente(u.getIdDocente());
+			req.setAttribute("studentiDocente", votoDao.getStudentiByDocente(u.getIdDocente()));
 		} else {
 			lista = votoDao.getAll();
 		}
