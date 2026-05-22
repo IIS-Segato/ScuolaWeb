@@ -26,11 +26,9 @@
         <table class="table table-bordered table-hover bg-white align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
                     <th>Username</th>
                     <th>Ruolo</th>
-                    <th>ID studente</th>
-                    <th>ID docente</th>
+                    <th>Account collegato</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,13 +41,17 @@
                     case 4: ruolo = "Studente"; break;
                     default: ruolo = "Sconosciuto";
                 }
+                String collegamento = "Nessuno";
+                if (u.getIdStudente() > 0) {
+                    collegamento = "Studente";
+                } else if (u.getIdDocente() > 0) {
+                    collegamento = "Docente";
+                }
             %>
                 <tr>
-                    <td><%= u.getId() %></td>
                     <td><%= u.getUsername() %></td>
                     <td><%= ruolo %></td>
-                    <td><%= u.getIdStudente() > 0 ? u.getIdStudente() : "-" %></td>
-                    <td><%= u.getIdDocente() > 0 ? u.getIdDocente() : "-" %></td>
+                    <td><%= collegamento %></td>
                 </tr>
             <% } %>
             </tbody>
