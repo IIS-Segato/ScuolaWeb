@@ -8,6 +8,7 @@
 %>
 
 <h2 class="mb-4">Assegna Docenti alle Classi</h2>
+<p><a href="dashboard.jsp" class="btn btn-outline-secondary">Home</a></p>
 
 <form action="ClasseServlet" method="post">
 

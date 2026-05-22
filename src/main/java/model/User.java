@@ -7,11 +7,13 @@ public class User {
 	private String password;
 	private int roleId;
 
+	private int idStudente;
+	private int idDocente;
+
 	public User() {
 	}
 
 	public User(int id, String username, String password, int roleId) {
-
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -48,5 +50,28 @@ public class User {
 
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
+	}
+
+	// getter / setter per idStudente e idDocente
+	public int getIdStudente() {
+		return idStudente;
+	}
+
+	public void setIdStudente(int idStudente) {
+		this.idStudente = idStudente;
+	}
+
+	public int getIdDocente() {
+		return idDocente;
+	}
+
+	public void setIdDocente(int idDocente) {
+		this.idDocente = idDocente;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", roleId=" + roleId + ", idStudente=" + idStudente
+				+ ", idDocente=" + idDocente + "]";
 	}
 }

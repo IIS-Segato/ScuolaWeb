@@ -10,16 +10,10 @@ public class Voto {
 	private double voto;
 	private Date data;
 
-	public Voto() {
-	}
+	private Studente studente;
+	private Docente docente;
 
-	public Voto(int id, int idStudente, int idDocente, String materia, double voto, Date data) {
-		this.id = id;
-		this.idStudente = idStudente;
-		this.idDocente = idDocente;
-		this.materia = materia;
-		this.voto = voto;
-		this.data = data;
+	public Voto() {
 	}
 
 	public int getId() {
@@ -70,4 +64,25 @@ public class Voto {
 		this.data = data;
 	}
 
+	public Studente getStudente() {
+		return studente;
+	}
+
+	public void setStudente(Studente studente) {
+		this.studente = studente;
+	}
+
+	public Docente getDocente() {
+		return docente;
+	} // <-- getter
+
+	public void setDocente(Docente docente) {
+		this.docente = docente;
+	} // <-- setter
+
+	@Override
+	public String toString() {
+		return "Voto [id=" + id + ", idStudente=" + idStudente + ", idDocente=" + idDocente + ", materia=" + materia
+				+ ", voto=" + voto + ", data=" + data + ", studente=" + studente + ", docente=" + docente + "]";
+	}
 }

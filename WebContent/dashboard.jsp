@@ -90,6 +90,15 @@ body {
         <%-- INSEGNANTE --%>
         <% if(user.getRoleId() == 2) { %>
         <div class="col-md-4">
+            <a href="DocenteServlet?action=list" class="text-decoration-none text-dark">
+                <div class="card card-hover p-4">
+                    <h4>Le mie classi</h4>
+                    <p class="text-muted">Visualizza classi e studenti assegnati.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
             <a href="VotoServlet?action=list" class="text-decoration-none text-dark">
                 <div class="card card-hover p-4">
                     <h4>Gestione Voti</h4>
@@ -123,10 +132,10 @@ body {
         <%-- STUDENTE --%>
         <% if(user.getRoleId() == 4) { %>
         <div class="col-md-4">
-            <a href="VotoServlet?action=list" class="text-decoration-none text-dark">
+            <a href="StudenteServlet" class="text-decoration-none text-dark">
                 <div class="card card-hover p-4">
-                    <h4>I miei voti</h4>
-                    <p class="text-muted">Consulta i voti assegnati dai docenti.</p>
+                    <h4>Area Studente</h4>
+                    <p class="text-muted">Consulta voti, classe, compagni e professori.</p>
                 </div>
             </a>
         </div>

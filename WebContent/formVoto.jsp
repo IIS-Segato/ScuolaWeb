@@ -10,6 +10,9 @@
 %>
 
 <h2 class="mb-4"><%= editing ? "Modifica Voto" : "Inserisci Voto" %></h2>
+<div class="mb-3">
+    <a href="dashboard.jsp" class="btn btn-outline-secondary">Home</a>
+</div>
 
 <form action="VotoServlet" method="post">
 

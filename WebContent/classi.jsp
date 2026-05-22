@@ -6,6 +6,7 @@
 %>
 
 <h2 class="mb-4">Elenco Classi</h2>
+<p><a href="dashboard.jsp" class="btn btn-outline-secondary">Home</a></p>
 
 <table class="table table-striped">
     <thead>

@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,4 +131,48 @@ public class StudenteDao {
 
 		return s;
 	}
+
+	public void insert(Studente s, int idClasse) {
+		String sql = "INSERT INTO studenti (nome, cognome, id_classe) VALUES (?, ?, ?)";
+
+		try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+			ps.setString(1, s.getNome());
+			ps.setString(2, s.getCognome());
+			ps.setInt(3, idClasse);
+			ps.executeUpdate();
+
+			try (ResultSet rs = ps.getGeneratedKeys()) {
+				if (rs.next()) {
+					s.setId(rs.getInt(1));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// restituisce la Classe dellostudente dato l'id dello studente
+	public Classe getClasseByStudente(int idStudente) {
+		Classe c = null;
+		String sql = """
+				    SELECT c.id AS classe_id, c.nome AS classe_nome
+				    FROM classi c
+				    JOIN studenti s ON s.id_classe = c.id
+				    WHERE s.id = ?
+				""";
+		try (PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, idStudente);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					c = new Classe();
+					c.setId(rs.getInt("classe_id"));
+					c.setNome(rs.getString("classe_nome"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return c;
+	}
+
 }

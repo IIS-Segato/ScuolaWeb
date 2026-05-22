@@ -40,6 +40,8 @@ public class UserDao extends AbstractDAO {
 				temp.setUsername(rs.getString("username"));
 				temp.setPassword(rs.getString("password"));
 				temp.setRoleId(rs.getInt("role_id"));
+				temp.setIdStudente(rs.getInt("id_studente"));
+				temp.setIdDocente(rs.getInt("id_docente"));
 			}
 
 		} catch (Exception e) {
