@@ -23,7 +23,7 @@ public class VotoServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		Connection conn = DBManager.getConnection();
+		Connection conn = DBManager.getConnection(getServletContext());
 		votoDao = new VotoDao(conn);
 	}
 

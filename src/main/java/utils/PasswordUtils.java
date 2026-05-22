@@ -7,6 +7,7 @@ public class PasswordUtils {
 
 	private static final String PEPPER = "ScuolaFacilePepper2026";
 
+	// Hash unico usato per tutte le password dell'applicazione.
 	public static String hash(String password) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
@@ -28,6 +29,7 @@ public class PasswordUtils {
 			return false;
 		}
 
+		// Compatibilita temporanea con gli account storici salvati in chiaro.
 		return hash(password).equalsIgnoreCase(storedPassword) || password.equals(storedPassword);
 	}
 

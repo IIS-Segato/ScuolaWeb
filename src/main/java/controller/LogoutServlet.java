@@ -18,18 +18,12 @@ public class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// Recupero sessione SENZA crearne una nuova
 		HttpSession session = request.getSession(false);
 
-		// Se esiste -> invalida
 		if (session != null) {
-
 			session.invalidate();
-
-			System.out.println("Sessione invalidata");
 		}
 
-		// Redirect login
 		response.sendRedirect("login.jsp");
 	}
 }

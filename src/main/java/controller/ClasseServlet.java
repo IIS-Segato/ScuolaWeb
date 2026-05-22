@@ -29,7 +29,7 @@ public class ClasseServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		Connection conn = DBManager.getConnection();
+		Connection conn = DBManager.getConnection(getServletContext());
 		classeDao = new ClasseDao(conn);
 		studenteDao = new StudenteDao(conn);
 		docenteDao = new DocenteDao(conn);

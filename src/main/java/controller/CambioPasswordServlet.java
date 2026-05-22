@@ -21,7 +21,7 @@ public class CambioPasswordServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		Connection conn = DBManager.getConnection();
+		Connection conn = DBManager.getConnection(getServletContext());
 		userAdminDao = new UserAdminDao(conn);
 	}
 

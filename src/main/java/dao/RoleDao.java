@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +78,6 @@ public class RoleDao extends AbstractDAO {
 	}
 	
 	public boolean insert(String role_name, String description) throws Exception {
-		Role temp = null;
 		boolean insert = false;
 		
 		try {
@@ -104,7 +102,6 @@ public class RoleDao extends AbstractDAO {
 	}
 	
 	public boolean update(String role_name, String description, int id) throws Exception {
-		Role temp = null;
 		boolean update = false;
 		
 		try {
@@ -130,7 +127,6 @@ public class RoleDao extends AbstractDAO {
 	}
 	
 	public boolean delete(int id) throws Exception {
-		Role temp = null;
 		boolean update = false;
 		
 		try {

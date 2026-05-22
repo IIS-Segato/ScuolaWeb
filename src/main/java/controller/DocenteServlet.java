@@ -34,7 +34,7 @@ public class DocenteServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		Connection conn = DBManager.getConnection();
+		Connection conn = DBManager.getConnection(getServletContext());
 		docenteDao = new DocenteDao(conn);
 		docenteClasseDao = new DocenteClasseDao(conn);
 		studenteDao = new StudenteDao(conn);
