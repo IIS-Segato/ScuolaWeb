@@ -1,51 +1,34 @@
-# Scuola Web:
+# Scuola Web
 
-Applicazione web per la gestione di un portale scolasctico con le seguenti
-funzionalita':
+Applicazione web per la gestione di un portale scolastico con login, sessioni e
+ruoli differenti per admin, docenti e studenti.
 
-- Gestione degli accessi di 3 tipologie di account differenti (admin, docenti e
-  studenti);
-- Gestione login con sessione;
-- Interfaccia grafica con CSS;
+## Funzionalità
+- Gestione degli accessi per 3 tipi di account: admin, docenti e studenti.
+- Login con sessione.
+- Interfaccia grafica in CSS.
+- Navigazione tra le pagine in stile portale scolastico.
 
+## Architettura
+- **Model**: classi Java.
+- **Controller**: servlet.
+- **View**: JSP.
+- **DAO**: accesso al database con JDBC.
 
-## Architettura MVC:
+## Struttura del database
+- **STUDENTI**: id, nome, cognome, email, età, id_classe
+- **DOCENTI**: id, nome, cognome, email, materia
+- **ADMINS**: id, nome, cognome, email
+- **AULA**: id, numero
+- **CLASSE**: id, nome, numero_studenti
+- **LEZIONE**: id, id_classe, id_docente, id_aula
 
-- Model = Classi JAVA 
-- Control = Servlet
-- View = JSP
-- DAO = Accesso separato al database con JDBC
+## Organizzazione del progetto
+- **Dona**: frontend JSP.
+- **Enrico**: controller.
+- **Luan**: database e JDBC.
+- **Zappa**: struttura pagine e navigazione.
 
-
-## Struttura DB:
-
-STUDENTI
-id, nome, cognome, email, eta, id_classe
-
-DOCENTI
-id, nome, cognome, email, materia
-
-ADMINS
-id, nome, cognome, email
-
-AULA
-id, numero
-
-CLASSE
-id, nome, numero_studenti
-
-LEZIONE
-id, id_classe, id_docente, id_aula
-
-
-## Divisione compiti:
-
-- Dona: Frontend pagine JSP
-- Enrico: Control
-- Luan: Database con JDBC
-- Zappa: Struttura pagine e navigazione
-
-
-interfaccia tipo argo didup, navigazione e struttura delle pagine. Pensarea a
-come collegare le pagine, tra i diversi tipi di utenti es docenti, studenti.
-Accessibilita dell' utente di come utilizza le pagine
+## Obiettivo
+Interfaccia simile a Argo DidUp, con pagine collegate in base al tipo di utente
+e una navigazione semplice e accessibile.
