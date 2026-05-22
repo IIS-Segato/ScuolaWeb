@@ -1,9 +1,16 @@
 package dao;
 
-import java.sql.Connection;
+import java.util.List;
 
-public interface DAO {
+public interface DAO<T> {
 
-    void setConnection(Connection conn);
+	List<T> getAll() throws Exception;
 
+	T getByID(int id) throws Exception;
+
+	boolean insert(T obj) throws Exception;
+
+	boolean update(T obj) throws Exception;
+
+	boolean delete(int id) throws Exception;
 }

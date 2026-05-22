@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root>
-	<dbType>mysql</dbType>
-	<connection>
-		<mysql>
-			<driver>com.mysql.cj.jdbc.Driver</driver>
-			<url>jdbc:mysql://localhost:3306/example?useSSL=false</url>
-			<user>root</user>
-			<password></password>
-		</mysql>
-		
-	</connection>
-	<query>
-		<mysql>
-			<sql1>select * from studenti where status = "Presente"</sql1>
-			<sql2></sql2>
-			
-		</mysql>
-		
-	</query>
-</root>
+<config>
+    <dbType>mysql</dbType>
 
+    <connection>
+        <mysql>
+            <driver>com.mysql.cj.jdbc.Driver</driver>
+            <url>jdbc:mysql://localhost:3306/scuola_db?serverTimezone=UTC</url>
+            <user>root</user>
+            <password>root</password>
+        </mysql>
+    </connection>
+
+    <query>
+        <mysql>
+            <student_get_all>SELECT * FROM students ORDER BY surname, name</student_get_all>
+            <student_get_by_id>SELECT * FROM students WHERE id=?</student_get_by_id>
+            <student_insert>INSERT INTO students (name, surname, class_name) VALUES (?, ?, ?)</student_insert>
+            <student_update>UPDATE students SET name=?, surname=?, class_name=? WHERE id=?</student_update>
+            <student_delete>DELETE FROM students WHERE id=?</student_delete>
+
+            <role_get_all>SELECT * FROM roles ORDER BY name</role_get_all>
+            <role_get_by_id>SELECT * FROM roles WHERE id=?</role_get_by_id>
+            <role_insert>INSERT INTO roles (name, description) VALUES (?, ?)</role_insert>
+            <role_update>UPDATE roles SET name=?, description=? WHERE id=?</role_update>
+            <role_delete>DELETE FROM roles WHERE id=?</role_delete>
+        </mysql>
+    </query>
+</config>
