@@ -12,151 +12,98 @@ import org.jdom2.JDOMException;
 
 import model.Docente;
 
+
+
 public class DocenteDao extends AbstractDAO {
-    
-    // Query SQL basate sulla tua tabella 'docenti'
-    private static final String SQL_GET_ALL = "SELECT * FROM docenti";
+
+    private static final String SQL_GET_ALL  = "SELECT * FROM docenti ORDER BY cognome, nome";
     private static final String SQL_GET_BY_ID = "SELECT * FROM docenti WHERE id=?";
-    private static final String SQL_INSERT = "INSERT INTO docenti (nome, cognome, materia) VALUES (?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE docenti SET nome=?, cognome=?, materia=? WHERE id=?";
-    private static final String SQL_DELETE = "DELETE FROM docenti WHERE id=?";
+    private static final String SQL_INSERT   = "INSERT INTO docenti (nome, cognome, materia) VALUES (?,?,?)";
+    private static final String SQL_UPDATE   = "UPDATE docenti SET nome=?, cognome=?, materia=? WHERE id=?";
+    private static final String SQL_DELETE   = "DELETE FROM docenti WHERE id=?";
 
     public DocenteDao(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
         super(xml);
     }
 
-    /**
-     * Recupera tutti i docenti dal database
-     */
     public List<Docente> getAll() throws Exception {
-        List<Docente> listDocenti = new ArrayList<>();
-        
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(SQL_GET_ALL);
+        List<Docente> list = new ArrayList<>();
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(SQL_GET_ALL);
              ResultSet rs = ps.executeQuery()) {
-
             while (rs.next()) {
                 Docente d = new Docente();
                 d.setId(rs.getInt("id"));
                 d.setNome(rs.getString("nome"));
                 d.setCognome(rs.getString("cognome"));
                 d.setMateria(rs.getString("materia"));
-                listDocenti.add(d);
+                list.add(d);
             }
-
-        } catch (Exception e) {
-            printException(e);
-        }
-        
-        return listDocenti;
+        } catch (Exception e) { printException(e); }
+        return list;
     }
 
-    /**
-     * Recupera un singolo docente tramite ID
-     */
     public Docente getByID(int id) throws Exception {
-        Docente temp = null;
-        
+        Docente d = null;
         try {
-            this.conn = this.getConnection();
-            PreparedStatement st = this.conn.prepareStatement(SQL_GET_BY_ID);
-            st.setInt(1, id);
-            
-            ResultSet rs = st.executeQuery();
+            this.conn = getConnection();
+            PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                temp = new Docente();
-                temp.setId(rs.getInt("id"));
-                temp.setNome(rs.getString("nome"));
-                temp.setCognome(rs.getString("cognome"));
-                temp.setMateria(rs.getString("materia"));
+                d = new Docente();
+                d.setId(rs.getInt("id"));
+                d.setNome(rs.getString("nome"));
+                d.setCognome(rs.getString("cognome"));
+                d.setMateria(rs.getString("materia"));
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new Exception(e.getMessage());
-        } finally {
-            closeConnection();
-        }
-        
-        return temp;
+        } finally { closeConnection(); }
+        return d;
     }
 
-    /**
-     * Inserisce un nuovo docente
-     */
     public boolean insert(String nome, String cognome, String materia) throws Exception {
-        boolean success = false;
-        
+        boolean ok = false;
         try {
-            this.conn = this.getConnection();
-            PreparedStatement st = this.conn.prepareStatement(SQL_INSERT);
-            st.setString(1, nome);
-            st.setString(2, cognome);
-            st.setString(3, materia);
-            
-            if (st.executeUpdate() > 0) {
-                success = true;
-            }
+            this.conn = getConnection();
+            PreparedStatement ps = conn.prepareStatement(SQL_INSERT);
+            ps.setString(1, nome);
+            ps.setString(2, cognome);
+            ps.setString(3, materia);
+            ok = ps.executeUpdate() > 0;
         } catch (Exception e) {
-            e.printStackTrace();
             throw new Exception(e.getMessage());
-        } finally {
-            closeConnection();
-        }
-        
-        return success;
+        } finally { closeConnection(); }
+        return ok;
     }
 
-    /**
-     * Aggiorna i dati di un docente esistente
-     */
     public boolean update(String nome, String cognome, String materia, int id) throws Exception {
-        boolean success = false;
-        
+        boolean ok = false;
         try {
-            this.conn = this.getConnection();
-            PreparedStatement st = this.conn.prepareStatement(SQL_UPDATE);
-            st.setString(1, nome);
-            st.setString(2, cognome);
-            st.setString(3, materia);
-            st.setInt(4, id);
-            
-            if (st.executeUpdate() > 0) {
-                success = true;
-            }
+            this.conn = getConnection();
+            PreparedStatement ps = conn.prepareStatement(SQL_UPDATE);
+            ps.setString(1, nome);
+            ps.setString(2, cognome);
+            ps.setString(3, materia);
+            ps.setInt(4, id);
+            ok = ps.executeUpdate() > 0;
         } catch (Exception e) {
-            e.printStackTrace();
             throw new Exception(e.getMessage());
-        } finally {
-            closeConnection();
-        }
-        
-        return success;
+        } finally { closeConnection(); }
+        return ok;
     }
 
-    /**
-     * Elimina un docente dal database
-     */
     public boolean delete(int id) throws Exception {
-        boolean success = false;
-        
+        boolean ok = false;
         try {
-            this.conn = this.getConnection();
-            PreparedStatement st = this.conn.prepareStatement(SQL_DELETE);
-            st.setInt(1, id);
-            
-            if (st.executeUpdate() > 0) {
-                success = true;
-            }
+            this.conn = getConnection();
+            PreparedStatement ps = conn.prepareStatement(SQL_DELETE);
+            ps.setInt(1, id);
+            ok = ps.executeUpdate() > 0;
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception(e.getMessage());    
-        } finally { 
-            closeConnection();
-        }
-             
-        return success;
+            throw new Exception(e.getMessage());
+        } finally { closeConnection(); }
+        return ok;
     }
 }
-
-
-
