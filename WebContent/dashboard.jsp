@@ -136,7 +136,7 @@ body {
             <a href="StudenteServlet" class="text-decoration-none text-dark">
                 <div class="card card-hover p-4">
                     <h4>Area Studente</h4>
-                    <p class="text-muted">Consulta voti, classe, compagni e professori.</p>
+                    <p class="text-muted">Consulta voti, classe, compagni e professori .</p>
                 </div>
             </a>
         </div>
