@@ -45,5 +45,33 @@ public class LoginController extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("view/login.jsp");
 		rd.forward(request, response);
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException,IOException {
+		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		try {
+			Utente utente = utenteDao.login(username, password);
 
+            if (utente != null) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("utente", utente);
+                session.setMaxInactiveInterval(30 * 60); // 30 minutes
+                response.sendRedirect("Dashboard");
+            } else {
+                request.setAttribute("errore", "Username o password non corretti.");
+                RequestDispatcher rd = request.getRequestDispatcher("view/login.jsp");
+                rd.forward(request, response);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errore", "Errore di sistema. Riprovare.");
+            RequestDispatcher rd = request.getRequestDispatcher("view/login.jsp");
+            rd.forward(request, response);
+        }
+    }
 }
