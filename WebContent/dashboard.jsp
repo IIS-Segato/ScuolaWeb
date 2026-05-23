@@ -73,7 +73,7 @@ body {
             <a href="DocenteServlet?action=list" class="text-decoration-none text-dark">
                 <div class="card card-hover p-4">
                     <h4>Docenti</h4>
-                    <p class="text-muted">Gestisci l’elenco dei docenti.</p>
+                    <p class="text-muted">Gestisci l'elenco dei docenti.</p>
                 </div>
             </a>
         </div>
