@@ -23,7 +23,7 @@
     </div>
 
     <% if (studente == null) { %>
-        <div class="alert alert-warning">Studente non trovato.</div>
+        <div class="alert alert-warning">Studente non trovato</div>
     <% } else { %>
         <form action="StudenteServlet" method="post" class="bg-white border rounded p-4">
             <input type="hidden" name="action" value="update">
