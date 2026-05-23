@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 20, 2026 alle 21:29
+-- Creato il: Mag 23, 2026 alle 14:46
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -308,12 +308,69 @@ INSERT INTO `studenti` (`sid`, `email`, `password`, `nome`, `cognome`, `nascita`
 DROP TABLE IF EXISTS `voti`;
 CREATE TABLE `voti` (
   `vid` int(11) NOT NULL,
-  `voto` int(11) NOT NULL,
+  `voto` decimal(4,2) NOT NULL,
   `materia` varchar(80) NOT NULL,
   `data` date NOT NULL,
   `did` int(11) NOT NULL,
   `sid` int(11) NOT NULL
 ) ;
+
+--
+-- Dump dei dati per la tabella `voti`
+--
+
+INSERT INTO `voti` (`vid`, `voto`, `materia`, `data`, `did`, `sid`) VALUES
+(1, 7.50, 'Matematica', '2026-03-12', 1, 1),
+(2, 8.15, 'Italiano', '2026-03-13', 2, 1),
+(3, 6.85, 'Inglese', '2026-03-14', 3, 1),
+(4, 6.50, 'Matematica', '2026-03-12', 1, 11),
+(5, 7.15, 'Scienze', '2026-03-13', 5, 11),
+(6, 8.85, 'Informatica', '2026-03-14', 6, 11),
+(7, 5.50, 'Italiano', '2026-03-12', 2, 21),
+(8, 6.15, 'Geografia', '2026-03-13', 7, 21),
+(9, 7.85, 'Arte', '2026-03-14', 8, 21),
+(10, 8.50, 'Matematica', '2026-03-12', 1, 31),
+(11, 7.15, 'Storia', '2026-03-13', 4, 31),
+(12, 9.85, 'Informatica', '2026-03-14', 6, 31),
+(13, 6.50, 'Scienze', '2026-03-12', 5, 41),
+(14, 7.85, 'Italiano', '2026-03-13', 2, 41),
+(15, 8.15, 'Educazione Fisica', '2026-03-14', 9, 41),
+(16, 8.15, 'Matematica', '2026-03-12', 1, 3),
+(17, 7.50, 'Italiano', '2026-03-13', 2, 3),
+(18, 6.85, 'Inglese', '2026-03-14', 3, 3),
+(19, 6.50, 'Scienze', '2026-03-12', 5, 13),
+(20, 7.15, 'Matematica', '2026-03-13', 1, 13),
+(21, 8.85, 'Informatica', '2026-03-14', 6, 13),
+(22, 5.85, 'Italiano', '2026-03-12', 2, 23),
+(23, 6.50, 'Storia', '2026-03-13', 4, 23),
+(24, 7.15, 'Arte', '2026-03-14', 8, 23),
+(25, 8.50, 'Matematica', '2026-03-12', 1, 33),
+(26, 7.85, 'Scienze', '2026-03-13', 5, 33),
+(27, 9.15, 'Informatica', '2026-03-14', 6, 33),
+(28, 6.15, 'Italiano', '2026-03-12', 2, 43),
+(29, 7.50, 'Inglese', '2026-03-13', 3, 43),
+(30, 8.85, 'Educazione Fisica', '2026-03-14', 9, 43),
+(31, 7.50, 'Fisica', '2026-03-12', 10, 9),
+(32, 8.15, 'Matematica', '2026-03-13', 1, 9),
+(33, 6.85, 'Italiano', '2026-03-14', 2, 9),
+(34, 5.50, 'Fisica', '2026-03-12', 10, 19),
+(35, 6.15, 'Informatica', '2026-03-13', 6, 19),
+(36, 7.85, 'Arte', '2026-03-14', 8, 19),
+(37, 8.50, 'Matematica', '2026-03-12', 1, 29),
+(38, 7.15, 'Fisica', '2026-03-13', 10, 29),
+(39, 9.85, 'Informatica', '2026-03-14', 6, 29),
+(40, 6.85, 'Italiano', '2026-03-12', 2, 39),
+(41, 7.50, 'Storia', '2026-03-13', 4, 39),
+(42, 8.15, 'Educazione Fisica', '2026-03-14', 9, 39),
+(43, 5.15, 'Matematica', '2026-03-12', 1, 49),
+(44, 6.50, 'Fisica', '2026-03-13', 10, 49),
+(45, 7.85, 'Arte', '2026-03-14', 8, 49),
+(46, 8.50, 'Informatica', '2026-03-12', 6, 59),
+(47, 7.15, 'Fisica', '2026-03-13', 10, 59),
+(48, 6.85, 'Italiano', '2026-03-14', 2, 59),
+(49, 7.50, 'Matematica', '2026-03-12', 1, 69),
+(50, 8.15, 'Fisica', '2026-03-13', 10, 69),
+(51, 9.85, 'Informatica', '2026-03-14', 6, 69);
 
 --
 -- Indici per le tabelle scaricate
@@ -389,7 +446,7 @@ ALTER TABLE `docenti`
 -- AUTO_INCREMENT per la tabella `studenti`
 --
 ALTER TABLE `studenti`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT per la tabella `voti`

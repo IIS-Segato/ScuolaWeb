@@ -12,19 +12,19 @@
 		<checkAmministratore>SELECT aid FROM amministratori WHERE email = ? and password = ?;</checkAmministratore>
 		<checkStudente>SELECT sid FROM studenti WHERE email = ? and password = ?;</checkStudente>
 		<checkDocente>SELECT did FROM docenti WHERE email = ? and password = ?;</checkDocente>
-		<getStudenti>select * from studenti;</getStudenti>
-		<getStudentiByClasse>select * from studenti where cid = ?;</getStudentiByClasse>
-		<getDocenti>select * from docenti;</getDocenti>
+		<getStudenti>select * from studenti order by cognome, nome;</getStudenti>
+		<getStudentiByClasse>select * from studenti where cid = ? order by cognome, nome;</getStudentiByClasse>
+		<getDocenti>select * from docenti order by cognome, nome;</getDocenti>
 		<getDocente>select * from docenti where did = ?;</getDocente>
 		<getAmministratore>select * from amministratori where aid = ?;</getAmministratore>
 		<getStudente>select * from studenti where sid = ?;</getStudente>
-		<getClassiByDocente>select c.* from classi as c join materie as m on c.cid = m.cid and m.did = ?;</getClassiByDocente>
-		<getMateriaByClasseDocente>select materia from materie where cid = ? and did = ?;</getMateriaByClasseDocente>
-		<getClassi>select * from classi;</getClassi>
-		<getMaterieClasse>select m.materia from classi c join materie m on m.cid = c.cid where c.cid = ?;</getMaterieClasse>
+		<getClassiByDocente>select c.* from classi as c join materie as m on c.cid = m.cid and m.did = ? order by anno, sezione;</getClassiByDocente>
+		<getMateriaByClasseDocente>select materia from materie where cid = ? and did = ? order by materia;</getMateriaByClasseDocente>
+		<getClassi>select * from classi order by anno, sezione;</getClassi>
+		<getMaterieClasse>select m.materia from classi c join materie m on m.cid = c.cid where c.cid = ? order by materia;</getMaterieClasse>
 		<getClasseByCid>select * from classi where cid = ?;</getClasseByCid>
 		<insertVoto>insert into voti(voto, materia, data, did, sid) values(?,?,?,?,?);</insertVoto>
-		<getVotiByStudenteMateria>select * from voti where sid = ? and materia = ?;</getVotiByStudenteMateria>
+		<getVotiByStudenteMateria>select * from voti where sid = ? and materia = ? order by data desc;</getVotiByStudenteMateria>
 		<deleteVoto>delete from voti where vid = ? limit 1;</deleteVoto>
 	</query>
 </root>
