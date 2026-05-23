@@ -57,6 +57,11 @@ public class StudenteServlet extends HttpServlet {
 			if ("add".equals(action)) {
 				req.setAttribute("classi", classeDao.getAll());
 				req.getRequestDispatcher("formStudente.jsp").forward(req, resp);
+			} else if ("edit".equals(action)) {
+				int idStudente = Integer.parseInt(req.getParameter("id"));
+				req.setAttribute("studenteEdit", studenteDao.getById(idStudente));
+				req.setAttribute("classi", classeDao.getAll());
+				req.getRequestDispatcher("studenti.jsp").forward(req, resp);
 			} else {
 				req.setAttribute("studenti", studenteDao.getAll());
 				req.setAttribute("classi", classeDao.getAll());
@@ -117,6 +122,13 @@ public class StudenteServlet extends HttpServlet {
 				nuovoUtente.setIdStudente(s.getId());
 				userAdminDao.insert(nuovoUtente);
 			}
+		} else if ("update".equals(action)) {
+			Studente s = new Studente();
+			s.setId(Integer.parseInt(req.getParameter("id")));
+			s.setNome(req.getParameter("nome"));
+			s.setCognome(req.getParameter("cognome"));
+			int idClasse = Integer.parseInt(req.getParameter("idClasse"));
+			studenteDao.update(s, idClasse);
 		}
 
 		resp.sendRedirect("StudenteServlet?action=list");

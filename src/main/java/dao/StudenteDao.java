@@ -151,6 +151,20 @@ public class StudenteDao {
 		}
 	}
 
+	public void update(Studente s, int idClasse) {
+		String sql = "UPDATE studenti SET nome = ?, cognome = ?, id_classe = ? WHERE id = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, s.getNome());
+			ps.setString(2, s.getCognome());
+			ps.setInt(3, idClasse);
+			ps.setInt(4, s.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	// restituisce la Classe dellostudente dato l'id dello studente
 	public Classe getClasseByStudente(int idStudente) {
 		Classe c = null;

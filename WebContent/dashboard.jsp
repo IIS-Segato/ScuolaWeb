@@ -63,8 +63,8 @@ body {
         <div class="col-md-4">
             <a href="StudenteServlet?action=list" class="text-decoration-none text-dark">
                 <div class="card card-hover p-4">
-                    <h4>Studenti</h4>
-                    <p class="text-muted">Visualizza e gestisci gli studenti.</p>
+                    <h4>Gestione Studenti</h4>
+                    <p class="text-muted">Visualizza gli studenti e cambia la classe assegnata.</p>
                 </div>
             </a>
         </div>
@@ -114,8 +114,8 @@ body {
         <div class="col-md-4">
             <a href="StudenteServlet?action=list" class="text-decoration-none text-dark">
                 <div class="card card-hover p-4">
-                    <h4>Studenti</h4>
-                    <p class="text-muted">Gestione anagrafica studenti.</p>
+                    <h4>Gestione Studenti</h4>
+                    <p class="text-muted">Gestisci gli studenti e cambia la classe assegnata.</p>
                 </div>
             </a>
         </div>
