@@ -39,6 +39,6 @@ public class UtenteDAO extends AbstractDAO {
 			printException(e);
 			throw new Exception(e.getMessage());
 		}
-		return u;a
+		return u;
 	}
 }
