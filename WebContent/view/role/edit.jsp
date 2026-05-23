@@ -1,57 +1,65 @@
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
-<%@ page import="model.*" %>
-<%@ page import="utils.*" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
-<% Role role = (Role) request.getAttribute("role");   
-String id = "0";
-if(request.getAttribute("id") != null){
-	id=Integer.toString((Integer)request.getAttribute("id"));
+<%@ page import="model.Role" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+Role role = (Role) request.getAttribute("role");
+String action = (String) request.getAttribute("action");
+String error = (String) request.getAttribute("error");
+
+if (role == null) {
+role = new Role();
 }
 
-%>    
+if (action == null) {
+action = "INSERT";
+}
+
+String title = "INSERT".equals(action) ? "Aggiungi Ruolo" : "Modifica Ruolo";
+%>
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Edit Role</title>
-  </head>
-  <body class="p-5">
-    <a href="Role"
-      ><button type="button" class="btn btn-warning mr-3">
-        TORNA ALLA LISTA
-      </button></a
-    >
-    <h1 class="fw-bold mt-3">
-      <span class="text-primary">MODIFICA</span> RUOLO
-    </h1>
+	<head>
+		<meta charset="UTF-8">
+		<title><%= title %></title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
 
-    <form action="Role" method="post">
-      <input type="hidden" name="id" value="<%=id%>">
-      <input type="hidden" name="action" value="<%=request.getAttribute("action")%>">
-      <div class="mb-3">
-        <label for="username" class="form-label fw-bold">Nome:</label>
-        <input
-          type="text"
-          class="form-control"
-          name="role_name"
-          value="<%=role.getRole_name() != null ? role.getRole_name() : StringUtils.STRING_EMPTY  %>"
-          required="required"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="first_name" class="form-label fw-bold">Descrizione:</label>
-        <input
-          type="text"
-          class="form-control"
-          name="description"
-          value="<%=role.getDescription() != null ? role.getDescription() : StringUtils.STRING_EMPTY  %>"
-          required="required"
-        />
-      </div>
-      <button type="reset" class="btn btn-warning">svuota i campi</button>
-      <button type="submit" class="btn btn-success">salva</button>
-    </form>
-  </body>
+		<jsp:include page="/view/navbar.jsp" />
+
+		<div class="container mt-5">
+			<div class="card shadow">
+				<div class="card-header">
+					<h3><%= title %></h3>
+				</div>
+
+				<div class="card-body">
+					<% if (error != null) { %>
+					<div class="alert alert-danger"><%= error %></div>
+					<% } %>
+
+					<form action="${pageContext.request.contextPath}/Role" method="post">
+						<input type="hidden" name="action" value="<%= action %>">
+						<input type="hidden" name="id" value="<%= role.getId() %>">
+
+						<div class="mb-3">
+							<label class="form-label">Nome</label>
+							<input type="text" name="role_name" class="form-control"
+											    value="<%= role.getRole_name() != null ? role.getRole_name() : "" %>" required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Descrizione</label>
+							<textarea name="description" class="form-control" rows="4" required><%= role.getDescription() != null ? role.getDescription() : "" %></textarea>
+						</div>
+
+						<button type="submit" class="btn btn-success">Salva</button>
+						<a href="${pageContext.request.contextPath}/Role" class="btn btn-secondary">Annulla</a>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</body>
 </html>
-
