@@ -10,7 +10,7 @@ import model.Studente;
 import model.User;
 
 @WebServlet("/Studente")
-public class SudenteController extends HttpServlet {
+public class StudenteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final String ACTION_INSERT = "INSERT";
