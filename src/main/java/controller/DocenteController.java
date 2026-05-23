@@ -44,9 +44,9 @@ public class DocenteController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String view   = null;
+        String view = null;
         String action = request.getParameter("action");
-        String id     = request.getParameter("id");
+        String id = request.getParameter("id");
 
         Utente utente = getUtente(request);
 
@@ -87,3 +87,57 @@ public class DocenteController extends HttpServlet {
             throw new ServletException(e.getMessage());
         }
     }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        Utente utente = getUtente(request);
+        requireAdmin(utente, response);
+        if (response.isCommitted()) return;
+
+        try {
+            String id = request.getParameter("id");
+            String nome = request.getParameter("nome");
+            String cognome = request.getParameter("cognome");
+            String materia = request.getParameter("materia");
+            String action = request.getParameter("action");
+
+            if (nome == null || nome.trim().isEmpty()
+             || cognome == null || cognome.trim().isEmpty()
+             || materia == null || materia.trim().isEmpty()) {
+                request.setAttribute("errore", "Tutti i campi sono obbligatori.");
+                request.setAttribute("docente", new Docente());
+                request.setAttribute("action", action);
+                RequestDispatcher rd = request.getRequestDispatcher("view/docente/edit.jsp");
+                rd.forward(request, response);
+                return;
+            }
+
+            if (ACTION_INSERT.equals(action)) {
+                docenteDao.insert(nome.trim(), cognome.trim(), materia.trim());
+            } else {
+                docenteDao.update(nome.trim(), cognome.trim(), materia.trim(), Integer.parseInt(id));
+            }
+
+            response.sendRedirect("Docente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ServletException(e.getMessage());
+        }
+    }
+
+
+    private Utente getUtente(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        return (session != null) ? (Utente) session.getAttribute("utente") : null;
+    }
+
+    private void requireAdmin(Utente utente, HttpServletResponse response)
+            throws IOException {
+        if (utente == null || !utente.isAdmin()) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN,
+                "Accesso negato: operazione riservata agli amministratori.");
+        }
+    }
+}
