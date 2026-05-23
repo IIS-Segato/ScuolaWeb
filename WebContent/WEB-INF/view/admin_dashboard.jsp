@@ -146,9 +146,16 @@ body {
 					</div>
 					<div class="row mb-3">
 						<div class="col">
-							<label for="materia" class="form-label">Materia</label> <input
-								type="text" class="form-control" id="materia" name="materia"
-								required>
+							<label for="materia" class="form-label">Materia</label> <select
+								class="form-select" id="materia" name="materia" required>
+								<option value="" disabled selected>Scegli una
+									materia...</option>
+								<option value="Matematica">Matematica</option>
+								<option value="Italiano">Italiano</option>
+								<option value="Storia">Sistemi e Reti</option>
+								<option value="Inglese">Inglese</option>
+								<option value="Informatica">Informatica</option>
+							</select>
 						</div>
 						<div class="col">
 							<label for="password" class="form-label">Password
