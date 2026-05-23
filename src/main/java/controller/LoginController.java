@@ -45,7 +45,7 @@ public class LoginController extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("view/login.jsp");
 		rd.forward(request, response);
 	}
-	
+	//verifica le credenziali e crea la sessione
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException,IOException {
