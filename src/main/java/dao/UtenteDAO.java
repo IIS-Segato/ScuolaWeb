@@ -1,9 +1,15 @@
 package dao;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.jdom2.JDOMException;
+
+import model.Utente;
+import utils.StringUtils;
 
 public class UtenteDAO extends AbstractDAO {
 
@@ -17,5 +23,22 @@ public class UtenteDAO extends AbstractDAO {
 
 	public UtenteDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		super(xml);
+	}
+
+	public Utente login(String username, String password) throws Exception {
+		Utente u = null;
+		String hashedPwd = StringUtils.encrypt(password);
+		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(SQL_LOGIN)) {
+			ps.setString(1, username);
+			ps.setString(2, hashedPwd);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next())
+					u = map(rs);
+			}
+		} catch (Exception e) {
+			printException(e);
+			throw new Exception(e.getMessage());
+		}
+		return u;
 	}
 }
