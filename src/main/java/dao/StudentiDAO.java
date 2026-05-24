@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.jdom2.JDOMException;
 
+import model.Classe;
 import model.Studente;
+import model.Voto;
 
 /**
  * Classe StudentiDAO.java per la gestione degli studenti
@@ -62,5 +65,60 @@ public class StudentiDAO extends DAO{
 		}
 		
 		return s;
+	}
+	
+	/**
+	 * Metodo per prendere tutti i voti di uno Studente
+	 * @param sid
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Voto> getVotiByStudente(int sid) throws SQLException {
+		String getVotiByStudente = this.getConf().getVotiByStudente();
+		ArrayList<Voto> voti = new ArrayList<>();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getVotiByStudente);
+		ps.setInt(1, sid);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			Voto v = new Voto();
+			v.setVid(rs.getInt("vid"));
+			v.setVoto(rs.getFloat("voto"));
+			v.setMateria(rs.getString("materia"));
+			v.setData(rs.getString("data"));
+			v.setDid(rs.getInt("did"));
+			v.setSid(rs.getInt("sid"));
+            
+            voti.add(v);
+		}
+		
+		return voti;
+	}
+	
+	/**
+	 * Metodo per prendere una Classe dal suo cid
+	 * @param cid
+	 * @return
+	 * @throws SQLException
+	 */
+	public Classe getClasseByCid(int cid) throws SQLException {
+		String getClasseByCid = this.getConf().getClasseByCid();
+		
+		Classe c = new Classe();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getClasseByCid);
+		ps.setInt(1, cid);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			c.setCid(rs.getInt("cid"));
+			c.setAnno(rs.getInt("anno"));
+			c.setSezione(rs.getString("sezione"));
+		}
+		
+		return c;
 	}
 }

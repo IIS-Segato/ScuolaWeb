@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletConfig;
@@ -21,6 +22,7 @@ import dao.StudentiDAO;
 import model.Docente;
 import model.Studente;
 import model.Amministratore;
+import model.Classe;
 
 /**
  * Classe LoginController.java per la gestione della servlet login
@@ -73,7 +75,7 @@ public class LoginController extends HttpServlet {
 			sid = loginDAO.checkStudente(email, password);
 			did = loginDAO.checkDocente(email, password);
 			aid = loginDAO.checkAmministratore(email, password);
-		} catch (SQLException e) {
+		} catch (SQLException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
 			
@@ -81,14 +83,18 @@ public class LoginController extends HttpServlet {
 		if (sid >= 0) {
 			// creo lo studente
 			Studente studente = null;
+			Classe classe = null;
 			try {
 				studente = studentiDAO.getStudente(sid);
+				studente.setVoti(studentiDAO.getVotiByStudente(sid));
+				classe = studentiDAO.getClasseByCid(studente.getCid());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			// crea una sessione se questa non esiste
 			HttpSession session = request.getSession();
 			session.setAttribute("studente", studente); // salvo lo studente in sessione
+			request.setAttribute("classe", classe); // salvo la classe dello studente nella richiesta
 			request.getRequestDispatcher("view/role/Studente.jsp").forward(request, response);
 		} else if (did >= 0) {
 			// creo il docente asss

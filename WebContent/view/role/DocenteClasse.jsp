@@ -972,7 +972,7 @@ td {
                   <div class="student-avatar"><%= sIniz %></div>
                   <div>
                     <div class="student-name">
-                      <%= s.getNome() %> <%= s.getCognome() %>
+                      <%= s.getCognome() %> <%= s.getNome() %>
                     </div>
                     <div class="student-id">
                     	ID <%= s.getSid() %>

@@ -79,7 +79,7 @@ Password: admin
 
 ```text
 Email: m.conti@scuola.it
-Password: A7!dkP9#qL
+Password: m.conti
 ```
 
 ---
@@ -90,5 +90,5 @@ Password: A7!dkP9#qL
 
 ```text
 Email: luca.rossi@scuola.it
-Password: K!3pLs9@Wx
+Password: luca.rossi
 ```

@@ -62,6 +62,6 @@ public class InsertVotoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect("ClasseDocente?cid="+cid+"&did="+did);
+		response.sendRedirect("ClasseDocente?cid="+cid+"&did="+did); // ritorno alla pagina della Classe del Docente
 	}
 }

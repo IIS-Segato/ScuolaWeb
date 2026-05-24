@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Classe Studente.java, modello degli studenti
@@ -15,6 +16,7 @@ public class Studente implements Serializable {
 	private String cognome;
 	private String nascita;
 	private int cid;
+	private ArrayList<Voto> voti;
 	
 	// Getter e setter
 	public int getSid() {
@@ -58,5 +60,11 @@ public class Studente implements Serializable {
 	}
 	public void setCid(int cid) {
 		this.cid = cid;
+	}
+	public ArrayList<Voto> getVoti() {
+		return voti;
+	}
+	public void setVoti(ArrayList<Voto> voti) {
+		this.voti = voti;
 	}
 }

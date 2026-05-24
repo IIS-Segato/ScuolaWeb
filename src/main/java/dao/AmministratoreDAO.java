@@ -78,8 +78,15 @@ public class AmministratoreDAO extends DAO {
 		preparedStatement.executeUpdate();
 	}
 	
+	/**
+	 * Metodo per prendere tutti gli studenti nel db
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public ArrayList<Studente> getStudenti() throws ClassNotFoundException, JDOMException, IOException, SQLException {
-		
 		String getStudenti = this.getConf().getStudenti();
 		
 		ArrayList<Studente> studenti = new ArrayList<>();
@@ -102,11 +109,17 @@ public class AmministratoreDAO extends DAO {
 		}
 		
 		return studenti;
-		
 	}
 	
+	/**
+	 * Metodo per prendere tutti i docenti nel db
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public ArrayList<Docente> getDocenti() throws ClassNotFoundException, JDOMException, IOException, SQLException {
-		
 		String getDocenti = this.getConf().getDocenti();
 		
 		ArrayList<Docente> docenti = new ArrayList<>();
@@ -127,9 +140,13 @@ public class AmministratoreDAO extends DAO {
 		}
 		
 		return docenti;
-		
 	}
 	
+	/**
+	 * Metodo per prendere tutte le classi nel db
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Classe> getClassi() throws SQLException {
 		String getClassi = this.getConf().getClassi();
 		
@@ -182,7 +199,6 @@ public class AmministratoreDAO extends DAO {
 		// creo l'Amministratore
 		Amministratore a = new Amministratore();
 		while(rs.next()) {
-			int id = rs.getInt("aid");
 			String email = rs.getString("email");
 			String password = rs.getString("password");
 			a.setDocenti(getDocenti());

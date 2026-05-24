@@ -59,6 +59,6 @@ public class EliminaVotoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect("VotiStudente?sid="+sid+"&materia="+materia);
+		response.sendRedirect("VotiStudente?sid="+sid+"&materia="+materia); // redirect alla pagina dei voti dello studente
 	}
 }

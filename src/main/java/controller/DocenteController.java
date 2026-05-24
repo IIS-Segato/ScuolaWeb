@@ -18,7 +18,7 @@ import model.Classe;
 import model.Studente;
 
 /**
- * Classe DocenteController.java per la gestione della servlet Docente
+ * Classe DocenteController.java per la gestione della servlet del Docente in una Classe
  */
 @WebServlet("/ClasseDocente")
 public class DocenteController extends HttpServlet {
@@ -54,7 +54,7 @@ public class DocenteController extends HttpServlet {
 		int cid = Integer.parseInt(request.getParameter("cid"));
 		int did = Integer.parseInt(request.getParameter("did"));
 		
-		// Prendo la lista studenti della classe
+		// Prendo la lista studenti della classe, la materia di insegnamento del docente e la classe
 		ArrayList<Studente> studenti = null;
 		String materia = null;
 		Classe classe = null;

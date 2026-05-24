@@ -135,6 +135,13 @@ public class DocentiDAO extends DAO{
 		
 	}
 	
+	/**
+	 * Metodo per prendere la materia insegnata dal Docente in una certa classe
+	 * @param cid
+	 * @param did
+	 * @return
+	 * @throws SQLException
+	 */
 	public String getMateriaByClasseDocente(int cid, int did) throws SQLException {
 		String getMateriaByClasseDocente = this.getConf().getMateriaByClasseDocente();
 		
@@ -151,6 +158,12 @@ public class DocentiDAO extends DAO{
 		return materia;
 	}
 	
+	/**
+	 * Metodo per prendere una classe dal suo cid
+	 * @param cid
+	 * @return
+	 * @throws SQLException
+	 */
 	public Classe getClasseByCid(int cid) throws SQLException {
 		String getClasseByCid = this.getConf().getClasseByCid();
 		
@@ -170,6 +183,15 @@ public class DocentiDAO extends DAO{
 		return c;
 	}
 	
+	/**
+	 * Metodo per inserire un voto ad uno studente nel db
+	 * @param voto
+	 * @param materia
+	 * @param data
+	 * @param did
+	 * @param sid
+	 * @throws SQLException
+	 */
 	public void insertVoto(float voto, String materia, String data, int did, int sid) throws SQLException {
 		String insertVoto = this.getConf().insertVoto();
 
@@ -183,6 +205,11 @@ public class DocentiDAO extends DAO{
 		ps.executeUpdate();
 	}
 	
+	/**
+	 * Metodo per eliminare un voto dal db
+	 * @param vid
+	 * @throws SQLException
+	 */
 	public void deleteVoto(int vid) throws SQLException {
 		String deleteVoto = this.getConf().deleteVoto();
 
@@ -192,6 +219,13 @@ public class DocentiDAO extends DAO{
 		ps.executeUpdate();
 	}
 	
+	/**
+	 * Metodo per prendere tutti i voti di uno studente di una materia
+	 * @param sid
+	 * @param materia
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Voto> getVotiByStudenteMateria(int sid, String materia) throws SQLException {
 		String getVotiByStudenteMateria = this.getConf().getVotiByStudenteMateria();
 		

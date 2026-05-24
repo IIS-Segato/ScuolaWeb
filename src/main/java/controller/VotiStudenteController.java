@@ -57,6 +57,7 @@ public class VotiStudenteController extends HttpServlet {
 		int sid = Integer.parseInt(request.getParameter("sid"));
 		String materia = (String) request.getParameter("materia");
 		
+		// lista dei voti
 		ArrayList<Voto> voti = null;
 		Studente studente = null;
 		try {
