@@ -78,4 +78,17 @@ public class DocenteClasseDao {
 			e.printStackTrace();
 		}
 	}
+
+	public void rimuoviTutte(int idDocente) {
+		try {
+			String sql = "DELETE FROM docenti_classi WHERE id_docente = ?";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, idDocente);
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
