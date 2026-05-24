@@ -58,6 +58,40 @@ public class DocenteDao {
 		return 0;
 	}
 
+	public Docente getById(int id) {
+		Docente d = null;
+		String sql = "SELECT * FROM docenti WHERE id = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					d = new Docente();
+					d.setId(rs.getInt("id"));
+					d.setNome(rs.getString("nome"));
+					d.setCognome(rs.getString("cognome"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return d;
+	}
+
+	public void update(Docente d) {
+		String sql = "UPDATE docenti SET nome = ?, cognome = ? WHERE id = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, d.getNome());
+			ps.setString(2, d.getCognome());
+			ps.setInt(3, d.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	// restituisce la lista di docenti che insegnano alla classe dello studente
 	public List<Docente> getDocentiByStudente(int idStudente) {
 		List<Docente> lista = new ArrayList<>();
