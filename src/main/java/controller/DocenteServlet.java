@@ -61,6 +61,14 @@ public class DocenteServlet extends HttpServlet {
 			req.getRequestDispatcher("formDocente.jsp").forward(req, resp);
 			return;
 		}
+		if ("edit".equals(action) && (u.getRoleId() == 1 || u.getRoleId() == 3)) {
+			int idDocente = Integer.parseInt(req.getParameter("id"));
+			req.setAttribute("docenteEdit", docenteDao.getById(idDocente));
+			req.setAttribute("classi", classeDao.getAll());
+			req.setAttribute("classiDocenteEdit", docenteClasseDao.getClassiByDocente(idDocente));
+			req.getRequestDispatcher("docenti.jsp").forward(req, resp);
+			return;
+		}
 
 		Docente docenteLoggato = u.getRoleId() == 2 ? findLoggedDocente(u) : null;
 		List<Docente> docenti = u.getRoleId() == 2
@@ -121,6 +129,20 @@ public class DocenteServlet extends HttpServlet {
 			if (idDocente > 0 && idClassi != null) {
 				for (String idClasse : idClassi) {
 					docenteClasseDao.assegna(idDocente, Integer.parseInt(idClasse));
+				}
+			}
+		} else if ("update".equals(action)) {
+			Docente d = new Docente();
+			d.setId(Integer.parseInt(req.getParameter("id")));
+			d.setNome(req.getParameter("nome"));
+			d.setCognome(req.getParameter("cognome"));
+			docenteDao.update(d);
+
+			docenteClasseDao.rimuoviTutte(d.getId());
+			String[] idClassi = req.getParameterValues("idClassi");
+			if (idClassi != null) {
+				for (String idClasse : idClassi) {
+					docenteClasseDao.assegna(d.getId(), Integer.parseInt(idClasse));
 				}
 			}
 		}
