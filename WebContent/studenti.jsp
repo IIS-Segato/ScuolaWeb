@@ -64,37 +64,59 @@
     <% } else if (studenti == null || studenti.isEmpty()) { %>
         <div class="alert alert-info">Nessuno studente disponibile.</div>
     <% } else { %>
-        <table class="table table-bordered table-hover bg-white align-middle">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Cognome</th>
-                    <th>Nome</th>
-                    <th>Classe</th>
-                    <th class="text-center">Azioni</th>
-                </tr>
-            </thead>
-            <tbody>
-            <% for (Studente s : studenti) {
-                Classe c = s.getClasse();
-            %>
-                <tr>
-                    <td><%= s.getId() %></td>
-                    <td><%= s.getCognome() %></td>
-                    <td><%= s.getNome() %></td>
-                    <td><%= c != null && c.getNome() != null ? c.getNome() : "-" %></td>
-                    <td class="text-center">
-                        <a href="StudenteServlet?action=edit&id=<%= s.getId() %>"
-                           class="btn btn-sm btn-outline-primary"
-                           title="Modifica studente">
-                            <i class="bi bi-pencil-square"></i>
-                            <span class="visually-hidden">Modifica</span>
-                        </a>
-                    </td>
-                </tr>
-            <% } %>
-            </tbody>
-        </table>
+        <% if (classi != null) {
+            for (Classe classe : classi) {
+                boolean classeConStudenti = false;
+                for (Studente s : studenti) {
+                    Classe c = s.getClasse();
+                    if (c != null && c.getId() == classe.getId()) {
+                        classeConStudenti = true;
+                        break;
+                    }
+                }
+        %>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <strong>Classe <%= classe.getNome() %></strong>
+                </div>
+                <div class="card-body p-0">
+                    <% if (!classeConStudenti) { %>
+                        <p class="m-3"><em>Nessuno studente in questa classe.</em></p>
+                    <% } else { %>
+                        <table class="table table-bordered table-hover mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Cognome</th>
+                                    <th>Nome</th>
+                                    <th class="text-center">Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <% for (Studente s : studenti) {
+                                Classe c = s.getClasse();
+                                if (c != null && c.getId() == classe.getId()) {
+                            %>
+                                <tr>
+                                    <td><%= s.getCognome() %></td>
+                                    <td><%= s.getNome() %></td>
+                                    <td class="text-center">
+                                        <a href="StudenteServlet?action=edit&id=<%= s.getId() %>"
+                                           class="btn btn-sm btn-outline-primary"
+                                           title="Modifica studente">
+                                            <i class="bi bi-pencil-square"></i>
+                                            <span class="visually-hidden">Modifica</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <%  }
+                            } %>
+                            </tbody>
+                        </table>
+                    <% } %>
+                </div>
+            </div>
+        <%  }
+        } %>
     <% } %>
 </div>
 </body>
