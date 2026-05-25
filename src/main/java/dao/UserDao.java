@@ -31,11 +31,6 @@ public class UserDao extends DAO {
                 if (rs.next()) {
                     pwdGiusta = rs.getString("password").trim();
                     
-                    // LOG TEMPORANEO - rimuovi dopo il fix
-                    System.out.println("Hash dal DB:     " + pwdGiusta);
-                    System.out.println("Hash calcolato:  " + StringUtils.encrypt(password));
-                    System.out.println("Sono uguali?     " + StringUtils.verificaPassword(password, pwdGiusta));
-                    
                     rs.close();
                     stmt.close();
                     
