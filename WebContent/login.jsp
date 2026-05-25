@@ -1,6 +1,60 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="model.*" %>
+<%@ page import="java.sql.*" %>
+
+<%
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+
+    boolean loginCorretto = false;
+	String error = ""; 
+
+    if(username != null && password != null){
+
+        if(username.equals("admin") && password.equals("admin4321")){
+            loginCorretto = true;
+
+            session.setAttribute("utente", username);
+			response.sendRedirect("admin.html");
+        } else {
+			try{
+
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+
+	            conn = DriverManager.getConnection(
+    	            "jdbc:mysql://localhost:3306/scuola",
+        	        "root",
+            	    "password"
+            	);
+
+            
+            	String sql = "SELECT * FROM utenti WHERE username=? AND password=?";
+
+           	 	ps = conn.prepareStatement(sql);
+
+            	ps.setString(1, username);
+            	ps.setString(2, password);
+
+           		rs = ps.executeQuery();
+
+	            if(rs.next()){
+
+    	            session.setAttribute("utente", username);
+
+        	        response.sendRedirect("home.jsp");
+			
+				}
+    		}
+		}
+	} else {
+		error = "
+			Errore su gmail o password, 
+			ricontrola di aver messo giusto i credenziali 
+		";
+	}
+%>
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +65,6 @@
 	<link href="WEB-INF/lib/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 	<!-- Banner -->
 	<div id="banner">
