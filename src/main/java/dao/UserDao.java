@@ -7,10 +7,10 @@ import java.sql.ResultSet;
 import org.jdom2.JDOMException;
 
 import model.User;
+import utils.StringUtils;
 
 public class UserDao extends AbstractDAO {
 
-	// Join con roles per recuperare il nome del ruolo in un'unica query
 	private static final String SQL_LOGIN = "SELECT u.id, u.username, u.role_id, r.name AS role_name " + "FROM users u "
 			+ "JOIN roles r ON u.role_id = r.id " + "WHERE u.username = ? AND u.password = ?";
 
@@ -19,10 +19,6 @@ public class UserDao extends AbstractDAO {
 		super(xml);
 	}
 
-	/**
-	 * Verifica le credenziali e restituisce l'utente con il suo ruolo. Restituisce
-	 * null se le credenziali non sono valide.
-	 */
 	public User login(String username, String password) throws Exception {
 
 		User user = null;
@@ -34,7 +30,9 @@ public class UserDao extends AbstractDAO {
 			PreparedStatement ps = conn.prepareStatement(SQL_LOGIN);
 
 			ps.setString(1, username);
-			ps.setString(2, password);
+
+			// PASSWORD HASHATA
+			ps.setString(2, StringUtils.encrypt(password));
 
 			ResultSet rs = ps.executeQuery();
 

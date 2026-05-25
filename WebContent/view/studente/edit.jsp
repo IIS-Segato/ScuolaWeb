@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="model.Role" %>
+<%@ page import="model.Studente" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>ScuolaWeb – Ruolo</title>
+    <title>ScuolaWeb – Studente</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -28,28 +28,28 @@
     <%@ include file="../navbar.jsp" %>
 
     <%
-        Role r = (Role) request.getAttribute("role");
+        Studente s = (Studente) request.getAttribute("studente");
+        String action = (String) request.getAttribute("action");
 
-        String action =
-                (String) request.getAttribute("action");
+        boolean isInsert = "INSERT".equals(action);
 
-        boolean isInsert =
-                "INSERT".equals(action);
+        String titolo =
+                isInsert ? "Nuovo Studente" : "Modifica Studente";
     %>
 
     <div class="container mt-4">
 
         <div class="row justify-content-center">
 
-            <div class="col-md-5">
+            <div class="col-md-6">
 
                 <div class="card shadow-sm">
 
                     <div class="card-header bg-primary text-white fw-bold">
 
-                        <i class="bi bi-shield-<%= isInsert ? "plus" : "check" %> me-2"></i>
+                        <i class="bi bi-person-<%= isInsert ? "plus" : "gear" %> me-2"></i>
 
-                        <%= isInsert ? "Nuovo Ruolo" : "Modifica Ruolo" %>
+                        <%= titolo %>
 
                     </div>
 
@@ -57,7 +57,7 @@
 
                         <form
                             method="post"
-                            action="<%= request.getContextPath() %>/Role">
+                            action="<%= request.getContextPath() %>/Studente">
 
                             <input
                                 type="hidden"
@@ -67,36 +67,53 @@
                             <input
                                 type="hidden"
                                 name="id"
-                                value="<%= r != null ? r.getId() : 0 %>">
+                                value="<%= s.getId() %>">
 
                             <div class="mb-3">
 
                                 <label class="form-label fw-semibold">
-                                    Nome Ruolo
+                                    Nome
                                 </label>
 
                                 <input
                                     type="text"
-                                    name="role_name"
+                                    name="nome"
                                     class="form-control"
-                                    value="<%= (r != null && r.getRole_name() != null) ? r.getRole_name() : "" %>"
+                                    value="<%= s.getNome() != null ? s.getNome() : "" %>"
                                     required
-                                    placeholder="Es. ADMIN">
+                                    placeholder="Es. Mario">
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Cognome
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="cognome"
+                                    class="form-control"
+                                    value="<%= s.getCognome() != null ? s.getCognome() : "" %>"
+                                    required
+                                    placeholder="Es. Rossi">
 
                             </div>
 
                             <div class="mb-4">
 
                                 <label class="form-label fw-semibold">
-                                    Descrizione
+                                    Classe
                                 </label>
 
                                 <input
                                     type="text"
-                                    name="description"
+                                    name="classe"
                                     class="form-control"
-                                    value="<%= (r != null && r.getDescription() != null) ? r.getDescription() : "" %>"
-                                    placeholder="Es. Amministratore di sistema">
+                                    value="<%= s.getClasse() != null ? s.getClasse() : "" %>"
+                                    required
+                                    placeholder="Es. 3A">
 
                             </div>
 
@@ -112,7 +129,7 @@
                                 </button>
 
                                 <a
-                                    href="<%= request.getContextPath() %>/Role"
+                                    href="<%= request.getContextPath() %>/Studente"
                                     class="btn btn-outline-secondary">
 
                                     <i class="bi bi-arrow-left me-1"></i>
