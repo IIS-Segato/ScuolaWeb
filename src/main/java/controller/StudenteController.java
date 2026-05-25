@@ -97,7 +97,6 @@ public class StudenteController extends HttpServlet {
 
 					view = "view/studente/index.jsp";
 				}
-
 			}
 
 			// STUDENTE
@@ -112,6 +111,13 @@ public class StudenteController extends HttpServlet {
 				req.setAttribute("classeCorrente", studente.getNomeClasse());
 
 				view = "view/studente/index.jsp";
+			}
+
+			// DOCENTE
+			else if (user.isDocente()) {
+
+				res.sendRedirect("Docente");
+				return;
 			}
 
 			req.getRequestDispatcher(view).forward(req, res);
