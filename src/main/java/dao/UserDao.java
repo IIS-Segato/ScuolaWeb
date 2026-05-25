@@ -31,8 +31,13 @@ public class UserDao extends AbstractDAO {
 
 			ps.setString(1, username);
 
-			// PASSWORD HASHATA
-			ps.setString(2, StringUtils.encrypt(password));
+			System.out.println("USERNAME: " + username);
+
+			String encrypted = StringUtils.encrypt(password);
+
+			System.out.println("PASSWORD HASH: " + encrypted);
+
+			ps.setString(2, encrypted);
 
 			ResultSet rs = ps.executeQuery();
 
