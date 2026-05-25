@@ -212,6 +212,7 @@ body {
 				<%
 				} else {
 				%>
+				
 				<p class="text-center">Non ci sono voti registrati.</p>
 				<%
 				}
