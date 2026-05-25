@@ -175,27 +175,3 @@ Una volta avviata l'applicazione, accedi tramite browser all'indirizzo `http://l
 Al primo avvio, effettua il login con le credenziali dell'**Admin** di default (configurabili nel file `.env`) per creare gli utenti e configurare il sistema.
 
 ---
-
-## 🤝 Contribuire
-
-I contributi sono benvenuti! Per proporre modifiche:
-
-1. Fai un **fork** del repository
-2. Crea un branch per la tua feature: `git checkout -b feature/nome-feature`
-3. Effettua le modifiche e committa: `git commit -m "feat: descrizione della modifica"`
-4. Fai push del branch: `git push origin feature/nome-feature`
-5. Apri una **Pull Request**
-
-Si prega di seguire le convenzioni di commit [Conventional Commits](https://www.conventionalcommits.org/).
-
----
-
-## 📄 Licenza
-
-Distribuito sotto licenza **MIT**. Consulta il file [`LICENSE`](./LICENSE) per i dettagli.
-
----
-
-<p align="center">
-  Realizzato con ❤️ per semplificare la vita scolastica
-</p>
