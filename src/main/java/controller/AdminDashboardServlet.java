@@ -55,7 +55,7 @@ public class AdminDashboardServlet extends HttpServlet {
 		}
 	}
 
-	// Gestisce l'invio del form per inserire un nuovo docente
+	// Gestisce l'invio dei vari form
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -71,6 +71,8 @@ public class AdminDashboardServlet extends HttpServlet {
 		String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
 
 		try {
+			// --- GESTIONE DOCENTI ---
+
 			// CASO 1: L'utente vuole INSERIRE un nuovo docente
 			if ("inserisci".equals(azione)) {
 				String nome = request.getParameter("nome");
@@ -104,20 +106,62 @@ public class AdminDashboardServlet extends HttpServlet {
 				}
 
 				AdminDAO adminDao = new AdminDAO(xmlPath);
-				// Chiamata al nuovo metodo che hai appena aggiunto in AdminDAO
 				boolean successo = adminDao.rimuoviDocente(idDocente);
 				adminDao.closeConnection();
 
 				if (successo) {
-					// Rimanda alla dashboard mostrando il banner verde di successo
 					response.sendRedirect("AdminDashboardServlet?messaggio=docente_eliminato_con_successo");
 				} else {
-					// Rimanda alla dashboard mostrando il banner rosso specifico per l'eliminazione
 					response.sendRedirect("AdminDashboardServlet?errore=errore_eliminazione");
 				}
 			}
 
-			// Caso di fallback se l'azione non corrisponde a nessuna delle due
+			// --- GESTIONE STUDENTI ---
+
+			// CASO 3: L'utente vuole INSERIRE un nuovo studente
+			else if ("inserisci_studente".equals(azione)) {
+				String nome = request.getParameter("nome");
+				String cognome = request.getParameter("cognome");
+				String classe = request.getParameter("classe");
+				String password = request.getParameter("password");
+
+				if (nome == null || cognome == null || classe == null || password == null) {
+					response.sendRedirect("AdminDashboardServlet?errore=campi_mancanti");
+					return;
+				}
+
+				AdminDAO adminDao = new AdminDAO(xmlPath);
+				boolean successo = adminDao.insertStudente(nome, cognome, classe, password);
+				adminDao.closeConnection();
+
+				if (successo) {
+					response.sendRedirect("AdminDashboardServlet?messaggio=studente_inserito_con_successo");
+				} else {
+					response.sendRedirect("AdminDashboardServlet?errore=inserimento_studente_fallito");
+				}
+			}
+
+			// CASO 4: L'utente vuole ELIMINARE uno studente tramite ID
+			else if ("elimina_studente".equals(azione)) {
+				String idStudente = request.getParameter("id_studente");
+
+				if (idStudente == null || idStudente.trim().isEmpty()) {
+					response.sendRedirect("AdminDashboardServlet?errore=id_mancante");
+					return;
+				}
+
+				AdminDAO adminDao = new AdminDAO(xmlPath);
+				boolean successo = adminDao.rimuoviStudente(idStudente);
+				adminDao.closeConnection();
+
+				if (successo) {
+					response.sendRedirect("AdminDashboardServlet?messaggio=studente_eliminato_con_successo");
+				} else {
+					response.sendRedirect("AdminDashboardServlet?errore=errore_eliminazione_studente");
+				}
+			}
+
+			// Caso di fallback
 			else {
 				response.sendRedirect("AdminDashboardServlet");
 			}
