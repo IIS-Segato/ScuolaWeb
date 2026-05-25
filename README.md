@@ -133,16 +133,16 @@ school-manager/
 ## 🚀 Installazione
 
 ### Prerequisiti
-- [Node.js](https://nodejs.org/) v18+
-- [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
+- Apache tomcat 11
+- JVM
 - Database (es. PostgreSQL / MySQL / MongoDB)
 
 ### Setup
 
 ```bash
 # 1. Clona il repository
-git clone https://github.com/tuo-utente/school-manager.git
-cd school-manager
+git clone https://github.com/IIS-Segato/ScuolaWeb.git
+cd ScuolaWeb
 
 # 2. Installa le dipendenze del backend
 cd backend
