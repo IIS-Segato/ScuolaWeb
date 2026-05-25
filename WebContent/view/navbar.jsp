@@ -21,7 +21,10 @@
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navMenu">
+            data-bs-target="#navMenu"
+            aria-controls="navMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
             <span class="navbar-toggler-icon"></span>
 
@@ -29,7 +32,7 @@
 
         <div class="collapse navbar-collapse" id="navMenu">
 
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <!-- ADMIN -->
 
@@ -39,6 +42,8 @@
 
                         <a class="nav-link"
                            href="<%= request.getContextPath() %>/Studente">
+
+                            <i class="bi bi-people me-1"></i>
 
                             Studenti
 
@@ -51,6 +56,8 @@
                         <a class="nav-link"
                            href="<%= request.getContextPath() %>/Docente">
 
+                            <i class="bi bi-person-workspace me-1"></i>
+
                             Docenti
 
                         </a>
@@ -61,6 +68,8 @@
 
                         <a class="nav-link"
                            href="<%= request.getContextPath() %>/Role">
+
+                            <i class="bi bi-shield-lock me-1"></i>
 
                             Ruoli
 
@@ -79,6 +88,8 @@
                         <a class="nav-link"
                            href="<%= request.getContextPath() %>/Studente">
 
+                            <i class="bi bi-people me-1"></i>
+
                             La mia classe
 
                         </a>
@@ -90,6 +101,8 @@
                         <a class="nav-link"
                            href="<%= request.getContextPath() %>/Docente">
 
+                            <i class="bi bi-person-workspace me-1"></i>
+
                             Docenti
 
                         </a>
@@ -100,6 +113,8 @@
 
                         <a class="nav-link"
                            href="<%= request.getContextPath() %>/Orario">
+
+                            <i class="bi bi-calendar-week me-1"></i>
 
                             Orario
 
@@ -118,6 +133,8 @@
                         <a class="nav-link"
                            href="<%= request.getContextPath() %>/Docente">
 
+                            <i class="bi bi-easel-fill me-1"></i>
+
                             Le mie classi
 
                         </a>
@@ -128,7 +145,7 @@
 
             </ul>
 
-            <!-- LOGOUT -->
+            <!-- MENU UTENTE -->
 
             <ul class="navbar-nav ms-auto">
 
@@ -136,19 +153,26 @@
 
                     <a class="nav-link dropdown-toggle"
                        href="#"
+                       id="userDropdown"
                        role="button"
-                       data-bs-toggle="dropdown">
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+
+                        <i class="bi bi-person-circle me-1"></i>
 
                         <%= loggedUser.getUsername() %>
 
                     </a>
 
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    <ul class="dropdown-menu dropdown-menu-end"
+                        aria-labelledby="userDropdown">
 
                         <li>
 
                             <a class="dropdown-item text-danger"
                                href="<%= request.getContextPath() %>/Logout">
+
+                                <i class="bi bi-box-arrow-right me-1"></i>
 
                                 Logout
 
@@ -167,3 +191,7 @@
     </div>
 
 </nav>
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
