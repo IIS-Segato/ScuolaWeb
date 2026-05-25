@@ -9,10 +9,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1">
-
-<title>Orario Classe</title>
+<title>Orario</title>
 
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -30,23 +27,13 @@ rel="stylesheet">
 
 <div class="container mt-4">
 
-<div class="alert alert-primary">
-
-	Orario della classe:
-
-	<b>
-		<%= request.getAttribute("classeCorrente") %>
-	</b>
-
-</div>
-
 <div class="card shadow-sm">
 
 <div class="card-header bg-primary text-white fw-bold">
 
 <i class="bi bi-calendar-week me-2"></i>
 
-Orario settimanale
+<%= request.getAttribute("titolo") %>
 
 </div>
 
@@ -61,6 +48,8 @@ Orario settimanale
 <th>Giorno</th>
 
 <th>Ora</th>
+
+<th>Classe</th>
 
 <th>Materia</th>
 
@@ -89,6 +78,10 @@ for(Orario o : orario) {
 
 <td>
 <%= o.getOra() %>
+</td>
+
+<td>
+<%= o.getClasse() %>
 </td>
 
 <td>

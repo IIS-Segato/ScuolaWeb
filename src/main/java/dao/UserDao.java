@@ -71,4 +71,30 @@ public class UserDao extends AbstractDAO {
 
 		return user;
 	}
+
+	public void changePassword(int userId, String nuovaPassword)
+
+			throws Exception {
+
+		String sql = "UPDATE users " + "SET password=? " + "WHERE id=?";
+
+		try {
+
+			this.conn = getConnection();
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, StringUtils.encrypt(nuovaPassword));
+
+			ps.setInt(2, userId);
+
+			ps.executeUpdate();
+
+			ps.close();
+
+		} finally {
+
+			closeConnection();
+		}
+	}
 }

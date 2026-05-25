@@ -79,6 +79,27 @@ Torna alle classi
 List<Studente> studenti =
 (List<Studente>) request.getAttribute("studenti");
 
+if(studenti == null || studenti.isEmpty()) {
+
+%>
+
+<tr>
+
+<td colspan="3"
+class="text-center text-muted py-3">
+
+Nessuno studente presente
+
+</td>
+
+</tr>
+
+<%
+
+}
+
+else {
+
 for(Studente s : studenti) {
 
 %>
@@ -103,6 +124,8 @@ for(Studente s : studenti) {
 
 }
 
+}
+
 %>
 
 </tbody>
@@ -114,6 +137,8 @@ for(Studente s : studenti) {
 </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

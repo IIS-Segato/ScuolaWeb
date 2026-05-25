@@ -73,7 +73,9 @@ public class StudenteController extends HttpServlet {
 
 					view = "view/studente/index.jsp";
 
-				} else if (ACTION_EDIT.equals(action)) {
+				}
+
+				else if (ACTION_EDIT.equals(action)) {
 
 					Studente s = studenteDao.getByID(Integer.parseInt(id));
 
@@ -82,16 +84,18 @@ public class StudenteController extends HttpServlet {
 					req.setAttribute("action", ACTION_UPDATE);
 
 					view = "view/studente/edit.jsp";
+				}
 
-				} else if (ACTION_INSERT.equals(action)) {
+				else if (ACTION_INSERT.equals(action)) {
 
 					req.setAttribute("studente", new Studente());
 
 					req.setAttribute("action", ACTION_INSERT);
 
 					view = "view/studente/edit.jsp";
+				}
 
-				} else {
+				else {
 
 					req.setAttribute("studenti", studenteDao.getAll());
 
@@ -106,6 +110,11 @@ public class StudenteController extends HttpServlet {
 
 				List<Studente> listaClasse = studenteDao.getByClasse(studente.getClasseId());
 
+				// RIMUOVE LO STUDENTE LOGGATO
+				listaClasse.removeIf(s -> s.getId() == studente.getId());
+
+				req.setAttribute("studenteCorrente", studente);
+
 				req.setAttribute("studenti", listaClasse);
 
 				req.setAttribute("classeCorrente", studente.getNomeClasse());
@@ -117,6 +126,7 @@ public class StudenteController extends HttpServlet {
 			else if (user.isDocente()) {
 
 				res.sendRedirect("Docente");
+
 				return;
 			}
 
@@ -138,6 +148,7 @@ public class StudenteController extends HttpServlet {
 		if (!user.isAdmin()) {
 
 			res.sendRedirect("Studente");
+
 			return;
 		}
 
@@ -157,7 +168,9 @@ public class StudenteController extends HttpServlet {
 
 				studenteDao.insert(nome, cognome, classeId);
 
-			} else {
+			}
+
+			else {
 
 				studenteDao.update(nome, cognome, classeId, Integer.parseInt(id));
 			}

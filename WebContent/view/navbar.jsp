@@ -1,179 +1,180 @@
 <%@ page import="model.User" %>
 
 <%
-    User loggedUser = (User) session.getAttribute("user");
+    User loggedUser =
+    (User) session.getAttribute("user");
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
 
-    <div class="container">
+<div class="container">
 
-        <a class="navbar-brand fw-bold"
-           href="<%= request.getContextPath() %>/Studente">
+<a class="navbar-brand fw-bold"
+href="<%= request.getContextPath() %>/Studente">
 
-            <i class="bi bi-mortarboard-fill me-1"></i>
+<i class="bi bi-mortarboard-fill me-1"></i>
 
-            ScuolaWeb
+ScuolaWeb
 
-        </a>
+</a>
 
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navMenu">
+<button
+class="navbar-toggler"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#navMenu">
 
-            <span class="navbar-toggler-icon"></span>
+<span class="navbar-toggler-icon"></span>
 
-        </button>
+</button>
 
-        <div class="collapse navbar-collapse" id="navMenu">
+<div class="collapse navbar-collapse"
+id="navMenu">
 
-            <!-- MENU -->
+<ul class="navbar-nav me-auto">
 
-            <ul class="navbar-nav me-auto">
+<!-- ADMIN -->
 
-                <!-- ADMIN -->
+<% if(loggedUser != null && loggedUser.isAdmin()) { %>
 
-                <% if(loggedUser != null && loggedUser.isAdmin()) { %>
+<li class="nav-item">
 
-                    <li class="nav-item">
+<a class="nav-link"
+href="<%= request.getContextPath() %>/Studente">
 
-                        <a class="nav-link"
-                           href="<%= request.getContextPath() %>/Studente">
+Studenti
 
-                            <i class="bi bi-people me-1"></i>
+</a>
 
-                            Studenti
+</li>
 
-                        </a>
+<li class="nav-item">
 
-                    </li>
+<a class="nav-link"
+href="<%= request.getContextPath() %>/Docente">
 
-                    <li class="nav-item">
+Docenti
 
-                        <a class="nav-link"
-                           href="<%= request.getContextPath() %>/Docente">
+</a>
 
-                            <i class="bi bi-person-workspace me-1"></i>
+</li>
 
-                            Docenti
+<li class="nav-item">
 
-                        </a>
+<a class="nav-link"
+href="<%= request.getContextPath() %>/Role">
 
-                    </li>
+Ruoli
 
-                    <li class="nav-item">
+</a>
 
-                        <a class="nav-link"
-                           href="<%= request.getContextPath() %>/Role">
+</li>
 
-                            <i class="bi bi-shield-lock me-1"></i>
+<% } %>
 
-                            Ruoli
+<!-- STUDENTE -->
 
-                        </a>
+<% if(loggedUser != null && loggedUser.isStudente()) { %>
 
-                    </li>
+<li class="nav-item">
 
-                <% } %>
+<a class="nav-link"
+href="<%= request.getContextPath() %>/Studente">
 
-                <!-- STUDENTE -->
+La mia classe
 
-                <% if(loggedUser != null && loggedUser.isStudente()) { %>
+</a>
 
-                    <li class="nav-item">
+</li>
 
-                        <a class="nav-link"
-                           href="<%= request.getContextPath() %>/Studente">
+<li class="nav-item">
 
-                            <i class="bi bi-people me-1"></i>
+<a class="nav-link"
+href="<%= request.getContextPath() %>/Docente">
 
-                            La mia classe
+Docenti
 
-                        </a>
+</a>
 
-                    </li>
+</li>
 
-                    <li class="nav-item">
+<li class="nav-item">
 
-                        <a class="nav-link"
-                           href="<%= request.getContextPath() %>/Docente">
+<a class="nav-link"
+href="<%= request.getContextPath() %>/Orario">
 
-                            <i class="bi bi-person-workspace me-1"></i>
+Orario
 
-                            Docenti
+</a>
 
-                        </a>
+</li>
 
-                    </li>
+<% } %>
 
-                    <li class="nav-item">
+<!-- DOCENTE -->
 
-                        <a class="nav-link"
-                           href="<%= request.getContextPath() %>/Orario">
+<% if(loggedUser != null && loggedUser.isDocente()) { %>
 
-                            <i class="bi bi-calendar-week me-1"></i>
+<li class="nav-item">
 
-                            Orario
+<a class="nav-link"
+href="<%= request.getContextPath() %>/Docente">
 
-                        </a>
+Le mie classi
 
-                    </li>
+</a>
 
-                <% } %>
+</li>
 
-                <!-- DOCENTE -->
+<li class="nav-item">
 
-                <% if(loggedUser != null && loggedUser.isDocente()) { %>
+<a class="nav-link"
+href="<%= request.getContextPath() %>/Orario">
 
-                    <li class="nav-item">
+Il mio orario
 
-                        <a class="nav-link"
-                           href="<%= request.getContextPath() %>/Docente">
+</a>
 
-                            <i class="bi bi-easel-fill me-1"></i>
+</li>
 
-                            Le mie classi
+<% } %>
 
-                        </a>
+</ul>
 
-                    </li>
+<div class="d-flex align-items-center text-white">
 
-                <% } %>
+<span class="me-3">
 
-            </ul>
+<i class="bi bi-person-circle me-1"></i>
 
-            <!-- DESTRA -->
+<%= loggedUser.getUsername() %>
 
-            <div class="d-flex align-items-center text-white">
+-
 
-                <span class="me-3">
+<%= loggedUser.getRoleName() %>
 
-                    <i class="bi bi-person-circle me-1"></i>
+</span>
 
-                    <%= loggedUser.getUsername() %>
+<a
+href="<%= request.getContextPath() %>/ChangePassword"
+class="btn btn-outline-light btn-sm me-2">
 
-                    -
+Password
 
-                    <%= loggedUser.getRoleName() %>
+</a>
 
-                </span>
+<a
+href="<%= request.getContextPath() %>/Logout"
+class="btn btn-outline-light btn-sm">
 
-                <a
-                    href="<%= request.getContextPath() %>/Logout"
-                    class="btn btn-outline-light btn-sm">
+Logout
 
-                    <i class="bi bi-box-arrow-right me-1"></i>
+</a>
 
-                    Logout
+</div>
 
-                </a>
+</div>
 
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </nav>

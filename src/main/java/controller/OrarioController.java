@@ -53,6 +53,7 @@ public class OrarioController extends HttpServlet {
 
 		try {
 
+			// STUDENTE
 			if (user.isStudente()) {
 
 				Studente studente = studenteDao.getByID(user.getStudenteId());
@@ -61,7 +62,21 @@ public class OrarioController extends HttpServlet {
 
 				req.setAttribute("orario", orario);
 
-				req.setAttribute("classeCorrente", studente.getNomeClasse());
+				req.setAttribute("titolo", "Orario classe " + studente.getNomeClasse());
+
+				req.getRequestDispatcher("view/orario/index.jsp").forward(req, res);
+
+				return;
+			}
+
+			// DOCENTE
+			if (user.isDocente()) {
+
+				List<Orario> orario = orarioDao.getByDocente(user.getDocenteId());
+
+				req.setAttribute("orario", orario);
+
+				req.setAttribute("titolo", "Il mio orario");
 
 				req.getRequestDispatcher("view/orario/index.jsp").forward(req, res);
 
