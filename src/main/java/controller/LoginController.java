@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.UtenteDAO;
 import model.Utente;
 
-@WebServlet("/login")
+@WebServlet("/Login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UtenteDAO utenteDao;

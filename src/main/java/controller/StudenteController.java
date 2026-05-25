@@ -67,7 +67,7 @@ public class StudenteController extends HttpServlet {
 				Studente s = studenteDao.getByID(Integer.parseInt(id));
 				request.setAttribute("studente", s);
 				request.setAttribute("action", ACTION_UPDATE);
-				view = "view/studente/edit.jsp";
+				view = "view/Studente/edit.jsp";
 
 			} else if (ACTION_INSERT.equals(action)) {
 				requireAdmin(utente, response);
@@ -75,7 +75,7 @@ public class StudenteController extends HttpServlet {
 					return;
 				request.setAttribute("studente", new Studente());
 				request.setAttribute("action", ACTION_INSERT);
-				view = "view/studente/edit.jsp";
+				view = "view/Studente/edit.jsp";
 
 			} else {
 
@@ -87,7 +87,7 @@ public class StudenteController extends HttpServlet {
 					lista = studenteDao.getAll();
 				}
 				request.setAttribute("studenti", lista);
-				view = "view/studente/index.jsp";
+				view = "view/Studente/index.jsp";
 			}
 
 			RequestDispatcher rd = request.getRequestDispatcher(view);
@@ -120,7 +120,7 @@ public class StudenteController extends HttpServlet {
 				request.setAttribute("errore", "Tutti i campi sono obbligatori.");
 				request.setAttribute("studente", new Studente());
 				request.setAttribute("action", action);
-				RequestDispatcher rd = request.getRequestDispatcher("view/studente/edit.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("view/Studente/edit.jsp");
 				rd.forward(request, response);
 				return;
 			}
