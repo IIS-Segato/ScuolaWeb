@@ -1,3 +1,4 @@
+
 /*M!999999\- enable the sandbox mode */ 
 -- MariaDB dump 10.19-11.7.2-MariaDB, for Win64 (AMD64)
 --
@@ -39,7 +40,8 @@ CREATE TABLE `admin` (
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
 INSERT INTO `admin` VALUES
-(1,'admin','admin123');
+(1,'admin','240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9');
+/* la password è 'admin123' */
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,11 +97,13 @@ CREATE TABLE `docenti` (
 LOCK TABLES `docenti` WRITE;
 /*!40000 ALTER TABLE `docenti` DISABLE KEYS */;
 INSERT INTO `docenti` VALUES
-(1,'Mario','Rossi','pass','Informatica'),
-(2,'Laura','Bianchi','pass','Sistemi e Reti'),
-(3,'Giuseppe','Verdi','pass','Matematica'),
-(4,'Anna','Neri','pass','Italiano'),
-(5,'Roberto','Gialli','pass','Inglese');
+(1,'Mario','Rossi','d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1','Informatica'),
+(2,'Laura','Bianchi','d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1','Sistemi e Reti'),
+(3,'Giuseppe','Verdi','d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1','Matematica'),
+(4,'Anna','Neri','d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1','Italiano'),
+(5,'Roberto','Gialli','d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1','Inglese');
+/* la password di questi è 'pass' */
+
 /*!40000 ALTER TABLE `docenti` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,10 +260,11 @@ CREATE TABLE `studenti` (
 LOCK TABLES `studenti` WRITE;
 /*!40000 ALTER TABLE `studenti` DISABLE KEYS */;
 INSERT INTO `studenti` VALUES
-(1,'Luca','Fumagalli','stud1','5A INF'),
-(2,'Sofia','Esposito','stud2','5A INF'),
-(3,'Marco','Rizzo','stud3','4A INF'),
-(4,'Elena','Galli','stud4','4A INF');
+(1,'Luca','Fumagalli','d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1','5A INF'),
+(2,'Sofia','Esposito','d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1','5A INF'),
+(3,'Marco','Rizzo','d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1','4A INF'),
+(4,'Elena','Galli','d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1','4A INF');
+/* la password di questi è 'pass' */
 /*!40000 ALTER TABLE `studenti` ENABLE KEYS */;
 UNLOCK TABLES;
 

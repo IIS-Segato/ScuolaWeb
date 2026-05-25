@@ -14,6 +14,7 @@ import dao.AdminDAO;
 import dao.ComunicatoDao;
 import model.Admin;
 import model.Comunicato;
+import utils.StringUtils;
 
 @WebServlet("/AdminDashboardServlet")
 public class AdminDashboardServlet extends HttpServlet {
@@ -86,8 +87,10 @@ public class AdminDashboardServlet extends HttpServlet {
 				String nome = request.getParameter("nome");
 				String cognome = request.getParameter("cognome");
 				String materia = request.getParameter("materia");
-				String password = request.getParameter("password");
-
+				String password = StringUtils.encrypt(request.getParameter("password"));
+				
+				
+				
 				if (nome == null || cognome == null || materia == null || password == null) {
 					response.sendRedirect("AdminDashboardServlet?errore=campi_mancanti");
 					return;
@@ -131,7 +134,7 @@ public class AdminDashboardServlet extends HttpServlet {
 				String nome = request.getParameter("nome");
 				String cognome = request.getParameter("cognome");
 				String classe = request.getParameter("classe");
-				String password = request.getParameter("password");
+				String password = StringUtils.encrypt(request.getParameter("password"));
 
 				if (nome == null || cognome == null || classe == null || password == null) {
 					response.sendRedirect("AdminDashboardServlet?errore=campi_mancanti");

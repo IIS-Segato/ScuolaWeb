@@ -3,6 +3,8 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import utils.StringUtils;
+
 //classe userDao nuova che estende il dao 
 public class UserDao extends DAO {
 
@@ -26,11 +28,25 @@ public class UserDao extends DAO {
             if (rs.next()) {
                 pwdGiusta = rs.getString("password").trim();
                 
+                if (rs.next()) {
+                    pwdGiusta = rs.getString("password").trim();
+                    
+                    // LOG TEMPORANEO - rimuovi dopo il fix
+                    System.out.println("Hash dal DB:     " + pwdGiusta);
+                    System.out.println("Hash calcolato:  " + StringUtils.encrypt(password));
+                    System.out.println("Sono uguali?     " + StringUtils.verificaPassword(password, pwdGiusta));
+                    
+                    rs.close();
+                    stmt.close();
+                    
+                    return (StringUtils.verificaPassword(password, pwdGiusta));
+                }
+                
                 //chiudo tutto 
                 rs.close();
                 stmt.close();
                 
-                return (password.trim().equals(pwdGiusta));
+                return (StringUtils.verificaPassword(password, pwdGiusta));
             }
         } catch (Exception e) {
             System.err.println("Errore durante l'autenticazione: " + e.getMessage());
