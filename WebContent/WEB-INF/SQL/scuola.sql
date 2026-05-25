@@ -10,7 +10,7 @@ CREATE DATABASE IF NOT EXISTS `example`
 USE `example`;
 
 
--- TABELLA: roles  
+-- TABELLA roles  
 
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
@@ -26,7 +26,7 @@ INSERT INTO `roles` (`name`, `description`) VALUES
   ('studente', 'Studente: accesso in sola lettura');
 
 
--- TABELLA: utenti 
+-- TABELLA utenti 
 
 DROP TABLE IF EXISTS `utenti`;
 CREATE TABLE `utenti` (
@@ -39,7 +39,7 @@ CREATE TABLE `utenti` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- TABELLA: studenti
+-- TABELLA studenti
 
 DROP TABLE IF EXISTS `studenti`;
 CREATE TABLE `studenti` (
@@ -65,7 +65,7 @@ INSERT INTO `studenti` (`nome`, `cognome`, `classe`) VALUES
   ('Sara',     'Costa',     '5B');
 
 
--- TABELLA: docenti
+-- TABELLA docenti
 
 DROP TABLE IF EXISTS `docenti`;
 CREATE TABLE `docenti` (
