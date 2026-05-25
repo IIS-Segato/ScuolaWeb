@@ -98,13 +98,27 @@ body {
 			<button type="button" class="btn-close" data-bs-dismiss="alert"
 				aria-label="Close"></button>
 		</div>
+        <%
+        } else if (messaggio != null && messaggio.equals("docente_eliminato_con_successo")) {
+        %>
+        <div class="alert alert-success alert-dismissible fade show shadow-sm"
+            role="alert">
+            <i class="fas fa-check-circle me-2"></i> Docente eliminato con
+            successo!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
 		<%
 		} else if (errore != null) {
 		%>
 		<div class="alert alert-danger alert-dismissible fade show shadow-sm"
 			role="alert">
-			<i class="fas fa-exclamation-triangle me-2"></i> Errore durante
-			l'inserimento del docente.
+			<i class="fas fa-exclamation-triangle me-2"></i> 
+            <% if (errore.equals("errore_eliminazione")) { %>
+                Errore durante l'eliminazione del docente. L'ID potrebbe non esistere.
+            <% } else { %>
+                Errore durante l'operazione richiesta.
+            <% } %>
 			<button type="button" class="btn-close" data-bs-dismiss="alert"
 				aria-label="Close"></button>
 		</div>
@@ -126,49 +140,78 @@ body {
 			</div>
 		</div>
 
-		<div class="card shadow mb-4">
-			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">Inserisci Nuovo
-					Docente</h6>
-			</div>
-			<div class="card-body">
-				<form action="AdminDashboardServlet" method="POST">
-					<div class="row mb-3">
-						<div class="col">
-							<label for="nome" class="form-label">Nome</label> <input
-								type="text" class="form-control" id="nome" name="nome" required>
-						</div>
-						<div class="col">
-							<label for="cognome" class="form-label">Cognome</label> <input
-								type="text" class="form-control" id="cognome" name="cognome"
-								required>
-						</div>
-					</div>
-					<div class="row mb-3">
-						<div class="col">
-							<label for="materia" class="form-label">Materia</label> <select
-								class="form-select" id="materia" name="materia" required>
-								<option value="" disabled selected>Scegli una
-									materia...</option>
-								<option value="Matematica">Matematica</option>
-								<option value="Italiano">Italiano</option>
-								<option value="Storia">Sistemi e Reti</option>
-								<option value="Inglese">Inglese</option>
-								<option value="Informatica">Informatica</option>
-							</select>
-						</div>
-						<div class="col">
-							<label for="password" class="form-label">Password
-								Provvisoria</label> <input type="password" class="form-control"
-								id="password" name="password" required>
-						</div>
-					</div>
-					<button type="submit" class="btn btn-success">
-						<i class="fas fa-plus"></i> Aggiungi Docente
-					</button>
-				</form>
-			</div>
-		</div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Inserisci Nuovo
+                            Docente</h6>
+                    </div>
+                    <div class="card-body">
+                        <form action="AdminDashboardServlet" method="POST">
+                            <input type="hidden" name="azione" value="inserisci">
+                            
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="nome" class="form-label">Nome</label> <input
+                                        type="text" class="form-control" id="nome" name="nome" required>
+                                </div>
+                                <div class="col">
+                                    <label for="cognome" class="form-label">Cognome</label> <input
+                                        type="text" class="form-control" id="cognome" name="cognome"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="materia" class="form-label">Materia</label> <select
+                                        class="form-select" id="materia" name="materia" required>
+                                        <option value="" disabled selected>Scegli una
+                                            materia...</option>
+                                        <option value="Matematica">Matematica</option>
+                                        <option value="Italiano">Italiano</option>
+                                        <option value="Storia">Sistemi e Reti</option>
+                                        <option value="Inglese">Inglese</option>
+                                        <option value="Informatica">Informatica</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="password" class="form-label">Password
+                                        Provvisoria</label> <input type="password" class="form-control"
+                                        id="password" name="password" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-plus"></i> Aggiungi Docente
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-danger"><i class="fas fa-user-times"></i> Elimina Docente</h6>
+                    </div>
+                    <div class="card-body">
+                        <form action="AdminDashboardServlet" method="POST">
+                            <input type="hidden" name="azione" value="elimina">
+                            
+                            <div class="mb-3">
+                                <label for="id_docente" class="form-label">ID del Docente</label>
+                                <input type="number" class="form-control" id="id_docente" name="id_docente" placeholder="Es: 12" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-danger w-100" onclick="return confirm('ATTENZIONE: Sei sicuro di voler eliminare questo docente? L\'azione è irreversibile.');">
+                                <i class="fas fa-trash"></i> Conferma Eliminazione
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 	</div>
 
 

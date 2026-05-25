@@ -64,22 +64,79 @@ public class AdminDAO extends DAO{
 	            if (righeModificate > 0) {
 	                inserito = true;
 	            }
+	            
 
 	        } catch (SQLException e) {
 	            System.err.println("Errore in AdminDAO - insertDocente: " + e.getMessage());
 	            
-//	            // 1452 è il codice standard MySQL per: "Cannot add or update a child row: a foreign key constraint fails"
-//	            if (e.getErrorCode() == 1452) {
-//	                return "errore_materia_non_valida";
-//	            }
-//	            
-//	            // Puoi aggiungere altri controlli qui, ad esempio per chiavi duplicate (codice 1062)
-//	            if (e.getErrorCode() == 1062) {
-//	                return "errore_duplicato";
-//	            }
            }
-//	        return "errore_generico";
 
+	        return inserito;
+	    }
+	    
+	    /**
+		 * Metodo per eliminare un docente dal database tramite il suo ID
+		 * @param idDocente L'ID del docente da eliminare (come Stringa passata dal form)
+		 * @return true se l'eliminazione ha avuto successo, false altrimenti
+		 */
+		public boolean rimuoviDocente(String idDocente) {
+			boolean eliminato = false;
+			
+			// Recupera la query di cancellazione dall'XML 
+			// (nel tuo dbcfg.xml dovrebbe essere: DELETE FROM docenti WHERE id = ?)
+			String query = config.getQuery("docenti", "delete"); 
+
+			try (PreparedStatement ps = this.conn.prepareStatement(query)) {
+				
+				// Converte la stringa in intero e la imposta al posto del punto interrogativo (?)
+				ps.setInt(1, Integer.parseInt(idDocente));
+
+				// executeUpdate() restituisce il numero di righe eliminate
+				int righeModificate = ps.executeUpdate();
+				
+				if (righeModificate > 0) {
+					eliminato = true;
+				}
+
+			} catch (SQLException e) {
+				System.err.println("Errore SQL in AdminDAO - rimuoviDocente: " + e.getMessage());
+			} catch (NumberFormatException e) {
+				System.err.println("Errore formato ID in AdminDAO - rimuoviDocente. ID inserito: " + idDocente);
+			}
+
+			return eliminato;
+		}
+		
+		/**
+		 * metodo per la creazione di docenti
+		 * @param nome
+		 * @param cognome
+		 * @param materia
+		 * @param password
+		 * @return
+		 */
+	    public boolean insertStudente(String nome, String cognome, String classe, String password) {
+	        boolean inserito = false;
+	        String query = config.getQuery("studenti", "insert"); // Prende la query dall'XML
+
+	        try (PreparedStatement ps = this.conn.prepareStatement(query)) {
+	            
+	            ps.setString(1, nome);
+	            ps.setString(2, cognome);
+	            ps.setString(3, password);
+	            ps.setString(4, classe); 
+
+	            // executeUpdate() restituisce il numero di righe modificate
+	            int righeModificate = ps.executeUpdate();
+	            
+	            if (righeModificate > 0) {
+	                inserito = true;
+	            }
+	            
+
+	        } catch (SQLException e) {
+	            System.err.println("Errore in AdminDAO - insertStudente: " + e.getMessage());
+           }
 	        return inserito;
 	    }
 }
