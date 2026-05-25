@@ -116,5 +116,5 @@ public class StudenteDAO extends AbstractDAO {
 		s.setClasse(rs.getString("classe"));
 		return s;
 	}
-	// ciao
+
 }
