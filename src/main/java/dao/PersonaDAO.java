@@ -100,7 +100,7 @@ public class PersonaDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(int id, String nome, String cognome, String email, String cf, String nascita, byte[] img_profilo) {
+	public boolean update(String nome, String cognome, String email, String cf, String nascita, byte[] img_profilo, int id) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();

@@ -16,8 +16,8 @@ public class RuoloDAO extends AbstractDAO{
 	private static final String SQL_GET_ALL = "SELECT * FROM ruoli";
 	private static final String SQL_GET_BY_ID = "SELECT * FROM ruoli WHERE id_ruolo=?";
 	private static final String SQL_GET_BY_NOME_RUOLO = "SELECT * FROM ruoli WHERE nome_ruolo=?";
-	private static final String SQL_INSERT = "INSERT INTO ruoli (nome_ruolo, gestione_utenti, voti_modifica_tutti, voti_visualizza_tutti, voti_modifica_propri, voti_visualizza_propri, voti_visualizza_classe, orario_modifica, orario_visualizza, aule_modifica, aule_visualizza, bacheca_pubblica, bacheca_visualizza, dati_visualizza) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_UPDATE = "UPDATE ruoli SET nome_ruolo = ?, gestione_utenti = ?, voti_modifica_tutti = ?, voti_visualizza_tutti = ?, voti_modifica_propri = ?, voti_visualizza_propri = ?, voti_visualizza_classe = ?, orario_modifica = ?, orario_visualizza = ?, aule_modifica = ?, aule_visualizza = ?, bacheca_pubblica = ?, bacheca_visualizza = ?, dati_visualizza = ? WHERE id_ruolo=?";
+	private static final String SQL_INSERT = "INSERT INTO ruoli (nome_ruolo, gestione_utenti, voti_modifica_tutti, voti_visualizza_tutti, voti_modifica_propri, voti_visualizza_propri, voti_visualizza_classe, orario_modifica, orario_visualizza, aule_modifica, aule_visualizza, bacheca_pubblica, bacheca_visualizza, dati_visualizza, assenze_inserimento, assenze_visualizza_classe, assenze_visualizza_proprie, assenze_giustifica, assenze_approva_giustifica) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String SQL_UPDATE = "UPDATE ruoli SET nome_ruolo = ?, gestione_utenti = ?, voti_modifica_tutti = ?, voti_visualizza_tutti = ?, voti_modifica_propri = ?, voti_visualizza_propri = ?, voti_visualizza_classe = ?, orario_modifica = ?, orario_visualizza = ?, aule_modifica = ?, aule_visualizza = ?, bacheca_pubblica = ?, bacheca_visualizza = ?, dati_visualizza = ?, assenze_inserimento = ?, assenze_visualizza_classe = ?, assenze_visualizza_proprie = ?, assenze_giustifica = ?, assenze_approva_giustifica = ? WHERE id_ruolo=?";
 	private static final String SQL_DELETE = "DELETE FROM ruoli WHERE id_ruolo=?";
 	
 	public RuoloDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
@@ -48,6 +48,11 @@ public class RuoloDAO extends AbstractDAO{
                 r.setBacheca_pubblica(rs.getBoolean("bacheca_pubblica"));
                 r.setBacheca_visualizza(rs.getBoolean("bacheca_visualizza"));
                 r.setDati_visualizza(rs.getBoolean("dati_visualizza"));
+                r.setAssenze_inserimento(rs.getBoolean("assenze_inserimento"));
+                r.setAssenze_visualizza_classe(rs.getBoolean("assenze_visualizza_classe"));
+                r.setAssenze_visualizza_proprie(rs.getBoolean("assenze_visualizza_proprie"));
+                r.setAssenze_giustifica(rs.getBoolean("assenze_giustifica"));
+                r.setAssenze_approva_giustifica(rs.getBoolean("assenze_approva_giustifica"));
                 ruoli.add(r);
             }
 			
@@ -83,6 +88,11 @@ public class RuoloDAO extends AbstractDAO{
             r.setBacheca_pubblica(rs.getBoolean("bacheca_pubblica"));
             r.setBacheca_visualizza(rs.getBoolean("bacheca_visualizza"));
             r.setDati_visualizza(rs.getBoolean("dati_visualizza"));
+            r.setAssenze_inserimento(rs.getBoolean("assenze_inserimento"));
+            r.setAssenze_visualizza_classe(rs.getBoolean("assenze_visualizza_classe"));
+            r.setAssenze_visualizza_proprie(rs.getBoolean("assenze_visualizza_proprie"));
+            r.setAssenze_giustifica(rs.getBoolean("assenze_giustifica"));
+            r.setAssenze_approva_giustifica(rs.getBoolean("assenze_approva_giustifica"));
 		}
 			
 		} catch (Exception e) {
@@ -117,6 +127,11 @@ public class RuoloDAO extends AbstractDAO{
             r.setBacheca_pubblica(rs.getBoolean("bacheca_pubblica"));
             r.setBacheca_visualizza(rs.getBoolean("bacheca_visualizza"));
             r.setDati_visualizza(rs.getBoolean("dati_visualizza"));
+            r.setAssenze_inserimento(rs.getBoolean("assenze_inserimento"));
+            r.setAssenze_visualizza_classe(rs.getBoolean("assenze_visualizza_classe"));
+            r.setAssenze_visualizza_proprie(rs.getBoolean("assenze_visualizza_proprie"));
+            r.setAssenze_giustifica(rs.getBoolean("assenze_giustifica"));
+            r.setAssenze_approva_giustifica(rs.getBoolean("assenze_approva_giustifica"));
 		}
 			
 		} catch (Exception e) {
@@ -139,7 +154,12 @@ public class RuoloDAO extends AbstractDAO{
 							boolean aule_visualizza,
 							boolean bacheca_pubblica,
 							boolean bacheca_visualizza,
-							boolean dati_visualizza) {
+							boolean dati_visualizza,
+							boolean assenze_inserimento,
+							boolean assenze_visualizza_classe,
+							boolean assenze_visualizza_proprie,
+							boolean assenze_giustifica,
+							boolean assenze_approva_giustifica) {
 		boolean isInserted = false;
 		
 		try (Connection conn = getConnection();
@@ -160,6 +180,11 @@ public class RuoloDAO extends AbstractDAO{
 			ps.setBoolean(12, bacheca_pubblica);
 			ps.setBoolean(13, bacheca_visualizza);
 			ps.setBoolean(14, dati_visualizza);
+			ps.setBoolean(15, assenze_inserimento);
+			ps.setBoolean(16, assenze_visualizza_classe);
+			ps.setBoolean(17, assenze_visualizza_proprie);
+			ps.setBoolean(18, assenze_giustifica);
+			ps.setBoolean(19, assenze_approva_giustifica);
 			
 			if(ps.executeUpdate() > 0) {
 				isInserted = true;
@@ -172,8 +197,7 @@ public class RuoloDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(int id,
-							String nome_ruolo, 
+	public boolean update(String nome_ruolo, 
 							boolean gestione_utenti,
 							boolean voti_modifica_tutti,
 							boolean voti_visualizza_tutti,
@@ -186,7 +210,13 @@ public class RuoloDAO extends AbstractDAO{
 							boolean aule_visualizza,
 							boolean bacheca_pubblica,
 							boolean bacheca_visualizza,
-							boolean dati_visualizza) {
+							boolean dati_visualizza,
+							boolean assenze_inserimento,
+							boolean assenze_visualizza_classe,
+							boolean assenze_visualizza_proprie,
+							boolean assenze_giustifica,
+							boolean assenze_approva_giustifica,
+							int id) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();
@@ -207,7 +237,12 @@ public class RuoloDAO extends AbstractDAO{
 			ps.setBoolean(12, bacheca_pubblica);
 			ps.setBoolean(13, bacheca_visualizza);
 			ps.setBoolean(14, dati_visualizza);
-			ps.setInt(15, id);
+			ps.setBoolean(15, assenze_inserimento);
+			ps.setBoolean(16, assenze_visualizza_classe);
+			ps.setBoolean(17, assenze_visualizza_proprie);
+			ps.setBoolean(18, assenze_giustifica);
+			ps.setBoolean(19, assenze_approva_giustifica);
+			ps.setInt(20, id);
 			
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;

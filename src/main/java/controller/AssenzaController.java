@@ -3,34 +3,34 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
-import dao.DocenteDAO;
+import dao.AssenzaDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Docente;
+import model.Assenza;
 
-public class DocenteController extends HttpServlet{
+public class AssenzaController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	private static final String ACTION_GET_ALL = "GETALL";
 	private static final String ACTION_GET_BY_ID = "GETBYID";
-	private static final String ACTION_GET_BY_PERSONA_ID = "GETBYPERSONAID";
+	private static final String ACTION_GET_BY_UTENTE_ID = "GETBYUTENTEID";
 	private static final String ACTION_INSERT = "INSERT";
 	private static final String ACTION_DELETE = "DELETE";
 	private static final String ACTION_UPDATE = "UPDATE";
 	
-	private DocenteDAO docenteDao = null;
+	private AssenzaDAO assenzaDao = null;
        
     /** 
      * @see HttpServlet#HttpServlet()
      */
-    public DocenteController() {
+    public AssenzaController() {
         super();
-
-
+        
+        
     }
 
 	/**
@@ -40,7 +40,7 @@ public class DocenteController extends HttpServlet{
 		try {
 			super.init(config);
 
-			docenteDao = new DocenteDAO(getServletContext().getRealPath("/") + config.getServletContext().getInitParameter("config"));
+			assenzaDao = new AssenzaDAO(getServletContext().getRealPath("/") + config.getServletContext().getInitParameter("config"));
 
 		} catch (Exception e) {
 
@@ -56,46 +56,47 @@ public class DocenteController extends HttpServlet{
 		String action = null;
 		String id = null;
 		
-		Docente docente = null;	
-		List<Docente> docenti;
+		Assenza assenza = null;	
+		List<Assenza> assenze;
 		try {
 			action = request.getParameter("action");
 			id = request.getParameter("id");
 			
 			if(ACTION_DELETE.equals(action)) {
 				if(id != null) {
-					docenteDao.delete(Integer.parseInt(id));
+					assenzaDao.delete(Integer.parseInt(id));
 					
 					view = "";
 				}
 				
 			}
 			else if(ACTION_GET_ALL.equals(action)) {
-				docenti = docenteDao.getAll();
+				assenze = assenzaDao.getAll();
 				
-				request.setAttribute("docenti", docenti);
+				request.setAttribute("assenze", assenze);
 				
 				view = "";
 				
 			}
 			else if(ACTION_GET_BY_ID.equals(action)) {
 				if(id != null) {
-					docente = docenteDao.getById(Integer.parseInt(id));
+					assenza = assenzaDao.getById(Integer.parseInt(id));
 					
-					request.setAttribute("docente", docente);
+					request.setAttribute("assenza", assenza);
 					
 					view = "";
 				}
 				
 			}
-			else if(ACTION_GET_BY_PERSONA_ID.equals(action)){
+			else if(ACTION_GET_BY_UTENTE_ID.equals(action)) {
 				if(id != null) {
-					docente = docenteDao.getByPersonaId(Integer.parseInt(id));
+					assenze = assenzaDao.getByUtenteId(Integer.parseInt(id));
 					
-					request.setAttribute("docente", docente);
+					request.setAttribute("assenze", assenze);
 					
 					view = "";
 				}
+				
 			}
 		
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
@@ -112,22 +113,43 @@ public class DocenteController extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String id = request.getParameter("id");
-			String id_persona = request.getParameter("id_persona");
+			String id_utente = request.getParameter("id_utente");
+			String data_evento = request.getParameter("data_evento");
+			String tipo = request.getParameter("tipo");
+			String ora_evento = request.getParameter("ora_evento");
+			String giustificata = request.getParameter("giustificata");
+			String motivazione = request.getParameter("motivazione");
+			String giustificata_da = request.getParameter("giustificata_da");
+			String data_giustifica = request.getParameter("data_giustifica");
 			String action = request.getParameter("action");
 			
 			if(ACTION_INSERT.equals(action)) {
-				docenteDao.insert(Integer.parseInt(id_persona));
+				assenzaDao.insert(Integer.parseInt(id_utente),
+						data_evento,
+						tipo,
+						ora_evento,
+						Boolean.parseBoolean(giustificata),
+						motivazione,
+						Integer.parseInt(giustificata_da),
+						data_giustifica);
 			}
 			else if(ACTION_UPDATE.equals(action)){
-				docenteDao.update(Integer.parseInt(id_persona), Integer.parseInt(id));
+				assenzaDao.update(Integer.parseInt(id_utente),
+						data_evento,
+						tipo,
+						ora_evento,
+						Boolean.parseBoolean(giustificata),
+						motivazione,
+						Integer.parseInt(giustificata_da),
+						data_giustifica,
+						Integer.parseInt(id));
 			}
 			
-			response.sendRedirect("Docente");
+			response.sendRedirect("Assenza");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());
 		}
 	}
-
 }

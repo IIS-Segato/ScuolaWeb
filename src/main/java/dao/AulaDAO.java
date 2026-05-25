@@ -32,7 +32,7 @@ public class AulaDAO extends AbstractDAO{
 		{
 			while (rs.next()) {
 				Aula a = new Aula();
-                a.setId(rs.getInt("id_utente"));
+                a.setId(rs.getInt("id_aula"));
                 a.setNome(rs.getString("nome"));
                 a.setCapienza(rs.getInt("capienza"));
                 aule.add(a);
@@ -55,7 +55,7 @@ public class AulaDAO extends AbstractDAO{
 			ResultSet rs = ps.executeQuery();
 			
 		while (rs.next()) {
-			a.setId(rs.getInt("id_utente"));
+			a.setId(rs.getInt("id_aula"));
             a.setNome(rs.getString("nome"));
             a.setCapienza(rs.getInt("capienza"));
 		}

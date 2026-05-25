@@ -153,7 +153,7 @@ public class VotoDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(int id, int id_studente, int id_insegnamento, int voto, String data_voto, String descrizione) {
+	public boolean update(int id_studente, int id_insegnamento, int voto, String data_voto, String descrizione, int id) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();

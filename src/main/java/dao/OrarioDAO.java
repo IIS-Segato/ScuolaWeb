@@ -97,7 +97,7 @@ public class OrarioDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(int id, int id_insegnamento, int id_aula, String giorno, String ora_inizio, String ora_fine) {
+	public boolean update(int id_insegnamento, int id_aula, String giorno, String ora_inizio, String ora_fine, int id) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();

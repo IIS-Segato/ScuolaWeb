@@ -33,7 +33,7 @@ public class AnnuncioClasseDAO extends AbstractDAO{
 		{
 			while (rs.next()) {
 				AnnuncioClasse a = new AnnuncioClasse();
-                a.setId(rs.getInt("id_utente"));
+                a.setId(rs.getInt("id_annuncio"));
                 a.setId_classe(rs.getInt("id_classe"));
                 a.setId_docente(rs.getInt("id_docente"));
                 annunci.add(a);
@@ -56,7 +56,7 @@ public class AnnuncioClasseDAO extends AbstractDAO{
 			ResultSet rs = ps.executeQuery();
 			
 		while (rs.next()) {
-			a.setId(rs.getInt("id_utente"));
+			a.setId(rs.getInt("id_annuncio"));
             a.setId_classe(rs.getInt("id_classe"));
             a.setId_docente(rs.getInt("id_docente"));
 		}
@@ -68,8 +68,8 @@ public class AnnuncioClasseDAO extends AbstractDAO{
 		return a;
 	}
 	
-	public AnnuncioClasse getByIdClasse(int id) {
-		AnnuncioClasse a = new AnnuncioClasse();
+	public List<AnnuncioClasse> getByIdClasse(int id) {
+		List<AnnuncioClasse> annunci = new ArrayList<>();
 		
 		try (Connection conn = getConnection();
 	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID_CLASSE))
@@ -78,16 +78,18 @@ public class AnnuncioClasseDAO extends AbstractDAO{
 			ResultSet rs = ps.executeQuery();
 			
 		while (rs.next()) {
-			a.setId(rs.getInt("id_utente"));
+			AnnuncioClasse a = new AnnuncioClasse();
+			a.setId(rs.getInt("id_annuncio"));
             a.setId_classe(rs.getInt("id_classe"));
             a.setId_docente(rs.getInt("id_docente"));
+            annunci.add(a);
 		}
 			
 		} catch (Exception e) {
 			printException(e);
 		}
 		
-		return a;
+		return annunci;
 	}
 	
 	public boolean insert(int id_classe, int id_docente) {

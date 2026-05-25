@@ -16,6 +16,11 @@ public class Ruolo {
 	private boolean bacheca_pubblica;
 	private boolean bacheca_visualizza;
 	private boolean dati_visualizza;
+	private boolean assenze_inserimento;
+	private boolean assenze_visualizza_classe;
+	private boolean assenze_visualizza_proprie;
+	private boolean assenze_giustifica;
+	private boolean assenze_approva_giustifica;
 
 	public Ruolo() {
 	
@@ -201,4 +206,75 @@ public class Ruolo {
 	public void setDati_visualizza(boolean dati_visualizza) {
 		this.dati_visualizza = dati_visualizza;
 	}
+
+	/**
+	 * @return the assenze_inserimento
+	 */
+	public boolean isAssenze_inserimento() {
+		return assenze_inserimento;
+	}
+
+	/**
+	 * @param assenze_inserimento the assenze_inserimento to set
+	 */
+	public void setAssenze_inserimento(boolean assenze_inserimento) {
+		this.assenze_inserimento = assenze_inserimento;
+	}
+
+	/**
+	 * @return the assenze_visualizza_classe
+	 */
+	public boolean isAssenze_visualizza_classe() {
+		return assenze_visualizza_classe;
+	}
+
+	/**
+	 * @param assenze_visualizza_classe the assenze_visualizza_classe to set
+	 */
+	public void setAssenze_visualizza_classe(boolean assenze_visualizza_classe) {
+		this.assenze_visualizza_classe = assenze_visualizza_classe;
+	}
+
+	/**
+	 * @return the assenze_visualizza_proprie
+	 */
+	public boolean isAssenze_visualizza_proprie() {
+		return assenze_visualizza_proprie;
+	}
+
+	/**
+	 * @param assenze_visualizza_proprie the assenze_visualizza_proprie to set
+	 */
+	public void setAssenze_visualizza_proprie(boolean assenze_visualizza_proprie) {
+		this.assenze_visualizza_proprie = assenze_visualizza_proprie;
+	}
+
+	/**
+	 * @return the assenze_approva_giustifica
+	 */
+	public boolean isAssenze_approva_giustifica() {
+		return assenze_approva_giustifica;
+	}
+
+	/**
+	 * @param assenze_approva_giustifica the assenze_approva_giustifica to set
+	 */
+	public void setAssenze_approva_giustifica(boolean assenze_approva_giustifica) {
+		this.assenze_approva_giustifica = assenze_approva_giustifica;
+	}
+
+	/**
+	 * @return the assenze_giustifica
+	 */
+	public boolean isAssenze_giustifica() {
+		return assenze_giustifica;
+	}
+
+	/**
+	 * @param assenze_giustifica the assenze_giustifica to set
+	 */
+	public void setAssenze_giustifica(boolean assenze_giustifica) {
+		this.assenze_giustifica = assenze_giustifica;
+	}
+	
 }

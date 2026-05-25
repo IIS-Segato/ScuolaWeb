@@ -119,7 +119,7 @@ public class UtenteDAO extends AbstractDAO{
 		return isInserted;
 	}
 	
-	public boolean update(int id, String username, String password_hash, int id_persona, int id_ruolo) {
+	public boolean update(String username, String password_hash, int id_persona, int id_ruolo, int id) {
 		boolean isUpdated = false;
 		
 		try (Connection conn = getConnection();
