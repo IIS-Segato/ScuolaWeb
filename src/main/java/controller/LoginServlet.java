@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
         UserDao userDao = null;
 
         try {
-            //passo il percorso del file per la connessione al database TODO:cambia sta roba fa schifo a vedersi 
+            //passo il percorso del file per la connessione al database 
             String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
             userDao = new UserDao(xmlPath);
 

@@ -9,7 +9,6 @@ import org.jdom2.JDOMException;
 
 import model.Admin;
 
-//commento per commit 3
 public class AdminDAO extends DAO{
 	// Il costruttore chiama quello della superclasse DAO
 		public AdminDAO(String xmlurl) throws ClassNotFoundException, JDOMException, IOException, SQLException {
@@ -149,7 +148,6 @@ public class AdminDAO extends DAO{
 			boolean eliminato = false;
 			
 			// Recupera la query di cancellazione dall'XML 
-			// (nel tuo dbcfg.xml dovrebbe essere: DELETE FROM docenti WHERE id = ?)
 			String query = config.getQuery("studenti", "delete"); 
 
 			try (PreparedStatement ps = this.conn.prepareStatement(query)) {

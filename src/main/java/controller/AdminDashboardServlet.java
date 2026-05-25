@@ -168,6 +168,41 @@ public class AdminDashboardServlet extends HttpServlet {
 					response.sendRedirect("AdminDashboardServlet?errore=errore_eliminazione_studente");
 				}
 			}
+			
+			// --- GESTIONE COMUNICATI ---
+			
+			// CASO 5: L'utente vuole INSERIRE un comunicato
+			else if ("inserisci_comunicato".equals(azione)) {
+				String titolo = request.getParameter("titolo");
+				String testo = request.getParameter("testo");
+				String data = request.getParameter("data");
+				
+				ComunicatoDao comunicatoDao = new ComunicatoDao(xmlPath);
+				boolean successo = comunicatoDao.insertComunicato(titolo, testo, data);
+				comunicatoDao.closeConnection();
+				
+				if (successo) {
+					response.sendRedirect("AdminDashboardServlet?messaggio=comunicato_inserito_con_successo");
+				} else {
+					response.sendRedirect("AdminDashboardServlet?errore=errore_inserimento_comunicato");
+				}
+			}
+			
+			// CASO 6: L'utente vuole ELIMINARE un comunicato
+			else if ("elimina_comunicato".equals(azione)) {
+				String idComunicatoStr = request.getParameter("id_comunicato");
+				int idComunicato = Integer.parseInt(idComunicatoStr);
+				
+				ComunicatoDao comunicatoDao = new ComunicatoDao(xmlPath);
+				boolean successo = comunicatoDao.deleteComunicato(idComunicato);
+				comunicatoDao.closeConnection();
+				
+				if (successo) {
+					response.sendRedirect("AdminDashboardServlet?messaggio=comunicato_eliminato_con_successo");
+				} else {
+					response.sendRedirect("AdminDashboardServlet?errore=errore_eliminazione_comunicato");
+				}
+			}
 
 			// Caso di fallback
 			else {

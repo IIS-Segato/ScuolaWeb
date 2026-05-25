@@ -13,7 +13,7 @@ public class Admin implements Serializable {
     private String username;
     private String password;
 
-    // 1. Costruttore senza argomenti (obbligatorio per i Bean)
+    // 1. Costruttore senza argomenti 
     public Admin() {
     }
 
@@ -52,7 +52,7 @@ public class Admin implements Serializable {
         this.password = password;
     }
 
-    // Metodo toString per debug (opzionale ma utile)
+    // Metodo toString per debug
     @Override
     public String toString() {
         return "Admin [id=" + id + ", username=" + username + "]";

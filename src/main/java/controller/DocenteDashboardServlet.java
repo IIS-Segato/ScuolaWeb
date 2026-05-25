@@ -25,8 +25,7 @@ import model.Studente;
 public class DocenteDashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// 1. Il GET si occupa solo di mostrare la Dashboard (Invariato, tranne VotoDao
-	// se serve)
+	// 1. Il GET si occupa solo di mostrare la Dashboard
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -91,7 +90,7 @@ public class DocenteDashboardServlet extends HttpServlet {
 		}
 	}
 
-	// 2. Il POST adesso intercetta il form dell'inserimento voti
+	// 2. Il POST  gestisce sia l'inserimento che la rimozione dei voti
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -104,29 +103,46 @@ public class DocenteDashboardServlet extends HttpServlet {
 
 		String idDocenteStr = (String) session.getAttribute("utenteLoggato");
 
-		// Recuperiamo i dati compilati nel form della JSP
-		String idStudenteStr = request.getParameter("idStudente");
-		String votoStr = request.getParameter("voto");
-		String dataStr = request.getParameter("data");
-		String descrizione = request.getParameter("descrizione");
+		// Verifichiamo quale azione vuole compiere il docente
+		String action = request.getParameter("action");
 
 		try {
-			int idDocente = Integer.parseInt(idDocenteStr);
-			int idStudente = Integer.parseInt(idStudenteStr);
-			double voto = Double.parseDouble(votoStr);
-
 			String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
-
-			// Sfruttiamo il VotoDao per inserire la riga
 			VotoDao votoDao = new VotoDao(xmlPath);
-			boolean esito = votoDao.insertVoto(idStudente, idDocente, voto, dataStr, descrizione);
-			votoDao.closeConnection();
+			int idDocente = Integer.parseInt(idDocenteStr);
 
-			if (esito) {
-				// Ricarica la dashboard (in GET) notificando il successo
-				response.sendRedirect("DocenteDashboardServlet?successo=voto_inserito");
+			if ("elimina".equals(action)) {
+				// LOGICA DI RIMOZIONE VOTO
+				String idVotoStr = request.getParameter("idVoto");
+				int idVoto = Integer.parseInt(idVotoStr);
+
+				boolean esito = votoDao.deleteVoto(idVoto, idDocente);
+				votoDao.closeConnection();
+
+				if (esito) {
+					response.sendRedirect("DocenteDashboardServlet?successo=voto_eliminato");
+				} else {
+					response.sendRedirect("DocenteDashboardServlet?errore=errore_eliminazione");
+				}
+
 			} else {
-				response.sendRedirect("DocenteDashboardServlet?errore=errore_inserimento");
+				// LOGICA DI INSERIMENTO VOTO 
+				String idStudenteStr = request.getParameter("idStudente");
+				String votoStr = request.getParameter("voto");
+				String dataStr = request.getParameter("data");
+				String descrizione = request.getParameter("descrizione");
+
+				int idStudente = Integer.parseInt(idStudenteStr);
+				double voto = Double.parseDouble(votoStr);
+
+				boolean esito = votoDao.insertVoto(idStudente, idDocente, voto, dataStr, descrizione);
+				votoDao.closeConnection();
+
+				if (esito) {
+					response.sendRedirect("DocenteDashboardServlet?successo=voto_inserito");
+				} else {
+					response.sendRedirect("DocenteDashboardServlet?errore=errore_inserimento");
+				}
 			}
 
 		} catch (Exception e) {

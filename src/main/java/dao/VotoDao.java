@@ -42,7 +42,7 @@ public class VotoDao extends DAO {
     }
     
     public boolean insertVoto(int idStudente, int idDocente, double voto, String dataStr, String descrizione) {
-        // Recupera la query definita nel tuo dbcfg.xml under <voti><insert>
+        // Recupera la query
         String query = config.getQuery("voti", "insert");
         
         try (PreparedStatement ps = this.conn.prepareStatement(query)) {
@@ -61,19 +61,17 @@ public class VotoDao extends DAO {
     }
     
     
-    public boolean deleteVoto(int idStudente, int idDocente, String dataStr) {
-        // Recupera la query definita nel tuo dbcfg.xml under <voti><insert>
+    public boolean deleteVoto(int idVoto, int idDocente) {
         String query = config.getQuery("voti", "delete");
         
         try (PreparedStatement ps = this.conn.prepareStatement(query)) {
-            ps.setInt(1, idStudente);
-            ps.setInt(2, idDocente);
-            ps.setDate(3, Date.valueOf(dataStr)); // Converte la stringa "YYYY-MM-DD" in java.sql.Date
+            ps.setInt(1, idVoto);
+            ps.setInt(2, idDocente); // Controllo di sicurezza incrociato
 
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0; // Restituisce true se l'inserimento è andato a buon fine
-        } catch (SQLException | IllegalArgumentException e) {
-            System.err.println("Errore in VotoDao: " + e.getMessage());
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println("Errore in VotoDao (deleteVoto): " + e.getMessage());
             return false;
         }
     }

@@ -92,6 +92,10 @@ body {
 				testoMessaggio = "Studente inserito con successo!";
 			else if (messaggio.equals("studente_eliminato_con_successo"))
 				testoMessaggio = "Studente eliminato con successo!";
+			else if (messaggio.equals("comunicato_inserito_con_successo"))
+				testoMessaggio = "Comunicato pubblicato con successo!";
+			else if (messaggio.equals("comunicato_eliminato_con_successo"))
+				testoMessaggio = "Comunicato rimosso dalla bacheca con successo!";
 		%>
 		<div class="alert alert-success alert-dismissible fade show shadow-sm"
 			role="alert">
@@ -111,6 +115,10 @@ body {
 			testoErrore = "Errore durante l'eliminazione dello studente. L'ID potrebbe non esistere.";
 		else if (errore.equals("inserimento_studente_fallito"))
 			testoErrore = "Errore: impossibile inserire lo studente (controlla che la Classe esista nel Database!).";
+		else if (errore.equals("errore_inserimento_comunicato"))
+			testoErrore = "Errore durante la pubblicazione del comunicato.";
+		else if (errore.equals("errore_eliminazione_comunicato"))
+			testoErrore = "Errore: impossibile eliminare il comunicato.";
 		%>
 		<div class="alert alert-danger alert-dismissible fade show shadow-sm"
 			role="alert">
@@ -213,7 +221,7 @@ body {
 
 		<h4 class="mb-3 text-gray-800 border-bottom pb-2">Gestione
 			Studenti</h4>
-		<div class="row">
+		<div class="row mb-5">
 			<div class="col-lg-8">
 				<div class="card shadow mb-4">
 					<div class="card-header py-3">
@@ -282,56 +290,97 @@ body {
 				</div>
 			</div>
 		</div>
-		<!-- comunicati -->
-		<%-- Recupero la lista dei comunicati passata dalla Servlet --%>
-		<%@ page import="model.Comunicato"%>
-		<%
-		List<Comunicato> comunicati = (List<Comunicato>) request.getAttribute("comunicati");
-		%>
-
-		<div class="card shadow mb-4" id="sezione-comunicati">
-			<div class="card-header py-3 bg-white">
-				<h6 class="m-0 font-weight-bold text-warning">
-					<i class="fas fa-bullhorn me-2"></i> Bacheca Comunicati d'Istituto
-				</h6>
-			</div>
-			<div class="card-body">
-				<%
-				if (comunicati != null && !comunicati.isEmpty()) {
-				%>
-				<div class="list-group list-group-flush">
-					<%
-					for (Comunicato c : comunicati) {
-					%>
-					<div class="list-group-item py-3">
-						<div
-							class="d-flex w-100 justify-content-between align-items-center mb-1">
-							<h5 class="text-gray-800 mb-0 font-weight-bold"
-								style="font-size: 1.1rem;"><%=c.getTitolo()%></h5>
-							<small class="badge bg-light text-dark border"><i
-								class="far fa-calendar-alt me-1"></i> <%=c.getData()%></small>
-						</div>
-						<p class="mb-1 text-muted small"><%=c.getTesto()%></p>
+		
+		<h4 class="mb-3 text-gray-800 border-bottom pb-2" id="sezione-comunicati">Gestione Comunicati</h4>
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3 bg-white">
+						<h6 class="m-0 font-weight-bold text-warning">
+							<i class="fas fa-bullhorn me-2"></i> Bacheca Comunicati Attivi
+						</h6>
 					</div>
-					<%
-					}
-					%>
+					<div class="card-body p-0">
+						<%@ page import="model.Comunicato"%>
+						<%
+						List<Comunicato> comunicati = (List<Comunicato>) request.getAttribute("comunicati");
+						if (comunicati != null && !comunicati.isEmpty()) {
+						%>
+						<ul class="list-group list-group-flush">
+							<% for (Comunicato c : comunicati) { %>
+							<li class="list-group-item p-3">
+								<div class="d-flex justify-content-between align-items-center mb-2">
+									<h5 class="mb-0 font-weight-bold text-dark"><%= c.getTitolo() %></h5>
+									<div>
+										<small class="badge bg-light text-dark border me-2"><i class="far fa-calendar-alt me-1"></i> <%= c.getData() %></small>
+										
+										<form action="AdminDashboardServlet" method="POST" onsubmit="return confirm('Sicuro di voler eliminare questo comunicato per tutti?');" style="display:inline;">
+											<input type="hidden" name="azione" value="elimina_comunicato">
+											<input type="hidden" name="id_comunicato" value="<%= c.getId() %>">
+											<button type="submit" class="btn btn-outline-danger btn-sm border-0" title="Elimina">
+												<i class="fas fa-trash-alt"></i>
+											</button>
+										</form>
+									</div>
+								</div>
+								<p class="mb-0 text-muted"><%= c.getTesto() %></p>
+							</li>
+							<% } %>
+						</ul>
+						<% } else { %>
+						<div class="p-4 text-center text-muted border-0">
+							<i class="fas fa-info-circle mb-2" style="font-size: 2rem;"></i>
+							<p class="mb-0">Nessun comunicato in bacheca. Pubblicane uno nuovo!</p>
+						</div>
+						<% } %>
+					</div>
 				</div>
-				<%
-				} else {
-				%>
-				<div class="alert alert-light text-center border mb-0" role="alert">
-					<i class="fas fa-info-circle me-2 text-muted"></i> Nessun
-					comunicato ufficiale attivo al momento.
+			</div>
+
+			<div class="col-lg-4">
+				<div class="card shadow mb-4 border-left-warning">
+					<div class="card-header py-3 bg-white">
+						<h6 class="m-0 font-weight-bold text-warning">
+							<i class="fas fa-pen me-2"></i> Pubblica Comunicato
+						</h6>
+					</div>
+					<div class="card-body">
+						<form action="AdminDashboardServlet" method="POST">
+							<input type="hidden" name="azione" value="inserisci_comunicato">
+							
+							<div class="mb-3">
+								<label for="titolo" class="form-label small fw-bold">Titolo</label>
+								<input type="text" class="form-control" id="titolo" name="titolo" placeholder="Es. Chiusura festiva" required>
+							</div>
+							
+							<div class="mb-3">
+								<label for="data" class="form-label small fw-bold">Data Visibile</label>
+								<input type="date" class="form-control" id="data" name="data" required>
+							</div>
+							
+							<div class="mb-3">
+								<label for="testo" class="form-label small fw-bold">Testo del Messaggio</label>
+								<textarea class="form-control" id="testo" name="testo" rows="4" placeholder="Scrivi qui..." required></textarea>
+							</div>
+							
+							<button type="submit" class="btn btn-warning w-100 text-dark fw-bold">
+								<i class="fas fa-paper-plane me-2"></i> Pubblica
+							</button>
+						</form>
+					</div>
 				</div>
-				<%
-				}
-				%>
 			</div>
 		</div>
 	</div>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		// Script per inserire la data di oggi in automatico nel form dei comunicati
+		var dateField = document.getElementById('data');
+		if(dateField && !dateField.value) {
+			dateField.valueAsDate = new Date();
+		}
+	</script>
 </body>
 </html>

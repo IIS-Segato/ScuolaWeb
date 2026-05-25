@@ -96,7 +96,31 @@ body {
 
 	<div class="main-content">
 
-		<!-- HEADER PROFILO -->
+		<% if("voto_inserito".equals(request.getParameter("successo"))) { %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<i class="fas fa-check-circle me-2"></i> Voto registrato con successo!
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		<% } %>
+		<% if("voto_eliminato".equals(request.getParameter("successo"))) { %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<i class="fas fa-check-circle me-2"></i> Voto rimosso con successo dal registro.
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		<% } %>
+		<% if(request.getParameter("errore") != null) { %>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<i class="fas fa-exclamation-triangle me-2"></i> 
+				<% 
+					String err = request.getParameter("errore");
+					if("errore_eliminazione".equals(err)) out.print("Impossibile eliminare il voto.");
+					else if("errore_inserimento".equals(err)) out.print("Errore durante l'inserimento. Controlla l'ID Studente.");
+					else out.print("I dati inseriti non sono validi.");
+				%>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		<% } %>
+
 		<div
 			class="profile-header d-flex justify-content-between align-items-center">
 			<div>
@@ -113,7 +137,6 @@ body {
 			</div>
 		</div>
 
-		<!-- ORARIO -->
 		<div class="card shadow mb-4">
 			<div
 				class="card-header py-3 d-flex justify-content-between align-items-center bg-white">
@@ -163,7 +186,6 @@ body {
 			</div>
 		</div>
 
-		<!-- VOTI ASSEGNATI DAL DOCENTE -->
 		<div class="card shadow mb-4">
 			<div
 				class="card-header py-3 d-flex justify-content-between align-items-center bg-white">
@@ -189,7 +211,7 @@ body {
 								<th>Voto</th>
 								<th>Data</th>
 								<th>Descrizione</th>
-							</tr>
+								<th class="text-center">Azioni</th> </tr>
 						</thead>
 						<tbody>
 							<%
@@ -202,10 +224,18 @@ body {
 								<td><%=v.getIdStudente()%></td>
 								<td><%=v.getNomeStudente()%></td>
 								<td><%=v.getCognomeStudente()%></td>
-								<td><span class="badge badge-voto <%=badgeClass%>"><%=v.getVoto()%></span>
-								</td>
+								<td><span class="badge badge-voto <%=badgeClass%>"><%=v.getVoto()%></span></td>
 								<td><%=v.getData()%></td>
 								<td><%=v.getDescrizione()%></td>
+								<td class="text-center">
+									<form action="DocenteDashboardServlet" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questo voto?');" style="display:inline;">
+										<input type="hidden" name="action" value="elimina">
+										<input type="hidden" name="idVoto" value="<%=v.getId()%>">
+										<button type="submit" class="btn btn-outline-danger btn-sm border-0" title="Elimina Voto">
+											<i class="fas fa-trash-alt"></i>
+										</button>
+									</form>
+								</td>
 							</tr>
 							<%
 							}
@@ -224,7 +254,6 @@ body {
 			</div>
 		</div>
 
-		<!-- STUDENTI ASSEGNATI -->
 		<div class="card shadow mb-4">
 			<div
 				class="card-header py-3 d-flex justify-content-between align-items-center bg-white">
@@ -276,7 +305,6 @@ body {
 			</div>
 		</div>
 
-		<!-- ASSEGNA VOTO -->
 		<div class="col-lg-4 mb-4">
 			<div class="card shadow">
 				<div
@@ -321,7 +349,7 @@ body {
 				</div>
 			</div>
 		</div>
-		<!-- comunicati -->
+		
 		<%-- Recupero la lista dei comunicati passata dalla Servlet --%>
 		<%@ page import="model.Comunicato"%>
 		<%
@@ -372,5 +400,12 @@ body {
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		// Imposta automaticamente la data odierna nel form se vuoto
+		var dateField = document.getElementById('data');
+		if(dateField && !dateField.value) {
+			dateField.valueAsDate = new Date();
+		}
+	</script>
 </body>
 </html>

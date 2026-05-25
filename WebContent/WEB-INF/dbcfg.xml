@@ -74,7 +74,7 @@
 			</update>
 			<delete> DELETE FROM docenti WHERE id = ?; </delete>
 			<select>SELECT * FROM docenti WHERE id = ?;</select>
-			
+
 		</docenti>
 
 		<orari>
@@ -86,21 +86,25 @@
 			</update>
 			<delete> DELETE FROM orari WHERE id = ?; </delete>
 			<select> SELECT * FROM orari; </select>
-			
+
 			<selectByClasse>
 				SELECT o.*, d.nome, d.cognome, d.nome_materia
-				FROM orari o
+				FROM
+				orari o
 				JOIN docenti d ON o.id_docente = d.id
 				WHERE o.classe = ?
-				ORDER BY
-				FIELD(o.nome_giorno, 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'),
+				ORDER
+				BY
+				FIELD(o.nome_giorno, 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì',
+				'Venerdì', 'Sabato'),
 				o.orario_inizio
 			</selectByClasse>
-			
+
 			<selectByDocente>
 				SELECT o.*, d.nome, d.cognome
 				FROM orari o
-				JOIN docenti
+				JOIN
+				docenti
 				d ON o.id_docente = d.id
 				WHERE o.id_docente = ?
 				ORDER BY
@@ -108,11 +112,11 @@
 				'Giovedì',
 				'Venerdì', 'Sabato'), o.orario_inizio
 			</selectByDocente>
-			
+
 		</orari>
 
 		<voti>
-		
+
 			<selectByStudente>
 				SELECT v.*, d.nome AS nome_docente, d.cognome AS
 				cognome_docente,
@@ -123,30 +127,36 @@
 				WHERE v.id_studente = ?
 				ORDER BY v.data DESC
 			</selectByStudente>
-			
+
 			<insert>
-				insert into voti(id_studente, id_docente, voto, data, descrizione)
+				insert into voti(id_studente, id_docente, voto, data,
+				descrizione)
 				values(?, ?, ?, ?, ?);
-				
-				
+
+
 			</insert>
-			
+
 			<selectByDocente>
-			    SELECT v.id, v.id_studente, s.nome AS nome_studente, s.cognome AS cognome_studente,
-			           v.voto, v.data, v.descrizione
-			    FROM voti v
-			    JOIN studenti s ON v.id_studente = s.id
-			    WHERE v.id_docente = ?
-			    ORDER BY v.data DESC
+				SELECT v.id, v.id_studente, s.nome AS nome_studente,
+				s.cognome AS
+				cognome_studente,
+				v.voto, v.data, v.descrizione
+				FROM voti
+				v
+				JOIN studenti s ON v.id_studente = s.id
+				WHERE v.id_docente = ?
+				ORDER
+				BY v.data DESC
 			</selectByDocente>
 
-			<delete>
-				delete from voti where id_studente = ? and id_docente = ? and data = ?
-			</delete>
-			
+			<delete> DELETE FROM voti WHERE id = ? AND id_docente = ?; </delete>
+
 		</voti>
-		
+
 		<comunicati>
+			<insert> INSERT INTO comunicati (titolo, testo, data) VALUES (?, ?,
+				?); </insert>
+			<delete> DELETE FROM comunicati WHERE id = ?; </delete>
 			<select> SELECT * FROM comunicati ORDER BY data DESC; </select>
 		</comunicati>
 
