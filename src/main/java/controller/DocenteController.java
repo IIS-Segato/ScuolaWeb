@@ -51,6 +51,8 @@ public class DocenteController extends HttpServlet {
 
 		User user = (User) req.getSession().getAttribute("user");
 
+		String classe = req.getParameter("classe");
+
 		try {
 
 			// ADMIN
@@ -82,6 +84,21 @@ public class DocenteController extends HttpServlet {
 			// DOCENTE
 			if (user.isDocente()) {
 
+				// CLICK SU CLASSE
+				if (classe != null) {
+
+					List<Studente> studenti = studenteDao.getByNomeClasse(classe);
+
+					req.setAttribute("studenti", studenti);
+
+					req.setAttribute("classeCorrente", classe);
+
+					req.getRequestDispatcher("view/docente/studenti.jsp").forward(req, res);
+
+					return;
+				}
+
+				// LISTA CLASSI
 				List<String> classi = docenteDao.getClassiDocente(user.getDocenteId());
 
 				req.setAttribute("classiDocente", classi);

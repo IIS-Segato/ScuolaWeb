@@ -2,7 +2,6 @@
 
 <%
     User loggedUser = (User) session.getAttribute("user");
-    String currentUri = request.getRequestURI();
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
@@ -13,6 +12,7 @@
            href="<%= request.getContextPath() %>/Studente">
 
             <i class="bi bi-mortarboard-fill me-1"></i>
+
             ScuolaWeb
 
         </a>
@@ -21,10 +21,7 @@
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navMenu"
-            aria-controls="navMenu"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+            data-bs-target="#navMenu">
 
             <span class="navbar-toggler-icon"></span>
 
@@ -32,46 +29,78 @@
 
         <div class="collapse navbar-collapse" id="navMenu">
 
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto">
 
-                <!-- STUDENTI -->
+                <!-- ADMIN -->
 
-                <li class="nav-item">
+                <% if(loggedUser != null && loggedUser.isAdmin()) { %>
 
-                    <a class="nav-link"
-                       href="<%= request.getContextPath() %>/Studente">
+                    <li class="nav-item">
 
-                        <i class="bi bi-people me-1"></i>
-                        Studenti
+                        <a class="nav-link"
+                           href="<%= request.getContextPath() %>/Studente">
 
-                    </a>
+                            Studenti
 
-                </li>
+                        </a>
 
-                <!-- DOCENTI -->
+                    </li>
 
-                <li class="nav-item">
+                    <li class="nav-item">
 
-                    <a class="nav-link"
-                       href="<%= request.getContextPath() %>/Docente">
+                        <a class="nav-link"
+                           href="<%= request.getContextPath() %>/Docente">
 
-                        <i class="bi bi-person-workspace me-1"></i>
-                        Docenti
+                            Docenti
 
-                    </a>
+                        </a>
 
-                </li>
+                    </li>
 
-                <!-- ORARIO SOLO STUDENTE -->
+                    <li class="nav-item">
 
-                <% if (loggedUser != null && loggedUser.isStudente()) { %>
+                        <a class="nav-link"
+                           href="<%= request.getContextPath() %>/Role">
+
+                            Ruoli
+
+                        </a>
+
+                    </li>
+
+                <% } %>
+
+                <!-- STUDENTE -->
+
+                <% if(loggedUser != null && loggedUser.isStudente()) { %>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="<%= request.getContextPath() %>/Studente">
+
+                            La mia classe
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="<%= request.getContextPath() %>/Docente">
+
+                            Docenti
+
+                        </a>
+
+                    </li>
 
                     <li class="nav-item">
 
                         <a class="nav-link"
                            href="<%= request.getContextPath() %>/Orario">
 
-                            <i class="bi bi-calendar-week me-1"></i>
                             Orario
 
                         </a>
@@ -80,17 +109,16 @@
 
                 <% } %>
 
-                <!-- RUOLI SOLO ADMIN -->
+                <!-- DOCENTE -->
 
-                <% if (loggedUser != null && loggedUser.isAdmin()) { %>
+                <% if(loggedUser != null && loggedUser.isDocente()) { %>
 
                     <li class="nav-item">
 
                         <a class="nav-link"
-                           href="<%= request.getContextPath() %>/Role">
+                           href="<%= request.getContextPath() %>/Docente">
 
-                            <i class="bi bi-shield-lock me-1"></i>
-                            Ruoli
+                            Le mie classi
 
                         </a>
 
@@ -100,7 +128,7 @@
 
             </ul>
 
-            <!-- UTENTE -->
+            <!-- LOGOUT -->
 
             <ul class="navbar-nav ms-auto">
 
@@ -109,22 +137,9 @@
                     <a class="nav-link dropdown-toggle"
                        href="#"
                        role="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
+                       data-bs-toggle="dropdown">
 
-                        <i class="bi bi-person-circle me-1"></i>
-
-                        <%= loggedUser != null
-                                ? loggedUser.getUsername()
-                                : "" %>
-
-                        <span class="badge bg-warning text-dark ms-1">
-
-                            <%= loggedUser != null
-                                    ? loggedUser.getRoleName()
-                                    : "" %>
-
-                        </span>
+                        <%= loggedUser.getUsername() %>
 
                     </a>
 
@@ -134,8 +149,6 @@
 
                             <a class="dropdown-item text-danger"
                                href="<%= request.getContextPath() %>/Logout">
-
-                                <i class="bi bi-box-arrow-right me-1"></i>
 
                                 Logout
 
