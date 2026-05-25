@@ -65,14 +65,20 @@ body {
 </head>
 <body>
 
-    <div class="sidebar d-none d-md-block shadow">
-        <h4 class="text-center mb-4"><i class="fas fa-graduation-cap me-2"></i>ScuolaWeb</h4>
-        <hr>
-        <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link text-white active"><i class="fas fa-home me-2"></i> Dashboard</a></li>
-            <li class="nav-item mt-4"><a href="LogoutServlet" class="nav-link text-warning"><i class="fas fa-sign-out-alt me-2"></i> Esci</a></li>
-        </ul>
-    </div>
+	<div class="sidebar d-none d-md-block shadow">
+		<h4 class="text-center mb-4">
+			<i class="fas fa-graduation-cap me-2"></i>ScuolaWeb
+		</h4>
+		<hr>
+		<ul class="nav flex-column">
+			<li class="nav-item mb-2"><a href="#"
+				class="nav-link text-white active"><i class="fas fa-home me-2"></i>
+					Dashboard</a></li>
+			<li class="nav-item mt-4"><a href="LogoutServlet"
+				class="nav-link text-warning"><i
+					class="fas fa-sign-out-alt me-2"></i> Esci</a></li>
+		</ul>
+	</div>
 
 	<div class="main-content">
 		<div
@@ -95,46 +101,106 @@ body {
 			<!-- La tua vecchia card voti e presenze va qui... -->
 		</div>
 
-        <!-- ORARIO -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex justify-content-between align-items-center bg-white">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-clock me-2"></i> Il tuo Orario - Materia <%= d.getNomeMateria() %></h6>
-            </div>
-            <div class="card-body">
-                <% if(orari != null && !orari.isEmpty()) { %>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle table-bordered">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Giorno</th>
-                                    <th>Orario Inizio</th>
-                                    <th>Orario Fine</th>
-                                    <th>Classe</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for(Orario o : orari) { %>
-                                    <tr>
-                                        <td><strong><%= o.getNome_giorno() %></strong></td>
-                                        <td><%= o.getOrario_inizio() %></td>
-                                        <td><%= o.getOrario_fine() %></td>
-                                        <td><%= o.getClasse() %></td>
-                                    </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
-                <% } else { %>
-                    <div class="alert alert-info" role="alert">
-                        Nessun orario disponibile.
-                    </div>
-                <% } %>
-            </div>
-        </div>
-        
-    </div>
+		<!-- ORARIO -->
+		<div class="card shadow mb-4">
+			<div
+				class="card-header py-3 d-flex justify-content-between align-items-center bg-white">
+				<h6 class="m-0 font-weight-bold text-primary">
+					<i class="fas fa-clock me-2"></i> Il tuo Orario - Materia
+					<%=d.getNomeMateria()%></h6>
+			</div>
+			<div class="card-body">
+				<%
+				if (orari != null && !orari.isEmpty()) {
+				%>
+				<div class="table-responsive">
+					<table class="table table-hover align-middle table-bordered">
+						<thead class="table-light">
+							<tr>
+								<th>Giorno</th>
+								<th>Orario Inizio</th>
+								<th>Orario Fine</th>
+								<th>Classe</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							for (Orario o : orari) {
+							%>
+							<tr>
+								<td><strong><%=o.getNome_giorno()%></strong></td>
+								<td><%=o.getOrario_inizio()%></td>
+								<td><%=o.getOrario_fine()%></td>
+								<td><%=o.getClasse()%></td>
+							</tr>
+							<%
+							}
+							%>
+						</tbody>
+					</table>
+				</div>
+				<%
+				} else {
+				%>
+				<div class="alert alert-info" role="alert">Nessun orario
+					disponibile.</div>
+				<%
+				}
+				%>
+			</div>
+		</div>
 
+		<div class="col-lg-4 mb-4">
+			<div class="card shadow">
+				<div
+					class="card-header py-3 bg-white d-flex justify-content-between align-items-center">
+					<h6 class="m-0 font-weight-bold text-primary">
+						<i class="fas fa-plus-circle me-2"></i>Assegna Voto
+					</h6>
+				</div>
+				<div class="card-body p-3">
+					<form action="DocenteDashboardServlet" method="POST">
+
+						<div class="row g-2 mb-2">
+							<div class="col-6">
+								<label for="idStudente" class="form-label small text-muted mb-1">ID
+									Studente</label> <input type="number"
+									class="form-control form-control-sm" id="idStudente"
+									name="idStudente" placeholder="Es: 12" required>
+							</div>
+							<div class="col-6">
+								<label for="voto" class="form-label small text-muted mb-1">Voto</label>
+								<input type="number" step="0.5" min="1" max="10"
+									class="form-control form-control-sm" id="voto" name="voto"
+									placeholder="1-10" required>
+							</div>
+						</div>
+
+						<div class="mb-2">
+							<label for="data" class="form-label small text-muted mb-1">Data
+								Valutazione</label> <input type="date"
+								class="form-control form-control-sm" id="data" name="data"
+								required>
+						</div>
+
+						<div class="mb-3">
+							<label for="descrizione" class="form-label small text-muted mb-1">Descrizione
+								/ Note</label>
+							<textarea class="form-control form-control-sm" id="descrizione"
+								name="descrizione" rows="2" placeholder="Es: Verifica scritta"
+								required></textarea>
+						</div>
+
+						<button type="submit" class="btn btn-primary btn-sm w-100">
+							<i class="fas fa-save me-2"></i>Registra Voto
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
+
+
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
