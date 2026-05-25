@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea Notizia</title>
+
+    <link href="WEB-INF/lib/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Pagina crea notizia */
+
+.create-news-card {
+    background: white;
+    max-width: 750px;
+    margin: auto;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.form-label {
+    font-weight: bold;
+    color: #146c5c;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.custom-input {
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid #d3d3d3;
+}
+
+.custom-input:focus,
+.news-textarea:focus {
+    border-color: #146c5c;
+    box-shadow: 0 0 5px rgba(20,108,92,0.3);
+    outline: none;
+}
+
+.news-textarea {
+    width: 100%;
+    min-height: 220px;
+    resize: vertical;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #d3d3d3;
+    margin-bottom: 20px;
+}
+
+#publishButton {
+    width: 100%;
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+#publishButton:hover {
+    background: #0f5a4c;
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- Banner -->
+    <div id="banner">
+
+        <div id="logo">
+            <img src="imgs/default.png" alt="avatar">
+            <h2>Admin</h2>
+        </div>
+
+    
+
+    </div>
+    <a id="indietro" href="admin.html">← Indietro</a>
+
+    <!-- Main -->
+    <div class="main-container">
+
+        <div class="title">
+            Crea Nuova Notizia
+        </div>
+
+        <div class="create-news-card">
+
+            <form action="" method="POST">
+
+                <label class="form-label">Titolo Notizia</label>
+                <input 
+                    type="text" 
+                    class="form-control custom-input"
+                    placeholder="Inserisci titolo..."
+                >
+
+
+
+                <label class="form-label">Contenuto</label>
+
+                <textarea 
+                    class="form-control news-textarea"
+                    placeholder="Scrivi la notizia..."
+                ></textarea>
+
+                <label class="form-label">Data</label>
+
+                <input 
+                    type="date" 
+                    class="form-control custom-input"
+                >
+
+                <button type="submit" id="publishButton">
+                    Pubblica Notizia
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
