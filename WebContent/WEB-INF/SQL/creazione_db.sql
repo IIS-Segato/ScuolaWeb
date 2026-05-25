@@ -1,10 +1,16 @@
--- 1. Tabella AULE 
+-- ========================================
+-- SCHEMA DATABASE SCUOLA
+-- File: schema_database.sql
+-- Descrizione: Creazione di tutte le tabelle
+-- ========================================
+
+-- 1. Tabella AULE
 CREATE OR REPLACE TABLE AULE (
     NOME VARCHAR(50) PRIMARY KEY,
     CAPIENZA INT NOT NULL
 );
 
--- 2. Tabella CLASSI (Solitamente gli ID delle classi sono gestiti manualmente o auto, mettiamo AUTO)
+-- 2. Tabella CLASSI
 CREATE OR REPLACE TABLE CLASSI (
     ID_C INT PRIMARY KEY AUTO_INCREMENT,
     SEZIONE VARCHAR(5),
@@ -12,7 +18,7 @@ CREATE OR REPLACE TABLE CLASSI (
     N_STUDENTI INT
 );
 
--- 3. Tabella DOCENTI 
+-- 3. Tabella DOCENTI
 CREATE OR REPLACE TABLE DOCENTI (
     ID_D INT PRIMARY KEY AUTO_INCREMENT,
     NOME VARCHAR(50),
@@ -22,12 +28,12 @@ CREATE OR REPLACE TABLE DOCENTI (
     PWD VARCHAR(255)
 );
 
--- 4. Tabella AMMINISTRATORI 
+-- 4. Tabella AMMINISTRATORI
 CREATE OR REPLACE TABLE AMMINISTRATORI (
     ID_A INT PRIMARY KEY AUTO_INCREMENT,
     NOME VARCHAR(50),
     COGNOME VARCHAR(50),
-    EMAIL VARCHAR(100) UNIQUE, 
+    EMAIL VARCHAR(100) UNIQUE,
     PWD VARCHAR(255)
 );
 
