@@ -76,7 +76,7 @@ public class AdminDAO extends DAO{
 	    
 	    /**
 		 * Metodo per eliminare un docente dal database tramite il suo ID
-		 * @param idDocente L'ID del docente da eliminare (come Stringa passata dal form)
+		 * @param idDocente
 		 * @return true se l'eliminazione ha avuto successo, false altrimenti
 		 */
 		public boolean rimuoviDocente(String idDocente) {
@@ -108,7 +108,7 @@ public class AdminDAO extends DAO{
 		}
 		
 		/**
-		 * metodo per la creazione di docenti
+		 * metodo per la creazione di studenti
 		 * @param nome
 		 * @param cognome
 		 * @param materia
@@ -139,4 +139,37 @@ public class AdminDAO extends DAO{
            }
 	        return inserito;
 	    }
+	    
+	    /**
+		 * Metodo per eliminare uno studente dal database tramite il suo ID
+		 * @param idStudente
+		 * @return true se l'eliminazione ha avuto successo, false altrimenti
+		 */
+		public boolean rimuoviStudente(String idStudente) {
+			boolean eliminato = false;
+			
+			// Recupera la query di cancellazione dall'XML 
+			// (nel tuo dbcfg.xml dovrebbe essere: DELETE FROM docenti WHERE id = ?)
+			String query = config.getQuery("studenti", "delete"); 
+
+			try (PreparedStatement ps = this.conn.prepareStatement(query)) {
+				
+				// Converte la stringa in intero e la imposta al posto del punto interrogativo (?)
+				ps.setInt(1, Integer.parseInt(idStudente));
+
+				// executeUpdate() restituisce il numero di righe eliminate
+				int righeModificate = ps.executeUpdate();
+				
+				if (righeModificate > 0) {
+					eliminato = true;
+				}
+
+			} catch (SQLException e) {
+				System.err.println("Errore SQL in AdminDAO - rimuoviDocente: " + e.getMessage());
+			} catch (NumberFormatException e) {
+				System.err.println("Errore formato ID in AdminDAO - rimuoviStudente. ID inserito: " + idStudente);
+			}
+
+			return eliminato;
+		}
 }
