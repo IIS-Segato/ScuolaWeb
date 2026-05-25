@@ -43,6 +43,10 @@ public class StudenteDao extends DAO {
 	}
 	
 	
+	/**
+	 * @param idDocente
+	 * @return
+	 */
 	public List<Studente> getStudentiByDocente(int idDocente) {
 	    List<Studente> lista = new ArrayList<>();
 	    String query = "SELECT DISTINCT s.* FROM studenti s " +
