@@ -15,6 +15,7 @@ import model.Admin;
 public class AdminDashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    // Gestisce il caricamento della Dashboard
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
@@ -26,19 +27,20 @@ public class AdminDashboardServlet extends HttpServlet {
         
         // Recuperiamo l'ID salvato dalla LoginServlet
         String idAdminStr = (String) session.getAttribute("utenteLoggato");
+        
         try {
             String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
 
-            // Inizializziamo i DAO
+            // Inizializziamo il DAO
             AdminDAO adminDao = new AdminDAO(xmlPath);
 
-            // 1. Recupero l'oggetto Admin dal DB usando l'ID a
+            // Recupero l'oggetto Admin dal DB usando l'ID
             Admin admin = adminDao.getAdminById(idAdminStr);
 
             if (admin != null) {
-                // 4. Mando tutto alla JSP
-            	request.setAttribute("admin", admin);
-            	request.getRequestDispatcher("/WEB-INF/view/admin_dashboard.jsp").forward(request, response);
+                // Mando tutto alla JSP
+                request.setAttribute("admin", admin);
+                request.getRequestDispatcher("/WEB-INF/view/admin_dashboard.jsp").forward(request, response);
             } else {
                 response.sendRedirect("login.jsp?errore=admin_non_trovato");
             }
@@ -52,8 +54,48 @@ public class AdminDashboardServlet extends HttpServlet {
         }
     }
 
+    // Gestisce l'invio del form per inserire un nuovo docente
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response); // Gestisce le richieste POST allo stesso modo
+        HttpSession session = request.getSession(false);
+
+        // Sicurezza: controlla se la sessione esiste
+        if (session == null || session.getAttribute("utenteLoggato") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        // 1. Recupero i parametri dal form della JSP
+        String nome = request.getParameter("nome");
+        String cognome = request.getParameter("cognome");
+        String materia = request.getParameter("materia");
+        String password = request.getParameter("password");
+
+        // Se per qualche motivo i parametri sono nulli, rimando alla dashboard
+        if (nome == null || cognome == null || materia == null || password == null) {
+            doGet(request, response);
+            return;
+        }
+
+        try {
+            String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
+            
+            // 2. Inizializzo l'AdminDAO ed eseguo l'inserimento
+            AdminDAO adminDao = new AdminDAO(xmlPath);
+            boolean successo = adminDao.insertDocente(nome, cognome, materia, password);
+            
+            // Chiusura connessione
+            adminDao.closeConnection();
+
+            // 3. Reindirizzo in base al risultato per far comparire i banner (messaggio/errore)
+            if (successo) {
+                response.sendRedirect("AdminDashboardServlet?messaggio=docente_inserito_con_successo");
+            } else {
+                response.sendRedirect("AdminDashboardServlet?errore=inserimento_fallito");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("AdminDashboardServlet?errore=errore_interno");
+        }
     }
 }
-
