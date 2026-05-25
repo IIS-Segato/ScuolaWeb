@@ -11,15 +11,18 @@ import utils.StringUtils;
 
 public class UserDao extends AbstractDAO {
 
-	private static final String SQL_LOGIN = "SELECT u.id, u.username, u.role_id, r.name AS role_name " + "FROM users u "
-			+ "JOIN roles r ON u.role_id = r.id " + "WHERE u.username = ? AND u.password = ?";
+	private static final String SQL_LOGIN = "SELECT " + "u.id, " + "u.username, " + "u.role_id, " + "u.studente_id, "
+			+ "u.docente_id, " + "r.name AS role_name " + "FROM users u " + "JOIN roles r ON u.role_id = r.id "
+			+ "WHERE u.username = ? " + "AND u.password = ?";
 
 	public UserDao(String xml) throws ClassNotFoundException, JDOMException, IOException {
 
 		super(xml);
 	}
 
-	public User login(String username, String password) throws Exception {
+	public User login(String username, String password)
+
+			throws Exception {
 
 		User user = null;
 
@@ -31,11 +34,7 @@ public class UserDao extends AbstractDAO {
 
 			ps.setString(1, username);
 
-			System.out.println("USERNAME: " + username);
-
 			String encrypted = StringUtils.encrypt(password);
-
-			System.out.println("PASSWORD HASH: " + encrypted);
 
 			ps.setString(2, encrypted);
 
@@ -46,9 +45,16 @@ public class UserDao extends AbstractDAO {
 				user = new User();
 
 				user.setId(rs.getInt("id"));
+
 				user.setUsername(rs.getString("username"));
+
 				user.setRoleId(rs.getInt("role_id"));
+
 				user.setRoleName(rs.getString("role_name"));
+
+				user.setStudenteId((Integer) rs.getObject("studente_id"));
+
+				user.setDocenteId((Integer) rs.getObject("docente_id"));
 			}
 
 			rs.close();

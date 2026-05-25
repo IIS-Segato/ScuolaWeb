@@ -13,17 +13,10 @@ import model.Docente;
 
 public class DocenteDao extends AbstractDAO {
 
-	private static final String SQL_GET_ALL = "SELECT * FROM docenti ORDER BY cognome, nome";
-
-	private static final String SQL_GET_BY_ID = "SELECT * FROM docenti WHERE id=?";
-
-	private static final String SQL_INSERT = "INSERT INTO docenti (nome, cognome, materia) VALUES (?, ?, ?)";
-
-	private static final String SQL_UPDATE = "UPDATE docenti SET nome=?, cognome=?, materia=? WHERE id=?";
-
-	private static final String SQL_DELETE = "DELETE FROM docenti WHERE id=?";
+	private static final String SQL_GET_ALL = "SELECT * FROM docenti ORDER BY cognome";
 
 	public DocenteDao(String xml) throws ClassNotFoundException, JDOMException, IOException {
+
 		super(xml);
 	}
 
@@ -31,9 +24,15 @@ public class DocenteDao extends AbstractDAO {
 
 		List<Docente> list = new ArrayList<>();
 
-		try (Connection c = getConnection();
+		try (
+
+				Connection c = getConnection();
+
 				PreparedStatement ps = c.prepareStatement(SQL_GET_ALL);
-				ResultSet rs = ps.executeQuery()) {
+
+				ResultSet rs = ps.executeQuery()
+
+		) {
 
 			while (rs.next()) {
 
@@ -43,142 +42,96 @@ public class DocenteDao extends AbstractDAO {
 				d.setNome(rs.getString("nome"));
 				d.setCognome(rs.getString("cognome"));
 				d.setMateria(rs.getString("materia"));
+				d.setEmail(rs.getString("email"));
+
+				d.setClassi(getClassiDocente(rs.getInt("id")));
 
 				list.add(d);
 			}
 
 		} catch (Exception e) {
+
 			printException(e);
 		}
 
 		return list;
 	}
 
-	public Docente getByID(int id) throws Exception {
+	public List<Docente> getByClasse(int classeId) throws Exception {
 
-		Docente d = null;
+		List<Docente> list = new ArrayList<>();
 
-		try {
+		String sql = "SELECT DISTINCT d.* " + "FROM docenti d " + "JOIN docente_classi dc " + "ON d.id = dc.docente_id "
+				+ "WHERE dc.classe_id = ?";
 
-			this.conn = getConnection();
+		try (
 
-			PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID);
+				Connection c = getConnection();
 
-			ps.setInt(1, id);
+				PreparedStatement ps = c.prepareStatement(sql)
+
+		) {
+
+			ps.setInt(1, classeId);
 
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
+			while (rs.next()) {
 
-				d = new Docente();
+				Docente d = new Docente();
 
 				d.setId(rs.getInt("id"));
 				d.setNome(rs.getString("nome"));
 				d.setCognome(rs.getString("cognome"));
 				d.setMateria(rs.getString("materia"));
+				d.setEmail(rs.getString("email"));
+
+				d.setClassi(getClassiDocente(rs.getInt("id")));
+
+				list.add(d);
 			}
 
 			rs.close();
-			ps.close();
 
 		} catch (Exception e) {
 
-			throw new Exception(e.getMessage());
-
-		} finally {
-
-			closeConnection();
+			printException(e);
 		}
 
-		return d;
+		return list;
 	}
 
-	public boolean insert(String nome, String cognome, String materia) throws Exception {
+	public List<String> getClassiDocente(int docenteId) throws Exception {
 
-		boolean ok = false;
+		List<String> classi = new ArrayList<>();
 
-		try {
+		String sql = "SELECT c.nome " + "FROM classi c " + "JOIN docente_classi dc " + "ON c.id = dc.classe_id "
+				+ "WHERE dc.docente_id = ?";
 
-			this.conn = getConnection();
+		try (
 
-			PreparedStatement ps = conn.prepareStatement(SQL_INSERT);
+				Connection c = getConnection();
 
-			ps.setString(1, nome);
-			ps.setString(2, cognome);
-			ps.setString(3, materia);
+				PreparedStatement ps = c.prepareStatement(sql)
 
-			ok = ps.executeUpdate() > 0;
+		) {
 
-			ps.close();
+			ps.setInt(1, docenteId);
 
-		} catch (Exception e) {
+			ResultSet rs = ps.executeQuery();
 
-			throw new Exception(e.getMessage());
+			while (rs.next()) {
 
-		} finally {
+				classi.add(rs.getString("nome"));
+			}
 
-			closeConnection();
-		}
-
-		return ok;
-	}
-
-	public boolean update(String nome, String cognome, String materia, int id) throws Exception {
-
-		boolean ok = false;
-
-		try {
-
-			this.conn = getConnection();
-
-			PreparedStatement ps = conn.prepareStatement(SQL_UPDATE);
-
-			ps.setString(1, nome);
-			ps.setString(2, cognome);
-			ps.setString(3, materia);
-			ps.setInt(4, id);
-
-			ok = ps.executeUpdate() > 0;
-
-			ps.close();
+			rs.close();
 
 		} catch (Exception e) {
 
-			throw new Exception(e.getMessage());
-
-		} finally {
-
-			closeConnection();
+			printException(e);
 		}
 
-		return ok;
-	}
-
-	public boolean delete(int id) throws Exception {
-
-		boolean ok = false;
-
-		try {
-
-			this.conn = getConnection();
-
-			PreparedStatement ps = conn.prepareStatement(SQL_DELETE);
-
-			ps.setInt(1, id);
-
-			ok = ps.executeUpdate() > 0;
-
-			ps.close();
-
-		} catch (Exception e) {
-
-			throw new Exception(e.getMessage());
-
-		} finally {
-
-			closeConnection();
-		}
-
-		return ok;
+		return classi;
 	}
 }

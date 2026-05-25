@@ -28,7 +28,18 @@
     <%@ include file="../navbar.jsp" %>
 
     <div class="container mt-4">
+		<% if(request.getAttribute("classeCorrente") != null) { %>
 
+<div class="alert alert-info">
+
+	Stai visualizzando la classe:
+	<b>
+		<%= request.getAttribute("classeCorrente") %>
+	</b>
+
+</div>
+
+<% } %>
         <div class="d-flex justify-content-between align-items-center mb-3">
 
             <h2 class="fw-bold">
@@ -111,7 +122,7 @@
 
                                 <td>
                                     <span class="badge bg-secondary">
-                                        <%= s.getClasse() %>
+                                        <%= s.getNomeClasse() %>
                                     </span>
                                 </td>
 

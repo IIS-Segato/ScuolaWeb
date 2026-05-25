@@ -13,13 +13,16 @@ import model.Studente;
 
 public class StudenteDao extends AbstractDAO {
 
-	private static final String SQL_GET_ALL = "SELECT * FROM studenti ORDER BY cognome, nome";
+	private static final String SQL_GET_ALL = "SELECT s.*, c.nome AS nome_classe " + "FROM studenti s "
+			+ "JOIN classi c ON s.classe_id = c.id " + "ORDER BY c.nome, s.cognome";
 
-	private static final String SQL_GET_BY_ID = "SELECT * FROM studenti WHERE id=?";
+	private static final String SQL_GET_BY_ID = "SELECT s.*, c.nome AS nome_classe " + "FROM studenti s "
+			+ "JOIN classi c ON s.classe_id = c.id " + "WHERE s.id=?";
 
-	private static final String SQL_INSERT = "INSERT INTO studenti (nome, cognome, classe) VALUES (?, ?, ?)";
+	private static final String SQL_INSERT = "INSERT INTO studenti " + "(nome, cognome, classe_id) "
+			+ "VALUES (?, ?, ?)";
 
-	private static final String SQL_UPDATE = "UPDATE studenti SET nome=?, cognome=?, classe=? WHERE id=?";
+	private static final String SQL_UPDATE = "UPDATE studenti " + "SET nome=?, cognome=?, classe_id=? " + "WHERE id=?";
 
 	private static final String SQL_DELETE = "DELETE FROM studenti WHERE id=?";
 
@@ -32,9 +35,15 @@ public class StudenteDao extends AbstractDAO {
 
 		List<Studente> list = new ArrayList<>();
 
-		try (Connection c = getConnection();
+		try (
+
+				Connection c = getConnection();
+
 				PreparedStatement ps = c.prepareStatement(SQL_GET_ALL);
-				ResultSet rs = ps.executeQuery()) {
+
+				ResultSet rs = ps.executeQuery()
+
+		) {
 
 			while (rs.next()) {
 
@@ -43,10 +52,56 @@ public class StudenteDao extends AbstractDAO {
 				s.setId(rs.getInt("id"));
 				s.setNome(rs.getString("nome"));
 				s.setCognome(rs.getString("cognome"));
-				s.setClasse(rs.getString("classe"));
+
+				s.setClasseId(rs.getInt("classe_id"));
+				s.setNomeClasse(rs.getString("nome_classe"));
 
 				list.add(s);
 			}
+
+		} catch (Exception e) {
+
+			printException(e);
+		}
+
+		return list;
+	}
+
+	public List<Studente> getByClasse(int classeId) throws Exception {
+
+		List<Studente> list = new ArrayList<>();
+
+		String sql = "SELECT s.*, c.nome AS nome_classe " + "FROM studenti s " + "JOIN classi c ON s.classe_id = c.id "
+				+ "WHERE s.classe_id = ? " + "ORDER BY s.cognome";
+
+		try (
+
+				Connection c = getConnection();
+
+				PreparedStatement ps = c.prepareStatement(sql)
+
+		) {
+
+			ps.setInt(1, classeId);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				Studente s = new Studente();
+
+				s.setId(rs.getInt("id"));
+				s.setNome(rs.getString("nome"));
+				s.setCognome(rs.getString("cognome"));
+
+				s.setClasseId(rs.getInt("classe_id"));
+
+				s.setNomeClasse(rs.getString("nome_classe"));
+
+				list.add(s);
+			}
+
+			rs.close();
 
 		} catch (Exception e) {
 
@@ -77,7 +132,9 @@ public class StudenteDao extends AbstractDAO {
 				s.setId(rs.getInt("id"));
 				s.setNome(rs.getString("nome"));
 				s.setCognome(rs.getString("cognome"));
-				s.setClasse(rs.getString("classe"));
+
+				s.setClasseId(rs.getInt("classe_id"));
+				s.setNomeClasse(rs.getString("nome_classe"));
 			}
 
 			rs.close();
@@ -95,7 +152,9 @@ public class StudenteDao extends AbstractDAO {
 		return s;
 	}
 
-	public boolean insert(String nome, String cognome, String classe) throws Exception {
+	public boolean insert(String nome, String cognome, int classeId)
+
+			throws Exception {
 
 		boolean ok = false;
 
@@ -107,7 +166,7 @@ public class StudenteDao extends AbstractDAO {
 
 			ps.setString(1, nome);
 			ps.setString(2, cognome);
-			ps.setString(3, classe);
+			ps.setInt(3, classeId);
 
 			ok = ps.executeUpdate() > 0;
 
@@ -125,7 +184,9 @@ public class StudenteDao extends AbstractDAO {
 		return ok;
 	}
 
-	public boolean update(String nome, String cognome, String classe, int id) throws Exception {
+	public boolean update(String nome, String cognome, int classeId, int id)
+
+			throws Exception {
 
 		boolean ok = false;
 
@@ -137,7 +198,8 @@ public class StudenteDao extends AbstractDAO {
 
 			ps.setString(1, nome);
 			ps.setString(2, cognome);
-			ps.setString(3, classe);
+
+			ps.setInt(3, classeId);
 			ps.setInt(4, id);
 
 			ok = ps.executeUpdate() > 0;
