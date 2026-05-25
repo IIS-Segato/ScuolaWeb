@@ -7,6 +7,8 @@
     <title>Registro Voti</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="WEB-INF/lib/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
     <style>
         body {
@@ -44,16 +46,6 @@
         .nav-links a {
             color: white;
             margin-left: 15px;
-            text-decoration: none;
-        }
-
-        #backPage {
-            display: inline-block;
-            margin: 20px;
-            padding: 10px 18px;
-            background: #146c5c;
-            color: white;
-            border-radius: 10px;
             text-decoration: none;
         }
 
@@ -108,9 +100,6 @@
 
 <body>
 
-<!-- BACK -->
-<a id="backPage" href="#" onclick="history.back(); return false;">← Indietro</a>
-
 <!-- NAVBAR -->
 <div id="upBar">
 
@@ -121,13 +110,16 @@
 
     <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="voti.html">Voti</a>
+        <a href="voti.jsp">Voti</a>
         <a href="notizie.html">Notizie</a>
         <a href="orario.html">Orario</a>
         <a href="homepage.jsp">Logout</a>
     </div>
 
 </div>
+
+<!-- Indietro -->
+<a id="indietro" href="#" onclick="history.back(); return false;">← Indietro</a>
 
 <!-- MAIN -->
 <div class="main-container">
@@ -138,28 +130,24 @@
 
     <div class="votes-grid">
 
-        <!-- VOTO 1 -->
         <div class="vote-card">
             <div class="subject">Matematica</div>
             <div class="vote good">6</div>
             <div class="date">12/05/2026</div>
         </div>
 
-        <!-- VOTO 2 -->
         <div class="vote-card">
             <div class="subject">Informatica</div>
             <div class="vote good">10</div>
             <div class="date">10/05/2026</div>
         </div>
 
-        <!-- VOTO 3 -->
         <div class="vote-card">
             <div class="subject">Italiano</div>
             <div class="vote medium">6</div>
             <div class="date">08/05/2026</div>
         </div>
 
-        <!-- VOTO 4 -->
         <div class="vote-card">
             <div class="subject">Storia</div>
             <div class="vote bad">4</div>
@@ -167,131 +155,124 @@
         </div>
 
     </div>
-<!-- SEZIONE MATERIE -->
-<div class="main-container" style="margin-top: 60px;">
 
-    <div class="title">
-        Materie
+    <!-- SEZIONE MATERIE -->
+    <div class="main-container" style="margin-top: 60px;">
+
+        <div class="title">
+            Materie
+        </div>
+
+        <div id="subjects" class="d-flex flex-wrap gap-2"></div>
+
     </div>
 
-    <div id="subjects" class="d-flex flex-wrap gap-2"></div>
+    <!-- SEZIONE VOTI FILTRATI -->
+    <div class="main-container" style="margin-top: 40px;">
 
-</div>
+        <div class="title" id="selectedTitle">
+            Tutti i voti
+        </div>
 
-<!-- SEZIONE VOTI FILTRATI -->
-<div class="main-container" style="margin-top: 40px;">
+        <div id="votesGrid" class="votes-grid"></div>
 
-    <div class="title" id="selectedTitle">
-        Tutti i voti
     </div>
-
-    <div id="votesGrid" class="votes-grid"></div>
 
 </div>
 
 <script>
-    //  dati simulati (poi arrivano dal backend Java)
-    const voti = [
-        { materia: "Matematica", voto: 6, data: "12/05/2026" },
-        { materia: "Matematica", voto: 7, data: "10/05/2026" },
-        { materia: "Informatica", voto: 10, data: "09/05/2026" },
-        { materia: "Italiano", voto: 6, data: "08/05/2026" },
-        { materia: "Storia", voto: 4, data: "06/05/2026" },
-        { materia: "Inglese", voto: 6, data: "05/05/2026" },
-        { materia: "Sistemi e Reti", voto: 8, data: "03/05/2026" },
-        { materia: "TPSIT", voto: 7, data: "02/05/2026" },
-        { materia: "Educazione Fisica", voto: 10, data: "01/05/2026" }
-    ];
+const voti = [
+    { materia: "Matematica", voto: 6, data: "12/05/2026" },
+    { materia: "Matematica", voto: 7, data: "10/05/2026" },
+    { materia: "Informatica", voto: 10, data: "09/05/2026" },
+    { materia: "Italiano", voto: 6, data: "08/05/2026" },
+    { materia: "Storia", voto: 4, data: "06/05/2026" },
+    { materia: "Inglese", voto: 6, data: "05/05/2026" },
+    { materia: "Sistemi e Reti", voto: 8, data: "03/05/2026" },
+    { materia: "TPSIT", voto: 7, data: "02/05/2026" },
+    { materia: "Educazione Fisica", voto: 10, data: "01/05/2026" }
+];
 
-    const materie = [
-        "Educazione Civica",
-        "Italiano",
-        "Storia",
-        "Matematica",
-        "Sistemi e Reti",
-        "GPOI",
-        "Inglese",
-        "Informatica",
-        "Educazione Fisica",
-        "TPSIT"
-    ];
+const materie = [
+    "Educazione Civica",
+    "Italiano",
+    "Storia",
+    "Matematica",
+    "Sistemi e Reti",
+    "GPOI",
+    "Inglese",
+    "Informatica",
+    "Educazione Fisica",
+    "TPSIT"
+];
 
-    const subjectsDiv = document.getElementById("subjects");
-    const votesGrid = document.getElementById("votesGrid");
-    const title = document.getElementById("selectedTitle");
+const subjectsDiv = document.getElementById("subjects");
+const votesGrid = document.getElementById("votesGrid");
+const title = document.getElementById("selectedTitle");
 
-    //  render materie
-    materie.forEach(m => {
-        const btn = document.createElement("button");
-        btn.className = "btn btn-outline-success";
-        btn.innerText = m;
+materie.forEach(m => {
+    const btn = document.createElement("button");
+    btn.className = "btn btn-outline-success";
+    btn.innerText = m;
+    btn.onclick = () => showSubject(m);
+    subjectsDiv.appendChild(btn);
+});
 
-        btn.onclick = () => showSubject(m);
+function showSubject(materia) {
 
-        subjectsDiv.appendChild(btn);
+    title.innerText = "Voti: " + materia;
+    votesGrid.innerHTML = "";
+
+    const filtered = voti.filter(v => v.materia === materia);
+
+    if (filtered.length === 0) {
+        votesGrid.innerHTML = "<p>Nessun voto disponibile</p>";
+        return;
+    }
+
+    filtered.forEach(v => {
+
+        let classe = "";
+
+        if (v.voto >= 6) classe = "good";
+        else if (v.voto >= 5) classe = "medium";
+        else classe = "bad";
+
+        votesGrid.innerHTML += `
+            <div class="vote-card">
+                <div class="subject">${v.materia}</div>
+                <div class="vote ${classe}">${v.voto}</div>
+                <div class="date">${v.data}</div>
+            </div>
+        `;
     });
+}
 
-    //  mostra voti
-    function showSubject(materia) {
+function showAll() {
 
-        title.innerText = "Voti: " + materia;
+    title.innerText = "Tutti i voti";
+    votesGrid.innerHTML = "";
 
-        votesGrid.innerHTML = "";
+    voti.forEach(v => {
 
-        const filtered = voti.filter(v => v.materia === materia);
+        let classe = "";
 
-        if (filtered.length === 0) {
-            votesGrid.innerHTML = "<p>Nessun voto disponibile</p>";
-            return;
-        }
+        if (v.voto >= 6) classe = "good";
+        else if (v.voto >= 5) classe = "medium";
+        else classe = "bad";
 
-        filtered.forEach(v => {
+        votesGrid.innerHTML += `
+            <div class="vote-card">
+                <div class="subject">${v.materia}</div>
+                <div class="vote ${classe}">${v.voto}</div>
+                <div class="date">${v.data}</div>
+            </div>
+        `;
+    });
+}
 
-            let classe = "";
-
-            if (v.voto >= 6) classe = "good";
-            else if (v.voto >= 5) classe = "medium";
-            else classe = "bad";
-
-            votesGrid.innerHTML += `
-                <div class="vote-card">
-                    <div class="subject">${v.materia}</div>
-                    <div class="vote ${classe}">${v.voto}</div>
-                    <div class="date">${v.data}</div>
-                </div>
-            `;
-        });
-    }
-
-    // default: mostra tutti
-    function showAll() {
-
-        title.innerText = "Tutti i voti";
-
-        votesGrid.innerHTML = "";
-
-        voti.forEach(v => {
-
-            let classe = "";
-
-            if (v.voto >= 6) classe = "good";
-            else if (v.voto >= 5) classe = "medium";
-            else classe = "bad";
-
-            votesGrid.innerHTML += `
-                <div class="vote-card">
-                    <div class="subject">${v.materia}</div>
-                    <div class="vote ${classe}">${v.voto}</div>
-                    <div class="date">${v.data}</div>
-                </div>
-            `;
-        });
-    }
-
-    showAll();
+showAll();
 </script>
-</div>
 
 </body>
-
 </html>
