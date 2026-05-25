@@ -21,10 +21,7 @@
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navMenu"
-            aria-controls="navMenu"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+            data-bs-target="#navMenu">
 
             <span class="navbar-toggler-icon"></span>
 
@@ -32,7 +29,9 @@
 
         <div class="collapse navbar-collapse" id="navMenu">
 
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- MENU -->
+
+            <ul class="navbar-nav me-auto">
 
                 <!-- ADMIN -->
 
@@ -145,53 +144,36 @@
 
             </ul>
 
-            <!-- MENU UTENTE -->
+            <!-- DESTRA -->
 
-            <ul class="navbar-nav ms-auto">
+            <div class="d-flex align-items-center text-white">
 
-                <li class="nav-item dropdown">
+                <span class="me-3">
 
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       id="userDropdown"
-                       role="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
+                    <i class="bi bi-person-circle me-1"></i>
 
-                        <i class="bi bi-person-circle me-1"></i>
+                    <%= loggedUser.getUsername() %>
 
-                        <%= loggedUser.getUsername() %>
+                    -
 
-                    </a>
+                    <%= loggedUser.getRoleName() %>
 
-                    <ul class="dropdown-menu dropdown-menu-end"
-                        aria-labelledby="userDropdown">
+                </span>
 
-                        <li>
+                <a
+                    href="<%= request.getContextPath() %>/Logout"
+                    class="btn btn-outline-light btn-sm">
 
-                            <a class="dropdown-item text-danger"
-                               href="<%= request.getContextPath() %>/Logout">
+                    <i class="bi bi-box-arrow-right me-1"></i>
 
-                                <i class="bi bi-box-arrow-right me-1"></i>
+                    Logout
 
-                                Logout
+                </a>
 
-                            </a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-            </ul>
+            </div>
 
         </div>
 
     </div>
 
 </nav>
-
-<!-- Bootstrap JS -->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
