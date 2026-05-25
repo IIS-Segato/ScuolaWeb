@@ -126,7 +126,7 @@ public class LoginController extends HttpServlet {
 			}
 			// crea una sessione se questa non esiste
 			HttpSession session = request.getSession();
-			session.setAttribute("docente", amministratore); // salvo l'amministratore in sessione
+			session.setAttribute("amministratore", amministratore); // salvo l'amministratore in sessione
 			request.getRequestDispatcher("view/role/Amministratore.jsp").forward(request, response);
 		} else {
 			// se l'utente non è nel db eseguo il redirect al login con l'errore

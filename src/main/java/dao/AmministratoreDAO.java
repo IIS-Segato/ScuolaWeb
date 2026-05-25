@@ -130,7 +130,7 @@ public class AmministratoreDAO extends DAO {
 		while(rs.next()) {
 			Docente s = new Docente();
 
-            s.setDid(rs.getInt("cid"));
+            s.setDid(rs.getInt("did"));
             s.setEmail(rs.getString("email"));
             s.setPassword(rs.getString("password"));
             s.setNome(rs.getString("nome"));
@@ -171,6 +171,7 @@ public class AmministratoreDAO extends DAO {
 			}
 			
 			c.setMaterie(materie);
+			classi.add(c);
 		}
 		
 		return classi;
@@ -203,11 +204,10 @@ public class AmministratoreDAO extends DAO {
 			String password = rs.getString("password");
 			a.setDocenti(getDocenti());
 			a.setStudenti(getStudenti());
-			a.setClassi(null);
+			a.setClassi(getClassi());
 			a.setEmail(email);
 			a.setPassword(password);
 		}
-		
 		return a;
 	}
 }

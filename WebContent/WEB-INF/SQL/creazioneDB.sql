@@ -2521,3 +2521,24 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+select *
+from amministratori;
+
+select *
+from studenti s;
+
+select *
+from docenti;
+
+select *
+from classi;
+
+select *
+from materie;
+
+select *
+from voti;
+
+update amministratori set password = sha2('admin', 256);
