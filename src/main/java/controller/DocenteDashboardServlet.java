@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.ComunicatoDao;
 import dao.DocenteDao;
 import dao.OrarioDao;
 import dao.VotoDao; // Assicurati di aver creato il VotoDao visto in precedenza
+import model.Comunicato;
 import model.Docente;
 import model.Orario;
 //Aggiungi questo import in cima al file
@@ -21,109 +23,115 @@ import model.Studente;
 
 @WebServlet("/DocenteDashboardServlet")
 public class DocenteDashboardServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    // 1. Il GET si occupa solo di mostrare la Dashboard (Invariato, tranne VotoDao se serve)
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+	// 1. Il GET si occupa solo di mostrare la Dashboard (Invariato, tranne VotoDao
+	// se serve)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
 
-        // Sicurezza: controlla se la sessione esiste e se l'utente è loggato
-        if (session == null || session.getAttribute("utenteLoggato") == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
+		// Sicurezza: controlla se la sessione esiste e se l'utente è loggato
+		if (session == null || session.getAttribute("utenteLoggato") == null) {
+			response.sendRedirect("login.jsp");
+			return;
+		}
 
-        // Recuperiamo l'ID salvato dalla LoginServlet
-        String idDocenteStr = (String) session.getAttribute("utenteLoggato");
+		// Recuperiamo l'ID salvato dalla LoginServlet
+		String idDocenteStr = (String) session.getAttribute("utenteLoggato");
 
-        try {
-            String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
-            
-            // Inizializziamo i DAO
-            DocenteDao docenteDao = new DocenteDao(xmlPath);
-            OrarioDao orarioDao = new OrarioDao(xmlPath);
+		try {
+			String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
 
-            // Recupero l'oggetto Docente dal DB usando l'ID
-            Docente docente = docenteDao.getDocenteById(idDocenteStr);
+			// Inizializziamo i DAO
+			DocenteDao docenteDao = new DocenteDao(xmlPath);
+			OrarioDao orarioDao = new OrarioDao(xmlPath);
+			ComunicatoDao comunicatoDao = new ComunicatoDao(xmlPath);
 
-            if (docente != null) {
-                // Recupero la lista dell'orario in base all'ID del docente 
-                List<Orario> orarioLezioni = orarioDao.getOrarioByDocente(docente.getId());
+			// Recupero l'oggetto Docente dal DB usando l'ID
+			Docente docente = docenteDao.getDocenteById(idDocenteStr);
 
-                VotoDao votoDao = new VotoDao(xmlPath);
-                StudenteDao studenteDao = new StudenteDao(xmlPath);
+			if (docente != null) {
+				// Recupero la lista dell'orario in base all'ID del docente
+				List<Orario> orarioLezioni = orarioDao.getOrarioByDocente(docente.getId());
+				List<Comunicato> comunicati = comunicatoDao.getAllComunicati();
 
-                List<Voto> voti = votoDao.getVotiByDocente(docente.getId());
-                List<Studente> studenti = studenteDao.getStudentiByDocente(docente.getId());
+				VotoDao votoDao = new VotoDao(xmlPath);
+				StudenteDao studenteDao = new StudenteDao(xmlPath);
 
-                request.setAttribute("voti", voti);
-                request.setAttribute("studenti", studenti);
+				List<Voto> voti = votoDao.getVotiByDocente(docente.getId());
+				List<Studente> studenti = studenteDao.getStudentiByDocente(docente.getId());
 
-                // e chiudi le connessioni insieme alle altre
-                votoDao.closeConnection();
-                studenteDao.closeConnection();
-                
-                
-                // Salvo i dati nella request
-                request.setAttribute("docente", docente);
-                request.setAttribute("orari", orarioLezioni);
+				request.setAttribute("voti", voti);
+				request.setAttribute("studenti", studenti);
 
-                // Mando tutto alla JSP
-                request.getRequestDispatcher("/WEB-INF/view/docente_dashboard.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("login.jsp?errore=docente_non_trovato");
-            }
+				// e chiudi le connessioni insieme alle altre
+				votoDao.closeConnection();
+				studenteDao.closeConnection();
+				comunicatoDao.closeConnection();
 
-            // Chiusura connessioni
-            docenteDao.closeConnection();
-            orarioDao.closeConnection();
+				// Salvo i dati nella request
+				request.setAttribute("docente", docente);
+				request.setAttribute("orari", orarioLezioni);
+				request.setAttribute("comunicati", comunicati);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("login.jsp?errore=errore_interno");
-        }
-    }
+				// Mando tutto alla JSP
+				request.getRequestDispatcher("/WEB-INF/view/docente_dashboard.jsp").forward(request, response);
+			} else {
+				response.sendRedirect("login.jsp?errore=docente_non_trovato");
+			}
 
-    // 2. Il POST adesso intercetta il form dell'inserimento voti
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+			// Chiusura connessioni
+			docenteDao.closeConnection();
+			orarioDao.closeConnection();
 
-        // Controllo sicurezza sessione anche nel POST
-        if (session == null || session.getAttribute("utenteLoggato") == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendRedirect("login.jsp?errore=errore_interno");
+		}
+	}
 
-        String idDocenteStr = (String) session.getAttribute("utenteLoggato");
-        
-        // Recuperiamo i dati compilati nel form della JSP
-        String idStudenteStr = request.getParameter("idStudente");
-        String votoStr = request.getParameter("voto");
-        String dataStr = request.getParameter("data");
-        String descrizione = request.getParameter("descrizione");
+	// 2. Il POST adesso intercetta il form dell'inserimento voti
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
 
-        try {
-            int idDocente = Integer.parseInt(idDocenteStr);
-            int idStudente = Integer.parseInt(idStudenteStr);
-            double voto = Double.parseDouble(votoStr);
+		// Controllo sicurezza sessione anche nel POST
+		if (session == null || session.getAttribute("utenteLoggato") == null) {
+			response.sendRedirect("login.jsp");
+			return;
+		}
 
-            String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
-            
-            // Sfruttiamo il VotoDao per inserire la riga
-            VotoDao votoDao = new VotoDao(xmlPath);
-            boolean esito = votoDao.insertVoto(idStudente, idDocente, voto, dataStr, descrizione);
-            votoDao.closeConnection();
+		String idDocenteStr = (String) session.getAttribute("utenteLoggato");
 
-            if (esito) {
-                // Ricarica la dashboard (in GET) notificando il successo
-                response.sendRedirect("DocenteDashboardServlet?successo=voto_inserito");
-            } else {
-                response.sendRedirect("DocenteDashboardServlet?errore=errore_inserimento");
-            }
+		// Recuperiamo i dati compilati nel form della JSP
+		String idStudenteStr = request.getParameter("idStudente");
+		String votoStr = request.getParameter("voto");
+		String dataStr = request.getParameter("data");
+		String descrizione = request.getParameter("descrizione");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("DocenteDashboardServlet?errore=dati_non_validi");
-        }
-    }
+		try {
+			int idDocente = Integer.parseInt(idDocenteStr);
+			int idStudente = Integer.parseInt(idStudenteStr);
+			double voto = Double.parseDouble(votoStr);
+
+			String xmlPath = getServletContext().getRealPath("/WEB-INF/dbcfg.xml");
+
+			// Sfruttiamo il VotoDao per inserire la riga
+			VotoDao votoDao = new VotoDao(xmlPath);
+			boolean esito = votoDao.insertVoto(idStudente, idDocente, voto, dataStr, descrizione);
+			votoDao.closeConnection();
+
+			if (esito) {
+				// Ricarica la dashboard (in GET) notificando il successo
+				response.sendRedirect("DocenteDashboardServlet?successo=voto_inserito");
+			} else {
+				response.sendRedirect("DocenteDashboardServlet?errore=errore_inserimento");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendRedirect("DocenteDashboardServlet?errore=dati_non_validi");
+		}
+	}
 }

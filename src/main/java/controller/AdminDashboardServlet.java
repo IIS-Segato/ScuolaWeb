@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AdminDAO;
+import dao.ComunicatoDao;
 import model.Admin;
+import model.Comunicato;
 
 @WebServlet("/AdminDashboardServlet")
 public class AdminDashboardServlet extends HttpServlet {
@@ -34,13 +38,16 @@ public class AdminDashboardServlet extends HttpServlet {
 
 			// Inizializziamo il DAO
 			AdminDAO adminDao = new AdminDAO(xmlPath);
+			ComunicatoDao comunicatoDao = new ComunicatoDao(xmlPath);
 
 			// Recupero l'oggetto Admin dal DB usando l'ID
 			Admin admin = adminDao.getAdminById(idAdminStr);
 
 			if (admin != null) {
+				List<Comunicato> comunicati = comunicatoDao.getAllComunicati();
 				// Mando tutto alla JSP
 				request.setAttribute("admin", admin);
+				request.setAttribute("comunicati", comunicati);
 				request.getRequestDispatcher("/WEB-INF/view/admin_dashboard.jsp").forward(request, response);
 			} else {
 				response.sendRedirect("login.jsp?errore=admin_non_trovato");
@@ -48,6 +55,7 @@ public class AdminDashboardServlet extends HttpServlet {
 
 			// Chiusura connessioni
 			adminDao.closeConnection();
+			comunicatoDao.closeConnection();
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -74,6 +74,9 @@ body {
 			<li class="nav-item mb-2"><a href="#"
 				class="nav-link text-white active"><i class="fas fa-home me-2"></i>
 					Dashboard</a></li>
+			<li class="nav-item mb-2"><a href="#sezione-comunicati"
+				class="nav-link text-white"><i class="fas fa-bullhorn me-2"></i>
+					Comunicati</a></li>
 			<li class="nav-item mt-4"><a href="LogoutServlet"
 				class="nav-link text-warning"><i
 					class="fas fa-sign-out-alt me-2"></i> Esci</a></li>
@@ -215,7 +218,53 @@ body {
 				%>
 			</div>
 		</div>
+		<!-- comunicati -->
+		<%-- Recupero la lista dei comunicati passata dalla Servlet --%>
+		<%@ page import="model.Comunicato"%>
+		<%
+		List<Comunicato> comunicati = (List<Comunicato>) request.getAttribute("comunicati");
+		%>
 
+		<div class="card shadow mb-4" id="sezione-comunicati">
+			<div class="card-header py-3 bg-white">
+				<h6 class="m-0 font-weight-bold text-warning">
+					<i class="fas fa-bullhorn me-2"></i> Bacheca Comunicati d'Istituto
+				</h6>
+			</div>
+			<div class="card-body">
+				<%
+				if (comunicati != null && !comunicati.isEmpty()) {
+				%>
+				<div class="list-group list-group-flush">
+					<%
+					for (Comunicato c : comunicati) {
+					%>
+					<div class="list-group-item py-3">
+						<div
+							class="d-flex w-100 justify-content-between align-items-center mb-1">
+							<h5 class="text-gray-800 mb-0 font-weight-bold"
+								style="font-size: 1.1rem;"><%=c.getTitolo()%></h5>
+							<small class="badge bg-light text-dark border"><i
+								class="far fa-calendar-alt me-1"></i> <%=c.getData()%></small>
+						</div>
+						<p class="mb-1 text-muted small"><%=c.getTesto()%></p>
+					</div>
+					<%
+					}
+					%>
+				</div>
+				<%
+				} else {
+				%>
+				<div class="alert alert-light text-center border mb-0" role="alert">
+					<i class="fas fa-info-circle me-2 text-muted"></i> Nessun
+					comunicato ufficiale attivo al momento.
+				</div>
+				<%
+				}
+				%>
+			</div>
+		</div>
 	</div>
 
 	<script

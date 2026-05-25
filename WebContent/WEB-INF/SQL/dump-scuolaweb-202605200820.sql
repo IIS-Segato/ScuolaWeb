@@ -300,6 +300,19 @@ INSERT INTO `voti` VALUES
 /*!40000 ALTER TABLE `voti` ENABLE KEYS */;
 UNLOCK TABLES;
 
+CREATE TABLE `comunicati` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titolo` varchar(150) NOT NULL,
+  `testo` text NOT NULL,
+  `data` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dati di prova
+INSERT INTO `comunicati` (`titolo`, `testo`, `data`) VALUES
+('Chiusura Scuola per Festività', 'Si comunica che la scuola resterà chiusa nei giorni 1 e 2 Giugno.', '2026-05-24'),
+('Manutenzione Registro Elettronico', 'Il sistema ScuolaWeb subirà un intervento di manutenzione oggi dalle 17:00 alle 19:00.', '2026-05-25');
+
 --
 -- Dumping routines for database 'scuolaweb'
 --

@@ -145,6 +145,10 @@
 			</delete>
 			
 		</voti>
+		
+		<comunicati>
+			<select> SELECT * FROM comunicati ORDER BY data DESC; </select>
+		</comunicati>
 
 	</query>
 </root>
