@@ -77,6 +77,30 @@ public class VotoDao extends DAO {
             return false;
         }
     }
+    
+    public List<Voto> getVotiByDocente(int idDocente) {
+        List<Voto> lista = new ArrayList<>();
+        String query = config.getQuery("voti", "selectByDocente");
+        try (PreparedStatement ps = this.conn.prepareStatement(query)) {
+            ps.setInt(1, idDocente);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Voto v = new Voto();
+                    v.setId(rs.getInt("id"));
+                    v.setIdStudente(rs.getInt("id_studente"));
+                    v.setNomeStudente(rs.getString("nome_studente"));
+                    v.setCognomeStudente(rs.getString("cognome_studente"));
+                    v.setVoto(rs.getDouble("voto"));
+                    v.setData(rs.getDate("data"));
+                    v.setDescrizione(rs.getString("descrizione"));
+                    lista.add(v);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore in getVotiByDocente: " + e.getMessage());
+        }
+        return lista;
+    }
 }
 
 

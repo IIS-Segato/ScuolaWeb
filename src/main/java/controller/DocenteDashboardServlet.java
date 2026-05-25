@@ -14,6 +14,10 @@ import dao.OrarioDao;
 import dao.VotoDao; // Assicurati di aver creato il VotoDao visto in precedenza
 import model.Docente;
 import model.Orario;
+//Aggiungi questo import in cima al file
+import dao.StudenteDao;
+import model.Voto;
+import model.Studente;
 
 @WebServlet("/DocenteDashboardServlet")
 public class DocenteDashboardServlet extends HttpServlet {
@@ -46,6 +50,20 @@ public class DocenteDashboardServlet extends HttpServlet {
                 // Recupero la lista dell'orario in base all'ID del docente 
                 List<Orario> orarioLezioni = orarioDao.getOrarioByDocente(docente.getId());
 
+                VotoDao votoDao = new VotoDao(xmlPath);
+                StudenteDao studenteDao = new StudenteDao(xmlPath);
+
+                List<Voto> voti = votoDao.getVotiByDocente(docente.getId());
+                List<Studente> studenti = studenteDao.getStudentiByDocente(docente.getId());
+
+                request.setAttribute("voti", voti);
+                request.setAttribute("studenti", studenti);
+
+                // e chiudi le connessioni insieme alle altre
+                votoDao.closeConnection();
+                studenteDao.closeConnection();
+                
+                
                 // Salvo i dati nella request
                 request.setAttribute("docente", docente);
                 request.setAttribute("orari", orarioLezioni);

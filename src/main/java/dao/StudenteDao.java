@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jdom2.JDOMException;
 import model.Studente;
 
@@ -37,5 +40,29 @@ public class StudenteDao extends DAO {
 		}
 
 		return studente;
+	}
+	
+	
+	public List<Studente> getStudentiByDocente(int idDocente) {
+	    List<Studente> lista = new ArrayList<>();
+	    String query = "SELECT DISTINCT s.* FROM studenti s " +
+	                   "JOIN orari o ON s.classe = o.classe " +
+	                   "WHERE o.id_docente = ? ORDER BY s.cognome, s.nome";
+	    try (PreparedStatement ps = this.conn.prepareStatement(query)) {
+	        ps.setInt(1, idDocente);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                Studente s = new Studente();
+	                s.setId(rs.getInt("id"));
+	                s.setNome(rs.getString("nome"));
+	                s.setCognome(rs.getString("cognome"));
+	                s.setClasse(rs.getString("classe"));
+	                lista.add(s);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Errore in getStudentiByDocente: " + e.getMessage());
+	    }
+	    return lista;
 	}
 }
