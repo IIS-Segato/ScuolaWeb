@@ -29,6 +29,15 @@ public class StudenteDAO {
         "JOIN STUDENTI S ON O.ID_C = S.ID_C " +
         "WHERE S.ID_S = ? " +
         "ORDER BY FIELD(O.GIORNO,'Lunedi','Martedi','Mercoledi','Giovedi','Venerdi'), O.ORA_INI";
+    
+    private static final String SQL_STUDENTI_DOCENTE =
+    	    "SELECT S.ID_S, S.NOME, S.COGNOME, S.ID_C " +
+    	    "FROM STUDENTI S " +
+    	    "JOIN CLASSI C ON S.ID_C = C.ID_C " +
+    	    "JOIN ORARIO O ON O.ID_C = C.ID_C " +
+    	    "WHERE O.ID_D = ? " +
+    	    "GROUP BY S.ID_S, S.NOME, S.COGNOME, S.ID_C " +
+    	    "ORDER BY S.ID_C, S.COGNOME, S.NOME";
 
     private Connection getConnection() throws SQLException {
         try {
@@ -82,4 +91,25 @@ public class StudenteDAO {
         }
         return lista;
     }
+
+	public List<Utente> trovaStudentiDocente(int idDocente) {
+	    List<Utente> lista = new ArrayList<>();
+	    try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(SQL_STUDENTI_DOCENTE)) {
+	        ps.setInt(1, idDocente);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                Utente s = new Utente();
+	                s.setId(rs.getInt("ID_S"));
+	                s.setNome(rs.getString("NOME"));
+	                s.setCognome(rs.getString("COGNOME"));
+	                s.setIdClasse(rs.getInt("ID_C")); // vedi nota sotto
+	                lista.add(s);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return lista;
+	}
 }

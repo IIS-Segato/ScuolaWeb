@@ -3,6 +3,8 @@
 <%@ page import="model.Aula" %>
 <%@ page import="model.Orario" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.LinkedHashMap" %>
 
 <%
     Utente u = (Utente) session.getAttribute("utente");
@@ -14,6 +16,7 @@
     List<Classe> classi = (List<Classe>) request.getAttribute("classiDocente");
     List<Aula> aule = (List<Aula>) request.getAttribute("auleDocente");
     List<Orario> orario = (List<Orario>) request.getAttribute("orarioDocente");
+    Map<Integer, List<Utente>> studentiDocente = (Map<Integer, List<Utente>>) request.getAttribute("studentiDocente");
 %>
 <!DOCTYPE html>
 <html lang="it">
@@ -57,6 +60,13 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Orario
       </a>
+      <a href="#studenti" class="nav-item">
+  		<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+	    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+	    <circle cx="9" cy="7" r="4"/>
+	  </svg>
+	  Studenti
+	</a>
     </nav>
 
     <div class="sidebar-footer">
@@ -134,7 +144,13 @@
               <td><%= c.getId() %></td>
               <td><%= c.getSezione() %></td>
               <td><%= c.getAnno() %>&deg</td>
-              <td><%= c.getNumeroStudenti() %></td>
+              <!-- dopo l'eliminazione della colonna con il numero di studenti calcolo il numero di studenti -->
+              <td>
+				  <% 
+				    List<Utente> listaStud = (studentiDocente != null) ? studentiDocente.get(c.getId()) : null;
+				    out.print(listaStud != null ? listaStud.size() : 0);
+				  %>
+			  </td>
             </tr>
             <% } } else { %>
             <tr><td colspan="4" style="color:var(--text-muted);text-align:center;padding:24px;">Nessuna classe assegnata</td></tr>
@@ -193,7 +209,68 @@
           </tbody>
         </table>
       </div>
-
+	<!-- Studenti per classe -->
+	<div class="section-heading" id="studenti">
+	  <h2>Studenti delle tue classi</h2>
+	  <div class="section-line"></div>
+	</div>
+	
+	<%
+	  if (classi != null && studentiDocente != null) {
+	    for (Classe c : classi) {
+	      List<Utente> studentiClasse = studentiDocente.get(c.getId());
+	%>
+	<details style="margin-bottom:1rem;" open>
+	  <summary style="
+	      cursor:pointer;
+	      padding:12px 16px;
+	      background:var(--surface);
+	      border:1px solid var(--border);
+	      border-radius:8px;
+	      font-weight:600;
+	      list-style:none;
+	      display:flex;
+	      align-items:center;
+	      gap:10px;">
+	    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+	         stroke="currentColor" stroke-width="2">
+	      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+	      <circle cx="9" cy="7" r="4"/>
+	    </svg>
+	    Classe <%= c.getAnno() %>&deg;<strong><%= c.getSezione() %></strong>
+	    <span class="pill pill-navy" style="margin-left:auto;">
+	      <%= studentiClasse != null ? studentiClasse.size() : 0 %> studenti
+	    </span>
+	  </summary>
+	
+	  <div class="table-wrap" style="margin-top:0;border-radius:0 0 8px 8px;">
+	    <table>
+	      <thead>
+	        <tr><th>#</th><th>Cognome</th><th>Nome</th></tr>
+	      </thead>
+	      <tbody>
+	        <%
+	          if (studentiClasse != null && !studentiClasse.isEmpty()) {
+	            int n = 1;
+	            for (Utente s : studentiClasse) {
+	        %>
+	        <tr>
+	          <td style="color:var(--text-muted);"><%= n++ %></td>
+	          <td><%= s.getCognome() %></td>
+	          <td><%= s.getNome() %></td>
+	        </tr>
+	        <% } } else { %>
+	        <tr>
+	          <td colspan="3" style="color:var(--text-muted);text-align:center;padding:20px;">
+	            Nessuno studente trovato
+	          </td>
+	        </tr>
+	        <% } %>
+	      </tbody>
+	    </table>
+	  </div>
+	</details>
+	<% } } %>
     </div>
   </div>
 </div>

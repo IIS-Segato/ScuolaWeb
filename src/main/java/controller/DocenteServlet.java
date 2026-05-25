@@ -31,6 +31,7 @@ public class DocenteServlet extends HttpServlet {
         request.setAttribute("classiDocente", dao.trovaClassiDocente(id));
         request.setAttribute("auleDocente",   dao.trovaAulePerDocente(id));
         request.setAttribute("orarioDocente", dao.trovaOrarioDocente(id));
+        request.setAttribute("studentiDocente",  dao.trovaStudentiDocente(id));
 
         // Forward alla JSP con i dati pronti
         request.getRequestDispatcher("view/role/docente.jsp").forward(request, response);

@@ -55,36 +55,36 @@ INSERT INTO AULE (NOME, CAPIENZA) VALUES
 -- INSERIMENTO CLASSI
 -- ========================================
 
-INSERT INTO CLASSI (SEZIONE, ANNO, N_STUDENTI) VALUES
+INSERT INTO CLASSI (SEZIONE, ANNO) VALUES
   -- Primo anno
-  ('A', 1, 25),
-  ('B', 1, 23),
-  ('C', 1, 26),
-  ('D', 1, 24),
+  ('A', 1),
+  ('B', 1),
+  ('C', 1),
+  ('D', 1),
   
   -- Secondo anno
-  ('A', 2, 27),
-  ('B', 2, 24),
-  ('C', 2, 25),
-  ('D', 2, 23),
+  ('A', 2),
+  ('B', 2),
+  ('C', 2),
+  ('D', 2),
   
   -- Terzo anno
-  ('A', 3, 22),
-  ('B', 3, 23),
-  ('C', 3, 24),
-  ('D', 3, 21),
+  ('A', 3),
+  ('B', 3),
+  ('C', 3),
+  ('D', 3),
   
   -- Quarto anno
-  ('A', 4, 21),
-  ('B', 4, 22),
-  ('C', 4, 20),
-  ('D', 4, 23),
+  ('A', 4),
+  ('B', 4),
+  ('C', 4),
+  ('D', 4),
   
   -- Quinto anno
-  ('A', 5, 19),
-  ('B', 5, 18),
-  ('C', 5, 20),
-  ('D', 5, 17);
+  ('A', 5),
+  ('B', 5),
+  ('C', 5),
+  ('D', 5);
 
 -- ========================================
 -- INSERIMENTO DOCENTI

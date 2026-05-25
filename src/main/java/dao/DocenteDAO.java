@@ -1,6 +1,8 @@
 package dao;
 
 import model.Utente;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import model.Aula;
 import model.Classe;
 import model.Orario;
@@ -19,7 +21,7 @@ public class DocenteDAO {
         "SELECT MATERIA FROM DOCENTI WHERE ID_D = ?";
 
     private static final String SQL_CLASSI_DOCENTE =
-        "SELECT DISTINCT C.ID_C, C.SEZIONE, C.ANNO, C.N_STUDENTI " +
+        "SELECT DISTINCT C.ID_C, C.SEZIONE, C.ANNO " +
         "FROM ORARIO O " +
         "JOIN CLASSI C ON O.ID_C = C.ID_C " +
         "WHERE O.ID_D = ? " +
@@ -39,6 +41,13 @@ public class DocenteDAO {
         "JOIN AULE A ON O.NOME_AULA = A.NOME " +
         "WHERE O.ID_D = ? " +
         "ORDER BY FIELD(GIORNO,'Lunedi','Martedi','Mercoledi','Giovedi','Venerdi'), O.ORA_INI";
+    
+    private static final String SQL_STUDENTI_DOCENTE =
+    	    "SELECT DISTINCT S.ID_S, S.NOME, S.COGNOME, S.ID_C " +
+    	    "FROM STUDENTI S " +
+    	    "JOIN ORARIO O ON O.ID_C = S.ID_C " +
+    	    "WHERE O.ID_D = ? " +
+    	    "ORDER BY S.ID_C, S.COGNOME, S.NOME";
 
     private Connection getConnection() throws SQLException {
         try {
@@ -87,7 +96,6 @@ public class DocenteDAO {
                     c.setId(rs.getInt("ID_C"));
                     c.setSezione(rs.getString("SEZIONE"));
                     c.setAnno(rs.getInt("ANNO"));
-                    c.setNumeroStudenti(rs.getInt("N_STUDENTI"));
                     lista.add(c);
                 }
             }
@@ -138,5 +146,28 @@ public class DocenteDAO {
             e.printStackTrace();
         }
         return lista;
+    }
+    
+ // Restituisce tutti gli studenti delle classi del docente, raggruppati per classe
+    public Map<Integer, List<Utente>> trovaStudentiDocente(int idDocente) {
+        Map<Integer, List<Utente>> mappa = new LinkedHashMap<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL_STUDENTI_DOCENTE)) {
+            ps.setInt(1, idDocente);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int idClasse = rs.getInt("ID_C");
+                    Utente s = new Utente();
+                    s.setId(rs.getInt("ID_S"));
+                    s.setNome(rs.getString("NOME"));
+                    s.setCognome(rs.getString("COGNOME"));
+                    // inserisce nella lista della classe corrispondente
+                    mappa.computeIfAbsent(idClasse, k -> new ArrayList<>()).add(s);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mappa;
     }
 }
