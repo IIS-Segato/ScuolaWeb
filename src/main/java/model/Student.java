@@ -22,6 +22,11 @@ public class Student implements Serializable {
 		this.className = className;
 	}
 
+	public Student()
+	{
+
+	}
+
 	public int getId() {
 		return id;
 	}

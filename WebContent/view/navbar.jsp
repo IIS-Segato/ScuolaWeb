@@ -4,7 +4,8 @@
 			School Manager
 		</a>
 
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+		        aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 

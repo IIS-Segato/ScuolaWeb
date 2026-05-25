@@ -10,6 +10,11 @@ public class Role implements Serializable {
 		this.description = description;
 	}
 
+	public Role()
+	{
+
+	}
+
 	private int id;
 	private String role_name, description;
 

@@ -1,4 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    // Reindirizza subito alla pagina di login
-    response.sendRedirect("login.jsp");
+    response.sendRedirect(request.getContextPath() + "/view/login.jsp");
 %>

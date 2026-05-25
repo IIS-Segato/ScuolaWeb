@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS scuola_db;
+CREATE DATABASE IF NOT EXISTS school_web;
 USE scuola_db;
 
 -- 2. Tabella Utenti 

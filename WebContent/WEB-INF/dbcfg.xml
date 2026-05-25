@@ -5,9 +5,9 @@
     <connection>
         <mysql>
             <driver>com.mysql.cj.jdbc.Driver</driver>
-            <url>jdbc:mysql://localhost:3306/scuola_db?serverTimezone=UTC</url>
-            <user>root</user>
-            <password>root</password>
+            <url>jdbc:mysql://localhost:3306/school_web?serverTimezone=UTC&amp;useSSL=false</url>
+            <user>school_user</user>
+            <password>school_pass</password>
         </mysql>
     </connection>
 
