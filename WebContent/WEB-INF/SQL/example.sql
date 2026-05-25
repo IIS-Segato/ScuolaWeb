@@ -209,7 +209,32 @@ INSERT INTO `voti` (`id`, `id_studente`, `id_docente`, `materia`, `voto`, `data`
 (11, 7, 6, 'Scienze', 8.20, '2024-02-22'),
 (12, 8, 3, 'Inglese', 7.10, '2024-03-02');
 
+-- --------------------------------------------------------
+
 --
+-- Struttura della tabella `registro_eventi`
+--
+
+CREATE TABLE `registro_eventi` (
+  `id` int(11) NOT NULL,
+  `id_studente` int(11) NOT NULL,
+  `id_docente` int(11) NOT NULL,
+  `tipo` enum('PRESENTE','ASSENTE') NOT NULL,
+  `data` date NOT NULL,
+  `ora_ingresso` time DEFAULT NULL,
+  `ora_uscita` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `registro_eventi`
+--
+
+INSERT INTO `registro_eventi` (`id`, `id_studente`, `id_docente`, `tipo`, `data`, `ora_ingresso`, `ora_uscita`) VALUES
+(1, 1, 1, 'ASSENTE', '2024-03-18', NULL, NULL),
+(2, 2, 2, 'ASSENTE', '2024-03-19', '08:25:00', NULL),
+(3, 3, 3, 'PRESENTE', '2024-03-20', NULL, '12:10:00');
+
+-- 
 -- Indici per le tabelle scaricate
 --
 
@@ -263,6 +288,15 @@ ALTER TABLE `voti`
   ADD KEY `id_docente` (`id_docente`);
 
 --
+-- Indici per la tabella `registro_eventi`
+--
+ALTER TABLE `registro_eventi`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_studente` (`id_studente`),
+  ADD KEY `id_docente` (`id_docente`),
+  ADD UNIQUE KEY `studente_data` (`id_studente`,`data`);
+
+--
 -- AUTO_INCREMENT per le tabelle scaricate
 --
 
@@ -297,6 +331,12 @@ ALTER TABLE `voti`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT per la tabella `registro_eventi`
+--
+ALTER TABLE `registro_eventi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- Limiti per le tabelle scaricate
 --
 
@@ -327,6 +367,13 @@ ALTER TABLE `users`
 ALTER TABLE `voti`
   ADD CONSTRAINT `voti_ibfk_1` FOREIGN KEY (`id_studente`) REFERENCES `studenti` (`id`),
   ADD CONSTRAINT `voti_ibfk_2` FOREIGN KEY (`id_docente`) REFERENCES `docenti` (`id`);
+
+--
+-- Limiti per la tabella `registro_eventi`
+--
+ALTER TABLE `registro_eventi`
+  ADD CONSTRAINT `registro_eventi_ibfk_1` FOREIGN KEY (`id_studente`) REFERENCES `studenti` (`id`),
+  ADD CONSTRAINT `registro_eventi_ibfk_2` FOREIGN KEY (`id_docente`) REFERENCES `docenti` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

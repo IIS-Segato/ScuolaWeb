@@ -86,6 +86,15 @@ body {
                 </div>
             </a>
         </div>
+
+        <div class="col-md-4">
+            <a href="RegistroServlet?action=list" class="text-decoration-none text-dark">
+                <div class="card card-hover p-4">
+                    <h4>Presenze e assenze</h4>
+                    <p class="text-muted">Consulta il registro delle presenze.</p>
+                </div>
+            </a>
+        </div>
         <% } %>
 
         <%-- INSEGNANTE --%>
@@ -104,6 +113,15 @@ body {
                 <div class="card card-hover p-4">
                     <h4>Gestione Voti</h4>
                     <p class="text-muted">Inserisci, modifica ed elimina voti.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="RegistroServlet?action=list" class="text-decoration-none text-dark">
+                <div class="card card-hover p-4">
+                    <h4>Presenze e assenze</h4>
+                    <p class="text-muted">Compila il registro della classe.</p>
                 </div>
             </a>
         </div>
@@ -128,6 +146,15 @@ body {
                 </div>
             </a>
         </div>
+
+        <div class="col-md-4">
+            <a href="RegistroServlet?action=list" class="text-decoration-none text-dark">
+                <div class="card card-hover p-4">
+                    <h4>Presenze e assenze</h4>
+                    <p class="text-muted">Consulta il registro delle classi.</p>
+                </div>
+            </a>
+        </div>
         <% } %>
 
         <%-- STUDENTE --%>
@@ -137,6 +164,15 @@ body {
                 <div class="card card-hover p-4">
                     <h4>Area Studente</h4>
                     <p class="text-muted">Consulta voti, classe, compagni e professori .</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="RegistroServlet?action=list" class="text-decoration-none text-dark">
+                <div class="card card-hover p-4">
+                    <h4>Le mie assenze</h4>
+                    <p class="text-muted">Consulta assenze e ritardi.</p>
                 </div>
             </a>
         </div>
