@@ -38,7 +38,7 @@
 		for(Voto v : voti) somma += v.getVoto();
 		mediaGenerale = somma / numVoti;
 		mediaStr = String.format("%.1f", mediaGenerale).replace(",", ".");
-		if(mediaGenerale >= 7)      mediaColor = "--accent";
+		if(mediaGenerale >= 6)      mediaColor = "--accent";
 		else if(mediaGenerale >= 5) mediaColor = "--yellow";
 		else                        mediaColor = "--red";
 	}
