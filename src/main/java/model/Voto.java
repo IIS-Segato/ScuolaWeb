@@ -10,9 +10,12 @@ public class Voto {
     private Date data;
     private String descrizione;
     
+   
     // Campi aggiuntivi per la visualizzazione (JOIN)
     private String nomeDocente;
     private String nomeMateria;
+    private String nomeStudente;   
+    private String cognomeStudente; 
 
     public Voto() {}
 
@@ -23,6 +26,13 @@ public class Voto {
     public int getIdStudente() { return idStudente; }
     public void setIdStudente(int idStudente) { this.idStudente = idStudente; }
 
+    public String getNomeStudente() { return nomeStudente; }
+    public void setNomeStudente(String nomeStudente) { this.nomeStudente = nomeStudente; }
+
+    public String getCognomeStudente() { return cognomeStudente; }
+    public void setCognomeStudente(String cognomeStudente) { this.cognomeStudente = cognomeStudente; }
+
+    
     public double getVoto() { return voto; }
     public void setVoto(double voto) { this.voto = voto; }
 

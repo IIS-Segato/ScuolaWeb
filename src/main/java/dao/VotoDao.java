@@ -59,6 +59,24 @@ public class VotoDao extends DAO {
             return false;
         }
     }
+    
+    
+    public boolean deleteVoto(int idStudente, int idDocente, String dataStr) {
+        // Recupera la query definita nel tuo dbcfg.xml under <voti><insert>
+        String query = config.getQuery("voti", "delete");
+        
+        try (PreparedStatement ps = this.conn.prepareStatement(query)) {
+            ps.setInt(1, idStudente);
+            ps.setInt(2, idDocente);
+            ps.setDate(3, Date.valueOf(dataStr)); // Converte la stringa "YYYY-MM-DD" in java.sql.Date
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0; // Restituisce true se l'inserimento è andato a buon fine
+        } catch (SQLException | IllegalArgumentException e) {
+            System.err.println("Errore in VotoDao: " + e.getMessage());
+            return false;
+        }
+    }
 }
 
 

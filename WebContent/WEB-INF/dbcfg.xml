@@ -127,7 +127,23 @@
 			<insert>
 				insert into voti(id_studente, id_docente, voto, data, descrizione)
 				values(?, ?, ?, ?, ?);
+				
+				
 			</insert>
+			
+			<selectByDocente>
+			    SELECT v.id, v.id_studente, s.nome AS nome_studente, s.cognome AS cognome_studente,
+			           v.voto, v.data, v.descrizione
+			    FROM voti v
+			    JOIN studenti s ON v.id_studente = s.id
+			    WHERE v.id_docente = ?
+			    ORDER BY v.data DESC
+			</selectByDocente>
+
+			<delete>
+				delete from voti where id_studente = ? and id_docente = ? and data = ?
+			</delete>
+			
 		</voti>
 
 	</query>
