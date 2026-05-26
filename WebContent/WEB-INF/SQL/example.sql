@@ -234,6 +234,31 @@ INSERT INTO `registro_eventi` (`id`, `id_studente`, `id_docente`, `tipo`, `data`
 (2, 2, 2, 'ASSENTE', '2024-03-19', '08:25:00', NULL),
 (3, 3, 3, 'PRESENTE', '2024-03-20', NULL, '12:10:00');
 
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `note_alunni`
+--
+
+CREATE TABLE `note_alunni` (
+  `id` int(11) NOT NULL,
+  `id_studente` int(11) NOT NULL,
+  `id_docente` int(11) NOT NULL,
+  `tipo` enum('DISCIPLINARE','GENERICA') NOT NULL,
+  `testo` text NOT NULL,
+  `data` date NOT NULL,
+  `ora` time NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `note_alunni`
+--
+
+INSERT INTO `note_alunni` (`id`, `id_studente`, `id_docente`, `tipo`, `testo`, `data`, `ora`, `created_at`) VALUES
+(1, 1, 1, 'GENERICA', 'Ha partecipato con attenzione alla lezione.', '2024-03-21', '10:00:00', '2024-03-21 10:00:00'),
+(2, 2, 2, 'DISCIPLINARE', 'Disturbo ripetuto durante la spiegazione.', '2024-03-22', '09:15:00', '2024-03-22 09:15:00');
+
 -- 
 -- Indici per le tabelle scaricate
 --
@@ -297,6 +322,15 @@ ALTER TABLE `registro_eventi`
   ADD UNIQUE KEY `studente_data` (`id_studente`,`data`);
 
 --
+-- Indici per la tabella `note_alunni`
+--
+ALTER TABLE `note_alunni`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_studente` (`id_studente`),
+  ADD KEY `id_docente` (`id_docente`),
+  ADD KEY `data_ora` (`data`,`ora`);
+
+--
 -- AUTO_INCREMENT per le tabelle scaricate
 --
 
@@ -337,6 +371,12 @@ ALTER TABLE `registro_eventi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT per la tabella `note_alunni`
+--
+ALTER TABLE `note_alunni`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Limiti per le tabelle scaricate
 --
 
@@ -374,6 +414,13 @@ ALTER TABLE `voti`
 ALTER TABLE `registro_eventi`
   ADD CONSTRAINT `registro_eventi_ibfk_1` FOREIGN KEY (`id_studente`) REFERENCES `studenti` (`id`),
   ADD CONSTRAINT `registro_eventi_ibfk_2` FOREIGN KEY (`id_docente`) REFERENCES `docenti` (`id`);
+
+--
+-- Limiti per la tabella `note_alunni`
+--
+ALTER TABLE `note_alunni`
+  ADD CONSTRAINT `note_alunni_ibfk_1` FOREIGN KEY (`id_studente`) REFERENCES `studenti` (`id`),
+  ADD CONSTRAINT `note_alunni_ibfk_2` FOREIGN KEY (`id_docente`) REFERENCES `docenti` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
