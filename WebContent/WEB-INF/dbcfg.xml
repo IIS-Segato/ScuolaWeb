@@ -31,5 +31,7 @@
 		<deleteDocente>delete from docenti where did = ?;</deleteDocente>
 		<deleteStudente>delete from studenti where sid = ?;</deleteStudente>
 		<insertMateriaDocente>insert into materie(cid, did, materia) values(?,?,?)</insertMateriaDocente>
+		<updatePasswordStudente>update studenti set password = ? where sid = ?;</updatePasswordStudente>
+		<updatePasswordDocente>update docenti set password = ? where did = ?;</updatePasswordDocente>
 	</query>
 </root>

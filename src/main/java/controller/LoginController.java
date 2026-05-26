@@ -154,6 +154,14 @@ public class LoginController extends HttpServlet {
 
 		// Routing automatico
 		if (studente != null) {
+			Classe classe = null;
+			try {
+				classe = studentiDAO.getClasseByCid(studente.getCid());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("classe", classe); // salvo la classe dello studente nella richiesta
 			request.getRequestDispatcher(
 				"view/role/Studente.jsp"
 			).forward(request, response);

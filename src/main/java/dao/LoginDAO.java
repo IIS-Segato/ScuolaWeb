@@ -16,6 +16,8 @@ public class LoginDAO extends DAO{
 	String checkAmministratore;  // Query per controllare l'esistenza dell'amministratore
 	String checkStudente;		 // Query per controllare l'esistenza dello studente
 	String chekDocente;			 // Query per controllare l'esistenza del docente
+	String updatePasswordStudente;
+	String updatePasswordDocente;
 
 	// Costruttore
 	public LoginDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
@@ -23,6 +25,8 @@ public class LoginDAO extends DAO{
 		checkAmministratore = this.getConf().getCheckAmministratore();
 		checkStudente = this.getConf().getCheckStudente();
 		chekDocente = this.getConf().getCheckDocente();
+		updatePasswordStudente = this.getConf().updatePasswordStudente();
+		updatePasswordDocente = this.getConf().updatePasswordDocente();
 	}
 	
 	/**
@@ -109,5 +113,36 @@ public class LoginDAO extends DAO{
 		
 		return -1;
 	}
+	
+	/**
+	 * Metodo per aggiornare la password di uno Studente
+	 * @param password
+	 * @param did
+	 * @throws SQLException
+	 * @throws NoSuchAlgorithmException
+	 */
+	public void updatePasswordStudente(String password, int sid) throws SQLException, NoSuchAlgorithmException {
+		String passwordHash = encrypt(password); // cripto la password
+		
+		PreparedStatement ps = this.getConn().prepareStatement(updatePasswordStudente);
+		ps.setString(1, passwordHash);
+		ps.setInt(2, sid);
+		ps.executeUpdate();
+	}
 
+	/**
+	 * Metodo per aggiornare la password di un Docente
+	 * @param password
+	 * @param did
+	 * @throws SQLException
+	 * @throws NoSuchAlgorithmException
+	 */
+	public void updatePasswordDocente(String password, int did) throws SQLException, NoSuchAlgorithmException {
+		String passwordHash = encrypt(password); // cripto la password
+		
+		PreparedStatement ps = this.getConn().prepareStatement(updatePasswordDocente);
+		ps.setString(1, passwordHash);
+		ps.setInt(2, did);
+		ps.executeUpdate();
+	}
 }

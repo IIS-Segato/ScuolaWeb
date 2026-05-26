@@ -39,6 +39,8 @@ public class Config {
 	private String deleteDocente;
 	private String insertMateriaDocente;
 	private String deleteStudente;
+	private String updatePasswordStudente;
+	private String updatePasswordDocente;
 	
 	/**
 	 * Costruttore
@@ -101,6 +103,8 @@ public class Config {
 		this.deleteDocente = query.getChildText("deleteDocente").trim();
 		this.insertMateriaDocente = query.getChildText("insertMateriaDocente").trim();
 		this.deleteStudente = query.getChildText("deleteStudente").trim();
+		this.updatePasswordStudente = query.getChildText("updatePasswordStudente").trim();
+		this.updatePasswordDocente = query.getChildText("updatePasswordDocente").trim();
 	}
 
 	// Getter degli attributi
@@ -216,5 +220,11 @@ public class Config {
 		return deleteStudente;
 	}
 	
+	public String updatePasswordStudente() {
+		return updatePasswordStudente;
+	}
 	
+	public String updatePasswordDocente() {
+		return updatePasswordDocente;
+	}
 }

@@ -622,7 +622,7 @@ td {
     </div>
 
 	<div style="display:flex; gap:10px;">
-		<a href="CambioPassword.jsp" class="logout-btn" style="border-color: var(--border-hi); color: var(--accent);">
+		<a href="view/role/CambioPassword.jsp" class="logout-btn" style="border-color: var(--border-hi); color: var(--accent);">
 		  <svg viewBox="0 0 24 24">
 		    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
 		    <path d="M7 11V7a5 5 0 0110 0v4"/>
