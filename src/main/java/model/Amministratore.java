@@ -15,7 +15,7 @@ public class Amministratore implements Serializable {
 	private ArrayList<Studente> studenti;
 	private ArrayList<Docente> docenti; 
 	private ArrayList<Classe> classi;
-	
+	private ArrayList<Materia> materie;
 
 	// Getter e setter
 	public String getEmail() {
@@ -55,6 +55,14 @@ public class Amministratore implements Serializable {
 
 	public void setClassi(ArrayList<Classe> classi) {
 		this.classi = classi;
+	}
+
+	public ArrayList<Materia> getMaterie() {
+		return materie;
+	}
+
+	public void setMaterie(ArrayList<Materia> materie) {
+		this.materie = materie;
 	}
 	
 	

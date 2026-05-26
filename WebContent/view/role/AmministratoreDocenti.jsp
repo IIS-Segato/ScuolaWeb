@@ -82,7 +82,7 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
       </div>
       <span class="brand-name">Registro Elettronico</span>
     </div>
-    <a href="logout" class="back-btn">← Torna alla Dashboard</a>
+    <a href="/ScuolaWeb/login" class="back-btn">← Torna alla Dashboard</a>
   </div>
 
   <!-- SEZIONE GESTIONE DOCENTI -->
