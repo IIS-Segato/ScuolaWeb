@@ -77,7 +77,7 @@ public class AnnuncioController extends HttpServlet{
 				
 				request.setAttribute("annunci", annunci);
 				
-				view = "";
+				view = "/notizie_private.jsp";
 				
 			}
 			else if(ACTION_GET_BY_ID.equals(action)) {

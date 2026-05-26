@@ -71,13 +71,11 @@ public class UtenteController extends HttpServlet{
 				
 			}
 			else if(ACTION_GET_ALL.equals(action)) {
-				if(id != null) {
-					utenti = utenteDao.getAll();
-					
-					request.setAttribute("utenti", utenti);
-					
-					view = "";
-				}
+				utenti = utenteDao.getAll();
+				
+				request.setAttribute("utenti", utenti);
+				
+				view = "";
 				
 			}
 			else if(ACTION_GET_BY_ID.equals(action)) {
