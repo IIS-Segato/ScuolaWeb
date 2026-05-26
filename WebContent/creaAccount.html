@@ -41,6 +41,10 @@
             border-radius: 10px;
             text-decoration: none;
         }
+        
+        #docenteDiv {
+        	display: none;
+        }
 
     </style>
 </head>
@@ -80,10 +84,54 @@
             <div class="mb-3">
                 <label>Ruolo</label>
 
-                <select class="form-select">
+                <select class="form-select" id="roleSelect">
                     <option>Studente</option>
                     <option>Docente</option>
                 </select>
+            </div>
+            
+            <div class="mb-3" id="docenteDiv">
+                <label class="form-label">Materie</label>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="materie" value="elettronica">
+                    <label class="form-check-label">Elettronica</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="materie" value="informatica">
+                    <label class="form-check-label">Informatica</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="materie" value="inglese">
+                    <label class="form-check-label">Inglese</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="materie" value="italiano">
+                    <label class="form-check-label">Italiano</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="materie" value="matematica">
+                    <label class="form-check-label">Matematica</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="materie" value="scienze_motorie">
+                    <label class="form-check-label">Scienze motorie</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="materie" value="sistemi_reti">
+                    <label class="form-check-label">Sistemi e reti</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="materie" value="storia">
+                    <label class="form-check-label">Storia</label>
+                </div>
             </div>
 
             <button class="btn btn-success">
@@ -95,6 +143,22 @@
     </div>
 
 </div>
+<script>
+    const select = document.getElementById("roleSelect");
+    const docenteDiv = document.getElementById("docenteDiv");
+    const inputCheck = document.querySelectorAll(".form-check-input");
 
+    select.addEventListener("change", function () {
+        if (this.value === 'Docente') {
+            docenteDiv.style.display = "block"
+            
+        } else {
+            docenteDiv.style.display = "none"
+            inputCheck.forEach( el => {
+                el.checked = false
+            })
+        }
+    });
+</script>
 </body>
 </html>

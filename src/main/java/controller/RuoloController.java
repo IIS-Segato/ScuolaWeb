@@ -77,7 +77,7 @@ public class RuoloController extends HttpServlet{
 				
 				request.setAttribute("ruoli", ruoli);
 				
-				view = "";
+				view = "/view/role/index.jsp";
 				
 			}
 			else if(ACTION_GET_BY_ID.equals(action)) {
@@ -86,7 +86,7 @@ public class RuoloController extends HttpServlet{
 					
 					request.setAttribute("ruolo", ruolo);
 					
-					view = "";
+					view = "/view/role/edit.jsp";
 				}
 				
 			}

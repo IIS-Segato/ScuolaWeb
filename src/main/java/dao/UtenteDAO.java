@@ -143,6 +143,8 @@ public class UtenteDAO extends AbstractDAO{
 		return isUpdated;
 	}
 	
+	
+	
 	public boolean delete(int id) {
 		boolean isDeleted = false;
 		
@@ -161,5 +163,35 @@ public class UtenteDAO extends AbstractDAO{
 		}
 		
 		return isDeleted;
+	}
+	
+	public Utente getByUsername(String username) {
+
+	    Utente u = null;
+
+	    String sql = "SELECT * FROM utenti WHERE username = ?";
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setString(1, username);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+
+	            if (rs.next()) {
+	                u = new Utente();
+	                u.setId(rs.getInt("id_utente"));
+	                u.setUsername(rs.getString("username"));
+	                u.setPassword_hash(rs.getString("password_hash"));
+	                u.setId_persona(rs.getInt("id_persona"));
+	                u.setId_ruolo(rs.getInt("id_ruolo"));
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return u;
 	}
 }

@@ -76,7 +76,7 @@ public class VotoController extends HttpServlet {
 				
 				request.setAttribute("voti", voti);
 				
-				view = "";
+				view = "/voti.jsp";
 				
 			}
 			else if(ACTION_GET_BY_ID.equals(action)) {
@@ -85,7 +85,7 @@ public class VotoController extends HttpServlet {
 					
 					request.setAttribute("voto", voto);
 					
-					view = "";
+					view = "/voti.jsp";
 				}
 				
 			}

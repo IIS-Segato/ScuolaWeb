@@ -1,67 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
+<%@ page import="dao.UtenteDAO" %>
+<%@ page import="model.Utente" %>
 
 <%
     String username = request.getParameter("username");
     String password = request.getParameter("password");
-
-    boolean loginCorretto = false;
     String error = "";
-
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
 
     if (username != null && password != null) {
 
         try {
 
-            // ADMIN LOGIN (senza DB)
             if (username.equals("admin") && password.equals("admin4321")) {
-
                 session.setAttribute("utente", username);
                 response.sendRedirect("admin.html");
                 return;
             }
 
-            // JDBC LOGIN
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            UtenteDAO dao = new UtenteDAO("config.xml");
+            Utente u = dao.getByUsername(username);
 
-            conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/scuola",
-                "root",
-                "password"
-            );
-
-            String sql = "SELECT * FROM utenti WHERE username=? AND password=?";
-
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, username);
-            ps.setString(2, password);
-
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-
-                session.setAttribute("utente", username);
+            if (u != null && u.getPassword_hash().equals(password)) {
+                session.setAttribute("utente", u);
                 response.sendRedirect("home.jsp");
                 return;
-
             } else {
-                error = "Username o password errati";
+                error = "Credenziali non valide";
             }
 
         } catch (Exception e) {
-            error = "Errore: " + e.getMessage();
-        } finally {
-
-            try { if (rs != null) rs.close(); } catch (Exception e) {}
-            try { if (ps != null) ps.close(); } catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
+            error = "Errore server";
         }
-
-    } else {
-        error = "Inserire username e password";
     }
 %>
 
@@ -69,102 +38,93 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 
-    <title>Login - Istituto Segato-Brustolon</title>
+    <!-- BOOTSTRAP 5 CDN (IMPORTANTISSIMO) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="WEB-INF/lib/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            width: 60px;
+        }
+
+        .eye-btn {
+            border: none;
+            background: #e5e7eb;
+            border-radius: 10px;
+            width: 60px;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Banner -->
-    <div id="banner">
-        <div id="logo">
-            <img src="imgs/logoscuola.png" alt="Logo Scuola">
-            <div>
-                <h2>AREA PERSONALE</h2>
-                <small style="color:white; opacity:0.8;">
-                    Accesso studenti e docenti
-                </small>
+<div class="container h-100 d-flex align-items-center justify-content-center">
+
+    <div class="col-md-5 col-lg-4">
+
+        <!-- CARD LOGIN -->
+        <div class="card glass p-4">
+
+            <!-- HEADER -->
+            <div class="text-center mb-3">
+                <img src="imgs/logoscuola.png" class="logo mb-2">
+                <h4 class="fw-bold">Area Personale</h4>
+                <small class="text-muted">Accesso studenti e docenti</small>
             </div>
-        </div>
-    </div>
 
-    <!-- Indietro -->
-    <a id="indietro" href="homepage.html">← Indietro</a>
+            <!-- ERROR -->
+            <% if (!error.equals("")) { %>
+                <div class="alert alert-danger py-2 text-center">
+                    <%= error %>
+                </div>
+            <% } %>
 
-    <!-- Messaggio errore -->
-    <%
-        if (!error.equals("")) {
-    %>
-        <div style="color:red; text-align:center; margin-top:10px;">
-            <%= error %>
-        </div>
-    <%
-        }
-    %>
+            <!-- FORM -->
+            <form method="post">
 
-    <!-- Blocco login -->
-    <div class="center-block">
-        <form action="login.jsp" method="post">
+                <div class="mb-3">
+                    <input type="text" name="username" class="form-control form-control-lg" placeholder="Username" required>
+                </div>
 
-            <input type="text"
-                   name="username"
-                   class="form-control"
-                   placeholder="Username"
-                   required>
+                <div class="input-group mb-3">
+                    <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Password" required>
 
-            <div class="input-group">
+                    <button type="button" class="eye-btn" id="toggle">👁</button>
+                </div>
 
-                <input type="password"
-                       name="password"
-                       class="form-control"
-                       placeholder="Password"
-                       id="passwordInput"
-                       required>
-
-                <button type="button" id="showPswButton">
-                    <img src="imgs/closedEye.png" alt="mostra password">
+                <button type="submit" class="btn btn-success btn-lg w-100">
+                    Accedi
                 </button>
 
-            </div>
+            </form>
 
-            <button type="submit" id="submitButton">
-                Accedi
-            </button>
+        </div>
 
-        </form>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center mt-5 p-4"
-            style="background:#146c5c;color:white;">
+</div>
 
-        <h5>Istituto di Istruzione Superiore</h5>
-        <h5>SEGATO-BRUSTOLON</h5>
-        <br>
-        <p>Via J. Tasso, 11 32100 - Belluno BL</p>
-        <p>Tel: +39 0437 940159</p>
-        <p>Email: blis011002@istruzione.it</p>
-    </footer>
+<script>
+    const input = document.getElementById("password");
+    const btn = document.getElementById("toggle");
 
-    <script>
-        const buttonShow = document.getElementById('showPswButton');
-        const input = document.getElementById('passwordInput');
-        const img = document.querySelector('#showPswButton img');
-
-        buttonShow.addEventListener('click', () => {
-            if (input.type === 'password') {
-                input.type = 'text';
-                img.src = 'imgs/openEye.png';
-            } else {
-                input.type = 'password';
-                img.src = 'imgs/closedEye.png';
-            }
-        });
-    </script>
+    btn.addEventListener("click", () => {
+        input.type = input.type === "password" ? "text" : "password";
+    });
+</script>
 
 </body>
 </html>
