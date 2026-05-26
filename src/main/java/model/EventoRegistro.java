@@ -110,8 +110,8 @@ public class EventoRegistro {
 
 	@Override
 	public String toString() {
-		return "EventoRegistro [id=" + id + ", idStudente=" + idStudente + ", idDocente=" + idDocente + ", tipo="
-				+ tipo + ", data=" + data + ", oraIngresso=" + oraIngresso + ", oraUscita=" + oraUscita + ", note="
-				+ note + "]";
+		return "EventoRegistro [id=" + id + ", idStudente=" + idStudente + ", idDocente=" + idDocente + ", tipo=" + tipo
+				+ ", data=" + data + ", oraIngresso=" + oraIngresso + ", oraUscita=" + oraUscita + ", note=" + note
+				+ "]";
 	}
 }

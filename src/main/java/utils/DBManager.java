@@ -47,7 +47,8 @@ public class DBManager {
 			}
 		}
 
-		// Fallback utile in esecuzioni Eclipse/Tomcat dove il context non e disponibile.
+		// Fallback utile in esecuzioni Eclipse/Tomcat dove il context non e
+		// disponibile.
 		return DBManager.class.getClassLoader().getResource("../../WEB-INF/dbcfg.xml").getPath();
 	}
 }

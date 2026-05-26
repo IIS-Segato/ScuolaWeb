@@ -81,7 +81,8 @@ public class StudenteServlet extends HttpServlet {
 		Classe classe = studenteDao.getClasseByStudente(idStudente);
 		List<Docente> professori = docenteDao.getDocentiByStudente(idStudente);
 		List<Voto> voti = votoDao.getAllByStudente(idStudente);
-		List<Studente> compagni = classe != null ? studenteDao.getByClasse(classe.getId()) : java.util.Collections.emptyList();
+		List<Studente> compagni = classe != null ? studenteDao.getByClasse(classe.getId())
+				: java.util.Collections.emptyList();
 
 		req.setAttribute("studente", studente);
 		req.setAttribute("classe", classe);

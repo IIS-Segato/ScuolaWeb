@@ -244,7 +244,8 @@ public class RegistroServlet extends HttpServlet {
 		String mese = req.getParameter("mese");
 		if (mese == null || mese.isBlank()) {
 			// Se non scelgo il mese, apro l'ultimo mese con assenze registrate.
-			String ultimoMese = idClasse > 0 ? registroDao.getUltimoMeseByClasse(idClasse) : registroDao.getUltimoMese();
+			String ultimoMese = idClasse > 0 ? registroDao.getUltimoMeseByClasse(idClasse)
+					: registroDao.getUltimoMese();
 			if (ultimoMese != null) {
 				return ultimoMese;
 			}

@@ -127,6 +127,30 @@ Sono presenti:
 
 ___
 
+# Gestione note alunni
+
+La gestione note permette ai docenti di inserire note generiche o disciplinari per gli alunni delle proprie classi.  
+Ogni nota richiede studente, tipo, testo, data e ora.
+
+La visualizzazione cambia in base al ruolo:
+
+- lo studente vede solo le proprie note
+- il docente vede le note degli studenti delle sue classi
+- il docente puo modificare o cancellare solo le note inserite da lui
+- admin e segreteria possono consultare le note registrate
+
+Sono presenti controlli per evitare che un docente inserisca, modifichi o cancelli note di studenti non assegnati.
+
+Sono presenti:
+
+- `NotaServlet`
+- `NotaDao`
+- modello `Nota`
+- `note.jsp`
+- `formNota.jsp`
+
+___
+
 # Database
 
 Il database contiene le tabelle principali:
@@ -138,6 +162,7 @@ Il database contiene le tabelle principali:
 - `classi`
 - `docenti_classi`
 - `voti`
+- `note_alunni`
 
 La connessione viene configurata tramite il file:
 
