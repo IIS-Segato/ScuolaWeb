@@ -37,7 +37,6 @@ public class ClassiDAO {
                 c.setId(rs.getInt("ID_C"));
                 c.setSezione(rs.getString("SEZIONE"));
                 c.setAnno(rs.getInt("ANNO"));
-                c.setNumeroStudenti(rs.getInt("N_STUDENTI"));
             }
 
         } catch (SQLException e) {
@@ -61,7 +60,6 @@ public class ClassiDAO {
                 c.setId(rs.getInt("ID_C"));
                 c.setSezione(rs.getString("SEZIONE"));
                 c.setAnno(rs.getInt("ANNO"));
-                c.setNumeroStudenti(rs.getInt("N_STUDENTI"));
                 lista.add(c);
             }
 
@@ -77,7 +75,7 @@ public class ClassiDAO {
         List<Classe> lista = new ArrayList<>();
 
         String sql =
-            "SELECT DISTINCT C.ID_C, C.SEZIONE, C.ANNO, C.N_STUDENTI " +
+            "SELECT DISTINCT C.ID_C, C.SEZIONE, C.ANNO " +
             "FROM ORARIO O " +
             "JOIN CLASSI C ON O.ID_C = C.ID_C " +
             "WHERE O.ID_D = ? " +
@@ -94,7 +92,6 @@ public class ClassiDAO {
                 c.setId(rs.getInt("ID_C"));
                 c.setSezione(rs.getString("SEZIONE"));
                 c.setAnno(rs.getInt("ANNO"));
-                c.setNumeroStudenti(rs.getInt("N_STUDENTI"));
                 lista.add(c);
             }
 

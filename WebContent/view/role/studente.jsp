@@ -82,10 +82,6 @@
           <div class="stat-value"><%= classe != null ? classe.getSezione() : "—" %></div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Compagni</div>
-          <div class="stat-value"><%= classe != null ? classe.getNumeroStudenti() : "—" %></div>
-        </div>
-        <div class="stat-card">
           <div class="stat-label">Ore settimanali</div>
           <div class="stat-value"><%= orario != null ? orario.size() : "0" %></div>
         </div>
@@ -125,7 +121,6 @@
             <tr>
               <th>Sezione</th>
               <th>Anno</th>
-              <th>Numero studenti</th>
             </tr>
           </thead>
           <tbody>
@@ -133,7 +128,6 @@
             <tr>
               <td><%= classe.getSezione() %></td>
               <td><%= classe.getAnno() %>&deg</td>
-              <td><%= classe.getNumeroStudenti() %></td>
             </tr>
             <% } else { %>
             <tr><td colspan="3" style="color:var(--text-muted);text-align:center;padding:24px;">Nessuna classe trovata</td></tr>

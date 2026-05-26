@@ -14,7 +14,7 @@ public class StudenteDAO {
     private static final String PASSWORD = "";
 
     private static final String SQL_CLASSE_STUDENTE =
-        "SELECT C.ID_C, C.SEZIONE, C.ANNO, C.N_STUDENTI " +
+        "SELECT C.ID_C, C.SEZIONE, C.ANNO " +
         "FROM STUDENTI S " +
         "JOIN CLASSI C ON S.ID_C = C.ID_C " +
         "WHERE S.ID_S = ?";
@@ -59,7 +59,6 @@ public class StudenteDAO {
                     c.setId(rs.getInt("ID_C"));
                     c.setSezione(rs.getString("SEZIONE"));
                     c.setAnno(rs.getInt("ANNO"));
-                    c.setNumeroStudenti(rs.getInt("N_STUDENTI"));
                     return c;
                 }
             }

@@ -4,7 +4,6 @@ public class Classe {
     private int id;
     private String sezione;
     private int anno;
-    private int numeroStudenti;
 
     public int getId() {
         return id;
@@ -27,10 +26,4 @@ public class Classe {
         this.anno = anno;
     }
 
-    public int getNumeroStudenti() {
-        return numeroStudenti;
-    }
-    public void setNumeroStudenti(int numeroStudenti) {
-        this.numeroStudenti = numeroStudenti;
-    }
 }
