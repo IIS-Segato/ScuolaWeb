@@ -218,6 +218,13 @@ public class AmministratoreDAO extends DAO {
 		ps.executeUpdate();
 	}
 	
+	public void deleteStudente(int sid) throws SQLException {
+		String deleteStudente = this.getConf().deleteStudente();
+		PreparedStatement ps = this.getConn().prepareStatement(deleteStudente);
+		ps.setInt(1, sid);
+		ps.executeUpdate();
+	}
+	
 	
 	
 	/**

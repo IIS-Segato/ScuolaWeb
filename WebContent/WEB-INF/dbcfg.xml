@@ -29,6 +29,7 @@
 		<getVotiByStudente>select * from voti where sid = ? order by data desc;</getVotiByStudente>
 		<getMaterie>select * from materie;</getMaterie>
 		<deleteDocente>delete from docenti where did = ?;</deleteDocente>
+		<deleteStudente>delete from studenti where sid = ?;</deleteStudente>
 		<insertMateriaDocente>insert into materie(cid, did, materia) values(?,?,?)</insertMateriaDocente>
 	</query>
 </root>
