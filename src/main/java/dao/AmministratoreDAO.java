@@ -14,8 +14,6 @@ import model.Docente;
 import model.Materia;
 import model.Studente;
 
-import dao.DocentiDAO;
-
 
 /**
  * Classe AmministratoreDAO.java per la gestione degli amministratori
@@ -164,6 +162,7 @@ public class AmministratoreDAO extends DAO {
 			Classe c = new Classe();
 			c.setSezione(rs.getString("sezione"));
 			c.setAnno(rs.getInt("anno"));
+			c.setCid(rs.getInt("cid"));
 			
 			String getMaterie = this.getConf().getMaterieClasse();
 			ArrayList<String> materie = new ArrayList<>();
@@ -203,6 +202,22 @@ public class AmministratoreDAO extends DAO {
 		return materie;
 	}
 	
+	public void deleteDocente(int did) throws SQLException {
+		String deleteDocente = this.getConf().deleteDocente();
+		PreparedStatement ps = this.getConn().prepareStatement(deleteDocente);
+		ps.setInt(1, did);
+		ps.executeUpdate();
+	}
+	
+	public void insertMateriaDocente(int cid, int did, String materia) throws SQLException {
+		String insertMateriaDocente = this.getConf().insertMateriaDocente();
+		PreparedStatement ps = this.getConn().prepareStatement(insertMateriaDocente);
+		ps.setInt(1, cid);
+		ps.setInt(2, did);
+		ps.setString(3, materia);
+		ps.executeUpdate();
+	}
+	
 	
 	
 	/**
@@ -236,6 +251,7 @@ public class AmministratoreDAO extends DAO {
 			a.setMaterie(getMaterie());
 			a.setEmail(email);
 			a.setPassword(password);
+			a.setAid(aid);
 		}
 		return a;
 	}

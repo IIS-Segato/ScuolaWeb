@@ -9,7 +9,8 @@
         response.sendRedirect("login.jsp");
         return;
     }
-
+	
+    int aid = amministratore.getAid();
     ArrayList<Docente> docenti = amministratore.getDocenti();
     ArrayList<Classe> classi = amministratore.getClassi();
 %>
@@ -93,6 +94,7 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
 
     <!-- AGGIUNTA DOCENTE -->
     <form action="/ScuolaWeb/InsertDocenteController" method="post" class="add-form">
+      <input type="hidden" name="aid" value="<%= aid %>">
       <input type="text" name="nome" placeholder="Nome" required>
       <input type="text" name="cognome" placeholder="Cognome" required>
       <input type="email" name="email" placeholder="Email" required>
@@ -103,8 +105,8 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
     <br>
 
     <!-- ASSEGNA MATERIA -->
-    <form action="AssegnaMateriaDocenteController" method="post" class="add-form">
-
+    <form action="/ScuolaWeb/InsertMateriaDocenteController" method="post" class="add-form">
+	  <input type="hidden" name="aid" value="<%= aid %>">
       <select name="docente" required>
         <% if (docenti != null && !docenti.isEmpty()) {
               for(Docente d : docenti){ %>
@@ -200,8 +202,9 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
 			  </td>
 
               <td>
-                <form action="RimuoviDocenteController" method="post" style="display:inline;">
+                <form action="/ScuolaWeb/EliminaDocenteController" method="post" style="display:inline;">
                   <input type="hidden" name="did" value="<%= d.getDid() %>">
+                  <input type="hidden" name="aid" value="<%= aid %>">
                   <button type="submit" class="action-btn del-btn">Rimuovi</button>
                 </form>
               </td>

@@ -36,6 +36,8 @@ public class Config {
 	private String deleteVoto;
 	private String getVotiByStudente;
 	private String getMaterie;
+	private String deleteDocente;
+	private String insertMateriaDocente;
 	
 	/**
 	 * Costruttore
@@ -95,7 +97,8 @@ public class Config {
 		this.deleteVoto = query.getChildText("deleteVoto").trim();
 		this.getVotiByStudente = query.getChildText("getVotiByStudente").trim();
 		this.getMaterie = query.getChildText("getMaterie").trim();
-		
+		this.deleteDocente = query.getChildText("deleteDocente").trim();
+		this.insertMateriaDocente = query.getChildText("insertMateriaDocente").trim();
 	}
 
 	// Getter degli attributi
@@ -197,6 +200,14 @@ public class Config {
 
 	public String getMaterie() {
 		return getMaterie;
+	}
+
+	public String deleteDocente() {
+		return deleteDocente;
+	}
+
+	public String insertMateriaDocente() {
+		return insertMateriaDocente;
 	}
 	
 	

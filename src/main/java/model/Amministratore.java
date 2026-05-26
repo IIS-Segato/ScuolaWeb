@@ -12,6 +12,7 @@ public class Amministratore implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String email;
 	private String password;
+	private int aid;
 	private ArrayList<Studente> studenti;
 	private ArrayList<Docente> docenti; 
 	private ArrayList<Classe> classi;
@@ -63,6 +64,14 @@ public class Amministratore implements Serializable {
 
 	public void setMaterie(ArrayList<Materia> materie) {
 		this.materie = materie;
+	}
+
+	public int getAid() {
+		return aid;
+	}
+
+	public void setAid(int aid) {
+		this.aid = aid;
 	}
 	
 	

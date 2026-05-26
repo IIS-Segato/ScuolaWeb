@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletConfig;
@@ -18,25 +16,24 @@ import org.jdom2.JDOMException;
 import dao.AmministratoreDAO;
 import dao.DocentiDAO;
 import model.Amministratore;
-import model.Docente;
 
 /**
- * Servlet implementation class InsertDocenteController
+ * Servlet implementation class EliminaDocenteController
  */
-@WebServlet("/InsertDocenteController")
-public class InsertDocenteController extends HttpServlet {
+@WebServlet("/EliminaDocenteController")
+public class EliminaDocenteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AmministratoreDAO amministratoreDAO;
 	private DocentiDAO docentiDAO;
-	
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertDocenteController() {
+    public EliminaDocenteController() {
         super();
         // TODO Auto-generated constructor stub
     }
-    
+
     /**
 	 * Inizializzazione della servlet
 	 */
@@ -51,43 +48,15 @@ public class InsertDocenteController extends HttpServlet {
 		} 
 	}
 
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Recupero i parametri dal form
-		String nome = (String)request.getParameter("nome");
-		String cognome = (String)request.getParameter("cognome");
-		String email = (String)request.getParameter("email");
-		String password = (String) request.getParameter("password");
+		int did = Integer.parseInt(request.getParameter("did"));
 		int aid = Integer.parseInt(request.getParameter("aid"));
-		Docente docente = new Docente();	
-		docente.setNome(nome);
-		docente.setCognome(cognome);
-		docente.setEmail(email);
-		
-		MessageDigest messageDigest = null;
-		try {
-			messageDigest = MessageDigest.getInstance("SHA-256");
-		} catch (NoSuchAlgorithmException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-        byte[] hash = messageDigest.digest(password.getBytes());
-        StringBuilder stringBuilder = new StringBuilder();
-        for (byte b : hash) {
-            stringBuilder.append(String.format("%02x", b));
-        }
-		docente.setPassword(stringBuilder.toString());
 		
 		try {
-			try {
-				amministratoreDAO.insertDocente(docente);
-			} catch (ClassNotFoundException | JDOMException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			amministratoreDAO.deleteDocente(did);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,7 +64,7 @@ public class InsertDocenteController extends HttpServlet {
 		
 		// creo l'amministratore
 		Amministratore amministratore = null;
-		
+				
 		try {
 			amministratore = amministratoreDAO.getAmministratore(aid, docentiDAO);
 		} catch (SQLException e) {
@@ -110,8 +79,9 @@ public class InsertDocenteController extends HttpServlet {
 		// crea una sessione se questa non esiste
 		HttpSession session = request.getSession();
 		session.setAttribute("amministratore", amministratore); // salvo l'amministratore in sessione
-				
-		response.sendRedirect("view/role/AmministratoreDocenti.jsp"); // ritorno alla pagina della Classe del Docente
+						
+		response.sendRedirect("view/role/AmministratoreDocenti.jsp"); // ritorno alla pagina della Classe del Docente		
+
 	}
 
 }
