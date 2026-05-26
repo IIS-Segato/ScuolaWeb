@@ -52,7 +52,6 @@ public class LoginController extends HttpServlet{
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String view = null;
-		Ruolo ruolo = null;
 
 		try {
 			
@@ -60,12 +59,10 @@ public class LoginController extends HttpServlet{
             
             if (session != null && session.getAttribute("utenteId") != null) {
                 // L'utente è già loggato! Controlliamo il ruolo per mandarlo alla homepage corretta
-                Integer idRuolo = (Integer) session.getAttribute("idRuolo");
-                ruolo = ruoloDao.getById(idRuolo);
-                
-                if (ruolo.getNome_ruolo().equals("STUDENTE")) {
+                String nomeRuolo = (String) session.getAttribute("nomeRuolo");                
+                if (nomeRuolo.equals("STUDENTE")) {
                     response.sendRedirect(request.getContextPath() + "/DocentiController"); 
-                } else if (ruolo.getNome_ruolo().equals("DOCENTE")) {
+                } else if (nomeRuolo.equals("DOCENTE")) {
                     response.sendRedirect(request.getContextPath() + "/ClassiDocentiController");
                 } else {
                     response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -88,6 +85,8 @@ public class LoginController extends HttpServlet{
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Ruolo ruolo = null;
+		
 		try {
 	        String action = request.getParameter("action");
 	        
@@ -103,7 +102,8 @@ public class LoginController extends HttpServlet{
 	                HttpSession session = request.getSession(true); 
 	                
 	                session.setAttribute("utenteId", utenteLoggato.getId());
-	                session.setAttribute("idRuolo", utenteLoggato.getId_ruolo()); // es. 1 per Studente, 2 per Docente
+	                ruolo = ruoloDao.getById(utenteLoggato.getId_ruolo());
+	                session.setAttribute("nomeRuolo", ruolo.getNome_ruolo()); // es. 1 per Studente, 2 per Docente
 	                session.setAttribute("username", utenteLoggato.getUsername());
 	                
 	                // Rimandiamo al doGet di questo stesso controller per lo smistamento alla homepage corretta

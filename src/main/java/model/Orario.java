@@ -12,6 +12,7 @@ public class Orario {
     private String cognomeDocente;
     private String nomeDocente;
     private String nomeAula;
+    private String nomeClasse;
 
     // Aggiungi qui i relativi Getter e Setter per ognuno di questi campi
     public String getNomeMateria() {
@@ -87,4 +88,10 @@ public class Orario {
     public void setOra_fine(String ora_fine) {
         this.ora_fine = ora_fine;
     }
+	public String getNomeClasse() {
+		return nomeClasse;
+	}
+	public void setNomeClasse(String nomeClasse) {
+		this.nomeClasse = nomeClasse;
+	}
 }

@@ -33,23 +33,33 @@ public class OrarioController extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
-            // CONTROLLO DI SICUREZZA: L'utente è loggato?
             HttpSession session = request.getSession(false);
             if (session == null || session.getAttribute("utenteId") == null) {
                 response.sendRedirect(request.getContextPath() + "/LoginController");
                 return;
             }
 
-            // Se l'azione è null o GETALL, carichiamo l'orario completo di dettagli testuali
-            if (action == null || "GETALL".equals(action)) {
-                
-                // MODIFICATO: Usiamo il nuovo metodo con le INNER JOIN
-                List<Orario> list = dao.getAllWithDetails(); 
+            // Recuperiamo il ruolo dalla sessione per decidere cosa mostrare
+            String nomeRuolo = (String) session.getAttribute("nomeRuolo");
+            Integer idUtente = (Integer) session.getAttribute("utenteId");
+            
+            List<Orario> list;
 
-                request.setAttribute("orari", list);
-                request.getRequestDispatcher("/orario.jsp").forward(request, response);
-                return;
+            // Se l'utente è DOCENTE (supponiamo idRuolo = 2)
+            if (nomeRuolo.equals("DOCENTE")) {
+                // Mostriamo solo l'orario del docente loggato
+                list = dao.getByDocente(idUtente);
+            } 
+            // Se è STUDENTE o altro
+            else if (nomeRuolo.equals("STUDENTE")) {
+                // Mostriamo l'orario completo o potresti filtrare per classe dello studente
+                list = dao.getAllWithDetails();
+            } else {
+            	list = null;
             }
+
+            request.setAttribute("orari", list);
+            request.getRequestDispatcher("/orario.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
