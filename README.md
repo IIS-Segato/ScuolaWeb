@@ -1,5 +1,4 @@
 # Scuola Web
-
 Applicazione web per la gestione di un portale scolastico con login, sessioni e
 ruoli differenti per admin, docenti e studenti.
 
@@ -28,6 +27,10 @@ ruoli differenti per admin, docenti e studenti.
 - **Enrico**: controller.
 - **Luan**: database e JDBC.
 - **Zappa**: struttura pagine e navigazione.
+
+## Credenziali d'accesso
+Utente Admin: username:admin, password:admin
+Utente Insegnante: username:teacher1, password:teacher
 
 ## Obiettivo
 Interfaccia simile a Argo DidUp, con pagine collegate in base al tipo di utente
