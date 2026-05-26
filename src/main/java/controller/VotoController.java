@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Voto;
 
 @WebServlet("/VotoController")
@@ -53,7 +54,7 @@ public class VotoController extends HttpServlet {
 		try {
 		    
 		    // CONTROLLO DI SICUREZZA: L'utente è loggato?
-		    jakarta.servlet.http.HttpSession session = request.getSession(false);
+		    HttpSession session = request.getSession(false);
 		    if (session == null || session.getAttribute("utenteId") == null) {
 		        response.sendRedirect(request.getContextPath() + "/LoginController");
 		        return;
@@ -74,5 +75,39 @@ public class VotoController extends HttpServlet {
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String action = request.getParameter("action");
+	    HttpSession session = request.getSession(false);
+
+	    // Sicurezza: Solo i docenti possono inserire voti
+	    if (session == null || !"DOCENTE".equals(session.getAttribute("nomeRuolo"))) {
+	        response.sendRedirect("LoginController");
+	        return;
+	    }
+
+	    if ("INSERT".equals(action)) {
+	        try {
+	            int idStudente = Integer.parseInt(request.getParameter("id_studente"));
+	            int idInsegnamento = Integer.parseInt(request.getParameter("id_insegnamento"));
+	            int voto = Integer.parseInt(request.getParameter("voto"));
+	            String dataVoto = request.getParameter("data_voto");
+	            String descrizione = request.getParameter("descrizione");
+
+	            // Chiamata al DAO per l'inserimento
+	            boolean success = votoDao.insert(idStudente, idInsegnamento, voto, dataVoto, descrizione);
+
+	            if (success) {
+	                response.sendRedirect("VotoController?msg=success");
+	            } else {
+	                request.setAttribute("errore", "Inserimento fallito.");
+	                request.getRequestDispatcher("/aggiungiVoto.jsp").forward(request, response);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            response.sendError(500, "Errore durante l'inserimento del voto");
+	        }
+	    }
 	}
 }
