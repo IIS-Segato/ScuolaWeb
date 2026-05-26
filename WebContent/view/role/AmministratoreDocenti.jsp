@@ -92,7 +92,7 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
     </div>
 
     <!-- AGGIUNTA DOCENTE -->
-    <form action="<%= request.getContextPath() %>/InsertDocenteController" method="post" class="add-form">
+    <form action="/ScuolaWeb/InsertDocenteController" method="post" class="add-form">
       <input type="text" name="nome" placeholder="Nome" required>
       <input type="text" name="cognome" placeholder="Cognome" required>
       <input type="email" name="email" placeholder="Email" required>

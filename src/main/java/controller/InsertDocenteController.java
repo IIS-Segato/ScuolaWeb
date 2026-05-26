@@ -72,7 +72,7 @@ public class InsertDocenteController extends HttpServlet {
 			e.printStackTrace();
 		}
 				
-		response.sendRedirect(request.getContextPath() + "/AmministratoreDocenti"); // ritorno alla pagina della Classe del Docente
+		response.sendRedirect("view/role/AmministratoreDocenti.jsp"); // ritorno alla pagina della Classe del Docente
 	}
 
 }
