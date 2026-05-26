@@ -621,14 +621,24 @@ td {
       <span class="brand-name">Registro elettronico</span>
     </div>
 
-    <a href="logout" class="logout-btn">
-      <svg viewBox="0 0 24 24">
-        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-        <polyline points="16 17 21 12 16 7"/>
-        <line x1="21" y1="12" x2="9" y2="12"/>
-      </svg>
-      Esci
-    </a>
+	<div style="display:flex; gap:10px;">
+		<a href="CambioPassword.jsp" class="logout-btn" style="border-color: var(--border-hi); color: var(--accent);">
+		  <svg viewBox="0 0 24 24">
+		    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+		    <path d="M7 11V7a5 5 0 0110 0v4"/>
+		  </svg>
+		  Cambia password
+		</a>
+		
+	    <a href="logout" class="logout-btn">
+	      <svg viewBox="0 0 24 24">
+	        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+	        <polyline points="16 17 21 12 16 7"/>
+	        <line x1="21" y1="12" x2="9" y2="12"/>
+	      </svg>
+	      Esci
+	    </a>
+	 </div>
 
   </div>
 
