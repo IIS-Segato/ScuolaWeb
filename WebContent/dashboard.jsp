@@ -95,6 +95,15 @@ body {
                 </div>
             </a>
         </div>
+
+        <div class="col-md-4">
+            <a href="NotaServlet?action=list" class="text-decoration-none text-dark">
+                <div class="card card-hover p-4">
+                    <h4>Note alunni</h4>
+                    <p class="text-muted">Consulta le note generiche e disciplinari.</p>
+                </div>
+            </a>
+        </div>
         <% } %>
 
         <%-- INSEGNANTE --%>
@@ -122,6 +131,15 @@ body {
                 <div class="card card-hover p-4">
                     <h4>Presenze e assenze</h4>
                     <p class="text-muted">Compila il registro della classe.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="NotaServlet?action=list" class="text-decoration-none text-dark">
+                <div class="card card-hover p-4">
+                    <h4>Note alunni</h4>
+                    <p class="text-muted">Inserisci note generiche o disciplinari.</p>
                 </div>
             </a>
         </div>
@@ -155,6 +173,15 @@ body {
                 </div>
             </a>
         </div>
+
+        <div class="col-md-4">
+            <a href="NotaServlet?action=list" class="text-decoration-none text-dark">
+                <div class="card card-hover p-4">
+                    <h4>Note alunni</h4>
+                    <p class="text-muted">Consulta le note registrate.</p>
+                </div>
+            </a>
+        </div>
         <% } %>
 
         <%-- STUDENTE --%>
@@ -173,6 +200,15 @@ body {
                 <div class="card card-hover p-4">
                     <h4>Le mie assenze</h4>
                     <p class="text-muted">Consulta assenze e ritardi.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="NotaServlet?action=list" class="text-decoration-none text-dark">
+                <div class="card card-hover p-4">
+                    <h4>Le mie note</h4>
+                    <p class="text-muted">Visualizza le note inserite dai professori.</p>
                 </div>
             </a>
         </div>
