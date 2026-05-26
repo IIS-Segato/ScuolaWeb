@@ -5,6 +5,13 @@ public class Insegnamento {
 	private int id_docente;
 	private int id_materia;
 	private int id_classe;
+	// Attributi della classe portati direttamente qui
+    private int anno;
+    private String sezione;
+    private String indirizzo;
+    
+    // Attributo della materia
+    private String nomeMateria;
 
 	public Insegnamento() {
 
@@ -56,5 +63,29 @@ public class Insegnamento {
 	 */
 	public void setId_classe(int id_classe) {
 		this.id_classe = id_classe;
+	}
+	public int getAnno() {
+		return anno;
+	}
+	public void setAnno(int anno) {
+		this.anno = anno;
+	}
+	public String getSezione() {
+		return sezione;
+	}
+	public void setSezione(String sezione) {
+		this.sezione = sezione;
+	}
+	public String getIndirizzo() {
+		return indirizzo;
+	}
+	public void setIndirizzo(String indirizzo) {
+		this.indirizzo = indirizzo;
+	}
+	public String getNomeMateria() {
+		return nomeMateria;
+	}
+	public void setNomeMateria(String nomeMateria) {
+		this.nomeMateria = nomeMateria;
 	}
 }

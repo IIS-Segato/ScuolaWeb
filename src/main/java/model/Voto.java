@@ -7,6 +7,15 @@ public class Voto {
 	private int voto;
 	private String data_voto;
 	private String descrizione;
+	private String nomeMateria;
+
+	public String getNomeMateria() {
+		return nomeMateria;
+	}
+
+	public void setNomeMateria(String nomeMateria) {
+		this.nomeMateria = nomeMateria;
+	}
 
 	public Voto() {
 	

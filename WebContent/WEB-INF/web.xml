@@ -4,6 +4,7 @@ https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" id="WebApp_ID" version="5.0
   <display-name>ScuolaWeb</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
+    <welcome-file>homepage.jsp</welcome-file>
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>index.htm</welcome-file>
     <welcome-file>default.html</welcome-file>

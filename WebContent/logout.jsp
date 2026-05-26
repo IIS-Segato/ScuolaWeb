@@ -7,5 +7,5 @@
     }
 
     // Reindirizza alla homepage
-    response.sendRedirect("homepage.html");
+    response.sendRedirect("homepage.jsp");
 %>

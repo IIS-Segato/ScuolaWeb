@@ -20,6 +20,17 @@ public class VotoDAO extends AbstractDAO{
 	private static final String SQL_INSERT = "INSERT INTO voti (id_studente, id_insegnamento, voto, data_voto, descrizione) VALUES (?, ?, ?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE voti SET id_studente=?, id_insegnamento=?, voto=?, data_voto=?, descrizione=? WHERE id_voto=?";
 	private static final String SQL_DELETE = "DELETE FROM voti WHERE id_voto=?";
+	private static final String SQL_GET_ALL_WITH_MATERIA_BY_STUDENTE_ID = "SELECT \r\n"
+																	+ "    v.id_voto,\r\n"
+																	+ "    v.id_studente,\r\n"
+																	+ "    m.nome AS nome_materia,\r\n"
+																	+ "    v.voto,\r\n"
+																	+ "    v.data_voto,\r\n"
+																	+ "    v.descrizione\r\n"
+																	+ "FROM voti v\r\n"
+																	+ "INNER JOIN insegnamenti i ON v.id_insegnamento = i.id_insegnamento\r\n"
+																	+ "INNER JOIN materie m ON i.id_materia = m.id_materia\r\n"
+																	+ "WHERE v.id_studente = ?;";
 	
 	public VotoDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		super(xml);
@@ -196,5 +207,33 @@ public class VotoDAO extends AbstractDAO{
 		}
 		
 		return isDeleted;
+	}
+	public List<Voto> getWithMateriaByStudentId(int idStudente) {
+	    List<Voto> voti = new ArrayList<>();
+	    
+	    try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(SQL_GET_ALL_WITH_MATERIA_BY_STUDENTE_ID)) {
+	        
+	        ps.setInt(1, idStudente);
+	        
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                Voto v = new Voto();
+	                v.setId(rs.getInt("id_voto"));
+	                v.setId_studente(rs.getInt("id_studente"));
+	                v.setVoto(rs.getInt("voto"));
+	                v.setData_voto(rs.getString("data_voto"));
+	                v.setDescrizione(rs.getString("descrizione"));
+	                v.setNomeMateria(rs.getString("nome_materia")); 
+	                
+	                voti.add(v);
+	            }
+	        }
+	        
+	    } catch (Exception e) {
+	        printException(e);
+	    }
+	    
+	    return voti;
 	}
 }

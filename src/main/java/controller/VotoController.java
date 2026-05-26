@@ -7,11 +7,13 @@ import dao.VotoDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Voto;
 
+@WebServlet("/VotoController")
 public class VotoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -60,59 +62,52 @@ public class VotoController extends HttpServlet {
 		Voto voto = null;	
 		List<Voto> voti;
 		try {
-			action = request.getParameter("action");
-			id = request.getParameter("id");
-			
-			if(ACTION_DELETE.equals(action)) {
-				if(id != null) {
-					votoDao.delete(Integer.parseInt(id));
-					
-					view = "";
-				}
-				
-			}
-			else if(ACTION_GET_ALL.equals(action)) {
-				voti = votoDao.getAll();
-				
-				request.setAttribute("voti", voti);
-				
-				view = "/voti.jsp";
-				
-			}
-			else if(ACTION_GET_BY_ID.equals(action)) {
-				if(id != null) {
-					voto = votoDao.getById(Integer.parseInt(id));
-					
-					request.setAttribute("voto", voto);
-					
-					view = "/voti.jsp";
-				}
-				
-			}
-			else if(ACTION_GET_BY_STUDENTE_ID.equals(action)){
-				if(id != null) {
-					voti = votoDao.getByStudentId(Integer.parseInt(id));
-					
-					request.setAttribute("voti", voti);
-					
-					view = "";
-				}
-			}
-			else if(ACTION_GET_BY_INSEGNAMENTO_ID.equals(action)) {
-				if(id != null) {
-					voti = votoDao.getByInsegnamentoId(Integer.parseInt(id));
-					
-					request.setAttribute("voti", voti);
-					
-					view = "";
-				}
-			}
-		
-			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-			dispatcher.forward(request, response);
-		} catch (Exception e) {
+		    action = request.getParameter("action");
+		    id = request.getParameter("id");
+		    
+		    // CONTROLLO DI SICUREZZA: L'utente è loggato?
+		    jakarta.servlet.http.HttpSession session = request.getSession(false);
+		    if (session == null || session.getAttribute("utenteId") == null) {
+		        response.sendRedirect(request.getContextPath() + "/LoginController");
+		        return;
+		    }
 
-			e.printStackTrace();
+		    // Se l'azione non è specificata, assumiamo che uno studente voglia vedere i suoi voti
+		    if (action == null) {
+		        // Recuperiamo l'ID della persona/studente direttamente dalla sessione per evitare manomissioni dall'URL
+		        // (Nota: Assicurati di aver salvato questo attributo nel LoginController al momento del login)
+		        Integer idStudenteLoggato = (Integer) session.getAttribute("utenteId"); 
+		        voti = votoDao.getWithMateriaByStudentId(idStudenteLoggato);
+		        request.setAttribute("voti", voti);
+		        view = "/voti.jsp";
+		    }
+		    else if(ACTION_GET_BY_STUDENTE_ID.equals(action)){
+		        if(id != null) {
+		            voti = votoDao.getWithMateriaByStudentId(Integer.parseInt(id));
+		            request.setAttribute("voti", voti);
+		            view = "/voti.jsp"; // Impostiamo la vista corretta
+		        }
+		    }
+		    else if(ACTION_GET_ALL.equals(action)) {
+		        voti = votoDao.getAll();
+		        request.setAttribute("voti", voti);
+		        view = "/voti.jsp";
+		    }
+		    else if(ACTION_GET_BY_ID.equals(action)) {
+		        if(id != null) {
+		            voto = votoDao.getById(Integer.parseInt(id));
+		            request.setAttribute("voto", voto);
+		            view = "/voti.jsp";
+		        }
+		    }
+		    // ... mantieni gli altri tuoi blocchi else if (DELETE, INSEGNAMENTO) ...
+
+		    if (view != null && !view.isEmpty()) {
+		        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+		        dispatcher.forward(request, response);
+		    }
+		} catch (Exception e) {
+		    e.printStackTrace();
 		}
 	}
 

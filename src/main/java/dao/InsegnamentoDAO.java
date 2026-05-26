@@ -18,10 +18,52 @@ public class InsegnamentoDAO extends AbstractDAO{
 	private static final String SQL_INSERT = "INSERT INTO insegnamenti (id_docente, id_materia, id_classe) VALUES (?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE insegnamenti SET id_docente=?, id_materia=?, id_classe=? WHERE id_insegnamento=?";
 	private static final String SQL_DELETE = "DELETE FROM insegnamenti WHERE id_insegnamento=?";
+	private static final String SQL_GET_BY_DOCENTE_PERSONA_ID = 
+		    "SELECT i.id_insegnamento, i.id_docente, i.id_classe, i.id_materia, " +
+		    "c.anno, c.sezione, c.indirizzo, m.nome AS nome_materia " +
+		    "FROM insegnamenti i " +
+		    "INNER JOIN classi c ON i.id_classe = c.id_classe " +
+		    "INNER JOIN materie m ON i.id_materia = m.id_materia " +
+		    "INNER JOIN docenti d ON i.id_docente = d.id_docente " +
+		    "WHERE d.id_persona = ?";
 	
 	public InsegnamentoDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		super(xml);
 	}
+	
+	public List<Insegnamento> getInsegnamentiByDocentePersonaId(int idPersona) {
+        List<Insegnamento> lista = new ArrayList<>();
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_DOCENTE_PERSONA_ID)) {
+            
+            ps.setInt(1, idPersona);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Insegnamento ins = new Insegnamento();
+                    
+                    // ID della tabella di legame
+                    ins.setId(rs.getInt("id_insegnamento"));
+                    ins.setId_docente(rs.getInt("id_docente"));
+                    ins.setId_classe(rs.getInt("id_classe"));
+                    ins.setId_materia(rs.getInt("id_materia"));
+                    
+                    // Attributi della classe inseriti direttamente
+                    ins.setAnno(rs.getInt("anno"));
+                    ins.setSezione(rs.getString("sezione"));
+                    ins.setIndirizzo(rs.getString("indirizzo"));
+                    
+                    // Nome della materia
+                    ins.setNomeMateria(rs.getString("nome_materia"));
+                    
+                    lista.add(ins);
+                }
+            }
+        } catch (Exception e) {
+            printException(e);
+        }
+        return lista;
+    }
 	
 	public List<Insegnamento> getAll() throws Exception {
 		List<Insegnamento> insegnamenti = new ArrayList<>();

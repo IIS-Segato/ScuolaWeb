@@ -9,13 +9,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.JDOMException;
-
 import model.AnnuncioClasse;
 
-public class AnnuncioClasseDAO extends AbstractDAO{
-	private static final String SQL_GET_ALL = "SELECT * FROM annunci_classe";
-	private static final String SQL_GET_BY_ID = "SELECT * FROM annunci_classe WHERE id_annuncio=?";
-	private static final String SQL_GET_BY_ID_CLASSE = "SELECT * FROM annunci_classe WHERE id_classe=?";
+public class AnnuncioClasseDAO extends AbstractDAO {
+	
+	// QUERY AGGIORNATE CON INNER JOIN
+	private static final String SQL_GET_ALL = 
+			"SELECT ac.id_annuncio, ac.id_classe, ac.id_docente, " +
+			"       a.titolo, a.contenuto, a.data_pubblicazione, p.cognome " +
+			"FROM annunci_classe ac " +
+			"INNER JOIN annunci a ON ac.id_annuncio = a.id_annuncio " +
+			"INNER JOIN docenti d ON ac.id_docente = d.id_docente " +
+			"INNER JOIN persone p ON d.id_persona = p.id_persona";
+
+	private static final String SQL_GET_BY_ID = 
+			"SELECT ac.id_annuncio, ac.id_classe, ac.id_docente, " +
+			"       a.titolo, a.contenuto, a.data_pubblicazione, p.cognome " +
+			"FROM annunci_classe ac " +
+			"INNER JOIN annunci a ON ac.id_annuncio = a.id_annuncio " +
+			"INNER JOIN docenti d ON ac.id_docente = d.id_docente " +
+			"INNER JOIN persone p ON d.id_persona = p.id_persona " +
+			"WHERE ac.id_annuncio=?";
+
+	private static final String SQL_GET_BY_ID_CLASSE = 
+			"SELECT ac.id_annuncio, ac.id_classe, ac.id_docente, " +
+			"       a.titolo, a.contenuto, a.data_pubblicazione, p.cognome " +
+			"FROM annunci_classe ac " +
+			"INNER JOIN annunci a ON ac.id_annuncio = a.id_annuncio " +
+			"INNER JOIN docenti d ON ac.id_docente = d.id_docente " +
+			"INNER JOIN persone p ON d.id_persona = p.id_persona " +
+			"WHERE ac.id_classe=?";
+
 	private static final String SQL_INSERT = "INSERT INTO annunci_classe (id_classe, id_docente) VALUES (?, ?)";
 	private static final String SQL_UPDATE = "UPDATE annunci_classe SET id_classe=?, id_docente=? WHERE id_annuncio=?";
 	private static final String SQL_DELETE = "DELETE FROM annunci_classe WHERE id_annuncio=?";
@@ -28,21 +52,26 @@ public class AnnuncioClasseDAO extends AbstractDAO{
 		List<AnnuncioClasse> annunci = new ArrayList<>();
 		
 		try (Connection conn = getConnection();
-	         PreparedStatement ps = conn.prepareStatement(SQL_GET_ALL);
-	         ResultSet rs = ps.executeQuery())
-		{
+			 PreparedStatement ps = conn.prepareStatement(SQL_GET_ALL);
+			 ResultSet rs = ps.executeQuery()) {
+			
 			while (rs.next()) {
 				AnnuncioClasse a = new AnnuncioClasse();
-                a.setId(rs.getInt("id_annuncio"));
-                a.setId_classe(rs.getInt("id_classe"));
-                a.setId_docente(rs.getInt("id_docente"));
-                annunci.add(a);
-            }
-			
+				a.setId(rs.getInt("id_annuncio"));
+				a.setId_classe(rs.getInt("id_classe"));
+				a.setId_docente(rs.getInt("id_docente"));
+				
+				// Mappatura dei dati provenienti dalle tabelle in JOIN
+				a.setTitolo(rs.getString("titolo"));
+				a.setContenuto(rs.getString("contenuto"));
+				a.setDataPubblicazione(rs.getString("data_pubblicazione"));
+				a.setCognomeDocente(rs.getString("cognome"));
+				
+				annunci.add(a);
+			}
 		} catch (Exception e) {
 			printException(e);
 		}
-		
 		return annunci;
 	}
 	
@@ -50,21 +79,25 @@ public class AnnuncioClasseDAO extends AbstractDAO{
 		AnnuncioClasse a = new AnnuncioClasse();
 		
 		try (Connection conn = getConnection();
-	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID))
-		{
+			 PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID)) {
+			
 			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-		while (rs.next()) {
-			a.setId(rs.getInt("id_annuncio"));
-            a.setId_classe(rs.getInt("id_classe"));
-            a.setId_docente(rs.getInt("id_docente"));
-		}
-			
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					a.setId(rs.getInt("id_annuncio"));
+					a.setId_classe(rs.getInt("id_classe"));
+					a.setId_docente(rs.getInt("id_docente"));
+					
+					// Mappatura dei dati provenienti dalle tabelle in JOIN
+					a.setTitolo(rs.getString("titolo"));
+					a.setContenuto(rs.getString("contenuto"));
+					a.setDataPubblicazione(rs.getString("data_pubblicazione"));
+					a.setCognomeDocente(rs.getString("cognome"));
+				}
+			}
 		} catch (Exception e) {
 			printException(e);
 		}
-		
 		return a;
 	}
 	
@@ -72,54 +105,53 @@ public class AnnuncioClasseDAO extends AbstractDAO{
 		List<AnnuncioClasse> annunci = new ArrayList<>();
 		
 		try (Connection conn = getConnection();
-	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID_CLASSE))
-		{
+			 PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_ID_CLASSE)) {
+			
 			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-		while (rs.next()) {
-			AnnuncioClasse a = new AnnuncioClasse();
-			a.setId(rs.getInt("id_annuncio"));
-            a.setId_classe(rs.getInt("id_classe"));
-            a.setId_docente(rs.getInt("id_docente"));
-            annunci.add(a);
-		}
-			
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					AnnuncioClasse a = new AnnuncioClasse();
+					a.setId(rs.getInt("id_annuncio"));
+					a.setId_classe(rs.getInt("id_classe"));
+					a.setId_docente(rs.getInt("id_docente"));
+					
+					// Mappatura dei dati provenienti dalle tabelle in JOIN
+					a.setTitolo(rs.getString("titolo"));
+					a.setContenuto(rs.getString("contenuto"));
+					a.setDataPubblicazione(rs.getString("data_pubblicazione"));
+					a.setCognomeDocente(rs.getString("cognome"));
+					
+					annunci.add(a);
+				}
+			}
 		} catch (Exception e) {
 			printException(e);
 		}
-		
 		return annunci;
 	}
 	
 	public boolean insert(int id_classe, int id_docente) {
 		boolean isInserted = false;
-		
 		try (Connection conn = getConnection();
-	         PreparedStatement ps = conn.prepareStatement(SQL_INSERT))
-		{
-
+			 PreparedStatement ps = conn.prepareStatement(SQL_INSERT)) {
+			
 			ps.setInt(1, id_classe);
 			ps.setInt(2, id_docente);
 			
 			if(ps.executeUpdate() > 0) {
 				isInserted = true;
 			}
-			
 		} catch (Exception e) {
 			printException(e);
 		}
-		
 		return isInserted;
 	}
 	
 	public boolean update(int id_classe, int id_docente, int id) {
 		boolean isUpdated = false;
-		
 		try (Connection conn = getConnection();
-	         PreparedStatement ps = conn.prepareStatement(SQL_UPDATE))
-		{
-
+			 PreparedStatement ps = conn.prepareStatement(SQL_UPDATE)) {
+			
 			ps.setInt(1, id_classe);
 			ps.setInt(2, id_docente);
 			ps.setInt(3, id);
@@ -127,31 +159,24 @@ public class AnnuncioClasseDAO extends AbstractDAO{
 			if(ps.executeUpdate() > 0) {
 				isUpdated = true;
 			}
-			
 		} catch (Exception e) {
 			printException(e);
 		}
-		
 		return isUpdated;
 	}
 	
 	public boolean delete(int id) {
 		boolean isDeleted = false;
-		
 		try (Connection conn = getConnection();
-	         PreparedStatement ps = conn.prepareStatement(SQL_DELETE))
-		{
-
-			ps.setInt(1, id);
+			 PreparedStatement ps = conn.prepareStatement(SQL_DELETE)) {
 			
+			ps.setInt(1, id);
 			if(ps.executeUpdate() > 0) {
 				isDeleted = true;
 			}
-			
 		} catch (Exception e) {
 			printException(e);
 		}
-		
 		return isDeleted;
 	}
 }

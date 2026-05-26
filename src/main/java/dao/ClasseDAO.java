@@ -18,6 +18,13 @@ public class ClasseDAO extends AbstractDAO{
 	private static final String SQL_INSERT = "INSERT INTO classi (anno, sezione, indirizzo) VALUES (?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE insegnamenti SET anno=?, sezione=?, indirizzo=? WHERE id_classe=?";
 	private static final String SQL_DELETE = "DELETE FROM classi WHERE id_classe=?";
+	// Query per ottenere le classi associate a una specifica Persona (Docente)
+	private static final String SQL_GET_BY_DOCENTE_PERSONA_ID = 
+	    "SELECT DISTINCT c.id_classe, c.anno, c.sezione, c.indirizzo " +
+	    "FROM classi c " +
+	    "INNER JOIN insegnamenti i ON c.id_classe = i.id_classe " +
+	    "INNER JOIN docenti d ON i.id_docente = d.id_docente " +
+	    "WHERE d.id_persona = ?";
 	
 	public ClasseDAO(String xml) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		super(xml);
@@ -44,6 +51,30 @@ public class ClasseDAO extends AbstractDAO{
 		}
 		
 		return classi;
+	}
+	
+	public List<Classe> getByDocentePersonaId(int idPersona) {
+	    List<Classe> classiDocente = new ArrayList<>();
+	    
+	    try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(SQL_GET_BY_DOCENTE_PERSONA_ID)) {
+	        
+	        ps.setInt(1, idPersona);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                Classe c = new Classe();
+	                c.setId(rs.getInt("id_classe"));
+	                c.setAnno(rs.getInt("anno"));
+	                c.setSezione(rs.getString("sezione"));
+	                c.setIndirizzo(rs.getString("indirizzo"));
+	                classiDocente.add(c);
+	            }
+	        }
+	    } catch (Exception e) {
+	        printException(e);
+	    }
+	    
+	    return classiDocente;
 	}
 	
 	public Classe getById(int id) {

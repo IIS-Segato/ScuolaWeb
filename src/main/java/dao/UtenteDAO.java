@@ -194,4 +194,21 @@ public class UtenteDAO extends AbstractDAO{
 
 	    return u;
 	}
+	
+	public Utente checkLogin(String username, String passwordInserita) {
+	    // 1. Sfrutta il metodo già esistente nel tuo DAO per cercare l'utente
+	    Utente utente = this.getByUsername(username);
+
+	    // 2. Se l'utente esiste, controlla se la password coincide
+	    if (utente != null) {
+	        // NOTA: Se salvi le password cifrate (scelta consigliata), 
+	        // qui dovrai confrontare l'hash della passwordInserita.
+	        if (utente.getPassword_hash().equals(passwordInserita)) {
+	            return utente; // Credenziali corrette, restituisce l'utente completo
+	        }
+	    }
+
+	    // 3. Se l'utente non esiste o la password è errata, restituisce null
+	    return null;
+	}
 }

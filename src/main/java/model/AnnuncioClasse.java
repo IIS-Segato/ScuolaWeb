@@ -4,44 +4,61 @@ public class AnnuncioClasse {
 	private int id;
 	private int id_classe;
 	private int id_docente;
+	private String titolo;
+	private String contenuto;
+	private String dataPubblicazione;
+	private String cognomeDocente;
 
 	public AnnuncioClasse() {
-		
 	}
-	/**
-	 * @return the id
-	 */
+
 	public int getId() {
 		return id;
 	}
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	/**
-	 * @return the id_classe
-	 */
+
 	public int getId_classe() {
 		return id_classe;
 	}
-	/**
-	 * @param id_classe the id_classe to set
-	 */
 	public void setId_classe(int id_classe) {
 		this.id_classe = id_classe;
 	}
-	/**
-	 * @return the id_docente
-	 */
+
 	public int getId_docente() {
 		return id_docente;
 	}
-	/**
-	 * @param id_docente the id_docente to set
-	 */
 	public void setId_docente(int id_docente) {
 		this.id_docente = id_docente;
+	}
+
+	// GETTER AND SETTER DEI NUOVI CAMPI
+	public String getTitolo() {
+		return titolo;
+	}
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
+	}
+
+	public String getContenuto() {
+		return contenuto;
+	}
+	public void setContenuto(String contenuto) {
+		this.contenuto = contenuto;
+	}
+
+	public String getDataPubblicazione() {
+		return dataPubblicazione;
+	}
+	public void setDataPubblicazione(String dataPubblicazione) {
+		this.dataPubblicazione = dataPubblicazione;
+	}
+
+	public String getCognomeDocente() {
+		return cognomeDocente;
+	}
+	public void setCognomeDocente(String cognomeDocente) {
+		this.cognomeDocente = cognomeDocente;
 	}
 }

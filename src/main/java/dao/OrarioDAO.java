@@ -21,6 +21,8 @@ public class OrarioDAO extends AbstractDAO {
 
     private static final String SQL_DELETE =
             "DELETE FROM orario WHERE id_orario=?";
+    
+    private static final String SQL_GET_ALL_WITH_DETAILS = "SELECT o.id_orario, o.giorno, o.ora_inizio, o.ora_fine, m.nome AS nome_materia, p.nome AS nome_docente, p.cognome AS cognome_docente, a.nome AS nome_aula FROM orario o INNER JOIN insegnamenti i ON o.id_insegnamento = i.id_insegnamento INNER JOIN materie m ON i.id_materia = m.id_materia INNER JOIN docenti d ON i.id_docente = d.id_docente INNER JOIN persone p ON d.id_persona = p.id_persona INNER JOIN aule a ON o.id_aula = a.id_aula";
 
     public OrarioDAO(String xml) throws Exception {
         super(xml);
@@ -137,5 +139,33 @@ public class OrarioDAO extends AbstractDAO {
         }
 
         return false;
+    }
+    
+    public List<Orario> getAllWithDetails() {
+        List<Orario> lista = new ArrayList<>();
+        
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL_GET_ALL_WITH_DETAILS);
+             ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                Orario o = new Orario();
+                o.setId(rs.getInt("id_orario"));
+                o.setGiorno(rs.getString("giorno"));
+                o.setOra_inizio(rs.getString("ora_inizio"));
+                o.setOra_fine(rs.getString("ora_fine"));
+                
+                // Campi testuali avanzati estratti dalle tabelle collegate
+                o.setNomeMateria(rs.getString("nome_materia"));
+                o.setNomeDocente(rs.getString("nome_docente"));
+                o.setCognomeDocente(rs.getString("cognome_docente"));
+                o.setNomeAula(rs.getString("nome_aula"));
+                
+                lista.add(o);
+            }
+        } catch (Exception e) {
+            printException(e);
+        }
+        return lista;
     }
 } 

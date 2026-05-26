@@ -3,32 +3,39 @@ package model;
 public class Docente {
 	private int id;
 	private int id_persona;
+	
+	// Campi anagrafici estratti dal join
+	private String nome;
+	private String cognome;
 
 	public Docente() {
-
 	}
-	/**
-	 * @return the id
-	 */
+
 	public int getId() {
 		return id;
 	}
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	/**
-	 * @return the id_persona
-	 */
+
 	public int getId_persona() {
 		return id_persona;
 	}
-	/**
-	 * @param id_persona the id_persona to set
-	 */
 	public void setId_persona(int id_persona) {
 		this.id_persona = id_persona;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCognome() {
+		return cognome;
+	}
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
 	}
 }

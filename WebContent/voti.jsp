@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Voto" %>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -7,272 +10,88 @@
     <title>Registro Voti</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="WEB-INF/lib/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 
     <style>
-        body {
-            background: linear-gradient(to bottom, #dff7ef, #f7fffc);
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-        }
-
-        #upBar {
-            background-color: #146c5c;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #logoSection {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        #logoSection img {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            border: 2px solid white;
-        }
-
-        #logoSection h2 {
-            color: white;
-            margin: 0;
-        }
-
-        .nav-links a {
-            color: white;
-            margin-left: 15px;
-            text-decoration: none;
-        }
-
-        .main-container {
-            width: 90%;
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .title {
-            font-size: 32px;
-            color: #146c5c;
-            margin: 25px 0;
-            font-weight: bold;
-        }
-
-        .votes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .vote-card {
-            background: white;
-            padding: 20px;
-            border-radius: 18px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-        }
-
-        .subject {
-            font-size: 20px;
-            font-weight: bold;
-            color: #146c5c;
-        }
-
-        .vote {
-            font-size: 40px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
+        body { background: linear-gradient(to bottom, #dff7ef, #f7fffc); font-family: Arial, Helvetica, sans-serif; margin: 0; }
+        #upBar { background-color: #146c5c; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        #logoSection { display: flex; align-items: center; gap: 15px; }
+        #logoSection img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid white; }
+        #logoSection h2 { color: white; margin: 0; }
+        .nav-links a { color: white; margin-left: 15px; text-decoration: none; }
+        .main-container { width: 90%; max-width: 1100px; margin: auto; }
+        .title { font-size: 32px; color: #146c5c; margin: 25px 0; font-weight: bold; }
+        .votes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .vote-card { background: white; padding: 20px; border-radius: 18px; box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
+        .subject { font-size: 20px; font-weight: bold; color: #146c5c; }
+        .vote { font-size: 40px; font-weight: bold; margin-top: 10px; }
         .good { color: green; }
         .medium { color: orange; }
         .bad { color: red; }
-
-        .date {
-            color: gray;
-            margin-top: 8px;
-        }
+        .date { color: gray; margin-top: 8px; }
     </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <div id="upBar">
-
     <div id="logoSection">
-        <img src="default_avatar.webp" alt="avatar">
+        <img src="${pageContext.request.contextPath}/imgs/default.png" alt="avatar">
         <h2>Registro Studente</h2>
     </div>
-
     <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="voti.jsp">Voti</a>
+        <a href="${pageContext.request.contextPath}/LoginController">Home</a>
+        <a href="${pageContext.request.contextPath}/VotoController">Voti</a>
         <a href="notizie.html">Notizie</a>
         <a href="orario.html">Orario</a>
-        <a href="homepage.jsp">Logout</a>
+        <a href="${pageContext.request.contextPath}/logout.jsp">Logout</a>
     </div>
-
 </div>
 
-<!-- Indietro -->
-<a id="indietro" href="#" onclick="history.back(); return false;">← Indietro</a>
+<a id="indietro" href="#" onclick="history.back(); return false;" style="display: inline-block; margin: 20px; color: #146c5c; text-decoration: none;">← Indietro</a>
 
-<!-- MAIN -->
 <div class="main-container">
 
     <div class="title">
-        Ultimi 4 voti ricevuti
+        Tutti i tuoi voti
     </div>
 
     <div class="votes-grid">
-
-        <div class="vote-card">
-            <div class="subject">Matematica</div>
-            <div class="vote good">6</div>
-            <div class="date">12/05/2026</div>
-        </div>
-
-        <div class="vote-card">
-            <div class="subject">Informatica</div>
-            <div class="vote good">10</div>
-            <div class="date">10/05/2026</div>
-        </div>
-
-        <div class="vote-card">
-            <div class="subject">Italiano</div>
-            <div class="vote medium">6</div>
-            <div class="date">08/05/2026</div>
-        </div>
-
-        <div class="vote-card">
-            <div class="subject">Storia</div>
-            <div class="vote bad">4</div>
-            <div class="date">06/05/2026</div>
-        </div>
-
-    </div>
-
-    <!-- SEZIONE MATERIE -->
-    <div class="main-container" style="margin-top: 60px;">
-
-        <div class="title">
-            Materie
-        </div>
-
-        <div id="subjects" class="d-flex flex-wrap gap-2"></div>
-
-    </div>
-
-    <!-- SEZIONE VOTI FILTRATI -->
-    <div class="main-container" style="margin-top: 40px;">
-
-        <div class="title" id="selectedTitle">
-            Tutti i voti
-        </div>
-
-        <div id="votesGrid" class="votes-grid"></div>
-
+        <%
+            // Recuperiamo la lista dei voti passata dal VotoController
+            List<Voto> listaVoti = (List<Voto>) request.getAttribute("voti");
+            
+            if (listaVoti == null || listaVoti.isEmpty()) {
+        %>
+            <div class="alert alert-info w-100" role="alert">
+                Nessun voto registrato nel sistema per questo studente.
+            </div>
+        <%
+            } else {
+                for (Voto v : listaVoti) {
+                    // Logica di colorazione dinamica basata sul valore del voto
+                    String classeColore = "bad";
+                    if (v.getVoto() >= 6) {
+                        classeColore = "good";
+                    } else if (v.getVoto() >= 5) {
+                        classeColore = "medium";
+                    }
+        %>
+            <div class="vote-card">
+                <div class="subject"><%= v.getNomeMateria() != null ? v.getNomeMateria() : "Materia sconosciuta" %></div>
+                <div class="vote <%= classeColore %>"><%= v.getVoto() %></div>
+                <div class="date"><%= v.getData_voto() %></div>
+                <small style="color: gray; display: block; margin-top: 5px;">
+                    <%= v.getDescrizione() != null ? v.getDescrizione() : "" %>
+                </small>
+            </div>
+        <%
+                }
+            }
+        %>
     </div>
 
 </div>
-
-<script>
-const voti = [
-    { materia: "Matematica", voto: 6, data: "12/05/2026" },
-    { materia: "Matematica", voto: 7, data: "10/05/2026" },
-    { materia: "Informatica", voto: 10, data: "09/05/2026" },
-    { materia: "Italiano", voto: 6, data: "08/05/2026" },
-    { materia: "Storia", voto: 4, data: "06/05/2026" },
-    { materia: "Inglese", voto: 6, data: "05/05/2026" },
-    { materia: "Sistemi e Reti", voto: 8, data: "03/05/2026" },
-    { materia: "TPSIT", voto: 7, data: "02/05/2026" },
-    { materia: "Educazione Fisica", voto: 10, data: "01/05/2026" }
-];
-
-const materie = [
-    "Educazione Civica",
-    "Italiano",
-    "Storia",
-    "Matematica",
-    "Sistemi e Reti",
-    "GPOI",
-    "Inglese",
-    "Informatica",
-    "Educazione Fisica",
-    "TPSIT"
-];
-
-const subjectsDiv = document.getElementById("subjects");
-const votesGrid = document.getElementById("votesGrid");
-const title = document.getElementById("selectedTitle");
-
-materie.forEach(m => {
-    const btn = document.createElement("button");
-    btn.className = "btn btn-outline-success";
-    btn.innerText = m;
-    btn.onclick = () => showSubject(m);
-    subjectsDiv.appendChild(btn);
-});
-
-function showSubject(materia) {
-
-    title.innerText = "Voti: " + materia;
-    votesGrid.innerHTML = "";
-
-    const filtered = voti.filter(v => v.materia === materia);
-
-    if (filtered.length === 0) {
-        votesGrid.innerHTML = "<p>Nessun voto disponibile</p>";
-        return;
-    }
-
-    filtered.forEach(v => {
-
-        let classe = "";
-
-        if (v.voto >= 6) classe = "good";
-        else if (v.voto >= 5) classe = "medium";
-        else classe = "bad";
-
-        votesGrid.innerHTML += `
-            <div class="vote-card">
-                <div class="subject">${v.materia}</div>
-                <div class="vote ${classe}">${v.voto}</div>
-                <div class="date">${v.data}</div>
-            </div>
-        `;
-    });
-}
-
-function showAll() {
-
-    title.innerText = "Tutti i voti";
-    votesGrid.innerHTML = "";
-
-    voti.forEach(v => {
-
-        let classe = "";
-
-        if (v.voto >= 6) classe = "good";
-        else if (v.voto >= 5) classe = "medium";
-        else classe = "bad";
-
-        votesGrid.innerHTML += `
-            <div class="vote-card">
-                <div class="subject">${v.materia}</div>
-                <div class="vote ${classe}">${v.voto}</div>
-                <div class="date">${v.data}</div>
-            </div>
-        `;
-    });
-}
-
-showAll();
-</script>
 
 </body>
 </html>
