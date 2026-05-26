@@ -164,6 +164,7 @@ public class AmministratoreDAO extends DAO {
 			ArrayList<String> materie = new ArrayList<>();
 			
 			PreparedStatement psMateria = this.getConn().prepareStatement(getMaterie);
+			psMateria.setInt(1, c.getCid());
 			ResultSet rsMateria = psMateria.executeQuery();
 			
 			while (rsMateria.next()) {

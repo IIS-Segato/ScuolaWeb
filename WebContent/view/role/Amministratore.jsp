@@ -8,6 +8,7 @@
 	// prendo il amministratore in sessione
 	Amministratore amministratore = (Amministratore) session.getAttribute("amministratore");
 	ArrayList<Studente> studenti = amministratore.getStudenti();
+	ArrayList<Docente> docenti = amministratore.getDocenti();
 
     String adminNome = "Admin";
     String adminCognome = "User";
@@ -27,7 +28,7 @@
     }
     
     int numStudenti = studenti.size();   // es. conteggio studenti dal DB
-    int numDocenti =  studenti.size();    // es. conteggio docenti dal DB
+    int numDocenti =  docenti.size();    // es. conteggio docenti dal DB
 %>
 <!DOCTYPE html>
 <html lang="it">
@@ -141,7 +142,7 @@ html, body { min-height:100vh; background:var(--bg); color:var(--text-1); font-f
       </div>
       <span class="brand-name">Registro elettronico</span>
     </div>
-    <button class="logout-btn" onclick="location.href='logout'">
+    <button class="logout-btn" onclick="location.href='login'">
       <svg viewBox="0 0 24 24">
         <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
         <polyline points="16 17 21 12 16 7"/>
@@ -217,7 +218,7 @@ html, body { min-height:100vh; background:var(--bg); color:var(--text-1); font-f
           <div class="card-title">Studenti</div>
           <div class="card-tag">Gestione</div>
         </div>
-        <div class="card-sub">Iscrizioni, anagrafiche, classi e voti.</div>
+        <div class="card-sub">Rimozione e aggiunta.</div>
         <div class="card-arrow">
           Apri
           <svg viewBox="0 0 24 24">
@@ -228,12 +229,12 @@ html, body { min-height:100vh; background:var(--bg); color:var(--text-1); font-f
       </a>
 
       <!-- Card Gestione Docenti -->
-      <a href="GestioneDocenti" class="card" style="animation-delay:.12s">
+      <a href="view/role/AmministratoreDocenti.jsp" class="card" style="animation-delay:.12s">
         <div class="card-top">
           <div class="card-title">Docenti</div>
           <div class="card-tag">Gestione</div>
         </div>
-        <div class="card-sub">Anagrafiche, assegnazioni e autorizzazioni.</div>
+        <div class="card-sub">Rimozione e aggiunta.</div>
         <div class="card-arrow">
           Apri
           <svg viewBox="0 0 24 24">

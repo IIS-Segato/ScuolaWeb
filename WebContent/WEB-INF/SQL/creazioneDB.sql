@@ -2541,4 +2541,8 @@ from materie;
 select *
 from voti;
 
+select distinct concat(d.nome, ' ', d.cognome) as nome, d.email, m.materia 
+from docenti d 
+join materie m  on d.did = m.did;
+
 update amministratori set password = sha2('admin', 256);
