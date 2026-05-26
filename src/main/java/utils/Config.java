@@ -35,6 +35,7 @@ public class Config {
 	private String getVotiByStudenteMateria;
 	private String deleteVoto;
 	private String getVotiByStudente;
+	private String getMaterie;
 	
 	/**
 	 * Costruttore
@@ -93,6 +94,8 @@ public class Config {
 		this.getVotiByStudenteMateria = query.getChildText("getVotiByStudenteMateria").trim();
 		this.deleteVoto = query.getChildText("deleteVoto").trim();
 		this.getVotiByStudente = query.getChildText("getVotiByStudente").trim();
+		this.getMaterie = query.getChildText("getMaterie").trim();
+		
 	}
 
 	// Getter degli attributi
@@ -191,4 +194,10 @@ public class Config {
 	public String getVotiByStudente() {
 		return getVotiByStudente;
 	}
+
+	public String getMaterie() {
+		return getMaterie;
+	}
+	
+	
 }

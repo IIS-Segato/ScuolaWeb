@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.*" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashSet" %>
 
 <%
-    // Recupero dell'amministratore dalla sessione
     Amministratore amministratore = (Amministratore) session.getAttribute("amministratore");
     if (amministratore == null) {
         response.sendRedirect("login.jsp");
@@ -21,12 +21,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gestione Docenti</title>
 
-<link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)">
-<link rel="preconnect" href="[fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-<link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap)" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-/* Stile coerente con la versione base */
 :root {
   --bg:#0b0f14; --surface:#111820; --surface2:#161e28; --border:rgba(255,255,255,0.07);
   --border-hi:rgba(99,190,140,0.35); --accent:#63be8c; --accent-bg:rgba(99,190,140,0.08);
@@ -74,7 +73,6 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
 <body>
 <div class="page">
 
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="brand">
       <div class="brand-icon">
@@ -85,7 +83,6 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
     <a href="/ScuolaWeb/login" class="back-btn">← Torna alla Dashboard</a>
   </div>
 
-  <!-- SEZIONE GESTIONE DOCENTI -->
   <div class="section">
     <div class="section-header">
       <div class="section-title">Gestione Docenti</div>
@@ -94,33 +91,55 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
       </span>
     </div>
 
-    <!-- FORM AGGIUNTA NUOVO DOCENTE -->
-    <form action="AggiungiDocenteController" method="post" class="add-form">
+    <!-- AGGIUNTA DOCENTE -->
+    <form action="<%= request.getContextPath() %>/InsertDocenteController" method="post" class="add-form">
       <input type="text" name="nome" placeholder="Nome" required>
       <input type="text" name="cognome" placeholder="Cognome" required>
       <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="password" placeholder="Password temporanea" required>
-	  <input type="text" name="materia" placeholder="Materia" required>
-	  <br>
-      <select name="classi[]" multiple required>
-        <% if (classi != null && !classi.isEmpty()) { 
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit" class="action-btn add-btn">Aggiungi Docente</button>
+    </form>
+
+    <br>
+
+    <!-- ASSEGNA MATERIA -->
+    <form action="AssegnaMateriaDocenteController" method="post" class="add-form">
+
+      <select name="docente" required>
+        <% if (docenti != null && !docenti.isEmpty()) {
+              for(Docente d : docenti){ %>
+              <option value="<%= d.getDid() %>">
+                <%= d.getNome() %> <%= d.getCognome() %>
+              </option>
+        <%   }
+           } else { %>
+           <option disabled>Nessun docente disponibile</option>
+        <% } %>
+      </select>
+
+      <input type="text" name="materia" placeholder="Materia" required>
+
+      <select name="classe" required>
+        <% if (classi != null && !classi.isEmpty()) {
               for(Classe c : classi){ %>
               <option value="<%= c.getCid() %>">
                 <%= c.getAnno() %>ª <%= c.getSezione() %>
               </option>
-        <%   } 
+        <%   }
            } else { %>
            <option disabled>Nessuna classe disponibile</option>
         <% } %>
       </select>
 
-      <button type="submit" class="action-btn add-btn">Aggiungi Docente</button>
+      <button type="submit" class="action-btn add-btn">Aggiungi</button>
     </form>
+
     <br>
 
     <% if(docenti == null || docenti.isEmpty()){ %>
       <div class="empty-box">Nessun docente presente.</div>
     <% } else { %>
+
       <div class="table-wrap">
         <table>
           <thead>
@@ -130,9 +149,11 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
               <th>Cognome</th>
               <th>Email</th>
               <th>Materia</th>
+              <th>Classi</th>
               <th>Azioni</th>
             </tr>
           </thead>
+
           <tbody>
           <% for(Docente d : docenti){ %>
             <tr>
@@ -140,7 +161,44 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
               <td><%= d.getNome() %></td>
               <td><%= d.getCognome() %></td>
               <td><%= d.getEmail() %></td>
-              <td></td>
+
+              <td>
+                <%
+					HashSet<String> materieUniche = new HashSet<>();
+					
+					for(Materia m : amministratore.getMaterie()) {
+					    if (m.getDid() == d.getDid()) {
+					        materieUniche.add(m.getMateria());
+					    }
+					}
+					
+					String risultato = String.join(", ", materieUniche);
+				%>
+				
+				<%= risultato %>
+              </td>
+
+              <td>
+				<%
+				    if (d.getClassi() != null && !d.getClassi().isEmpty()) {
+				
+				        ArrayList<Classe> classiDocente = d.getClassi();
+				
+				        for (int i = 0; i < classiDocente.size(); i++) {
+				            Classe c = classiDocente.get(i);
+				%>
+				            <%= c.getAnno() %>ª <%= c.getSezione() %><%= (i < classiDocente.size() - 1) ? ", " : "" %>
+				<%
+				        }
+				
+				    } else {
+				%>
+				        Nessuna classe
+				<%
+				    }
+				%>
+			  </td>
+
               <td>
                 <form action="RimuoviDocenteController" method="post" style="display:inline;">
                   <input type="hidden" name="did" value="<%= d.getDid() %>">
@@ -152,6 +210,7 @@ border-radius:var(--radius-sm);color:var(--text-1);padding:9px 12px;font-family:
           </tbody>
         </table>
       </div>
+
     <% } %>
 
   </div>

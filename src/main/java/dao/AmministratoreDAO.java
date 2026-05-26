@@ -11,7 +11,10 @@ import org.jdom2.JDOMException;
 import model.Amministratore;
 import model.Classe;
 import model.Docente;
+import model.Materia;
 import model.Studente;
+
+import dao.DocentiDAO;
 
 
 /**
@@ -119,7 +122,7 @@ public class AmministratoreDAO extends DAO {
 	 * @throws IOException
 	 * @throws SQLException
 	 */
-	public ArrayList<Docente> getDocenti() throws ClassNotFoundException, JDOMException, IOException, SQLException {
+	public ArrayList<Docente> getDocenti(DocentiDAO dDAO) throws ClassNotFoundException, JDOMException, IOException, SQLException {
 		String getDocenti = this.getConf().getDocenti();
 		
 		ArrayList<Docente> docenti = new ArrayList<>();
@@ -129,12 +132,14 @@ public class AmministratoreDAO extends DAO {
 		
 		while(rs.next()) {
 			Docente s = new Docente();
+			int did = rs.getInt("did");
 
-            s.setDid(rs.getInt("did"));
+            s.setDid(did);
             s.setEmail(rs.getString("email"));
             s.setPassword(rs.getString("password"));
             s.setNome(rs.getString("nome"));
             s.setCognome(rs.getString("cognome"));
+            s.setClassi(dDAO.getClassiByDocente(did));
             
             docenti.add(s);
 		}
@@ -178,6 +183,28 @@ public class AmministratoreDAO extends DAO {
 		return classi;
 	}
 	
+	public ArrayList<Materia> getMaterie() throws SQLException {
+		String getMaterie = this.getConf().getMaterie();
+		
+		ArrayList<Materia> materie = new ArrayList<>();
+		
+		PreparedStatement ps = this.getConn().prepareStatement(getMaterie);
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			Materia m = new Materia();
+			m.setCid(rs.getInt("cid"));
+			m.setDid(rs.getInt("did"));
+			m.setMateria(rs.getString("materia"));
+			
+			materie.add(m);
+		}
+		
+		return materie;
+	}
+	
+	
+	
 	/**
 	 * Metodo per prendere un Amministratore dal suo id
 	 * @param aid
@@ -187,7 +214,7 @@ public class AmministratoreDAO extends DAO {
 	 * @throws JDOMException 
 	 * @throws ClassNotFoundException 
 	 */
-	public Amministratore getAmministratore(int aid) throws SQLException, ClassNotFoundException, JDOMException, IOException {
+	public Amministratore getAmministratore(int aid, DocentiDAO dDAO) throws SQLException, ClassNotFoundException, JDOMException, IOException {
 		// Leggo il get dell'Amministratore
 		String getAmministratore = this.getConf().getAmministratore();
 		
@@ -203,9 +230,10 @@ public class AmministratoreDAO extends DAO {
 		while(rs.next()) {
 			String email = rs.getString("email");
 			String password = rs.getString("password");
-			a.setDocenti(getDocenti());
+			a.setDocenti(getDocenti(dDAO));
 			a.setStudenti(getStudenti());
 			a.setClassi(getClassi());
+			a.setMaterie(getMaterie());
 			a.setEmail(email);
 			a.setPassword(password);
 		}

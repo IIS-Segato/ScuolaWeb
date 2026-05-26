@@ -114,7 +114,7 @@ public class LoginController extends HttpServlet {
 			// creo l'amministratore
 			Amministratore amministratore = null;
 			try {
-				amministratore = amministratoreDAO.getAmministratore(aid);
+				amministratore = amministratoreDAO.getAmministratore(aid, docentiDAO);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {

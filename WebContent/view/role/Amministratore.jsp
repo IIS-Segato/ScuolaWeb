@@ -142,7 +142,7 @@ html, body { min-height:100vh; background:var(--bg); color:var(--text-1); font-f
       </div>
       <span class="brand-name">Registro elettronico</span>
     </div>
-    <button class="logout-btn" onclick="location.href='login'">
+    <button class="logout-btn" onclick="location.href='logout'">
       <svg viewBox="0 0 24 24">
         <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
         <polyline points="16 17 21 12 16 7"/>
