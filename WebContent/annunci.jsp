@@ -34,9 +34,7 @@
     <div id="banner">
         <div id="logo"> <h2><%= isClasse ? "Comunicazioni Classe" : "Bacheca Avvisi" %></h2> </div>
         <div class="nav-links">
-            <a href="ClasseDocentiController">Home</a>
-            <a href="AnnuncioController?action=GETALL">Avvisi</a>
-            <a href="AnnuncioController?action=GETALL&tipo=CLASSE">Classe</a>
+            <a href="LoginController">Home</a>
         </div>
     </div>
 

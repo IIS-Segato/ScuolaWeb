@@ -78,10 +78,4 @@ public class AnnunciController extends HttpServlet {
             response.sendRedirect("login.jsp");
         }
     }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Logica di inserimento/update mantenuta separata se necessario
-        // Oppure centralizzata tramite parametro tipo
-        doGet(request, response);
-    }
 }
