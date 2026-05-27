@@ -95,7 +95,7 @@ public class UtenteDAO {
         }
     }
 
-    // --- METODO INSERISCI (SISTEMATO) ---
+    // --- METODO INSERISCI
     public boolean inserisciNuovoUtente(Utente u) {
         String sql = "";
         if ("STUDENTE".equals(u.getRuolo())) {
@@ -127,7 +127,7 @@ public class UtenteDAO {
         }
     }
 
-    // --- NUOVO METODO ELIMINA ---
+
     public boolean elimina(String email, String ruolo) {
         String tabella = "";
         if ("DOCENTE".equals(ruolo)) tabella = "DOCENTI";

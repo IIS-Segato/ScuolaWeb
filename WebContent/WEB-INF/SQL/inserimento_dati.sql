@@ -1,6 +1,6 @@
 -- ========================================
 -- POPOLAMENTO DATABASE SCUOLA
--- File: popolamento_database.sql
+-- File: inserimento_dati.sql
 -- Descrizione: Inserimento di tutti i dati
 -- ========================================
 

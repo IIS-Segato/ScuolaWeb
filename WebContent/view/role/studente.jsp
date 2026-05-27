@@ -169,8 +169,8 @@
         </table>
       </div>
 
-    </div><!-- /content -->
-  </div><!-- /main -->
-</div><!-- /layout -->
+    </div>
+  </div>
+</div>
 </body>
 </html>
